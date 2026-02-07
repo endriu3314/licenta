@@ -1,0 +1,65 @@
+services:
+  coordinator:
+    container_name: citus_coordinator
+    image: "citusdata/citus:13.0.3"
+    ports:
+      - "5432:5432"
+    labels:
+      - "com.citusdata.role=Master"
+    environment: &AUTH
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypass
+      PGUSER: postgres
+      PGPASSWORD: mypass
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - citus_coordinator:/var/lib/postgresql/data
+    networks:
+      - citusnet
+
+  worker:
+    image: "citusdata/citus:13.0.3"
+    labels:
+      - "com.citusdata.role=Worker"
+    depends_on:
+      - manager
+    environment: *AUTH
+    command: "/wait-for-manager.sh"
+    volumes:
+      - healthcheck-volume:/healthcheck
+    networks:
+      - citusnet
+    deploy:
+      replicas: 3
+
+  manager:
+    container_name: citus_manager
+    image: "citusdata/membership-manager:0.3.0"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - healthcheck-volume:/healthcheck
+    depends_on:
+      - coordinator
+    environment: *AUTH
+    networks:
+      - citusnet
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - coordinator
+    networks:
+      - citusnet
+
+networks:
+  citusnet:
+    driver: bridge
+
+volumes:
+  healthcheck-volume:
+  citus_coordinator:
