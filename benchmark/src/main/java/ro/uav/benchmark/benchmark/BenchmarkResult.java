@@ -29,6 +29,10 @@ public record BenchmarkResult(
     }
 
     public double medianMs() {
+        if (durationsNanos.isEmpty()) {
+            return -1;
+        }
+
         var sorted = durationsNanos.stream().sorted().toList();
         int mid = sorted.size() / 2;
         long medianNanos = sorted.size() % 2 == 0
@@ -38,12 +42,20 @@ public record BenchmarkResult(
     }
 
     public double p95Ms() {
+        if (durationsNanos.isEmpty()) {
+            return -1;
+        }
+
         var sorted = durationsNanos.stream().sorted().toList();
         int index = (int) Math.ceil(0.95 * sorted.size()) - 1;
         return sorted.get(Math.max(0, index)) / 1_000_000.0;
     }
 
     public double p99Ms() {
+        if (durationsNanos.isEmpty()) {
+            return -1;
+        }
+
         var sorted = durationsNanos.stream().sorted().toList();
         int index = (int) Math.ceil(0.99 * sorted.size()) - 1;
         return sorted.get(Math.max(0, index)) / 1_000_000.0;
