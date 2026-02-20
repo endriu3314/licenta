@@ -58,4 +58,6 @@ else
       echo "  q${i}.sql failed"
     fi
   done
+
+  echo "!!! Warning queries still need to be fixed to match POSTGRESQL instead of ORACLE"
 fi
