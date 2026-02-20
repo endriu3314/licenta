@@ -6,7 +6,7 @@ import ro.uav.benchmark.config.DatabaseProfile;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public sealed interface DatabaseConnector permits CockroachConnector {
+public sealed interface DatabaseConnector permits CockroachConnector, TidbConnector {
     Connection connect() throws SQLException;
 
     void clearCache(Connection connection) throws SQLException;
@@ -18,6 +18,7 @@ public sealed interface DatabaseConnector permits CockroachConnector {
     static DatabaseConnector create(AppConfig.DatabaseType type, DatabaseProfile profile) {
         return switch (type) {
             case COCKROACH -> new CockroachConnector(profile);
+            case TIDB -> new TidbConnector(profile);
             default -> throw new RuntimeException("Database Connector not implemented yet");
         };
     }

@@ -28,6 +28,13 @@ public record AppConfig(
                         env.getOrDefault("COCKROACH_DB", "tpch"),
                         env.getOrDefault("COCKROACH_USER", "root"),
                         env.getOrDefault("COCKROACH_PASSWORD", "")
+                ),
+                DatabaseType.TIDB, new DatabaseProfile(
+                        env.getOrDefault("TIDB_HOST", "localhost"),
+                        Integer.parseInt(env.getOrDefault("TIDB_PORT", "26257")),
+                        env.getOrDefault("TIDB_DB", "tpch"),
+                        env.getOrDefault("TIDB_USER", "root"),
+                        env.getOrDefault("TIDB_PASSWORD", "")
                 )
         );
 
