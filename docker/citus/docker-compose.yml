@@ -40,7 +40,9 @@ services:
       - healthcheck-volume:/healthcheck
     depends_on:
       - coordinator
-    environment: *AUTH
+    environment:
+      <<: *AUTH
+      CITUS_HOST: coordinator
     networks:
       - citusnet
 

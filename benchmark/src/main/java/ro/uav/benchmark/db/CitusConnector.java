@@ -11,12 +11,12 @@ import java.sql.SQLException;
 
 @Slf4j
 @RequiredArgsConstructor
-public final class TidbConnector implements DatabaseConnector {
+public final class CitusConnector implements DatabaseConnector {
     private final DatabaseProfile profile;
 
     @Override
     public Connection connect() throws SQLException {
-        log.debug("Connecting to TiDB at {}:{}", profile.host(), profile.port());
+        log.debug("Connecting to Citus at {}:{}", profile.host(), profile.port());
         return DriverManager.getConnection(jdbcUrl(), profile.user(), profile.password());
     }
 
@@ -27,12 +27,12 @@ public final class TidbConnector implements DatabaseConnector {
 
     @Override
     public AppConfig.DatabaseType type() {
-        return AppConfig.DatabaseType.TIDB;
+        return AppConfig.DatabaseType.CITUS;
     }
 
     @Override
     public String jdbcUrl() {
-        return "jdbc:mysql://%s:%d/%s?useServerPrepStmts=true&cachePrepStmts=false"
+        return "jdbc:postgresql://%s:%d/%s"
                 .formatted(profile.host(), profile.port(), profile.database());
     }
 }
