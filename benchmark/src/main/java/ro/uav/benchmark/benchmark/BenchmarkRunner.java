@@ -17,21 +17,18 @@ import java.util.List;
 public class BenchmarkRunner {
     private final AppConfig appConfig;
 
-    public List<BenchmarkResult> runAll(List<QueryDescriptor> queries, List<AppConfig.DatabaseType> databases, int nodeCount) {
+    public List<BenchmarkResult> runAll(List<QueryDescriptor> queries, int nodeCount) {
         var results = new ArrayList<BenchmarkResult>();
-        for (var dbType: databases) {
-
-           for (var query : queries) {
-               results.add(run(dbType, query, nodeCount));
-           }
+        for (var query : queries) {
+            results.add(run(query, nodeCount));
         }
         return results;
     }
 
-    public BenchmarkResult run(AppConfig.DatabaseType databaseType, QueryDescriptor query, int nodeCount) {
-        var connector = DatabaseConnector.create(databaseType, appConfig.databases().get(databaseType));
+    public BenchmarkResult run(QueryDescriptor query, int nodeCount) {
+        var connector = DatabaseConnector.create(appConfig.activeDatabase(), appConfig.databaseProfile());
 
-        log.info("Benchmarking {} on {} ({} nodes) - {} warmup + {} runs", query.id(), databaseType, nodeCount, appConfig.warmupRuns(), appConfig.measurementRuns());
+        log.info("Benchmarking {} on {} ({} nodes) - {} warmup + {} runs", query.id(), appConfig.activeDatabase(), nodeCount, appConfig.warmupRuns(), appConfig.measurementRuns());
 
         for (int i = 0; i < appConfig.warmupRuns(); i++) {
             try (var conn = connector.connect()) {
@@ -59,7 +56,7 @@ public class BenchmarkRunner {
             }
         }
 
-        return new BenchmarkResult(databaseType, query.id(), query.name(), query.dataset(), nodeCount, durations);
+        return new BenchmarkResult(appConfig.activeDatabase(), query.id(), query.name(), query.dataset(), nodeCount, durations);
     }
 
     private void executeQuery(Connection conn, String sql) throws SQLException {

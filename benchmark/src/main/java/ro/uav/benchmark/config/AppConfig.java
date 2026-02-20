@@ -10,7 +10,8 @@ import java.util.Map;
 
 @Slf4j
 public record AppConfig(
-    Map<DatabaseType, DatabaseProfile> databases,
+    DatabaseType activeDatabase,
+    DatabaseProfile databaseProfile,
     int warmupRuns,
     int measurementRuns,
     Path queriesPath,
@@ -21,25 +22,20 @@ public record AppConfig(
     public static AppConfig load(Path envFilePath) {
         Map<String, String> env = loadEnv(envFilePath);
 
-        var databases = Map.of(
-                DatabaseType.COCKROACH, new DatabaseProfile(
-                        env.getOrDefault("COCKROACH_HOST", "localhost"),
-                        Integer.parseInt(env.getOrDefault("COCKROACH_PORT", "26257")),
-                        env.getOrDefault("COCKROACH_DB", "tpch"),
-                        env.getOrDefault("COCKROACH_USER", "root"),
-                        env.getOrDefault("COCKROACH_PASSWORD", "")
-                ),
-                DatabaseType.TIDB, new DatabaseProfile(
-                        env.getOrDefault("TIDB_HOST", "localhost"),
-                        Integer.parseInt(env.getOrDefault("TIDB_PORT", "26257")),
-                        env.getOrDefault("TIDB_DB", "tpch"),
-                        env.getOrDefault("TIDB_USER", "root"),
-                        env.getOrDefault("TIDB_PASSWORD", "")
-                )
+        var activeDb = DatabaseType.valueOf(env.getOrDefault("ACTIVE_DB", "COCKROACH"));
+        String prefix = activeDb.name();
+
+        var profile = new DatabaseProfile(
+                env.getOrDefault("prefix + _HOST", "localhost"),
+                Integer.parseInt(env.getOrDefault(prefix + "_PORT", "5432")),
+                env.getOrDefault(prefix + "_DB", "tpch"),
+                env.getOrDefault(prefix + "_USER", "root"),
+                env.getOrDefault(prefix + "_PASSWORD", "")
         );
 
         return new AppConfig(
-                databases,
+                activeDb,
+                profile,
                 Integer.parseInt(env.getOrDefault("WARMUP_RUNS", "5")),
                 Integer.parseInt(env.getOrDefault("MEASUREMENT_RUNS", "50")),
                 Path.of(env.getOrDefault("QUERIES_PATH", "./queries")),

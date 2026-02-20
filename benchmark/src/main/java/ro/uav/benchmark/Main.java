@@ -19,7 +19,10 @@ public class Main {
         try {
             var queries = QueryLoader.loadAll(config.queriesPath());
             var runner = new BenchmarkRunner(config);
-            var results = runner.runAll(queries, List.of(AppConfig.DatabaseType.COCKROACH), nodeCount);
+            var results = runner.runAll(
+                    queries,
+                    nodeCount
+            );
 
             CsvExporter.export(results, config.resultsPath());
         } catch (Exception e) {

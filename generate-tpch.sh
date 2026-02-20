@@ -2,7 +2,7 @@
 
 set -e
 
-SCALE_FACTOR=1
+SCALE_FACTOR=0.01
 SEED=10
 
 TPCH_KIT_DIR="$PWD/.tpch-kit"

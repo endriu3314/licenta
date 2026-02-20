@@ -3,7 +3,7 @@
 set -e
 
 CRDB="docker exec roach1 ./cockroach sql --host=roach1:26257 --insecure"
-DATA_FOLDER="../data/tpch/sf1"
+DATA_FOLDER="../data/tpch/sf0.01"
 SCHEMA_FILE="../schemas/tpch/cockroachdb/create_tables.sql"
 
 echo "Loading TPC-H into CockroachDB"
