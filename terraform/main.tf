@@ -71,7 +71,7 @@ resource "hcloud_server" "db_nodes" {
   count       = var.db_node_count
   name        = "db-node-${count.index}"
   server_type = "cx23"
-  image       = "docker-ce"
+  image       = "ubuntu-24.04"
   location    = "nbg1"
   ssh_keys = [hcloud_ssh_key.benchmark.id]
 
