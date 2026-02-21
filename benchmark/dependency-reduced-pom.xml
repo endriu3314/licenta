@@ -34,6 +34,7 @@
                 <transformer>
                   <mainClass>ro.uav.benchmark.Main</mainClass>
                 </transformer>
+                <transformer />
               </transformers>
             </configuration>
           </execution>

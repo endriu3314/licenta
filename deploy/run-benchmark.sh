@@ -8,6 +8,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "${DB_TYPE} - ${NODE_COUNT} nodes"
 
+echo "Ensure .env has ACTIVE_DB set"
+echo -e "\nACTIVE_DB=${DB_TYPE}" >> .env
+
 echo "[1/5] Teardown..."
 "$SCRIPT_DIR/${DB_TYPE}/teardown.sh" "$NODE_COUNT"
 
@@ -19,7 +22,7 @@ echo "[3/5] Load data..."
 
 echo "[4/5] Running benchmark..."
 cd /root/benchmark
-ACTIVE_DB="${DB_TYPE^^}" java -jar benchmark-1.jar \
+java -jar benchmark-1.jar \
   --nodes="$NODE_COUNT"
 
 echo "[5/5] Teardown..."

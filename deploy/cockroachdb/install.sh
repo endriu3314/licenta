@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-NODE_COUNT="${1:?Usage: ./install.sh <node_count>}"
+NODE_COUNT="${1}"
 CRDB_VERSION="v26.1.0"
 ARCHITECTURE="linux-amd64"
 BASE_IP="10.0.1"
