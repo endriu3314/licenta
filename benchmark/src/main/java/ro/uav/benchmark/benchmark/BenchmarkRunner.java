@@ -50,7 +50,6 @@ public class BenchmarkRunner {
                 durations.add(durationNanos);
 
                 log.info("  Run {}/{} completed", i + 1, appConfig.measurementRuns());
-                // log progress
             } catch (SQLException e) {
                 log.error("Measurement run {} failed: {}", i, e.getMessage());
             }
