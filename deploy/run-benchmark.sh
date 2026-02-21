@@ -26,4 +26,4 @@ echo "[5/5] Teardown..."
 "$SCRIPT_DIR/${DB_TYPE}/teardown.sh" "$NODE_COUNT"
 
 echo "  Done: ${DB_TYPE} ${NODE_COUNT} nodes"
-echo "  Reuslts in /root/benchmark/results/"
+echo "  Results in /root/benchmark/results/"
