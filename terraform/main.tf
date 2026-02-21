@@ -18,6 +18,12 @@ variable "ssh_public_key" {
   type        = string
 }
 
+variable "db_node_count" {
+  type = number
+  description = "Number of DB nodes"
+  default = 3
+}
+
 provider "hcloud" {
   token = var.hetzner_token
 }
@@ -44,7 +50,7 @@ resource "hcloud_network_subnet" "db_network_subnet" {
 resource "hcloud_server" "controller_server" {
   name        = "controller"
   server_type = "cx23"
-  image       = "ubuntu-22.04"
+  image       = "ubuntu-24.04"
   location    = "nbg1"
   ssh_keys = [hcloud_ssh_key.benchmark.id]
 
@@ -62,12 +68,12 @@ resource "hcloud_server_network" "controller_network" {
 # DB Nodes
 
 resource "hcloud_server" "db_nodes" {
-  count       = 3
+  count       = var.db_node_count
   name        = "db-node-${count.index}"
   server_type = "cx23"
   image       = "docker-ce"
   location    = "nbg1"
-  # ssh_keys =
+  ssh_keys = [hcloud_ssh_key.benchmark.id]
 
   public_net {
     ipv4_enabled = false
@@ -80,7 +86,7 @@ resource "hcloud_server" "db_nodes" {
 }
 
 resource "hcloud_server_network" "db_network_attachment" {
-  count      = 3
+  count      = var.db_node_count
   server_id  = hcloud_server.db_nodes[count.index].id
   network_id = hcloud_network.db_network.id
   ip         = "10.0.1.${20 + count.index}"
