@@ -26,7 +26,7 @@ public record AppConfig(
         String prefix = activeDb.name();
 
         var profile = new DatabaseProfile(
-                env.getOrDefault("prefix + _HOST", "localhost"),
+                env.getOrDefault(prefix + "_HOST", "localhost"),
                 Integer.parseInt(env.getOrDefault(prefix + "_PORT", "5432")),
                 env.getOrDefault(prefix + "_DB", "tpch"),
                 env.getOrDefault(prefix + "_USER", "root"),
