@@ -49,7 +49,7 @@ resource "hcloud_network_subnet" "db_network_subnet" {
 
 resource "hcloud_server" "controller_server" {
   name        = "controller"
-  server_type = "cx23"
+  server_type = "cpx32"
   image       = "ubuntu-22.04"
   location    = "nbg1"
   ssh_keys = [hcloud_ssh_key.benchmark.id]
@@ -70,7 +70,7 @@ resource "hcloud_server_network" "controller_network" {
 resource "hcloud_server" "db_nodes" {
   count       = var.db_node_count
   name        = "db-node-${count.index}"
-  server_type = "cx23"
+  server_type = "cpx32"
   image       = "ubuntu-22.04"
   location    = "nbg1"
   ssh_keys = [hcloud_ssh_key.benchmark.id]
