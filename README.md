@@ -21,6 +21,11 @@ cd /root/benchmark
 # Run
 ssh root@"$CONTROLLER_IP"
 cd /root/benchmark
+
+# Ensure .env has correct ACTIVE_DB set before running
+# The parameter in ./run-benchmark is used to identify the folder for the
+# Scripts, it does not set the Database for the Java app
+
 ./deploy/run-benchmark.sh cockroachdb $NODE_COUNT $SCALE_FACTOR
 ./deploy/run-benchmark.sh tidb $NODE_COUNT $SCALE_FACTOR
 ./deploy/run-benchmark.sh citus $NODE_COUNT $SCALE_FACTOR
