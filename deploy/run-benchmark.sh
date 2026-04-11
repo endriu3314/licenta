@@ -8,21 +8,24 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "${DB_TYPE} - ${NODE_COUNT} nodes"
 
-echo "[1/5] Teardown..."
+echo "[1/6] Teardown..."
 "$SCRIPT_DIR/${DB_TYPE}/teardown.sh" "$NODE_COUNT"
 
-echo "[2/5] Install..."
+echo "[2/6] Install..."
 "$SCRIPT_DIR/${DB_TYPE}/install.sh" "$NODE_COUNT"
 
-echo "[3/5] Load data..."
+echo "[3/6] Load data..."
 "$SCRIPT_DIR/${DB_TYPE}/load-data.sh" "$NODE_COUNT" "$SCALE_FACTOR"
 
-echo "[4/5] Running benchmark..."
+echo "[4/6] Collecting metadata..."
+"$SCRIPT_DIR/${DB_TYPE}/collect-metadata.sh" "$NODE_COUNT"
+
+echo "[5/6] Running benchmark..."
 cd /root/benchmark
 java -jar benchmark-1.jar \
-  --nodes="$NODE_COUNT"
+ --nodes="$NODE_COUNT"
 
-echo "[5/5] Teardown..."
+echo "[6/6] Teardown..."
 "$SCRIPT_DIR/${DB_TYPE}/teardown.sh" "$NODE_COUNT"
 
 echo "  Done: ${DB_TYPE} ${NODE_COUNT} nodes"
