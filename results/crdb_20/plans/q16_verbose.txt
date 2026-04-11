@@ -1,0 +1,63 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ columns: (p_brand, p_type, p_size, supplier_cnt)
+│ estimated row count: 200
+│ order: -count_rows,+p_brand,+p_type,+p_size
+│
+└── • group (hash)
+"    │ columns: (p_brand, p_type, p_size, count_rows)"
+"    │ estimated row count: 200"
+"    │ aggregate 0: count_rows()"
+"    │ group by: p_brand, p_type, p_size"
+"    │"
+"    └── • project"
+"        │ columns: (p_brand, p_type, p_size)"
+"        │"
+"        └── • distinct"
+"            │ columns: (ps_suppkey, p_brand, p_type, p_size)"
+"            │ estimated row count: 868,424"
+"            │ distinct on: ps_suppkey, p_brand, p_type, p_size"
+"            │"
+"            └── • project"
+"                │ columns: (ps_suppkey, p_brand, p_type, p_size)"
+"                │"
+"                └── • hash join (anti)"
+"                    │ columns: (p_partkey, p_brand, p_type, p_size, ps_partkey, ps_suppkey)"
+"                    │ estimated row count: 868,424"
+"                    │ equality: (ps_suppkey) = (s_suppkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • lookup join (inner)"
+"                    │   │ columns: (p_partkey, p_brand, p_type, p_size, ps_partkey, ps_suppkey)"
+"                    │   │ estimated row count: 1,289,099"
+"                    │   │ table: partsupp@partsupp_pkey"
+"                    │   │ equality: (p_partkey) = (ps_partkey)"
+"                    │   │"
+"                    │   └── • filter"
+"                    │       │ columns: (p_partkey, p_brand, p_type, p_size)"
+"                    │       │ estimated row count: 321,503"
+"                    │       │ filter: ((p_brand != 'Brand#12') AND (p_type NOT LIKE 'MEDIUM PLATED%')) AND (p_size IN (3, 6, __more1_10__, 50))"
+"                    │       │"
+"                    │       └── • scan"
+"                    │             columns: (p_partkey, p_brand, p_type, p_size)"
+"                    │             estimated row count: 6,000,000 (100% of the table; stats collected 5 minutes ago)"
+"                    │             table: part@part_pkey"
+"                    │             spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ columns: (s_suppkey, s_comment)"
+"                        │ estimated row count: 100,000"
+"                        │ filter: s_comment LIKE '%Customer%Complaints%'"
+"                        │"
+"                        └── • scan"
+"                              columns: (s_suppkey, s_comment)"
+"                              estimated row count: 300,000 (100% of the table; stats collected 5 minutes ago)"
+"                              table: supplier@supplier_pkey"
+"                              spans: FULL SCAN"
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_brand, p_type, p_size);"

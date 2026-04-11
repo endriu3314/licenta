@@ -1,0 +1,21 @@
+info
+distribution: full
+vectorized: true
+
+• group (scalar)
+│
+└── • render
+"    │"
+"    └── • filter"
+"        │ filter: (((l_discount >= 0.05) AND (l_discount <= 0.07)) AND ((l_shipdate >= '1995-01-01') AND (l_shipdate < '1996-01-01'))) AND (l_quantity < 25)"
+"        │"
+"        └── • scan"
+"              missing stats"
+"              table: lineitem@lineitem_pkey"
+"              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkm99u47gVxu_7FAJvxtmVRzz8J1JAgbgTLxogk90mabdFGwQem8kY69heSe7OIMi7F7LjSBbrY9MCdKObQWzRhzyffvx0RHJeSPb7jCRk-M9frgaX10Hv4vL27vZvV2fB7fBq-OkuyFbPvdmD_Zbb-cROlul0bIMfgtnDZJqNF6t5fhYMboPU_tfOVzb46ebnz8FsOrfT3D4Hv_51eDMMer3e7CH7Ol1ORrkN_rOilNs_BxeDu2HwAYyRfQp9Ch_OgsH1ReA0HQe9aqvgx-ADBN_tKP2QJJfXd8Obfwyugn8NBzdnZ-8RtkML_jK8-3U4vA569CNVQT-gHym8tVp_8-Pmm_KXv69G83yaf9_2zeQZCcl8MbHXo2ebkeTfBEhIGAkJJyERJCSShESRkMQkJJqExJCQAC3-KVpC0RSKtlA0hqI1FM2haMsouQ_JMl2MbZYt0iL-y7q3y8k3ktCQTOfLVV58fR-S8SK1JHkh-TSfWZKQu9GXmb2xo4lNo3UPE5uPprP1ILe34Hz7x8PyN_udhOTTYrZ6nmdJUOYaBrXbG1bubvH39oaQkNwuR8WPI80FFxp0FPcjHXOqtRKRIPevIVms8nLMWT56siSBSpKXFyQB_hoen-hP01luU5tGHHaz3FxICsLO-TtZ9COVSZJcDD9dfh5cvd3a7fXx-npcuf7WoHcu3iNUgStaDu6G2zBiS0bRRtXabGOdQ8lPpScSkptC5TQJztkP53yvXKwmFwcfuQZPT6l9GuWLNBJmV7Dbv3_uncPZ3o55rWNh9nZc9reaL9KJTe1kp6_7V3xoUvgNTdSGJsXO0MBjrrC25wrVWmgVsX5l3gSj-STgwSL_atPs-InDfLIuJw7t6MShPnJVJ45uOHH0TsfseDpVu3ByrnkMDAo4eRxTo4yKYA0n84VT-eT8ziYT3WSTCR-5qmyyhmzuegj3cM64XThBGFBaCVmUGSA5FVRIEcHxdhn7pFrapewmklz6yFV9mPNmSMrdelAcj6Rpl0hJKaeSQqT6kaQ8VqBkpNZ2GfvapfHJubTLuJtssthHrqpdyoZ2uTsp5PFstlxnKqMBTAT9SCgqNJURP63IZD4Jl2B2tMZk1EeuCpi8YY3Jd2tMdTyYsl0wGYCWgpqixmSSShNLeKsxYcPm0WhKn5RLNHlH0eQ-clU9Exp65u6CRXw8mqLlCjPmQAVVhWuWmJ5mm8In55JN1lE2mY9cVTZpQzZ3_Vofz6Zul00BUmujRCT7kZCSC8G3j3Rf29Q-KZdoqo6iqXzkqqLpuabpoLlrIeZ4NGmraPaj7fNb-pok9cnwnUTQ3SQRtI9c1dpSNawtd6cA-GxFtctipBhViuo44v1IKQaSUhPJE5fXqVfapVN2lE-mvfSqWmVDQEUNUJ_9n5ZLzKK25MLwWL09vb1XisAr19I1TTepBOOlV9U244a2ubtIBR77PtAylrFQMo6NLOiMtTQcZByJk6pLAK-sS9fsKJ_MeOlVdc2GfIoanz57Py1vTAKjjMeGqeL1B5gAYCqOo_0qO1Qqr1zLzZ-O7kdy4aVXdfen4YakrB1q8Nj-gZaXMgGkZIJSuqYSpIqF4Fvf9N4wB-mVeIloR9czOffSq4powwVNWXvEeewCQctLmgZAC2PWvmkkMKpp_HbcyPvBLryyLvns6JomZ156VflsuKgpay-uHptBLZ8cfd-bXD_VDTf65H1K7pVzWXZ29BQpAy-9qq9FDY-R8lrB67Ef1PKJo_IIXL-y_n7a0z32SrrEs6OHj5j00qv6VtTw9JHwOo1-Y7PlYp7Z2mnn_98VrXXVh9f7kNjJ0_r_EryQbLFKx_aXdDFet918_HkdaP3FxGb55ipsPlzOt5eyPLWj5_I0fTUUoKHY_lCbk-bVUAwNxXdCQTXU5ux4NRRHQ0m5f1i0HkrgoRCtWD2UREMpRCtnVOpkrXQ9VIyG0vtHpeqRNBrJ7I-0OaBaDWVOzs9RHQ7QjuEeO8Fw3gEDXjrBTiZeuvMQR754gdk3MGf2AM48INAzVzGceuxWuoLh2BdGvndgTiyce0DAZ850BBx9JEnuzEfA2Wd0_8AcwRjOPkPYZw5iDGcfu5Ou1-PoM75_YI5XMBx9hqDPHCwYzj6WpEMFw9FniOM7VDAcfYah7xg1w9nHknTVx9FniO27gh2wfQR9cBTjOPvYnHQE4wfQR2wfnCz5AdtH2Gduljj82K10szzAPlbsOLEO2D7CPrjl3MnlDneeR_wA-4jvg5vlAd_Hah43y9OLHidLgcMvsKLH4ULg9Aus6HH8Qpxe9DhmLXD4BeL84DwrBU6_QOjnzrNSnFz1SAcygdMvEOsHV34cf4Hgz139Ty57pPuehdMvEe931Jc4_RIrexz55cllD3emuMThl4j1O1NcHnjJxcoeB355etnDX-9D8jhb_PEwnZCEaHgcq0cO_YnQrC_gy5e-oeaxzwTVMLJGU6NI8YPRU0aSF3L7dfHHOu7d96XNSPI4mmU2JJ9Hv9kLm9v0eTqfZvl0_Hbl9fVP_wsAAP__9atW9w==
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_discount) STORING (l_quantity, l_extendedprice, l_shipdate);"

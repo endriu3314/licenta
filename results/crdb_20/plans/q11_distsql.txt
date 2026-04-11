@@ -1,0 +1,99 @@
+info
+distribution: full
+vectorized: true
+
+• root
+│
+├── • sort
+│   │ estimated row count: 297,035
+│   │ order: -sum
+│   │
+│   └── • filter
+│       │ estimated row count: 297,035
+│       │ filter: sum > @S1
+│       │
+│       └── • group (hash)
+│           │ estimated row count: 891,105
+│           │ group by: ps_partkey
+│           │
+│           └── • render
+│               │
+│               └── • hash join
+│                   │ estimated row count: 964,853
+│                   │ equality: (ps_suppkey) = (s_suppkey)
+│                   │ right cols are key
+│                   │
+│                   ├── • scan
+│                   │     estimated row count: 24,000,000 (100% of the table; stats collected 5 minutes ago)
+│                   │     table: partsupp@partsupp_pkey
+│                   │     spans: FULL SCAN
+│                   │
+│                   └── • hash join
+│                       │ estimated row count: 12,000
+│                       │ equality: (s_nationkey) = (n_nationkey)
+│                       │ right cols are key
+│                       │
+│                       ├── • scan
+│                       │     estimated row count: 300,000 (100% of the table; stats collected 5 minutes ago)
+│                       │     table: supplier@supplier_pkey
+│                       │     spans: FULL SCAN
+│                       │
+│                       └── • filter
+│                           │ estimated row count: 1
+│                           │ filter: n_name = 'ETHIOPIA'
+│                           │
+│                           └── • scan
+│                                 estimated row count: 25 (100% of the table; stats collected 5 minutes ago)
+│                                 table: nation@nation_pkey
+│                                 spans: FULL SCAN
+│
+└── • subquery
+"    │ id: @S1"
+"    │ original sql: (SELECT sum(ps_supplycost * ps_availqty) * 0.0000100000 FROM partsupp, supplier, nation WHERE ((ps_suppkey = s_suppkey) AND (s_nationkey = n_nationkey)) AND (n_name = 'ETHIOPIA'))"
+"    │ exec mode: one row"
+"    │"
+"    └── • render"
+"        │"
+"        └── • group (scalar)"
+"            │ estimated row count: 1"
+"            │"
+"            └── • render"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 964,853"
+"                    │ equality: (ps_suppkey) = (s_suppkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • scan"
+"                    │     estimated row count: 24,000,000 (100% of the table; stats collected 5 minutes ago)"
+"                    │     table: partsupp@partsupp_pkey"
+"                    │     spans: FULL SCAN"
+"                    │"
+"                    └── • hash join"
+"                        │ estimated row count: 12,000"
+"                        │ equality: (s_nationkey) = (n_nationkey)"
+"                        │ right cols are key"
+"                        │"
+"                        ├── • scan"
+"                        │     estimated row count: 300,000 (100% of the table; stats collected 5 minutes ago)"
+"                        │     table: supplier@supplier_pkey"
+"                        │     spans: FULL SCAN"
+"                        │"
+"                        └── • filter"
+"                            │ estimated row count: 1"
+"                            │ filter: n_name = 'ETHIOPIA'"
+"                            │"
+"                            └── • scan"
+"                                  estimated row count: 25 (100% of the table; stats collected 5 minutes ago)"
+"                                  table: nation@nation_pkey"
+"                                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzEWmtP40gW_b6_wqovAy1n43r5EamlsA3TzYqGXqB3d7SLUCBuiDrEGdvMLGrx31fOoxP74lMpnJgvPBLn-Na91-ecqpsfLPt9zHrs6N9fTg6OT529w-OLy4t_nOw7F0cnRx8unWl2PR2k-ff4yXWyx4e9aXadPU6n46fbJMudd8X7gz8Go_Hv-dO-c3Dh_DEYP8bOr-dnn53ic8W1xQen0_EoTl1nMshHycT516ej8yNnb4n2PX5y3js__953Dk4Pnb3sen71_N3J6r_9xQXFSw-x89755ejy0_HZl-ODX_adj-dnX784f_ttLXLn08E_j08_muP_76PnydjZW6zdeP07x_ur53keL354b7jqfefs_PDovFj2vACHRxcfmMsmyTA-HTzEGev9h3HmMs1cFjKXRcxl3Ct-FK9yWfwoXhceu3LZNE1u4yxL0uJzP2Yox8P_sZ7nstFk-pjPX85H-ThmPZakwziNh8xlwzgfjMazm_VFh109X7nsNklj1ltdfZp0kmnX90qXXz27LHnMF9BXLsvywV3MelysBXN8yHq-9-yuBcTXAnrhXpeDm3F8Hg-GcdoNy_HN09qf_7ou8s9c9iEZPz5Mst562l1nnnDmsovpoHizWNjL4cpKtKFNsL-Oxnmcxmk3Kkc6f73n9EWp5r1e7-Ly_Pj0YyWaFeDNk3M_yO4rdeHzsiwiVpWIo9qIV7iPk5cqflV80nTJC8v-NMju_56MJnHanfXiWqzj-Fu-1xf779PR3X2-1-f7zGVnj3nP6XO3L9y-dPuq0fJ1Zfmcv-n6o1es3-1rt--7_cDth7WN6VfXWV_n2kdWBOXozuPJcNaX6l1fus4ssy_fPajcXQQ2dz-4u0vju0GepF2pqyTDXHZw-tv16dnl9enXk5MiW8WD-vXzLFtNWiOsBC11g9bAy1KSRFJdFv-5LFFd1irkqBKykq_iH81rCWghkEVMvd7h0YfjzwcnteFwrxKPrn-6XojnIknzIproJWGpuSOv3rHc52JzuVDluy5Vvb_8g0jGulFaCby7bhh-vjF3EytF6UrtaxmILo885fmdrvQl933V5Z7vB4FlH4tSH1dTomoz0gbD-a0xnG9T-QXDqa0xXH2WDQwn3pDhRIPWMDCctyOG82zy_JPhVLgjhlOhTTxLhvObMFy5z-XmDCdaZTjfl0HQ5YrLIOx0uRSBll3hBYG2dXCY3sRr01FxN8vNW3_5B0nHWgbW9mz12wS7dVU3PkHtutqgbe_Njbn3putXrcmWsunfhWyJrcmW1dOzLltVfm9Ttpq0hmFZ4W5kS4Y2eV7Jlr8r2bISkaVsqSayVe5ztTlP81Zli3dFp6RdzmAydIST5Pdxmm1VuXhtRtpgONkaw0mbyi8Yjm-N4eqzjKlAkG1oewwnogatYWC4YEcMF9jkecVwelcMp23iWTJc9VzGiuHKfa43ZzivTYbrFBS3VR7zatfdBo-J1nhM2NR3wWPe1nisPssGHqtamjZ5LGzQGgYeq-6ht8Vjvk2eVzymdsVjyiaeJY-RQyUbHiv3ub85j_mtOjWlfBWIoMu5CrTf6WohlSd1V0deuN0TVL82IW0QXNgawYU2hV8QnL81gqvPsoEJyLakxa2oatAahhPU6jO8rRNUq8d7NSPydjUj8mziWRIcETUbgiv3ebA5wel2Z0SlmVCnQnhbZThdm5E2GC5ojeECm8ovGE5vjeHqs2xgOLItaZHhZIPWMDAc3xHDcZs8ryxc_ddwGlq4yCaeJcNV9-lWDFfu83BzhpOtMlwYRaEXdoVQIdedylB8qwQnaxPSBsHp1ghO2xR-QXByawRXn2UDwVWZoE2C4w1aw7Cs6hHitvaokU2eVwQX7IrgrOhmSXDkq102BFfucw_f8TzOpskkizf6Bmp1cR1eVDke3sXzlsiSx_Q2_pImt7Nr5_-ezYBmLwzjLJ-_6_P5f8eT5XtZnsaDh59nZutQHEIJCyRRReLrSDwqQYl1KGEHJeuRVBVJYiRVDzUfH2yOJQKwQLJCA5ZXjzXnjc2xtAbpIkXEWJwDrMgOS4X1WPOdkgUWiMsPLLHqoQK_CqXg06Prn56QdKrGz3Q9VESay8dNX25UXmp6j3SEAcxDYKSMGExIAMZJ8jGYDgGYIOnHYFwBMGlZAM0BGH0kMZhCkSnLAqDO0CT_AezYsL5juU_SH0KsCGAFJPsRxEING1J5JFKLBKSERvjQgCVQ9kkhTWBgmYIwogGsIiElMEnawgDGQffPh6cWYAo85Jo0mQkMROYTN2ACq8eiHcuxC-PAhoXEDnDinspgEoDRnjUYKNCzEW0zAxjUEtoaBg8FxYSW0-CioJrQGhh8FCJtYVsEqCfStgpYUGyrABWFFgH7KQ4MFfdpEbCl4sBTcZ8WgUjnxrIS0BoQ7dxYVmyxoKxQ8jaAIVmhvYHBoKxQ8sZgUFZoo2EwKCuUvQ1gSFZo0xrAQGNQ80JcFdqSlzvDEguQLU0-MWibb8pp8jEY3JXTRRrA0LacZh-DoX25pOyDweDGnHpHDAZ35pR-DGBoa07pxwAG9uaEfQQ-JRPglCwg-ReGczLk0EjKhOF8C5kqukwDGDRV5Nk0oGFTRZ4nAxo0VZzWwHDCCE2VbRGwqbKtAjZVtlWApooWgTi0cusqYIM0LQK2aAJaNFoEbNGgqaI1MBxVgRoQIjJgQVNlGxg0VcQHGcCgqaKNZjj2QqaKntobTqqQqaJdawBDpoqOJgxgAIs-APjYS4Bzr4AoscDnXgIcfIW0Zw2-CskKbTMDGJQV2hoGYwVlhZbT4KygrNAaGKwVlBXbImBZsa0ClhXbKkBOo5MibK8ksFf8hfkO9lcS-CtObaTER2BQVugI0WqGWKY1SywoK7aBQVmhw02rKWJZVuh002qMWJYVOt60miOW80-71mqQWAajA06bSWJZVugDgH2VBL6KHi9JbKskOPkKac--fpwY0TZrMk6krdFgnujRcjYYKHJagwYTRXqUZooNyoptFbCs2FYBchotArZXEo0V6eGExP5KosGiT4vw-sliQGqgXj9ZpBttAxjSFUE40gSGdIXU0wAGdYWQpAEM6grpDQMY1BX6RZAGo0XSZyaweizqXhQ2VgodXNGexb5KgdFiRHu2wWiRtlmT0SJtjSajRVrOJqNFWoMGo0X63TFTbFBXbKuAdcW2CnC7QouA_ZWC51a0CNhgKTRaDGgRGowWaQ1eP1qkO20DGNyv2EYGdYVKQYPZIu20BrNFKgUNZou0bRvMFqkWvH62SJ8A7KwUOrki-0WFjZX2gK6QntUGY4V0hbSZCQzqCmkNAxrWFfqNUYO1grpCamBAw7piWwSsK7ZVwLpiWwWoK7QI2F9peHBFi4ANlgYGi9P5v8aTH6grtAZEQDfWFVssKCuEvE1gSFZob2AwKCuEvA1gUFZoo2EwKCuEvU1gSFZo0xrAgKwQK6SxsdLo5Ir2P_ZVOgBgtGcNvgrJCm0zAxiUFdoaBmMFZYWW0-CsoKzQGhisFTwGsy0ClhXbKmBZsa0ClBVaBGyvNDy4okXA_soH_orTo2ofT36grPjPVy77Nk7-vB4NWY_dDG_9m2g47PDbMOooMbzpRDK47QSRDJTwPOXdhKz4wOAuY70f7OI--XMGfPk0jTPW-zYYZ7HLPg--x4dxHqcPo8koy0e3i3een__y_wAAAP__6ACHjQ==
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_name);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.partsupp (ps_suppkey) STORING (ps_availqty, ps_supplycost);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.supplier (s_nationkey);"

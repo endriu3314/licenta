@@ -1,0 +1,59 @@
+info
+distribution: full
+vectorized: true
+
+• root
+│
+├── • sort
+│   │ estimated row count: 0
+│   │ order: +cntrycode
+│   │
+│   └── • group (hash)
+│       │ estimated row count: 0
+│       │ group by: cntrycode
+│       │
+│       └── • render
+│           │
+│           └── • hash join (right anti)
+│               │ estimated row count: 0
+│               │ equality: (o_custkey) = (c_custkey)
+│               │ right cols are key
+│               │
+│               ├── • scan
+│               │     estimated row count: 45,000,000 (100% of the table; stats collected 5 minutes ago)
+│               │     table: orders@orders_pkey
+│               │     spans: FULL SCAN
+│               │
+│               └── • filter
+│                   │ estimated row count: 500,000
+│                   │ filter: (substring(c_phone, 1, 2) IN ('13', '21', __more1_10__, '34')) AND (c_acctbal > @S1)
+│                   │
+│                   └── • scan
+│                         estimated row count: 4,500,000 (100% of the table; stats collected 5 minutes ago)
+│                         table: customer@customer_pkey
+│                         spans: FULL SCAN
+│
+└── • subquery
+"    │ id: @S1"
+"    │ original sql: (SELECT avg(c_acctbal) FROM customer WHERE (c_acctbal > 0.00) AND (substring(c_phone, 1, 2) IN ('21', '23', __more1_10__, '31')))"
+"    │ exec mode: one row"
+"    │"
+"    └── • group (scalar)"
+"        │ estimated row count: 1"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 1,363,643"
+"            │ filter: (c_acctbal > 0.00) AND (substring(c_phone, 1, 2) IN ('13', '21', __more1_10__, '34'))"
+"            │"
+"            └── • scan"
+"                  estimated row count: 4,500,000 (100% of the table; stats collected 5 minutes ago)"
+"                  table: customer@customer_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsXV9v20b2ff99CmJe4vRHrTmc4T8BBexN3NZFIndtB22xGxiyxNpGbckrydsNgnz3hWTKFnnFMzymTeQhL6kdx0dz77m8c-69M-xnNf_3teqrg99-ebd_OPB23h6enJ78491r7-Tg3cGbU280Wcw-jabj3PdG07vJYue7197-iTe5uxndzRe-N7-72RmdDUejxfnwevWjxXRRfOv9cHz03tspkOZ35_PF7GpysTM6u72cTnLf074Xrn5n81POSr-9_JTpTT7zfv3p4PjA29mphVmu_lWoX_neq9Cs_syWf-rV18au_iZdfa1fvX7t7Q_eeo8r9_51FwQmf1js8D8Xm2ZtXYr45eBvQVAAP9MqX68XOjg69Q5-W3LzsMTv7lc1nY3z2bxY0_Rsucg_80_e995o_fUK5GS1_PnwOvd-PD768Iv3998fve4dHb89OC79lfLVZDrOB8ObfK76_1Ra-SpUvjLKV1b5KlK-SpWvMuUrHSz_WP4LvfyxXv5cJ-qjr25n01E-n09nS4zPK8TD8X9VP_DV1eT2brH864--Gk1nuep_VourxXWu-up0eH6dH-fDcT7b1ctPHeeL4dX1aiFrFvbWX5zd_pl_Ur56M72-u5nM-4-GL4OpcP4DV8pXJ7fD5T_btUliY93bNaGJgzRSH7_4anq3eFzWfDG8yFU_3LDj8K3q6_CL39yWH66uF_lsaUhSNuT-B_3NWNkLfU_3-_3DwWnqe2HxVRE02rzq9_snp8eHgx-XUaLL31Z-mpa_zUrfmvLvGvv47Trg9sw6qgcf3r3r998evDl8v__udcVLj3aef_Iuh_PLso17Wn388uhJU_VkUuvJR-C7ySrE83EJ-uPyN13_ZAsdPw3nlz9Pryb5bDfMyos9_XSb973jwx9_OvX2B6eH3s9HhwPlq-v8j8XOnn79_ezq4nL1lfLV0d2i7-1pfy_090xt6NiKwWHGhM5g2pve7lpdXuZxPhkv46YUNg9R8xA0vgfWFVXWZTWzrv2Li1l-MVxMZ7uREYT7an_w-9ng6PRsGTmFu94cfRicnh0f_Xqys_z25MP7nb2wXTDFFRsi0yKYsJVx1MzKkw_vzw4HpyvTCiNN1chHA5KKAXHEkHAynS3y2W6SVJf2_7UfmFY-MGny-G3zV_EptSGbZNVndet6sup6yk-Hbr5JxOXl3e-Je_f_EfvDwya5sRckJosybXVvV5ssiBIdVfcDLjh1ldtay7pIdFH3iS5iqLyPGpO8fKIzCbOujRRgs68m0dn6x6R1otOdJDrNkLBOdGKnIRJdeWsImyeWpG1i0TZNMpvppLero0CnQWKyZ80sSa1pXWSWuPvMEjNcFpkl7SCzpMy6NiVU8NVklihoEUyOzBJ2kllChoR1ZrEtMostfaBpnlnS1pllnU56z5pP0lqDusgnSff5JGEYLPJJ1kE-yZh1beaThnt4F_lEtwgmRz5pWHi2zCeGIWGdT0S1SOSTsm62zfNJ1DafxFEYhSbUvYdi6FnzSr1hXeQV231esQyTRV6JO8grMbOuzQoo_Wryik1bBJMjrzRUYy3zSsCQsM4rQkIReaUsjKLmeSV7ofZ7b7eaX-o77hmz-MeGu_3WcK823G2tJ7vIwmn3WThlQqdouAcdNNwDZl2b6q5hHdWFuqvPKa2zsCjJXiQL1z8NIAvHLbJwee-Nm2fhsHW1aLIkyaLebphkUZQ-bw8qrDWri6yiu88qmuGx0HamA21nmHVtaruGA64utF3UIpgcuVPMyl4iq0QJQ0KRVWIxXmieVeKyPEqIsxXmpc5WFGcqqq0pcKjCMEY8arz0m8arejKt9WQH2dgEnWdjEzChU2i8sAONFzLr2sxTDdVPFxrPtggmh8YTQupFNF7MkLDWeKLVQWi88uOXNs_Gpq3GK6Rdb9dmSWizOH5WkWdq7epC5IXdi7yQIbIQebYDkWeZdW2KvIYPXBciL24RTI7k2bBN2VLkUU_5Oq2I3iKRVsqbXNY8rQQt00pvV3vDydjT3nRxmc-eNafUG9VBTtHdn__UGcNikVM6OP9pNLOuzZzy9Zz_tKZFMDlySifnP6OIIWFdOLY4_xlXDsMxp_Jb96N665bUiyUX_XTr9EvVxaFJE6N7xd2D5tUxZ8tjeRx_K4-rrozrXdmFkO2-Pg4DKniKXaeDAtmE1MI2t52vp0K2tk08OfadTkrkCDwRYONpUSPHZfWsiZP-tu3Gs66New8HXp5107FPtkwHL7Xp6F6x7zTfbwLKjMf9Jvq231RdGdW7sov9xnS_3xgqeIr9JupgvwFUOPabhpOjLvabpE08OfabhpdcWu43GUXDunkijrUSzRPqeuNxPr-dTuZ59VHc-lFB5aN6eunjfHyR3xMyn97NRvkvs-lo9W_vvz1aAa3-YpzPF_c_1fffHE7WP5ovZvnw5qH1uomkq0h6EynKSlDhJtT9ldvmWHFSj3XfNWiOZYN6rPuxL2Gjqce6D7DmWElUj5WQvg-Bv1LS94jGgPS9BjZqTTo_1AAsJL1vLACzrPsBVkS63wIqdSL8H8Kn29Q_3ToVRhqIZQFWJqi0-Pkue0xvgoWB8BgGSwIApkVcYDBrAJhMPRgsigGYDDKHmSkAi0gCDPJZTBKgEZsJSYBGZmYkAaGtBzMBSYBJAJhMZo7QAFgh6f8IkGmM8H8EH_MYCIJIuD-GWMhhsfB-ArHSoH5hQRUqZZSKLu9KHFYMbAxFTGAsi3gUNDpsBHksEq7HWAkIVpkrMFYI_JWSvgc0yg0JQ2lgog5I31eEShksJJ1vQArThvU-wJIPtyNaAZM6Fv7PcBkCnm4ttxDtKGpAVaPlHqIdxQgUK1IqOmQ_VCtSEjvUIpIrch9xoEG9IjOQy1IoWFgWsGJhWcCShWUBapYt9ZejmgBPfJixLGDVwrIAZQtLAtYtkgRc62hQ7BgrScDVDvLalkrfIdCQ4AhJMKg4YhIMSQ4rZJXLTKQ5LAkGRUdKgkHVwRKAZAfrf6g7NEsAFh4sA1h50BQg6cFSgLWHJAGXPBrUPDqVJOCiRydIfEhLRdlDiA9JKUbD4kP6DaNh8SEDBKPhZolkwWEpFB8sC1h8sCxg8cGygMUHywLumLAsYPHBsgDFB0sCFh-SBFEMlR_6DIkPSQKuhmDfRHAQimKoufgQks0BBsWH0FgOMCg-ZKfbYSYSH0JLOsCg-BDqzwEGxQdLABIfrP-x-GAJwOKDZQCLD5oCJD5YCrD4kCSIIqj0rIchEh-SBFwEhWjik0lLRRFEiA9JKUbD4kP6DaNh8SEDBKNh8SFZcFgKxQfLAhYfLAtYfLAsYPHBsoDFB8sCFh8sC1B8sCRg8SFJENVQ-aGPkPiQJOBqCIoPyYEohpqLD6lkMBgUH0L_OcDgsEUINpeZSHwImesAg-JDCFMHGBQfLAFIfLD-xxMXlgAsPlgGsPigKUDig6UAiw9JAh6qhimQC4kkARdBISiCdCYtFUUQIT4kpRgNiw_pN4yGxYcMEIyGxy6SBYelUHywLGDxwbKAxQfLAhYfLAt47MKygMUHywIUHywJWHwIEgyetRp0gtQKEgyuhuDYRXBgHKffQDEkGDAOxYaORUqfOeoqcMZP9k0dYPB8q4gNl5nogKsk01EGoROuLAHwiCtLACBTPukOLHzGlSUAH3JlGcCnXGkKAJic77nCFp1zlQM-g0sgA0ogLSd8BpdABg2EpNI1jrIFChlJqaM6gEJG-s0hJ-FxVxkgjjIIdlEkCw5LoZBhWcBChmUBCxmWBXzmlWUBd1FYFrCQYVmAQoYlAQsZSQKuhQyohYzUzQbXQrCLIjlwKDZQeItmkQMLNlFEe8cBBpsooinmshLkItnFcoDBJoq8-eAoDYDPZMvUAYaaKKz_cROFJQA2UeRFCgcabqLQFAAwebjLFbawiSLvGOAKyKLTpvIsocUVkIXzIHkzQJRAjbWHlmcJHWhYe0i_YTTcRJGXMzAabqJIFhyWoh1ZxpsDDWoPeZrQgYa1B8sCbqKwLOAmCssC1B5brok5IgQJGZYErD0kCY67deByndlyUQwXQ7CJIjnAtZAFtZBQf5aaBpVrPqHXHGDwjrBQWA4w2EQRutRlJmiiyOM7DjDYRGEJgE0UlgB4UZglAHdRWAZgF0WWtQ403EWhOUBdFJYDfFtYkoBLIIvGQbLJZnEJZOE4SFLaZhwk_dZiHBTKAGkxDtqSi1qMg7aEW5txEMsC7qKwLEAlI6fTLjTYRWFZwF0UlgXcRWFZgF0UlgSoZGSPOMLFUITGQfIoRPT0cZAcdkcOyQYqb-E0BxbsokgrHYUQYkDEhstKdBRFsukog1AXhfU_7KKwBKAuCut_3EVhCcBHUVgGcBeFpgB1UVgKcBdFkoBLoAi9X0ReiohwCRTBeZC0VNRAhPaQlGI03EWRfsNouIsiAwSj4S6KZMFhKeyisCxg7cGygLsoLAu4i8KygLsoLAu4i8KyALUHSwLuokgS8M27CNy8M1I4R7gYgl0UycHTXzkiOjIOLKQ9ZB_LAQa1h2g8uaxEExzRrnOAQe0hGmwOMKg9WAKQjmT9j7UHSwCe4LAMYO1BU4C0B0sB1B6yox7h-3YxfPuIICHGJVCM5kGpsDQWJRAxwRGUOtCg9pDvuXGgYe0hXxaF0bD2kCw4LIXag2UBT3BYFqD2kPcLXWhQe7AsYO3BsoC1B8sCnOCwJEDtIS-QxfisaQzfPiJJaPH2EcnB098-InSMAwv2PYT6c4BB7SHkmstKpD2EyHWAQe0hZKkDDGoPlgDU92D9j7UHSwDWHiwDWHvQFCDtwVKA-x6SBMf7FsF8VZrZYr4qzWwxX5VWtpivykh7-nxVTtAcYHC-yhIA56ssAXC-yhKA56ssA_iUOksBnq_SHAAwWbe74hbOVyUJuKUQw-t2kgQ8X43RfHVLtD19vqrlpQgHGu5xSr-1uW4nA6TNdTvJQov56pa9pcV8dUtua3PdjmUB1xksC7jOYFnAdQbLAqwzWBJwj1OQkODmQoLmqzJXJk-fr8obFsnT56uinHJgwTpDvjm6xXxVlI0uK9F8VdR5DjBYZ4jq2AEG6wyWAMQl639cZ7AE4PkqywCuM2gKUJ3BUoDrDEmCo6WA5qsCi-ooVDQWCQYvw0qfUS2Fcp0hXUa1FMp1hgxbqqVQrjNYAmCdwRKALsOy_sdlBksALjNYBnCZQVOAHgGWAnwZVpLgeIMPur4q7ysljv-JA3qfqZx3JW3eZypJaPM-Uxlubd5nKjlt8T7TLbKjxftMt2wtbd5nyrKAywyWBVxmsCzgMoNlAZcZLAvwKAVLAi4zJAmO66vwfaaShKe_zzRKvnz01R_X07_Orsaqr6LkPLbBKOsl42Has-fjoHc-GuleEIzOw7HVNohztfyF4cVc9T-rk8vpXyvg00-3-Vz1_xhez3NfvR_-mb_NF_ns5mpyNV9cjYqffPnyf_8LAAD__zkqHyQ=
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_acctbal) STORING (c_phone);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey);"

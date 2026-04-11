@@ -1,0 +1,28 @@
+info
+distribution: full
+vectorized: true
+
+• render
+│
+└── • group (scalar)
+"    │"
+"    └── • render"
+"        │"
+"        └── • lookup join"
+"            │ table: part@part_pkey"
+"            │ equality: (l_partkey) = (p_partkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • filter"
+"                │ filter: (l_shipdate >= '1995-04-01') AND (l_shipdate < '1995-05-01')"
+"                │"
+"                └── • scan"
+"                      missing stats"
+"                      table: lineitem@lineitem_pkey"
+"                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcXG1vG7kR_t5fQRAoLKWrLoevywUOsBHrem5t52q7L0BrGIrFOGpkrbqSexcE_u_FSpGXEk8jcSEIgr4EskVzZ4bP88xwlsw3OvnvkOa0-8-fL88urknr_OL27vavl21y273svr8jLWDsj4yRd2Ty8tx6f3bbJf_4qXtNxg_Tr2NHLi_-0iUnP998uPrw-xNyV30zfHC_Tt2o7_rjcvDoyDvSAtIhw4f-YPJYvIymbdK9vO0SRrrX5-02SWczb_6rNjm7JeOyeC4eSvc_N3px5MebD1dkOBi5wdQ9J2TcK6eVdTdd0moNH6ofv7iv5AcyXnxuk7Prc9IaPkw-D8b93tSRf78wJtwP5PzsrktOwFrVYbLD4KS9ZuwjafnDyB_ICZDnYnSS5xfXd92bv59dkqsP13c_tds0oaOi7657z25C839RoAnlNKGCJlTShCqaUE0TamhCM5pQSxMKrPqnGgnVUKjGQjUYqtFQDYdqLFSDOaP3CR2XxaObTIqyesi32SMv-r_SnCV0MBq_TKtf3yf0sSgdzb_R6WA6dDSnd72PQ3fjen1XprPH9N20NxjOLF3E9HTx4WH8xX2lCX1fDF-eR5OcvIU3WV3wxFu06vMifDSht-Ne9bdpJqSQGWSp6aSZESzLtEwlvX9NaPEyrU2eTHtPjubg-XhxTnMQr8n2fv44GE5d6cpU8GUn51_kpHUq32DgL22e5xUqvuNgMehxMUb5Y9bazldsFzzG9j8Xg9H3JVKwbH0V_tPqn8XSXBbFl5cx-U8xGJFilJNT8NdrXK_XnLo0oTfVopU5qVhdkfpUV3ResDnP89u7m4vrP1WsPuXvWlA5231_cXV22TkV7YrErP5V9_o8Ib8xbG1kxEpkFMRE5uzpqXRPvWlRpoYtR-b2b1etU6jYN_vE15sgV0wwbK0J9ZNfRkXZd6XrLz31_nWDkXqTkfV6tE7h3Vx261C201O-1g-16ode8gMihIDvWQhYlslMp7zjiQLpjfpEkGL62ZWT7VWBxzhdqwIcgipAjO2-KrBjVwUWExmPcNruShW0XTKBb88mvVcyCZEJAxwqMgljmNVWpzAjE48lk45x-Y1LXB0Al7iKsd3jkpRHziUpYyLjc0nsjEvLpZuIyEzZXskE0oLOtFRVjQpKMMmkkk3pBFmM23VuMgfAJ2FibPdzkz5yPikdExm_GFQ7q1iXxU5uzye7VzopxgRTDFLdSRUTRoNWqZ6RScaSyca4XOem7AC4xLMY2_3cZI6cS9LERMbPTRs3VlvnpmU6q-25tN9Nk7YZgE2hk0rNZMZUKprtmHiMvzWRDmHDxCHGdp9Ix75hkiwmMh6R1M42TGpZofX2RFJ7JRIHyJRkttowccWUNQq-V3gw59LWVFIxHtdUkodAJRlju08lcexUEjGR8XMS31lOWtZosz2V5H63S0YAk0xXWammVbPNkoxxueaSOAQuiRjbfS7xY-dSFJB9LsHOuLRcM2Tbc2m_rQcJKsuslqnqpFIpIaVYlHixaSmL8bim0iG0HbiJsd2n0rG3HaSOiYxPpZ21HfRyvWO3pxLbJ5U66aKeU7FJiMU4-MYcsAfAHLAxtnvMEdmRM0dkMZHx90ZmZ3ujZVmDmEMae-VOqjnTmmUmFZ1Uaw6KMZuqZi07YFFe15noEPjEbZTxfio6dkLJLCo0fi7aGaP0CqNiTjvsd49UbY6EtMLo7-WcieZRlKs1jdgh0IhFGe_nJXvkNBI2KjR-Ysp2lphWqBxxzAH227azCjjLmElNJ7WZtTZjNub0oIpytH4ZewjNOiGjjPffxh57t06JqND4r2N31q4zK2fQYs43mP0mI864MJbrVHVS4BKAa2NSsT2NTJSrNY30IdBIRxnv00gdO41UVGh8Gsmd0WhF5SKONcB-z9wBKMUlY2xGI1DaSClMKhseE9JRftecOoRzd0JFGe9z6tgP3qk4PPuc2tnJO7OSHiOON8B-3yVZgExaO8tMda3XqP8NMsrpmlCH8DJJxK2YT6hjf5ukeFRofELt7HWSWdmMRxxz2O9tq7dTQrNCzwqbNT4xJKJcrvsPh3DzivMo4_023rFfvZJxUPbbeDu7e6VX2kMRRx1gv308I7UyxqoUOqnJlBWgFhVfdH6CKKfr_HQIDT0Rt2I-oY69oSdtVGh8Qu2soadXGnoR5x3224qo7yp1vLMPzXZQJsrnOkEdQlOC6yjjfT4de1NCqqjQ-HzaWVNCy5j7yTduMi5GE7dySfi3H8VWHtWB1_uEuv7T7P8N-EYnxUv56H4ui8fZ2PmPH2YTzX7Rd5Pp_FuY_3AxWnw1mZau91zfmvenAnQqvn6q-SV2fyqOTiXWTzW_9e1PJdCp5NJU4E81v73tTyXRqYxZb1YwlUKn0kjYg1hp3Cok7EGsDDpVhoQ9cDBrGvb59Vh_KotDlK03SwcQ3QB3BO_ze6BLk-GABwTx86uTS5PhkMcCFhIRxzxIBF5ZMBmO-mqvvBZgJpgMxz0gwFfhYuLIx6gdriUOfUCwH-AVcOyDRUAWhh9HP0fQL4Pwcxz-GMiC6PMNco-gP5R7HPwcEXweiBjH0c8R9MtAxjiOfiRiKsAFx8HPMfAHc-HY54js80B7OA5-joBfBuLDmyt_iAsc_AIDf1AH4NgXmPQHTgoc_AKT_sBL0Vz6w2oHB79AwB9Ij8CxLxDl54H0CBz8AgG_DLRHNFZ-HTBJ4OAXCPgDtRA49gWi_BDIhcDBLxHwi2AtZWPlV8FSShz8EgE_hDX1BvBj0h-ETG4o9jHpD0PWWPp1GDIc_RIr-IO5NoAfk_4w_Dj6JYJ-EYa_sfSrMPo4-hWCfgg4rnD0K0T7RZBIFA5_hcBfBYlENdZ-E-QRhaNfYWV_gFiFo19hZX-g1wqHv8Iqn3Axm5f94Vri8FcI_CH0Eoe_QtRfhF7i-NcI_lXgpm6s_iZArMbhrzH1Dw3D4a8R9RehZTj-NYJ_FXZVGqu_CRRbb-j2IPAPncTRrzH1D53E4a-xwj_0snnhH6QljaPfYOofdrVw9BtM_QPLDA5_g1X-QcI0zSv_IGEaHP0GQX8g_mZDpxOr_ANZNDj6DVb5B7Jomlf-8vU-oZ-GxS8Pgz7NqRaCq6z3qaP6xnSkZY-djxZ0h_WF-Wg_sk89BrT6g97ThObf6O3n4pfZvHdfx25C80-94cQl9Kr3xZ27qSufB6PBZDp4_P7N6-vv_h8AAP__a8jxiA==
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_partkey, l_extendedprice, l_discount);"
