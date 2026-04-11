@@ -1,0 +1,63 @@
+info
+distribution: full
+vectorized: true
+
+• render
+│ columns: (avg_yearly)
+│ render avg_yearly: sum / 7.0
+│
+└── • group (scalar)
+"    │ columns: (sum)"
+"    │ estimated row count: 1 (missing stats)"
+"    │ aggregate 0: sum(l_extendedprice)"
+"    │"
+"    └── • project"
+"        │ columns: (l_extendedprice)"
+"        │"
+"        └── • hash join (inner)"
+"            │ columns: (l_partkey, l_quantity, l_extendedprice, ""?column?"", p_partkey)"
+"            │ estimated row count: 333 (missing stats)"
+"            │ equality: (l_partkey) = (p_partkey)"
+"            │ right cols are key"
+"            │ pred: l_quantity < ""?column?"""
+"            │"
+"            ├── • scan"
+"            │     columns: (l_partkey, l_quantity, l_extendedprice)"
+"            │     estimated row count: 1,000 (missing stats)"
+"            │     table: lineitem@lineitem_pkey"
+"            │     spans: FULL SCAN"
+"            │"
+"            └── • render"
+"                │ columns: (""?column?"", p_partkey)"
+"                │ render ?column?: avg * 0.2"
+"                │ render p_partkey: p_partkey"
+"                │"
+"                └── • group (hash)"
+"                    │ columns: (p_partkey, avg)"
+"                    │ estimated row count: 100 (missing stats)"
+"                    │ aggregate 0: avg(l_quantity)"
+"                    │ group by: p_partkey"
+"                    │"
+"                    └── • project"
+"                        │ columns: (p_partkey, l_quantity)"
+"                        │"
+"                        └── • lookup join (inner)"
+"                            │ columns: (l_partkey, l_quantity, p_partkey, p_brand, p_container)"
+"                            │ estimated row count: 1,000 (missing stats)"
+"                            │ table: part@part_pkey"
+"                            │ equality: (l_partkey) = (p_partkey)"
+"                            │ equality cols are key"
+"                            │ pred: (p_brand = 'Brand#23') AND (p_container = 'SM BOX')"
+"                            │ parallel"
+"                            │"
+"                            └── • scan"
+"                                  columns: (l_partkey, l_quantity)"
+"                                  estimated row count: 1,000 (missing stats)"
+"                                  table: lineitem@lineitem_pkey"
+"                                  spans: FULL SCAN"
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_partkey) STORING (l_quantity, l_extendedprice);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_container) STORING (p_brand);"

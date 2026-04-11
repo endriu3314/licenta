@@ -1,0 +1,49 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ columns: (o_orderpriority, order_count)
+│ estimated row count: 5 (missing stats)
+│ order: +o_orderpriority
+│
+└── • group (hash)
+"    │ columns: (o_orderpriority, count_rows)"
+"    │ estimated row count: 5 (missing stats)"
+"    │ aggregate 0: count_rows()"
+"    │ group by: o_orderpriority"
+"    │"
+"    └── • project"
+"        │ columns: (o_orderpriority)"
+"        │"
+"        └── • lookup join (inner)"
+"            │ columns: (l_orderkey, o_orderkey, o_orderdate, o_orderpriority)"
+"            │ estimated row count: 98 (missing stats)"
+"            │ table: orders@orders_pkey"
+"            │ equality: (l_orderkey) = (o_orderkey)"
+"            │ equality cols are key"
+"            │ pred: (o_orderdate >= '1997-08-01') AND (o_orderdate < '1997-11-01')"
+"            │ parallel"
+"            │"
+"            └── • distinct"
+"                │ columns: (l_orderkey)"
+"                │ estimated row count: 98 (missing stats)"
+"                │ distinct on: l_orderkey"
+"                │ order key: l_orderkey"
+"                │"
+"                └── • project"
+"                    │ columns: (l_orderkey)"
+"                    │ ordering: +l_orderkey"
+"                    │"
+"                    └── • filter"
+"                        │ columns: (l_orderkey, l_commitdate, l_receiptdate)"
+"                        │ ordering: +l_orderkey"
+"                        │ estimated row count: 333 (missing stats)"
+"                        │ filter: l_commitdate < l_receiptdate"
+"                        │"
+"                        └── • scan"
+"                              columns: (l_orderkey, l_commitdate, l_receiptdate)"
+"                              ordering: +l_orderkey"
+"                              estimated row count: 1,000 (missing stats)"
+"                              table: lineitem@lineitem_pkey"
+"                              spans: FULL SCAN"

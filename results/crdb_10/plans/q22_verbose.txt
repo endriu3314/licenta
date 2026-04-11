@@ -1,0 +1,76 @@
+info
+distribution: full
+vectorized: true
+
+• root
+│ columns: (cntrycode, numcust, totacctbal)
+│
+├── • sort
+│   │ columns: (cntrycode, numcust, totacctbal)
+│   │ estimated row count: 0
+│   │ order: +cntrycode
+│   │
+│   └── • group (hash)
+│       │ columns: (cntrycode, count_rows, sum)
+│       │ estimated row count: 0
+│       │ aggregate 0: count_rows()
+│       │ aggregate 1: sum(c_acctbal)
+│       │ group by: cntrycode
+│       │
+│       └── • render
+│           │ columns: (cntrycode, c_acctbal)
+│           │ render cntrycode: substring(c_phone, 1, 2)
+│           │ render c_acctbal: c_acctbal
+│           │
+│           └── • hash join (right anti)
+│               │ columns: (c_custkey, c_phone, c_acctbal)
+│               │ estimated row count: 0
+│               │ equality: (o_custkey) = (c_custkey)
+│               │ right cols are key
+│               │
+│               ├── • scan
+│               │     columns: (o_custkey)
+│               │     estimated row count: 45,000,000 (100% of the table; stats collected 23 seconds ago)
+│               │     table: orders@orders_pkey
+│               │     spans: FULL SCAN
+│               │
+│               └── • filter
+│                   │ columns: (c_custkey, c_phone, c_acctbal)
+│                   │ estimated row count: 500,000
+│                   │ filter: (substring(c_phone, 1, 2) IN ('13', '21', __more1_10__, '34')) AND (c_acctbal > @S1)
+│                   │
+│                   └── • scan
+│                         columns: (c_custkey, c_phone, c_acctbal)
+│                         estimated row count: 4,500,000 (100% of the table; stats collected 40 seconds ago)
+│                         table: customer@customer_pkey
+│                         spans: FULL SCAN
+│
+└── • subquery
+"    │ id: @S1"
+"    │ original sql: (SELECT avg(c_acctbal) FROM customer WHERE (c_acctbal > 0.00) AND (substring(c_phone, 1, 2) IN ('21', '23', __more1_10__, '31')))"
+"    │ exec mode: one row"
+"    │"
+"    └── • group (scalar)"
+"        │ columns: (avg)"
+"        │ estimated row count: 1"
+"        │ aggregate 0: avg(c_acctbal)"
+"        │"
+"        └── • project"
+"            │ columns: (c_acctbal)"
+"            │"
+"            └── • filter"
+"                │ columns: (c_phone, c_acctbal)"
+"                │ estimated row count: 1,363,630"
+"                │ filter: (c_acctbal > 0.00) AND (substring(c_phone, 1, 2) IN ('13', '21', __more1_10__, '34'))"
+"                │"
+"                └── • scan"
+"                      columns: (c_phone, c_acctbal)"
+"                      estimated row count: 4,500,000 (100% of the table; stats collected 40 seconds ago)"
+"                      table: customer@customer_pkey"
+"                      spans: FULL SCAN"
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_acctbal) STORING (c_phone);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey);"
