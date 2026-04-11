@@ -1,0 +1,60 @@
+info
+distribution: local
+vectorized: true
+
+• root
+│
+├── • lookup join
+│   │ estimated row count: 1
+│   │ table: supplier@supplier_pkey
+│   │ equality: (l_suppkey) = (s_suppkey)
+│   │ equality cols are key
+│   │
+│   └── • sort
+│       │ estimated row count: 1
+│       │ order: +l_suppkey
+│       │
+│       └── • hash join
+│           │ estimated row count: 1
+│           │ equality: (sum) = (max)
+│           │ right cols are key
+│           │
+│           ├── • scan buffer
+│           │     estimated row count: 305,947
+│           │     label: buffer 1 (revenue)
+│           │
+│           └── • group (scalar)
+│               │ estimated row count: 1
+│               │
+│               └── • scan buffer
+│                     estimated row count: 305,947
+│                     label: buffer 1 (revenue)
+│
+└── • subquery
+"    │ id: @S1"
+"    │ original sql: SELECT l_suppkey AS supplier_no, sum(l_extendedprice * (1 - l_discount)) AS total_revenue FROM lineitem WHERE (l_shipdate >= DATE '1996-01-01') AND (l_shipdate < ('1996-01-01' + '3 mons')) GROUP BY l_suppkey"
+"    │ exec mode: discard all rows"
+"    │"
+"    └── • buffer"
+"        │ label: buffer 1 (revenue)"
+"        │"
+"        └── • group (hash)"
+"            │ estimated row count: 305,947"
+"            │ group by: l_suppkey"
+"            │"
+"            └── • render"
+"                │"
+"                └── • filter"
+"                    │ estimated row count: 6,508,322"
+"                    │ filter: (l_shipdate >= '1996-01-01') AND (l_shipdate < '1996-04-01')"
+"                    │"
+"                    └── • scan"
+"                          estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"                          table: lineitem@lineitem_pkey"
+"                          spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJyklFtv4zYQhd_7KwZ8idWlYVHyZSMggNy127hI4tR2sVu0gcEVx7YailRJqptFkP9eyLdY6tqN0SeJF51vzsGMnon9S5KIDD_d3_RHd9AYjKaz6S83Hnwcza7B4N-oCoT-FBrT4c3wwwzk3BZ5_ohfy83yVaZo5kpTsEXWkHN8cqgEitykCcL30GDQBDkXqU10oZznld857bic79R_nIxvQaYKU4cZfLweTobQkHO7SnPBHcIfhe-HeAWD_mwIF-zystv0WdNnFx707wb_vppA4_AWvIOLEDKt7IXnwU-T8a_38MNvr0Y82Fqzux0Kdq54huWTC2HQ2vI1X2mF9FvF73Kg-8S2LvaScHUY1rbwqtLVPuOMP1XPvA1mt_JgPBkMJ6WLPYBQorTAO56hJdHvhJEHSnKjE7RWm3LreX1hJJ5I5FOSqrxw5fYDJYk2SKJn4lInkURE6oRLsAlX8LlYLNCA3_IJJQIdT-X6oxdKdOFeJazjSyQRO2COBiTyX-j_wbIWq2DJuHARxAE5xg9qfHYOv79cGlxyp00rqGJv-58aMfOOYsMaNjiKfaUVShuBBkU92P--8o3ar7ld_axThaYVVmuXuHCNOPCuTLpcubUNus2R0TigcXjUVrtmKzwnzak2Dk2rXa0mZu-O4jo1XPscXGl-glygaXWqyN3cxfsB3M7LjdaPRQ5_6lSBVmUehJIPWhaZstHb_gb7KNs07tC4S-MePdGe3ZrDzjkOJ2hzrSy-aRD9GqnJyq5BscRNF1pdmATvjU7WdzfL8VpovSHQus1puFmM1PqIlQSDPNtP16ESO6kUVJT8QyW_rhScUVNwqBTUlcKTSu3jNYV1pfZJpc5xpXZdqXNSqXsqpwdKFlJ_maeCRKTHWNdfJN1mr_dZNNuYhM33PRRN7HTFJbJL9n5R_jsWki9t2UrTlf6ylp19zctGWHBpkZJb_ogDdGiyVKXWpcn25OXlu38CAAD__11bp-A=
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_suppkey, l_extendedprice, l_discount);"

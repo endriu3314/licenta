@@ -1,0 +1,45 @@
+info
+distribution: full
+vectorized: true
+
+• render
+│ columns: (promo_revenue)
+│ render promo_revenue: (sum * 100.00) / sum
+│
+└── • group (scalar)
+"    │ columns: (sum, sum)"
+"    │ estimated row count: 1"
+"    │ aggregate 0: sum(column34)"
+"    │ aggregate 1: sum(column36)"
+"    │"
+"    └── • render"
+"        │ columns: (column34, column36)"
+"        │ render column34: CASE WHEN p_type LIKE 'PROMO%' THEN l_extendedprice * (1 - l_discount) ELSE 0 END"
+"        │ render column36: l_extendedprice * (1 - l_discount)"
+"        │"
+"        └── • hash join (inner)"
+"            │ columns: (p_partkey, p_type, l_partkey, l_extendedprice, l_discount, l_shipdate)"
+"            │ estimated row count: 2,150,751"
+"            │ equality: (p_partkey) = (l_partkey)"
+"            │ left cols are key"
+"            │"
+"            ├── • scan"
+"            │     columns: (p_partkey, p_type)"
+"            │     estimated row count: 6,000,000 (100% of the table; stats collected 4 hours ago)"
+"            │     table: part@part_pkey"
+"            │     spans: FULL SCAN"
+"            │"
+"            └── • filter"
+"                │ columns: (l_partkey, l_extendedprice, l_discount, l_shipdate)"
+"                │ estimated row count: 2,145,601"
+"                │ filter: (l_shipdate >= '1995-04-01') AND (l_shipdate < '1995-05-01')"
+"                │"
+"                └── • scan"
+"                      columns: (l_partkey, l_extendedprice, l_discount, l_shipdate)"
+"                      estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"                      table: lineitem@lineitem_pkey"
+"                      spans: FULL SCAN"
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_partkey, l_extendedprice, l_discount);"

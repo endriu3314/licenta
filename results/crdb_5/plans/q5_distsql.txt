@@ -1,0 +1,85 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 5
+│ order: -sum
+│
+└── • group (hash)
+"    │ estimated row count: 5"
+"    │ group by: n_name"
+"    │"
+"    └── • render"
+"        │"
+"        └── • hash join"
+"            │ estimated row count: 768,843"
+"            │ equality: (n_nationkey, l_suppkey) = (s_nationkey, s_suppkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • lookup join"
+"            │   │ estimated row count: 16,140,755"
+"            │   │ table: lineitem@lineitem_pkey"
+"            │   │ equality: (o_orderkey) = (l_orderkey)"
+"            │   │"
+"            │   └── • hash join"
+"            │       │ estimated row count: 4,018,090"
+"            │       │ equality: (o_custkey) = (c_custkey)"
+"            │       │ right cols are key"
+"            │       │"
+"            │       ├── • filter"
+"            │       │   │ estimated row count: 13,301,018"
+"            │       │   │ filter: (o_orderdate >= '1995-01-01') AND (o_orderdate < '1996-01-01')"
+"            │       │   │"
+"            │       │   └── • scan"
+"            │       │         estimated row count: 87,672,281 (100% of the table; stats collected 4 hours ago; using stats forecast for 4 hours ago)"
+"            │       │         table: orders@orders_pkey"
+"            │       │         spans: FULL SCAN"
+"            │       │"
+"            │       └── • hash join"
+"            │           │ estimated row count: 900,000"
+"            │           │ equality: (c_nationkey) = (n_nationkey)"
+"            │           │ right cols are key"
+"            │           │"
+"            │           ├── • scan"
+"            │           │     estimated row count: 4,500,000 (100% of the table; stats collected 4 hours ago)"
+"            │           │     table: customer@customer_pkey"
+"            │           │     spans: FULL SCAN"
+"            │           │"
+"            │           └── • hash join"
+"            │               │ estimated row count: 5"
+"            │               │ equality: (n_regionkey) = (r_regionkey)"
+"            │               │ right cols are key"
+"            │               │"
+"            │               ├── • scan"
+"            │               │     estimated row count: 25 (100% of the table; stats collected 4 hours ago)"
+"            │               │     table: nation@nation_pkey"
+"            │               │     spans: FULL SCAN"
+"            │               │"
+"            │               └── • filter"
+"            │                   │ estimated row count: 1"
+"            │                   │ filter: r_name = 'ASIA'"
+"            │                   │"
+"            │                   └── • scan"
+"            │                         estimated row count: 5 (100% of the table; stats collected 4 hours ago)"
+"            │                         table: region@region_pkey"
+"            │                         spans: FULL SCAN"
+"            │"
+"            └── • scan"
+"                  estimated row count: 300,000 (100% of the table; stats collected 4 hours ago)"
+"                  table: supplier@supplier_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcWu9v28gR_d6_YrFfYl9XMPcHfwkIQDXW3blw7FR22gatIcjSxlYjky5J9S4I_L8XFEWZ5IhDrRRZ8eVLJIt6ejszO-_Nkt9o8t8Z7dL-Pz-c984uyNHp2dX11d_Oj8lV_7z_7pqEw3D0oBlJ5g9Hs6H-PdXhRE8e4-lYk5_IEScdMhtOpsk4mofp8THpXZFY_0-Hc01-Hly-J-N5kkYPOmYkiic6ThiZTUM9TfVDhvn4OJtmn4WjdBqFjMT6bhqF5B-_9gd9crT8Nx5mIF_0V_KWRMXrY9K7OCVHs-ECtviweHO8-jj7jfzTpHhdfDge5j9bfLx6V1yQVC4I4QXhMCecXxA_vysuiBfRI2_Jm97VWe9N8ecl0cko1eTfc8uS-i057V33yRvu-3bH4h2LN188Jkfl68ifyRtOvupR_KbbPbu47g_-3jsnn_q9wfEx-WVw-fED-cunZR7J5eC0P8jeF0k67V-9o4yG0URfjB50Qrv_opwyKiijkjKqKKM2vWH0MY7GOkmiOLvk2-ILZ5PfaddidBo-ztPszzeMjqNY0-43mk7TmaZdej26nemBHk10fGJRRic6HU1ni5_JCyLI_xtmmaGMvotm84cw6ZaSyZ6zzkgpGpTRq8dRdm3nRLi-bds-GYUTIkiU3us4oTdPjEbz9Jlcko7uNO3y0mrOTmnXemKbL-jn6SzVsY5P7Opq8r93yVEgVzktp6nb7WYpXia1uGi8uMapXVNj_vzjt1_J_Si5r_5yIOjN0_PqRG11tsnqyunivPo7xVYOihcgZ-PnPJU213OeTpTrKtvtnEghHcuTO61T1tbJ-dYLldUfypkH-X9gkaU-wFbtsdQJSmXZWIGqzl1uzV1Vuec0gvw_wL3UohjJm9MmdO06XbXVjuENWyYQqw7Z7XavrgdnF780cnHqXJrr-5nCPFx0DT2pELjJvtl2yZoF_TpK7v8aTcNsSU51STP9OT0K5PHbeHp3nx4F_JgyejlPuyTgLBAskCxQLLANK59XKt-th8A5aAi8dSEQrSFggcMCd6dAePVAeIcMhLB2CQQLPBb4LOBWY-n7teUKI-HKWC6bhqhtxMKSBcWLonGcR9GX-SP5TzQNSRRmxMvdZFaS6JXTyl5WbCIrGUTDbDss4NWmz616DLaWN1lLV-FGg-IF6J7J8xqTdfJWb6CtesZq9czrzkQ2Z_gFClrydQW9SMqqqLM1bFjXLOA8-y4LuGQBVyzgNgu40-zT6lZGGkn8RdSJHk9krUMPssrMRIfLn4545rj6787e9847AVfHjICOVKJTdxyyue-uodO7u4v13SiN4hPFgbNhtHfxaXhxeT28-Hh-nrWNrK4-vl-0jV16JK97DdUcxK0KprwuB1Cpr4uv1iXq6ypxrhsOZRTpqyhOM4MOotzscHjdVtibRGldjJY_01iPtlPfpusJ1UXeroaAb97oxL7GrhPuKaFcV3ROlO8K5TtquwFMmCxtZSfdVzKAudsmjlvfewDrLCew7zt4WY0LfAn76f449rM50y9hP8VL20-jbVu2n_WUvWL7edCUS_mjGTRpUhJLg-btz6B5JnTKRkYe0qA1B3Fng-bty6AZRbowaCDKJgatGiVhMPjtzQ8VLqhz4tjCFsLP_ZA09UNGS1v5Ie-V-CGvcXUvoZJrW-Y-VdIomWWVrJ-rvWKVPGjKpfrRVFKZlMRSJf39qaRvQqesJuqQKtkcxJ1V0t-XShpFulBJEGUTlaxGSW6ukmpvKukLIW0h7c4Jt1zXEdLxNlZGo-WslNF_JcroN67uJZRxbZvcpzIaJbOsjP4fRxkPmnJZvw90cGW0TUoiV0Zl7U0ZlWVCp6wg9iGVsTmIuyqjbe1JGW2jSBfKCKJsoozVKCmDY9m9KePyKabO6mB9u-N0brKylUg6r0Qkna3zJr7780zL55iMb_zi5-micYUvcZ5eF9cDnqf7hwyEWHv3e59-yGjflv1Q_SGkV-yHmnf3S_ihtbdQDumHmltB80mBu7-TAteETtkPiUP6oV36acu63H2dFBhFuvBDIMomfkiYPGIx0MljFCZ6o2cZ6pu8w7Ow6smdznOQRPN4rD_E0Xhxbf72cgG0-MNEJ2n-Kc_fnIXFR0ka69HD6iHuMhKvI_EykldB4mUkYQhlWwiWZ4YleDNW_rjR5lgS4ZWfnhlg-c1YeeWUsQS-RoSXbwblNiPlj1RvDqWQFeY39stYEi1TpxkK5FChSHZzwdt1JNuAkygjgdU5JvmrQOUP4W-O5SJQYIE4VC2BVSxQV65Bd6hACZBBHMpGoiXBLsSxat2hgqXALsSxJMLLBh2wBQsJvQ06oIfWqd9c8Q6g5aO0ONJMHVBdOJYtmrFcUPQ4lpAIFtiMOJZEeHmgBeJYComXB3YQB1KNBb_acKDC4mC16FfBoCziYLXwV8A8sItawCTCzIPij4MpJGY-VGwg2VWvJJp3kg-qnwN1rILJZjBuwXQCfazWhkK01oLccDTbRtC4KTeBiDeHmtSCJjFua4wmjqawuAnIDfcWHDEXXEJuuL_gWNwk5AbEvOp7XBOnD9SpysxrxoLbHajTxmODKRY2N6wJPw6GDg6wD-Fg6OQA220LGDY6wKbWIp0IM7hKHAsbHmAuW6QTmx5AxAQuA5j7BBupBQu1n3BEalFOzH8CE9QChhlQBefAFjDMgQJLJXDlFIhyOnDYxedK1IRCZjgY6kJhNlvmcMyGwgTgYKgPhUXbMosjMfNhneHDuFCID4IJwDVTYJppwdoAmmnggyA3HA33QabccB9kyg33QabccB8EueFeQyBeg0vIrcVtoD4IcsOnYYGMw3C_4xqFeRdTLNS7wB3aIuqYd4GNqGUgxrwLDH8LGOZdQFeT-OG1RE6vHZAAiR_IorICnFALGCorwKK1gGGy4gFb2wKGygrwVS1gqKyAfS7xiVgiE7EPE4BrlEQ0iluwNoBIGcgK5Iaj4bJiyg2XFVNuuKyYcsNlBXLDB2LpYLICueEihcsK5IaLlERGYrjftx-JTbFQWYE7dPuRWMFGtMNIDMO_w0gMuxrQqEoulYXICkiAMjq1rcoKkOIWMFRWgHq2gKGyAhxHCxgqK8AktIChsgL2ucJnT4Wd2sIE4Bql0FNbWBu7nNpCbruc2ppyw2XFlBsuK6bccFmB3PAJVKGntpDbLqe2kBsuUgqbpACWyS3YqqyYYqFPaMBFGt2ErWoU7B1Gd2GrsgJbpNFt2KqswEbUop4IM3hTpQUMO2qFJYtjoUetQImVyUxcPWqFuTSaiatHrTCXRjNx9XQU5tJoJq6ejsLNZDQTV8HAZrLxmdjGZmLAzN5hJga2qgUMNS_AiraAoUetoGZbwFDzAnZTCxhqXsA2t3G_YWMzMUwAPhPb6EwMa2OXmRhy22UmNuWGmxdTbrh5MeWGmxfIDbcbNjoTQ267zMTO0w2jn2fRb8PphHapbXma31qicyu07qjPvte5ldLqyJGUtvrs3t76I5p9YXSX0O43enUf_bYAvv76qBPa_TyaJZrR96Mv-lSnOn6YhtMknY6Xnzw9_en_AQAA__92lF1P
+
+index recommendations: 5
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_suppkey) STORING (l_extendedprice, l_discount);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_regionkey) STORING (n_name);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_custkey);"
+4. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.region (r_name);"
+5. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.supplier (s_nationkey);"

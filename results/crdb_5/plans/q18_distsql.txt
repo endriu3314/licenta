@@ -1,0 +1,53 @@
+info
+distribution: full
+vectorized: true
+
+• limit
+│ count: 100
+│
+└── • group (partial streaming)
+"    │ estimated row count: 28,217,816"
+"    │ group by: o_orderkey, o_totalprice, o_orderdate"
+"    │ ordered: -o_totalprice,+o_orderdate"
+"    │"
+"    └── • lookup join"
+"        │ estimated row count: 117,393,821"
+"        │ table: lineitem@lineitem_pkey"
+"        │ equality: (o_orderkey) = (l_orderkey)"
+"        │"
+"        └── • lookup join"
+"            │ estimated row count: 29,224,094"
+"            │ table: customer@customer_pkey"
+"            │ equality: (o_custkey) = (c_custkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • sort"
+"                │ estimated row count: 29,224,094"
+"                │ order: -o_totalprice,+o_orderdate"
+"                │"
+"                └── • merge join (semi)"
+"                    │ estimated row count: 29,224,094"
+"                    │ equality: (o_orderkey) = (l_orderkey)"
+"                    │ left cols are key"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • scan"
+"                    │     estimated row count: 87,672,281 (100% of the table; stats collected 4 hours ago; using stats forecast for 4 hours ago)"
+"                    │     table: orders@orders_pkey"
+"                    │     spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 14,936,304"
+"                        │ filter: sum > 313"
+"                        │"
+"                        └── • group (streaming)"
+"                            │ estimated row count: 44,808,911"
+"                            │ group by: l_orderkey"
+"                            │ ordered: +l_orderkey"
+"                            │"
+"                            └── • scan"
+"                                  estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"                                  table: lineitem@lineitem_pkey"
+"                                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkmm1v4kgSx9_fp7D6VaIxsvvJD0gjkZswu6xIMpdk7m51F0Ue6CTcEMzaRnvRKN99ZQjBdo3LFJCQ2X01xAx__6uqu-tXmG8s_W3M2qz770_9o96pdXDcu7i8-Ef_0Lro9rsfLq3B9SS6N7Y1uB7M0uyrebCt-DpOhiYpvh5Gmcn_yOIsGk-T0cDYVjq7Pxhf_zaLJtkoezi0Pp6fnVi5SHxvEtuafy61rfFoYkaZubf-9XP3vGsdHKzkrdzQk4_x6upc6PljP52fff5k_f3X4v_4-eifvdOfgIP_zlxXGktyeXhoHZ0eWwfPUVnvrXj5evlmwcj7gvrh6pabJsc6Oz_unucKpavH3YsPpU9Z_d5J79LirstsNomH5jS6Nylr_4dxZjPBbCaZzRSzmWZXNpsm8cCkaZzk_-Xb_AO94f9Z27XZaDKdZfnlK5sN4sSw9jeWjbKxYW12GX0Zm3MTDU3i5Dcamiwajee3WRSps_jnevrVPDCbfYjHs_tJ2q7EWkhBcRkUwmE2u5hG-SdbjvBDrXVoRZOhJaw4uzNJyq4ebRbPsierK4dfHqy7KL0re-twdvV4ZbM0i24Na_NC_L1j1nYf7c1S4Jdvs1xoneULkIZxIQ2r5bYK1lGeqwJXO7LlBJr7fhg6fB54-P3AV0GJSlA-Jaij29vE3EZZnDhcgNzZ7Cx3bYZta_7X0emv16dnl9enn_v9gw4_zP1_PjnoiMOtyiIrEXBRG8JKOF44qwq_Wyhjcfq7i3MVg6rGQCrDx9E4M4lJHFEpwuKNttURhZOp3W4fdz_0To76W6VdVyyLLdNub1qcE5Pcml_i0SRPgC5_6PJhatpWv_vx0rronvSsX856p8xmY3OTHXT4u8P3yej2bvEyL-Msy0tod4TdkXZH1ZbLq8auKeW6iJPMJI6snIQd2bI76l3tTf3KTSXp_MkT9HT8yEqSlh2zs3yxPH_6cfx1NrX-F48mVjzJl1HxUCq0pEWXqnUeVJ2T0lVwrtw1T07gnK91nC4WgLY7np0vg3wN2J2gNq6wEpciVaRwqChdXQrzO-vS0fJ0oXy6yENwScFL-vkM8uCbHF6in8iLPVNul241PfVlb9r7omV3ZPPhrKtbaumrmMenC-sk4bvZnuexLsnlS_Ns90f3o2xOWHXriFfJQtcvpG0ydRq34qmjK4ttseg9O1_3i0Uv8rNvLeNVetDlEvP1mUi8DhY6PFBC-b5oOSr0hQo99XKAKDZNhrdzQPTCgPPQ4a0VKs7jDqh86FFiKnITfzN8yGtD2AUfeq_Ch6QyrPiQ75EPt0z7bvjQ3w8f-pRyLfmwOlFR-ZB0_BT50N83H5LSVeRD8bb5kFSRIh9Wh84_Jx_Wl31XfAi-pPhB-bC8kMT6ZCFfCbOWcNVyPC20EOECs-RLYJbcNBl615jVeuasebQ-Fa40JZIidIC5Z29w5daGsAu4qs7JLwNXpDKs4MrdI1xtmfbdwFWwH7gKKOVawpXcEq5Ih04RroJ9wxUpXUW4km8brkgVKcJV8JeAq_qy7wquqlvqR4Wr8kKS6_OEeiW4CoWQWkjdcrjr-56QXnWbbAdUatMEBDv_3kpoV4e-5g5vOVIEvvRd4Xib0VVACatIHWBh742u6pfmLuiqehC-DF2RyrCiK7lHutoy7buhq3A_dBVSyrWkK7UlXZFOoCJdhfumK1K6inSl3jZdkSpSpKvwL0FX9WXfFV1Vt9SPSlflhaTWhwv-SnT19Lux1vOjwpd7QMg3zUW4c9CSMpA-F9KRLUf6vht6obfp11ghJawigIA1vjfQql-luwCt6pn4MqBFKsMKtNQeQWvLtO8GtLz9gJZHKdcStKpP1amgRTqBiqDl7Ru0SOkqghZ_26BFqkgRtKo_PPhzglZ92XcFWuCHKj8oaHHKjxHPTTqNJ6kpxV53r2pRWjzPqRnemkUd0niWDMynJB7M_-_iz7O50JyBhibNFu_qxR-9yfKtNEtMdL_6kShByq3XUkQt7tdraaKWCOq1PKKWDOu1fKDFq1puyVdJyi1KiaqSwCP0EFc0KY4sCE60JREpoi2JrAdBtKWQ9SCAL4nWUNXXUAJbirATRWn3UKXcei1N1KrsxJKWR9Sq7MSSlk_UquzEklYAtDRaRa--igHY1B4q5ddLhW5VykelAkQKuApQqbBeirvAVogvCOSY5y4whotp7LjhRGdCYGJEZxI7vQTRmVKYGOwboAmVqsk5oiaBNY63IY2sfqiFH60YTYCTtUkLwwmqGMoTVDEUKKhiKFFAMbwdcaQfcaDVcFgjUOERtVCqoBrDNibVGMoVVGMoWEBneE_iyLaU0BnoSmuzBVkLgwuqGEoXVDEUL6hiKF9AMbyVc6SXB3CT482cI908BOTDQWcqDyEuIgYhHW9MgmOcATEdNCYCaEBvuBpOGlRvOGpQveGsQfWGwwb0BvoTATagN9Cg1gaEgKqFAQJVDAUEqhgKCFQxFBCgGGhR5R2qCbAnQIdaGxAA0jZooYBANYbtJqoxFBCoxlBAgM7wSVMgoyYcAgRoUGsDAlkLAwSqGAoIVDEUEKhiKCBAMbynC6SnB3CT4z1dYj1dgi-48J4ukZ4eAmcSnzUl8p0nd6G1hqEOBQTorWHeRAGB6g0HBKo3HBCo3nBAgN4aZk4UEKA3yregZUAIqVoYIFDFUECgiqGAQBVDAQGK4WOnxMZOoNUwjyGAAFdZw6CI7U6qMWw3UY2hgEA1hgICdIYPnRIZOr-zL0GDWhsQyFoYIFDFUECgiqGAQBVDAQGK4T1dIT09AJtc4T1dYT1dATG8pyukp4fQGT5tKokBArTWMNShgAC9NcybKCBQveGAQPWGAwLVGw4I0Bs-c-KAAL3hMxQGCOA71iYtDBCoYiggUMVQQKCKoYAAxfCxUyFjJ6xlwzyGAAJcZQ2DIrY7qcaw3UQ1hgIC1RgKCNAZPnQqZOj8zr5seJKLAAJZCwMEqhgKCFQxFBCoYiggADGN93SN9PQAbHLd8EwY6-ng4YfGe7pGenoIneHTpsaecLrQWsNQhwIC9NYwb6KAQPWGAwLVGw4IVG84IEBvDY86UUCY_7TxZhz_fj0asjZzQze6ufkiW1JKr6VkELaigYxaOjJKR8PA5UHE8g9Etylrf2MXd_Hvc-HLh6lJWfsmGqfGZifRV3NsMpPcjyajNBsNnt55fPzbHwEAAP__5JAzWw==

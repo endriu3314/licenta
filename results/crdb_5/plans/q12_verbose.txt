@@ -1,0 +1,44 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ columns: (l_shipmode, high_line_count, low_line_count)
+│ estimated row count: 2
+│ order: +l_shipmode
+│
+└── • group (hash)
+"    │ columns: (l_shipmode, sum, sum)"
+"    │ estimated row count: 2"
+"    │ aggregate 0: sum(column34)"
+"    │ aggregate 1: sum(column36)"
+"    │ group by: l_shipmode"
+"    │"
+"    └── • render"
+"        │ columns: (column34, column36, l_shipmode)"
+"        │ render column34: CASE WHEN (o_orderpriority = '1-URGENT') OR (o_orderpriority = '2-HIGH') THEN 1 ELSE 0 END"
+"        │ render column36: CASE WHEN (o_orderpriority != '1-URGENT') AND (o_orderpriority != '2-HIGH') THEN 1 ELSE 0 END"
+"        │ render l_shipmode: l_shipmode"
+"        │"
+"        └── • lookup join (inner)"
+"            │ columns: (l_orderkey, l_shipdate, l_commitdate, l_receiptdate, l_shipmode, o_orderkey, o_orderpriority)"
+"            │ estimated row count: 1,616,563"
+"            │ table: orders@orders_pkey"
+"            │ equality: (l_orderkey) = (o_orderkey)"
+"            │ equality cols are key"
+"            │ parallel"
+"            │"
+"            └── • filter"
+"                │ columns: (l_orderkey, l_shipdate, l_commitdate, l_receiptdate, l_shipmode)"
+"                │ estimated row count: 826,218"
+"                │ filter: ((((l_receiptdate >= '1995-01-01') AND (l_receiptdate < '1996-01-01')) AND (l_shipmode IN ('RAIL', 'REG AIR'))) AND (l_commitdate < l_receiptdate)) AND (l_shipdate < l_commitdate)"
+"                │"
+"                └── • scan"
+"                      columns: (l_orderkey, l_shipdate, l_commitdate, l_receiptdate, l_shipmode)"
+"                      estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"                      table: lineitem@lineitem_pkey"
+"                      spans: FULL SCAN"
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_receiptdate) STORING (l_shipdate, l_commitdate, l_shipmode);"

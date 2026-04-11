@@ -1,0 +1,40 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 4,500,000
+│ order: -count_rows,-count
+│
+└── • group (hash)
+"    │ estimated row count: 4,500,000"
+"    │ group by: count"
+"    │"
+"    └── • group (hash)"
+"        │ estimated row count: 4,500,000"
+"        │ group by: c_custkey"
+"        │"
+"        └── • hash join (right outer)"
+"            │ estimated row count: 29,224,094"
+"            │ equality: (o_custkey) = (c_custkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • filter"
+"            │   │ estimated row count: 29,224,094"
+"            │   │ filter: o_comment NOT LIKE '%pending%requests%'"
+"            │   │"
+"            │   └── • scan"
+"            │         estimated row count: 87,672,281 (100% of the table; stats collected 4 hours ago; using stats forecast for 4 hours ago)"
+"            │         table: orders@orders_pkey"
+"            │         spans: FULL SCAN"
+"            │"
+"            └── • scan"
+"                  estimated row count: 4,500,000 (100% of the table; stats collected 4 hours ago)"
+"                  table: customer@customer_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzMmm9v2lgWxt_vp7i6UjVkZYTvH9vY0kjJNmmH2RS6QLQ7WkWIwk2CSjBjG81GVb77iv_YJz72MYX2VRMwj5_znOvzI_f2G4__nPKA3_zn8-1Vq81q161ev_ev2wvWu7m9ed9no8EoXMwSi63-qf39gl312GgRJ-NJnLAP3c4nVttfuoiTr-Zle3E4CKOxib6al4v1lcv3w2cTsdubD332e6fVZqsrYtZps9ru8-xXFm5_vmBX7WtWCwej8PnZzBLW7vTZbeufN-yXd3MzG09mj-8i8-fCxEn87pcL9rHbufvM_vHH3s3a8WBzo9qhy3Vt6Q8tX2Gd7vVNd_XCttLrm9773SdWv3GLz8KxaQ-fTcyD_3LBLS65xRW3uOYWd_i9xedRODJxHEbLS76tPtAa_48HtsUns_kiWb58b_FRGBkefOPJJJkaHvD-8MvUdM1wbKKGzS0-NslwMl3dZl3H5fqfwfyreeEWfx9OF8-zOGD7yK19hqsf1_Fxi_fmw-WV9Yb0fMdxfDacjZlkYfJkopjfv1o8XCR7a3EyfDQ8EAe1tK55YL9a5cv5MJkmJjJRw0nXsn49YJcKb2sQBL1-t9X-mLG3v8OXF_Y0jJ_S8peS37_uS5CZEhxKCYcdESJ9n-2yvtz-ANqyW3T7_Bva87Tj1RtKKtduKmJpIlWaypQmRG5te-HFbLVWzDglfb_8ZNElbwT02zB--j2czJb5qLTZ_svcBKzb-vhbn3Xu-jfd1aPPLT41D0ntUl78Gk0en5LapbjgFu8skoBdamtV4tuLUWfLVZRWXj0-RuZxmIRRQzRBrBa_av8xaHf6g_bd7e3G0_vOXbu_dHpUl5ys7eYRXcILk6pcYb27T4PWprRt9DI3dzdTgKyau6TkPuh2_t2rHRe9l3V-uuhVhejzAm9mbCtS4L0wSkzUUNmwZd26FPXcm_rZm5bJ6q2kDu70hrt2WA_nDa2y0-dt_NgZUzqdhCg_veVpeNoQTS2158l6Q_ue1L6rq5FVUgrbkdX7mcjqVe2NsL8DWesbtH5fotq5NZ2DqM65iepQWng42e0fSVR5TJcKCnPOQtSquStK7qcgqjpd9KpC9KWJSgp8Q1SdDZtIVJ3OSpYfkOpE8Noiq95wHelI6a_hpajwUpTCdvBq_kzwauaWcI5B75570LuUjh3OQ_FDB704oksFhblnGfRVc1eU3E8y6E8XvaoQfelBTwp8O-izYVMHfTorVX7Q6xMNel9K5Ujl1BvC9jxXKrdZerhrSjG74e7_TMPdzy3hHMPdO_dw9ygdO5yB8ocOd3lElwoK884y3Kvmrii5n2S4ny56VSH60sOdFPh2uGfDpg73dFaasM1xouG-OdGp7_aiqu1ACUpduznv_kxz3q3cGvk9znY2ZzrZtXTkFlT-ejsHvPS54aUpPTw81PF_6KGOf0SXCuClzwKvqrlLSu4nOdQ5XfSqQvSl4UUKfHuokw2beqjjU06Suiaeh7PYlDqryR7V1MUyXDN-NOtOxOEiGpnPUThaXbv-tbMSWr0wNnGyflesf2nNtm_FSWSGz7v_f3CoJLJK4lBJpZTEoZJDVGrmS63PoctrCcTWeoejvJYUiJZP1PLztdZftQ61JCF5mYoLlFgg1US0QIm4lkB8SWKJmehTWgosrwItP19Lg-Wl0MdH5z8-GtjSqC0HeX7Ao4hLaRvRItoSiC-X6EsiD6NL9KWQh9EDvhy0i25-Fz1gy0VtefmumsAVLqUlokW0JRBfPtGXRFaET_SlkBUhbGDMQ9vYzG-jsIGxJqqFjGchgC8fHxLIlICQLeA1AmwJtCoTG4znIikM2RD_RzAb8r86tBX8AnAEteE3gOrYhsviCG43iWIouF2iGEpuTRXD0A2XP85ugcEbPgDV6Q2NHYFvqjGU31RnKMCpzlCCQ2c4wgXGcOisOsShsSMoTjWGYpzqDOU41RkOcmgNJ7lAUQ69HcFyaA2HubTzrQE2SQDzsgAGM7tICgMwmNkFYiiAwcwuEEMBDNIvEkN6qQE0JaB5upUSAQBsAI4mDABwXeBaKACoxlAAUJ2hAKA6QwEAneE0lwjNPegMRxMGAGisgOYYAKjGUABQnaEAoDrDAQCt4TiXCM6FDb0BOJUHALSGs0kibIKzEZCpLADgZluBFAYAuNuGi6EAgNttuBgKAJh-gRgGALjZibNcISzXoAEKRxMGALAuCrRQAFCNoQCgOkMBQHWGAgA6w2muEJp70BmOJgwA0FgBzTEAUI2hAKA6QwFAdYYDAFrDca4QnAsbegNwKg8AaA1nk8LYBLQK_mxCniaqFAYAWGPBH5oYAMCX9gIxFADgS3uRGLYFB74YKMDy0ltwsMoCLWQLTsIqcTF0C45aJboFB5dZgRi2BQeXGf6XufIRAENngOalAQyfS1wLBTDVGApgqjMUwFRnKICBM40fTWjkaMIDzjS-044BGBrDtVAAU42hAKY6QwFMdYYDGFoDOE93U2EAht5wnKMAXv3nlYdp-NdgMuYBH_oP9thrOvWxcHRdS2PXhw9NXdf-SH_xlOsIPeLLDwwfYx58472n8K-VcP9lbmIePAynsbH4p-FXc20SEz1PZpM4mYw277y-_u3_AQAA__8_l4GZ
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey) STORING (o_comment);"

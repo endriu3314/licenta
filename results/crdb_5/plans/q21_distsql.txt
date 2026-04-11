@@ -1,0 +1,76 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ estimated row count: 100
+│ order: -count_rows,+s_name
+│ k: 100
+│
+└── • group (hash)
+"    │ estimated row count: 270,685"
+"    │ group by: s_name"
+"    │"
+"    └── • lookup join"
+"        │ estimated row count: 683,659"
+"        │ table: orders@orders_pkey"
+"        │ equality: (l_orderkey) = (o_orderkey)"
+"        │ equality cols are key"
+"        │ pred: o_orderstatus = 'F'"
+"        │"
+"        └── • lookup join (anti)"
+"            │ estimated row count: 522,962"
+"            │ table: lineitem@lineitem_pkey"
+"            │ equality: (l_orderkey) = (l_orderkey)"
+"            │ pred: (l_suppkey != l_suppkey) AND (l_receiptdate > l_commitdate)"
+"            │"
+"            └── • lookup join (semi)"
+"                │ estimated row count: 784,443"
+"                │ table: lineitem@lineitem_pkey"
+"                │ equality: (l_orderkey) = (l_orderkey)"
+"                │ pred: l_suppkey != l_suppkey"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 2,353,328"
+"                    │ equality: (l_suppkey) = (s_suppkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ estimated row count: 59,999,457"
+"                    │   │ filter: l_receiptdate > l_commitdate"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"                    │         table: lineitem@lineitem_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • hash join"
+"                        │ estimated row count: 12,000"
+"                        │ equality: (s_nationkey) = (n_nationkey)"
+"                        │ right cols are key"
+"                        │"
+"                        ├── • scan"
+"                        │     estimated row count: 300,000 (100% of the table; stats collected 4 hours ago)"
+"                        │     table: supplier@supplier_pkey"
+"                        │     spans: FULL SCAN"
+"                        │"
+"                        └── • filter"
+"                            │ estimated row count: 1"
+"                            │ filter: n_name = 'ARGENTINA'"
+"                            │"
+"                            └── • scan"
+"                                  estimated row count: 25 (100% of the table; stats collected 4 hours ago)"
+"                                  table: nation@nation_pkey"
+"                                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcWm1z2kjW_f78in76S-xZsahf9EZVquSNSYZZG7JAamZq1-VSoGNrA4iVRGVTKf_3LYEFkq51UUMZlzNfYoF0dO65rXNua_hBk__MaId2__h4ddHrk7PL3mg8-sfVORl1r7rvxiS5XQRzZZBJtFqkZ7-ck4sRWazm34IwJe-Hg2uSrJbLWahig8zChQpTNc9OmTGDRPFUxYlBFkEaRgvy-6_dYZecbf5LbrPrvqrv5C2Zsb_O8sNzctG_JGfR7friwvf58Xn5jCQN0lVC3pI379_kX63Pj9VEhct0GqSK_GtlmkJtcCbRfB6uP348vftHVjE5e6z3l01VpVp4zn3GC0wAs8e781015P8r1eUU-4NxkxuLrWgz0eDOArtz4ZyntBEVbfILsv5n7dvcdrE7yk9YrBdI1oGL4Yduf9zrX7w5Jx-Gg08fyd_-fFw_ZDC87A6z43ztXHZH74z826vedW9MmGlSgy6iqeoHc5XQzj8powbl1KCCGlRSg1r0xqDLOJqoJIni7JQf6wt60__SjmnQcLFcpdnHNwadRLGinR80DdOZoh06Dj7P1FAFUxW3M8ypSoNwtr5NLrqf_3GbaUYN-i6areaLpEN2YhtkK2r2506z7KigLDXoaBlk17albUrXtNqi1XYt5jie12YkWEyJR6L0XsUJvXkwaLRKd-STNLhTtMMK1fYuaYc_GM0Lfh_OUhWruO2Uq9183iG-zLvviwqDHcjn7-Q-SO7LCD6nNw87lrzC0tFhWWwLM8v3yb3Fz_8AfUl2vcidqrBidz1o1UosKuSZeTB7Vma_oeFv_gHMC4-SQTYPURO6skqXHbQkGK9ZE7z8JHc6ndF42Ot_qCVkVQnVr9Edj9Vi_TipaYnFTXblvlOeqOrXILn_LQoXWV2i8mSrL-mZL87fxuHdfXrms3Nq0MEq7RCfGT43fGH40vAtzfXPSuvfrkogXlQC-ykJ-F4JDN82fMfwXcP3arvtVEu1dZZfxjB34MrDMv6-VB1y1X0_JqPudY_8Nuj1qVHvzFdR9HW1JP-OwgWJFlktWVV94jOWZZ_P97p3bY1u1XS1HrFijXZtjRf98eE1nm2LfMxgn4mtlTN-fmRw1eniVXU5tPei0vvNJOdv_mnS4PW4t7OmQrlRodzSiLhd83Z92JqVAoVW4y_u7mJ1F6RR3BY28AuDXvT_vO0Pxrf9T1dXj0_hu8Gn_vh2OPh9dHZ-lAOx6qAg6ntzkL8UipOsWXGjT9e3vf44s556yaujg9SSfBTFqYrbsio3bxk--ws16Dha_r2zHixrGVTzXzZR7indtrd9UsB-1IqWbemVL7kK52GK86sGvvRK_JjGfHLSodf2XMa8Nmvtxt_1zOvqzrxMp97tgGOfeOa1a1meIvKtU0a-pdOQYhyaryfyzUNrtH7uyD-098J8JZGv1fhi5FsvHvn1vTk68s3njHwtyfPIr8p9VOSXlePNI9U8ZaS2tpm6DlJHN0hNnSq3QWqdOEjre3GKIJWnDFKp05CCmTLv1QQp8w6skcufO0gP7T33XkeQcq3GF4NUvniQ1vfm2CAV3jMGqdCSPA_SqtxHBWlZOdE8SKuvbZ93b8ot0_Ici2W7U8FdRzgmb9uHparQKXmbqu6JU9WtZXmKVHVOmaqOTkOKzspfTapyfmiNzs-dqof2XvDXkapCq_HF4HFePFXre3P09pQ_5_ZUS_I8VatyH5WqZeVk81St7maeN1WFcIXDuGiLVls4junZnn3oXlXqlLxNVe_EqerVsjxFqrqnTFVXpyHFxBGvJ1XFoTW6P3eqHtp7IV5Jqmo1vpiq7ounan1vjk5V8ZypqiV5nqpVuY9KVVfn_zQPVbKMFomqmviT96qurxbLpFbTO7XpSxKt4on6GEeT9bmbw8EaaP3BVCXp5lu2Oegt8q-SNFbBfPtTwCISqyKxIhK3SlCsCLX5yVtzLGYjWLYeFgLFNUsUEsFy9bCkqMfavB8qYnG0iYjyQCyBIsn65WBVkaQGJ15EcqpIls7CKkFtfgjXHKuysMpYnh4WAsWBWDhUZWGVsDa_EWqOVVlYZSwgvY020alfDhI80g4K5SJQQC0XhfKQRQpYebj9mQgWoMWAl5a7aCLPIXRAHIwzBEyXGUPAHF1mwkPAdJlJtx7MhcyAp5a7yeu76UJmuKkyxKA9yAz3VQtZZxALd1Zm1WMBr2Ba3louUhMLDW2ovo65lpNWt0g0toEj7gFDcxukEcP9lSEGK6D-uMMyzGLBRMFwj2WIyUrIDHdZjrksnHUOd1kLMNsDhrqsLjPMZW1dZqjL6jLDXNaBzHCX5ZjLQmaHu6wLmeEuy5HxFbgsBy7b2BnBqL8HC3VGqBgOhjmjbpGoM4Ktwx4w1BnBTosDmy230kacEeqP2yzH5ljg2Ry3WY7ZLGSG2yzHZlnIDNhsc2eEzHAw1Bl1maHOqMsMdUZdZqgzAmYCf5kikLcpLmAm9gyzmDNCZrjNCoE8TgALuGzzFz1gNtsDhlojmM32gGHWqFslao0gmPaAodYIRmOBz_8Cmf8l1B_3WYH4rIQvj3CfFYjPWpAZ7rMC8VkLMgM-23xrDpnhYKg16jJDt-a6zFBr1GWGbs0hM3wLIJEtgAuYyT0vrbGtOWAmcZ-VyDgLZjMJbLa5NYIRaA8Yao0gAPaAYdaoWyVmjQKMoHvAUGuEC2PP62tkAyCh_rjPSsxnQTRJ3Gcl4rMWZIb7rMR8FjIDPtvcGiEzHAy1Rl1mqDXqMkOtUZcZao2QGb4HkMgewIXM9rzQxqyRP9wY9Mss-nYbTmmHKqZcNQ1ky_xsWS05cSatwJa8NQkUt6efvYnrTWh2QXCX0M4POrqPvq1xx9-XKqGdL8EsUQa9Dr6qS5WqeB4uwiQNJ4_fPDz83_8CAAD___xTPuM=
+
+index recommendations: 4
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_suppkey) STORING (l_commitdate, l_receiptdate);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_name);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderstatus);"
+4. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.supplier (s_nationkey) STORING (s_name);"

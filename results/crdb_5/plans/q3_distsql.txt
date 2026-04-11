@@ -1,0 +1,66 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ estimated row count: 10
+│ order: -sum,+any_not_null
+│ k: 10
+│
+└── • group (streaming)
+"    │ estimated row count: 19,782,684"
+"    │ group by: l_orderkey"
+"    │ ordered: +l_orderkey"
+"    │"
+"    └── • render"
+"        │"
+"        └── • merge join"
+"            │ estimated row count: 30,250,728"
+"            │ equality: (l_orderkey) = (o_orderkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • filter"
+"            │   │ estimated row count: 95,497,227"
+"            │   │ filter: l_shipdate > '1995-03-30'"
+"            │   │"
+"            │   └── • scan"
+"            │         estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"            │         table: lineitem@lineitem_pkey"
+"            │         spans: FULL SCAN"
+"            │"
+"            └── • sort"
+"                │ estimated row count: 13,513,547"
+"                │ order: +o_orderkey"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 13,513,547"
+"                    │ equality: (o_custkey) = (c_custkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ estimated row count: 43,141,152"
+"                    │   │ filter: o_orderdate < '1995-03-30'"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         estimated row count: 87,672,281 (100% of the table; stats collected 4 hours ago; using stats forecast for 4 hours ago)"
+"                    │         table: orders@orders_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 940,950"
+"                        │ filter: c_mktsegment = 'AUTOMOBILE'"
+"                        │"
+"                        └── • scan"
+"                              estimated row count: 4,500,000 (100% of the table; stats collected 4 hours ago)"
+"                              table: customer@customer_pkey"
+"                              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzUmllv48gRx9_zKYh-GXmHhNgXDwEL0Dv27jrxMbE9SBaJYWilHluwLCoklV1j4O8e6LJEllitoi058-RD0l_V9e_u-lU3v7H8P0PWYcf__Hx6eHLutI5Orq6v_n564Fwdnx5_unaGt2nWN9mDeXKdfPLYGt6aPwsz6pv-OBv0jPOD0-KO5wxv-4O8l05GxcGBc3jlZOa_ZjQxrpPOP9_vFrM_8vvBeJwN0mxQPDk_X16cOb1JXqSPJnOd2Rtz1xkORmZQmEfnH78eXx47rVar1bt9fChyc_doRoXzo_Ph8Mv1xdnFTyenxx8OnMPzI6fVu50KPZgn50cnXf5-sHhxNYjZq8s_li-vxej8e-L7succHV4fOx94HGvPl570P6ykpkNYvdVseKvzy-XFl8_OT7-Vsodl4uLy6Phy-oFF3pyj46tPpY84pydnJ9cO95nLRmnfnHcfTc46_2KcuUwwl0nmMsVcptmNy8ZZ2jN5nmbTt3ybfeCk_yfr-C4bjMaTYvrvG5f10sywzjdWDIqhYR123f19aC5Nt2-y9lSzb4ruYDj7mqUpyfKX2_GDeWIu-5QOJ4-jvFMaa2WWuGvzY_r7MoXMZVfj7vTDbRX4KvJ1W3rtSPMwjOM2d7qjvhM7aXFvspzdPLssnRSr6POie2dYh68N9-SIdcSzu_2Ifx4MC5OZrB2Whzv_f8dJ1NLmdYc7nc7U9UpIK9Xfn5z7bn5flkw4u3lehS0qYYeUsNeNmk2Jte-ZL6Nk_gO4lJZm5GKdoJNzZZLXFmGstY5nxgibMbIyQu43cobrGmvkcrG-3hpRskZVA9dNvRG8_EXLzS5Z_gL86a08Wd_01ldKGCodem0pZOBHsjb9uroueKP0C1WTflHZiDudztX15cn5L69aFkE1alUb9Up4MprNXtMvSd9MP2l7y4ah_9rN7_-aDkbTwQeVXdB8LVqJOPgxG9zdF62EHzCXXUyKjpNwNxFuIt1EuYl2k6DWl7A6woDiy1WaFSZrS17N4sdXpT2qBCXrJ8tKeFNGl5Fs9a4N4zsz2Z1ZZF9Gm7LPP67S_7E-_24SuknkJrGbcL_WjLg67ohixnnqpeO2kuUwL6eFb7ZCfmjx6X50_Onk7PDUS-SB6ySh6ySR68zyX1PQ_EpQSlKCOry7y8xdt0iztqokMJmu5Yu5H9Paxlx2eP7b7fnF9e35l9PTVqKm-bz6craY2eUXBfyXPHjVrOPV2q3q0990Qq2lQ0sQzXo6OBgef0nH5rFvSF-tqdV6r0mmLpa9rhoqPDeRH5nLrtPx3zoOMtN5tRzr5rlefOvGfM_XRFDZn04Hj4MCDa9adIPyDsQJQLRfcg3iiPO4zb0Vw874KKKCK2nAL_U5eG9wDRr7JPYFrm0eKaHCUHhtFYdCxYFqiLCikUe8rrvYH8KGTV0S_psjrLdg2O3R1W-UdiHfF11lbdT7QNeN8PTG6BpRfFmiK6jCb4yu26R95-ga7h9dSUt8ga5i1-hK2jDX0TX83tC1Pv1vga7i_wldSaYu0bVq6GvQtZxrsX018_fKht4LHM5wI6QSoU8Z5kvZqzsv2xsR6qbucLk3IlxyoNcOtNBCxHMilGQilI084tG7E2FUG_g-6CTeA53EFGuWdKJ2TCdqi7TvnE42Hmvulk4CihkLOuG7phNOCWqdToLvjU7q0_8WdAJOo9-TTkimLumkauhr6KSca7l9_ZP7PbkS2tdxqHmbe20polCGvmgHzVBFUsb8UgbrquDeUCVqahVXe0OVWAiphdRem_thGAgZRNvjiWrkC4_fHU_i2sD3gCey2ifsAE-kT7FmiSd6x3iit0j7zvFkIxzuFk_qp1s9nqhd4wlp8a7jSfy94ck2q705ngCmf088IZm6xJOqoa_Bk3Ku1fY1T-0XT6SMZMiFbEuvLcPQj4M4aHqSoihjfimDdVVwb3jS2CrO94Yni2fCvJdLtoZXa7yRRbzu_nN_pBI0NUmIt386bPFUmLf93ZpolHdRd8q4p7s1XRv1Pk6vNt7uvPHpVUjxZYmH4JrgjfGwfrLsDw_VRjjfKR4qn2LGAg_1rvGwfg1YeMj_zvBQ16f_LfAQ9FTviYckUxfLPqga-go8DEhPaV-afJyOclPdYTd-V3UCe3zqjOnfmbmTeTrJeuZzlvZm753_eTETmv2jb_Ji_iqf_3EyWr6UF5npPr48_r-uxKtKfF1JypIUX5eap2J7LSHqtUKiVlQvFRGllKrXiolaOqzX4j4QE6iLst5FXVWSaFgBEpWkSWldrzV_hH57LeEjWjFNS_J6rfmjH9trKWSiKpB6hZqo603kIF2a4KIoSYFs4VIVF0taAmQL16q4WNKSIFu4VsXFkpYCMxXXqrhY0tIg9QHqYogsRRBWSNlRS2EFRC2BDDEkakX1UhFRqrKjlrRiolZlRy3Peh-IRaiNMbYYwe4c4zXWx8TAvOegYpdnBbZFC1iFcDWBbNJcUGPjyNbKJTU2hZVIuF9Y1AKkhHAFYwPlu-ypQDyFOz_H6zdH2IlrGBsoSiW1AIkNauFFiWNVCWhZtmxklBqUJYsYhogBVQxhxJCqhUFiRBXDKDGGYnhp4khtApWc45sttgnB2W_ZuDFQBPu2RQwjRQlnrKUCY6gI02-pdRgrwvzj9YljBQouclCgtsbFiKiF8mJAFEOBURHFUGKEzS4uhiIj7N7wJlwgXbgGq0mQ-vAyNVLFUGykimHcSNVCwZEqhpMjVMOLuUC6ce6DXUPgxVwoDB7BGhCgnG8Pj7A1tKjh8EiNDYVH2ORb1HB4pMaGwiOsBAJU9bKnAQaPMDZLWcfgUcHYQJUqxxYR4FGAIrU98IHCYhFDgY8qhgEfVQsFPqoYCnxQDG88JdJ4Ai1paZ-QSQbKukULBT4w_S1iKPCBsm4Rw4AP9ogWMRT4YP7xhlMiTZ2GBoAStT0jUMVQRqCKYYxA1UIZgSqGMwJUw6u6xKq6D-cG3qRL9OgYHttb2nSUEWBslj4dZQRqbDgjUGPDGYEaG84IMDa8qkukWefwgFviVR1nBBgb3nxKpPmEkVm6MuzaEN4SWfpF7N6QKoZdHFK10JtDqhh-dQjUFN58KqT5BPCo8EYK2znACYdFC4UEeLVm6WMxSABT1iKGQgJMv6WRxSAB5h9vPRV2EQwNsNyTYpBAFUMhgSqGQQJVC4UEqhgOCVANL-sKLetwouFNp8KaTojwCpQnwi0UjA1XwyGBGht-C0WNDYcEamz4LRSMDS_rCmnWuYKxWc6U0VsoGBvefGqk-QQ9nra0ZRgkgB7PIoZCAlUMgwSqFgoJVDEcEqAa3n1qpPsE00zjnRS2c8CJYenKMEiAg7Q0shgkgObfIoZeHQHgtoihkADzj_eeGus9Yc4sB6P1BQ8-i2DRQq-OYMosZ9PY1RFMmeXYHLs6gnPWcjKNXR3B_ONVXSNVXcPILEUdIz6qGEp8VDGM-KhaKPFRxXDig2p4PddYPd-wNvF6rtGHmOCze5ZGHSU-GJulU0eJjxobTnzU2HDio8aGEx-ILcC79QDp1jl8iiCwPMWEEp94vnHZ12H6x-2gzzrMBFx9VV3tRXGgPSW19GLJQ8_vqa8ikjwIVY9NP9C9y1nnG7u6T_-YCV8_jU3OOl-7w9y47Kz7YI5MYbLHwWiQF4Pe4pXn57_8LwAA___tTDGv
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_mktsegment);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_extendedprice, l_discount);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey, o_orderdate) STORING (o_shippriority);"

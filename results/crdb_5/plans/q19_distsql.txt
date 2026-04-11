@@ -1,0 +1,40 @@
+info
+distribution: full
+vectorized: true
+
+• group (scalar)
+│ estimated row count: 1
+│
+└── • render
+"    │"
+"    └── • hash join"
+"        │ estimated row count: 5,722"
+"        │ equality: (l_partkey) = (p_partkey)"
+"        │ right cols are key"
+"        │ pred: ((((((p_brand = 'Brand#14') AND (p_container IN ('SM BOX', 'SM CASE', __more1_10__, 'SM PKG'))) AND (l_quantity >= 1)) AND (l_quantity <= 11.00)) AND (p_size <= 5)) OR (((((p_brand = 'Brand#13') AND (p_container IN ('MED BAG', 'MED BOX', __more1_10__, 'MED PKG'))) AND (l_quantity >= 20)) AND (l_quantity <= 30.00)) AND (p_size <= 10))) OR (((((p_brand = 'Brand#34') AND (p_container IN ('LG BOX', 'LG CASE', __more1_10__, 'LG PKG'))) AND (l_quantity >= 27)) AND (l_quantity <= 37.00)) AND (p_size <= 15))"
+"        │"
+"        ├── • filter"
+"        │   │ estimated row count: 12,843,725"
+"        │   │ filter: (l_shipmode IN ('AIR', 'AIR REG')) AND (l_shipinstruct = 'DELIVER IN PERSON')"
+"        │   │"
+"        │   └── • scan"
+"        │         estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"        │         table: lineitem@lineitem_pkey"
+"        │         spans: FULL SCAN"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 6,000,000"
+"            │ filter: p_size >= 1"
+"            │"
+"            └── • scan"
+"                  estimated row count: 6,000,000 (100% of the table; stats collected 4 hours ago)"
+"                  table: part@part_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsWltP40gafd9fUap9AGadTV18l5CchgyT7RB6E3ZnpF2ETFKA1cHO2M7OsC3--6qSOL4U_hyHpadbCg9QKdvH3-XUOVUKX3Dy6xy7uP_Lp2FvMELH54PJ9eTvwxM06Q_7Z9coWT4dz2_F76kIZ2K2iIOpQD-gY4o6aH47C5JptAzTkxPUm6BY_EeES4F-HF9donkQiiAVTxpa-HGKfv6pP-6j4-xncStnP4tndIrm2fgE9Ubn6Hhxexf74QydoqMPcvBnqh-dbK9NozD1g1DESEZ7NLlEZ71J_0hDcvjh6pfN6FPv7GM2_HhxdJIBzG9_XfphGqTP6N9LQrg4RbTu2vRU5vkXRMlJ_v4k-K9AH_rXP_f7I0RXs0YOkDwGi6doJtbB9QZjGUNvMEbjfikIeV8QJmm8nKYy0fP-cPDP_lg-9qk_nlyNZMZXY7RfvXh9vS775-hD70KGtRquCyaHskzZUBYPKhkjUM0Y2aFolLxP1fYvGwdoNrzY0mx4kVVteLGlmRw20IxZYM2sXWr2TkzDGg6jmRj5TyLB7r8wxRpmWMMca1jHGjbwjYYXcTQVSRLF8pYvqwcGs9-xSzQchItlKqdvNDyNYoHdLzgN0rnALr727-ZiLPyZiLsScyZSP5ivXpNJhJcNbhefxTPW8Fk0Xz6FiZv3TEN50eS4pEdaQYnkuJhy9lmWCmt4svAlblc3iW4To8s7XdugluU4XYokGxwUpY8iTvDNi4ajZZonlqT-g8AuLVRicI5d9qLtXowfg3kqYhF3rXIl1vMuOvbMvJ-u606ux4PRRaGx27mswZ7xelPzGyuZ5MHcPaNHP3ksR-JRfPOSZ8sq2Vptsi22npLye2RfPflL6fki7_lmicqBXA3y73Zd5s3sdE3KOXFqW8YrSVCyV88oe71pHs-txHXdwejaflPN9Wq49RTLgZdhFM9ELGYl6Bv5ZNMtr-T8k588_i2SZe5Ss7JoxX167NGT0zh4eFyNsIavRhvJ9eySbecs3LCVkq1tSxEtUjxz8srcSmGrcx9LKyEDZ6U-nPfPBpe9YfXq9BRR-ldCXrnD2d5hbPpYcJNSZrw-s8xgiyFnTludU3LLfBhMjr0We54dJ03ZUbJN7_X8ONC5jf0Vo87MsTKnZLcxSTg5C07Oakwu750k5jJ1kUc1j2ke1zxd8wzNMzXP0jxb8xzNo6RWNozqOjTbyMYo6kSLLqPl1TOWrrXSjB-OCyTteHpVp_M4zKrj0DZx9B4eYvHgp1HcZZWlPPnH5Wr91r3Yqr64vgB7qUwxNKddaHY1NKcUGm1hTN_MnsR0bEqdLu3ku5PVlsRuuyWhbWqxtTfzO92SmLXZfg13NA7ueHDHgztilxptVGfjjuQd3JG0iaNoQcYb3bFcALa7BZFvxYI6Ww9aGY_V1nhImwpsjcf4To1n735T-m5n4c1RuLP7WZju1TPK_6CzMK8N92u4vX5w-4PbH9weu1RvIxtrt6fO_9_tqdMmjqLb6290-3IB-O7qz78Vt-8ygxiOZVB55OTMtrhFWNfcz_p5m3JsbcT-Tq3frs32a7iQdXChgwsdXAi71GqjOpszJ3uHMydrE0fRhaw3ulC5APruLlTdyf5xLsS5zS3KeJd3utyyiGM65r4HUL1NObYu5HynLuTUZvs1XMg-uNDBhQ4uhF1qt1GdjQvxd3Ah3iaOogvZb3Qhu80XkmORLKIwEVVBevVVpPKqDpWyJGYPYi1zSbSMp-JTHE1X964_Xq2AVhMzkaTrq3T9YRBml5I0Fv7T9l94iki0ikRLSFYJihahnJZQpB5q_XXz7lh6PdSaGbtDMVaPxUlLLKBa3KpiMbCHvL6HRhWJt-khKxVe4UMDFgGwFELAWHo9FFP4AENVmljC4gohGrCAcukKIXSwiUZ9E3W9CmWAUCYApRTeBKEAlhpKVBbMUlIfllIrG4Ry6pFoFcnZW7TsllCQaCnrEMaCREtZhjAUJFpMYUMDFiRaqi43OA9gPbqqzIqclsEYAKY0ksJ6CpFeDUyRiHJgegvWU0UidiarYhlNWBBblZXdAAbRVVmQDVggX9VONoBBhFXWJIVllQK6qpJf0dXdjVblWAMY4LRMJRkMBlmtSjIYC_RalWQNYJDZqiyDzYjagF6oG1_YjijgR7paM0VjdxYfJTAGSywDJFYhGdt_e08VkjWBQeqj7n733-ErJGvAArf4CsmawCD1UaSMwabEgF2-rkgZg12JAa5kqM2Ed64QY9XAYI1l0N5VwWqlsWWSqb1spbFlMLWXbTS2zFi1Yq00tkwyVTBaaWwZTNksMlhjGaSximEyWGMZoLGG2sz9NdZ8udHw_Tz67TaYYRdb91PTtCzauXcco6NblHXuOJt2ODEdRmbUuLN1LB_wHxLsfsGTx-i3Fe7180Ik2L3354nQ8KX_WZyLVMRPQRgkaTDdXHl5-dP_AgAA__-pHoc3
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipinstruct, l_partkey, l_quantity) STORING (l_extendedprice, l_discount, l_shipmode);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_brand, p_size) STORING (p_container);"

@@ -1,0 +1,34 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 2
+│ order: +l_shipmode
+│
+└── • group (hash)
+"    │ estimated row count: 2"
+"    │ group by: l_shipmode"
+"    │"
+"    └── • render"
+"        │"
+"        └── • lookup join"
+"            │ estimated row count: 1,616,563"
+"            │ table: orders@orders_pkey"
+"            │ equality: (l_orderkey) = (o_orderkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • filter"
+"                │ estimated row count: 826,218"
+"                │ filter: ((((l_receiptdate >= '1995-01-01') AND (l_receiptdate < '1996-01-01')) AND (l_shipmode IN ('RAIL', 'REG AIR'))) AND (l_commitdate < l_receiptdate)) AND (l_shipdate < l_commitdate)"
+"                │"
+"                └── • scan"
+"                      estimated row count: 179,998,372 (100% of the table; stats collected 4 hours ago)"
+"                      table: lineitem@lineitem_pkey"
+"                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsmV1v2sgXxu__n2I6N4BqhMfjd6kS_IubsqKka8juVrsRcmEavAGGtY26UZXvvrJ5sz3xgSmKEkXpTWE8PPPM8TO_Y8gPHP8zxy72_vjc7_QGqN7tDUfDX_sNNPT63vsRmo_jWbha8ClTULxe1N93hh76_aM3QHU-5tGURaso5FGY3KF3qEaaV_6FNxjVGujSf3CG1vzYu_hYa6BRqkGQ1x96SEXeoNtAnSGahTez8TxcsvGEr5fJ0TXfFBftDLoPzzmy7Jx_z62KPviXn1AmEisoHQ8Ttkgd-B6qp_-2S9yydE_z_ZutgUPNUFrSmu9doE7Prymo5nd6_VqjsZ844YtFmEyDhKG_1qpKJ2g-jtiEhatssFFQLE47fPQwK_fRzUT2DnU7Iw_ViOMYTZU0VVIDpk9QPT8TvUU1gu5YENVctzcYef5vnT764nX8RgNd-JdXn9H_v-Qigi79rucXx7CCl3zKBsGCxdj9ExOsYA0rmGIF61jBBr5W8CriExbHPEqn_Mg-0Jv-i11VweFytU7S4WsFT3jEsPsDJ2EyZ9jFo-DrnPksmLKolWpOWRKE82yZ3V1r716MV7fsDiv4PZ-vF8vYzd02BR3qqxQqqxRvh1Lc13AVpEIt3VR1WzVatNmyDWJZjtMiKFhOkYN4MmNRjK_vFczXyWEncRLcMOyS3NZ7Xexq98rpu_8QzhMWsahlFbe-GXezpLb1fQ7yN9Z13TQW2yDsJk2yOWZpzm6SsQ1zmmDXdYcjvze4SCO9Tfd-bB_vNt3ptvX9mLYfo43KumilulgydfmFh8ttKEgpFZsz3d78t0tEn_Pb9Qr9zcMl4ksXtUk-JjwXkxJZsIJ9tpymtU4RlRKq3rbeHYB0KMmln13ZYugwnuKIuNnhslMmqbvXg66SF33zoGpn0N1ck9NtG5WFp6XCE6lEdm5uInYTJDxqkVIo2-l57wy-jAeXo_Hgqt-vp_dfwcOrT_U22b_Sypk4iH-9Q7MgnpVkCb6-P9jXy_arg3MQXi-zu8qmBelMFtigpglOyhssbGv7Cgi9UYaBVO2HPEpSDJbrTt5WLmiWFzylWg_VarvKA64GvMlXLaqWSvuwH6vkh6oFP-T0ZkCerhmYjk2I0yLNQ1vIeoEt2wuIzOb3vcB88b3AlKlLvheQ115wXi-QSmS-F5jPohdUB-fsXkAevRdI1X7XC8p1l-kFxWppp7NXfTL2NvfwzYhryRJXldnynrjGiyeuIVOXPHHVV-KeR1ypROaJazwL4lYH52ziqo9OXKna74hbrrsMcYvVoqcTlz7d065mqIZjGSR93qWabVFL1Vrmz-GXyux_j1_7xePXlqlLHr_0Fb_n4VcqkXn82s8Cv9XBORu_9NHxK1X7HX7LdZfBb7Fa-un41Z8Ov5Ta1CIabdFmi1qW6piO-bNPv7rM_vf4dV48fh2ZuuTxq7_i9zz8SiUyj1_nWeC3Ojhn41d_dPxK1X6H33LdZfDryPzY7bN4xZcxO-lnZbW0VJOk5WXTG7a5FzFfRxP2OeKTbO7m7WUmlA1MWZxsrpLNm95ydylOIhYs9n-5yysRUEmrVrLKShqoRKuViGCKlqVIYXtWQYsUtARbR7RItZYm6UsHpCRtabRai0ra0hxAS_Clg3fRqL6LumDLAKXMale64MqEswUEXi1LWaCUDcS0rGSDSk61kllWcuDjrAKmBFdEYMPph0cwdkwMOj2yzqDjI2sMPD-yxsADJDqDiUoApOqiMxiq0BkSjQmYKBrTJQ4RgTFBAE4YghbMCWIC6ReNCaQ4Pf2isyNiUPplnUHplzUGpl_WGJh-0RmMVwLwVRedwYSF0i8agxmrAYylwpMO_PilAe3IFrSOPIABuCCiMQEXp6dfdHZEDEq_rDMo_bLGwPTLGgPTLzqDEasBiNVFZzBjofSLxmDGagBjdUELfhjTrGotR9CCcaFBj2OiMQEXp6dfdHZEDEq_rDMo_bLGwPTLGgPTLzqDEUsBxOqCMwozFkq_k35v_jbn38fhFLtYnXwzncBiTd2x1KZuM6vpqKrWJGSqEWMy0U2b4vQDwU2cfnkfzvj3THd0t0q_en8L5jFT8KfglnVZwqJFuAzjJJxsr9zf_--_AAAA__-1iY1P
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_receiptdate) STORING (l_shipdate, l_commitdate, l_shipmode);"
