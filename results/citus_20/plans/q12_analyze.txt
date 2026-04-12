@@ -1,0 +1,77 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=761.64..762.14 rows=200 width=60) (actual time=696.092..696.094 rows=2 loops=1)
+   Output: remote_scan.l_shipmode, ((pg_catalog.sum(remote_scan.high_line_count))::bigint), ((pg_catalog.sum(remote_scan.low_line_count))::bigint)
+   Sort Key: remote_scan.l_shipmode
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=750.00..754.00 rows=200 width=60) (actual time=696.015..696.019 rows=2 loops=1)
+         Output: remote_scan.l_shipmode, (pg_catalog.sum(remote_scan.high_line_count))::bigint, (pg_catalog.sum(remote_scan.low_line_count))::bigint
+         Group Key: remote_scan.l_shipmode
+         Batches: 1  Memory Usage: 40kB
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=60) (actual time=695.946..695.960 rows=64 loops=1)
+               Output: remote_scan.l_shipmode, remote_scan.high_line_count, remote_scan.low_line_count
+               Task Count: 32
+               Tuple data received from nodes: 1664 bytes
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT lineitem.l_shipmode, sum(CASE WHEN ((orders.o_orderpriority OPERATOR(pg_catalog.=) '1-URGENT'::bpchar) OR (orders.o_orderpriority OPERATOR(pg_catalog.=) '2-HIGH'::bpchar)) THEN 1 ELSE 0 END) AS high_line_count, sum(CASE WHEN ((orders.o_orderpriority OPERATOR(pg_catalog.<>) '1-URGENT'::bpchar) AND (orders.o_orderpriority OPERATOR(pg_catalog.<>) '2-HIGH'::bpchar)) THEN 1 ELSE 0 END) AS low_line_count FROM (public.orders_102144 orders JOIN public.lineitem_102176 lineitem ON ((orders.o_orderkey OPERATOR(pg_catalog.=) lineitem.l_orderkey))) WHERE ((lineitem.l_shipmode OPERATOR(pg_catalog.=) ANY ('{"REG AIR",RAIL}'::bpchar[])) AND (lineitem.l_commitdate OPERATOR(pg_catalog.<) lineitem.l_receiptdate) AND (lineitem.l_shipdate OPERATOR(pg_catalog.<) lineitem.l_commitdate) AND (lineitem.l_receiptdate OPERATOR(pg_catalog.>=) '1995-01-01'::date) AND (lineitem.l_receiptdate OPERATOR(pg_catalog.<) '1996-01-01 00:00:00'::timestamp without time zone)) GROUP BY lineitem.l_shipmode
+                     Tuple data received from node: 52 bytes
+                     Node: host=10.0.1.27 port=5432 dbname=postgres
+                     ->  Finalize GroupAggregate  (cost=196165.27..196390.32 rows=7 width=27) (actual time=586.854..601.418 rows=2 loops=1)
+                           Output: lineitem.l_shipmode, sum(CASE WHEN ((orders.o_orderpriority = '1-URGENT'::bpchar) OR (orders.o_orderpriority = '2-HIGH'::bpchar)) THEN 1 ELSE 0 END), sum(CASE WHEN ((orders.o_orderpriority <> '1-URGENT'::bpchar) AND (orders.o_orderpriority <> '2-HIGH'::bpchar)) THEN 1 ELSE 0 END)
+                           Group Key: lineitem.l_shipmode
+                           ->  Gather Merge  (cost=196165.27..196390.14 rows=14 width=27) (actual time=585.655..601.387 rows=6 loops=1)
+                                 Output: lineitem.l_shipmode, (PARTIAL sum(CASE WHEN ((orders.o_orderpriority = '1-URGENT'::bpchar) OR (orders.o_orderpriority = '2-HIGH'::bpchar)) THEN 1 ELSE 0 END)), (PARTIAL sum(CASE WHEN ((orders.o_orderpriority <> '1-URGENT'::bpchar) AND (orders.o_orderpriority <> '2-HIGH'::bpchar)) THEN 1 ELSE 0 END))
+                                 Workers Planned: 2
+                                 Workers Launched: 2
+                                 ->  Partial GroupAggregate  (cost=195165.25..195388.50 rows=7 width=27) (actual time=557.984..559.010 rows=2 loops=3)
+                                       Output: lineitem.l_shipmode, PARTIAL sum(CASE WHEN ((orders.o_orderpriority = '1-URGENT'::bpchar) OR (orders.o_orderpriority = '2-HIGH'::bpchar)) THEN 1 ELSE 0 END), PARTIAL sum(CASE WHEN ((orders.o_orderpriority <> '1-URGENT'::bpchar) AND (orders.o_orderpriority <> '2-HIGH'::bpchar)) THEN 1 ELSE 0 END)
+                                       Group Key: lineitem.l_shipmode
+                                       Worker 0:  actual time=551.876..552.622 rows=2 loops=1
+                                         JIT:
+                                           Functions: 18
+                                           Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                           Timing: Generation 0.903 ms (Deform 0.410 ms), Inlining 0.000 ms, Optimization 0.397 ms, Emission 14.972 ms, Total 16.272 ms
+                                       Worker 1:  actual time=540.164..541.326 rows=2 loops=1
+                                         JIT:
+                                           Functions: 18
+                                           Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                           Timing: Generation 0.907 ms (Deform 0.403 ms), Inlining 0.000 ms, Optimization 0.366 ms, Emission 8.263 ms, Total 9.536 ms
+                                       ->  Sort  (cost=195165.25..195193.15 rows=11159 width=27) (actual time=556.821..557.265 rows=9705 loops=3)
+                                             Output: lineitem.l_shipmode, orders.o_orderpriority
+                                             Sort Key: lineitem.l_shipmode
+                                             Sort Method: quicksort  Memory: 881kB
+                                             Worker 0:  actual time=550.974..551.298 rows=7646 loops=1
+                                               Sort Method: quicksort  Memory: 551kB
+                                             Worker 1:  actual time=538.836..539.310 rows=10878 loops=1
+                                               Sort Method: quicksort  Memory: 894kB
+                                             ->  Parallel Hash Join  (cost=158214.83..194415.04 rows=11159 width=27) (actual time=455.582..554.909 rows=9705 loops=3)
+                                                   Output: lineitem.l_shipmode, orders.o_orderpriority
+                                                   Hash Cond: (orders.o_orderkey = lineitem.l_orderkey)
+                                                   Worker 0:  actual time=466.008..549.347 rows=7646 loops=1
+                                                   Worker 1:  actual time=433.043..536.713 rows=10878 loops=1
+                                                   ->  Parallel Seq Scan on public.orders_102144 orders  (cost=0.00..30304.85 rows=584885 width=20) (actual time=0.017..37.171 rows=467908 loops=3)
+                                                         Output: orders.o_orderkey, orders.o_custkey, orders.o_orderstatus, orders.o_totalprice, orders.o_orderdate, orders.o_orderpriority, orders.o_clerk, orders.o_shippriority, orders.o_comment
+                                                         Worker 0:  actual time=0.019..28.833 rows=371544 loops=1
+                                                         Worker 1:  actual time=0.015..46.529 rows=528491 loops=1
+                                                   ->  Parallel Hash  (cost=158075.34..158075.34 rows=11159 width=15) (actual time=441.102..441.103 rows=9705 loops=3)
+                                                         Output: lineitem.l_shipmode, lineitem.l_orderkey
+                                                         Buckets: 32768  Batches: 1  Memory Usage: 1664kB
+                                                         Worker 0:  actual time=434.185..434.186 rows=10097 loops=1
+                                                         Worker 1:  actual time=422.003..422.004 rows=8670 loops=1
+                                                         ->  Parallel Seq Scan on public.lineitem_102176 lineitem  (cost=0.00..158075.34 rows=11159 width=15) (actual time=15.891..436.693 rows=9705 loops=3)
+                                                               Output: lineitem.l_shipmode, lineitem.l_orderkey
+                                                               Filter: ((lineitem.l_shipmode = ANY ('{"REG AIR",RAIL}'::bpchar[])) AND (lineitem.l_commitdate < lineitem.l_receiptdate) AND (lineitem.l_shipdate < lineitem.l_commitdate) AND (lineitem.l_receiptdate >= '1995-01-01'::date) AND (lineitem.l_receiptdate < '1996-01-01 00:00:00'::timestamp without time zone))
+                                                               Rows Removed by Filter: 1862624
+                                                               Worker 0:  actual time=15.556..431.023 rows=10097 loops=1
+                                                               Worker 1:  actual time=8.655..418.882 rows=8670 loops=1
+                         Planning Time: 1.809 ms
+                         JIT:
+                           Functions: 57
+                           Options: Inlining false, Optimization false, Expressions true, Deforming true
+                           Timing: Generation 3.589 ms (Deform 1.699 ms), Inlining 0.000 ms, Optimization 1.389 ms, Emission 46.125 ms, Total 51.102 ms
+                         Execution Time: 638.323 ms
+ Planning Time: 8.267 ms
+ Execution Time: 696.356 ms
+(73 rows)
+

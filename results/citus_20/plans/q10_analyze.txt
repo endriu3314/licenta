@@ -1,0 +1,23 @@
+                                                                                             QUERY PLAN                                                                                             
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=2660.96..2661.01 rows=20 width=640) (actual time=2249.047..2249.054 rows=20 loops=1)
+   Output: remote_scan.c_custkey, remote_scan.c_name, remote_scan.revenue, remote_scan.c_acctbal, remote_scan.n_name, remote_scan.c_address, remote_scan.c_phone, remote_scan.c_comment
+   ->  Sort  (cost=2660.96..2910.96 rows=100000 width=640) (actual time=2249.045..2249.048 rows=20 loops=1)
+         Output: remote_scan.c_custkey, remote_scan.c_name, remote_scan.revenue, remote_scan.c_acctbal, remote_scan.n_name, remote_scan.c_address, remote_scan.c_phone, remote_scan.c_comment
+         Sort Key: remote_scan.revenue DESC
+         Sort Method: top-N heapsort  Memory: 32kB
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=640) (actual time=2248.361..2248.535 rows=1600 loops=1)
+               Output: remote_scan.c_custkey, remote_scan.c_name, remote_scan.revenue, remote_scan.c_acctbal, remote_scan.n_name, remote_scan.c_address, remote_scan.c_phone, remote_scan.c_comment
+               Task Count: 80
+               Tuple data received from nodes: 290 kB
+               Tasks Shown: None, not supported for re-partition queries
+               ->  MapMergeJob
+                     Map Task Count: 32
+                     Merge Task Count: 80
+               ->  MapMergeJob
+                     Map Task Count: 32
+                     Merge Task Count: 80
+ Planning Time: 49.670 ms
+ Execution Time: 2255.066 ms
+(19 rows)
+

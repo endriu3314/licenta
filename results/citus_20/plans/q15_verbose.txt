@@ -1,0 +1,62 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=8304.82..8554.82 rows=100000 width=302)
+   Output: remote_scan.s_suppkey, remote_scan.s_name, remote_scan.s_address, remote_scan.s_phone, remote_scan.total_revenue
+   Sort Key: remote_scan.s_suppkey
+   ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=302)
+         Output: remote_scan.s_suppkey, remote_scan.s_name, remote_scan.s_address, remote_scan.s_phone, remote_scan.total_revenue
+         ->  Distributed Subplan 1_1
+               ->  HashAggregate  (cost=500.00..502.50 rows=200 width=36)
+                     Output: remote_scan.supplier_no, sum(remote_scan.total_revenue)
+                     Group Key: remote_scan.supplier_no
+                     ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=36)
+                           Output: remote_scan.supplier_no, remote_scan.total_revenue
+                           Task Count: 32
+                           Tasks Shown: One of 32
+                           ->  Task
+                                 Query: SELECT l_suppkey AS supplier_no, sum((l_extendedprice OPERATOR(pg_catalog.*) ('1'::numeric OPERATOR(pg_catalog.-) l_discount))) AS total_revenue FROM public.lineitem_102170 lineitem WHERE ((l_shipdate OPERATOR(pg_catalog.>=) '1996-01-01'::date) AND (l_shipdate OPERATOR(pg_catalog.<) '1996-04-01 00:00:00'::timestamp without time zone)) GROUP BY l_suppkey
+                                 Node: host=10.0.1.21 port=5432 dbname=postgres
+                                 ->  Finalize HashAggregate  (cost=161689.70..163520.55 rows=146468 width=36)
+                                       Output: l_suppkey, sum((l_extendedprice * ('1'::numeric - l_discount)))
+                                       Group Key: lineitem.l_suppkey
+                                       ->  Gather  (cost=142397.70..160417.70 rows=169600 width=36)
+                                             Output: l_suppkey, (PARTIAL sum((l_extendedprice * ('1'::numeric - l_discount))))
+                                             Workers Planned: 2
+                                             ->  Partial HashAggregate  (cost=141397.70..142457.70 rows=84800 width=36)
+                                                   Output: l_suppkey, PARTIAL sum((l_extendedprice * ('1'::numeric - l_discount)))
+                                                   Group Key: lineitem.l_suppkey
+                                                   ->  Parallel Seq Scan on public.lineitem_102170 lineitem  (cost=0.00..140549.70 rows=84800 width=16)
+                                                         Output: l_orderkey, l_partkey, l_suppkey, l_linenumber, l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate, l_commitdate, l_receiptdate, l_shipinstruct, l_shipmode, l_comment
+                                                         Filter: ((lineitem.l_shipdate >= '1996-01-01'::date) AND (lineitem.l_shipdate < '1996-04-01 00:00:00'::timestamp without time zone))
+                                     JIT:
+                                       Functions: 8
+                                       Options: Inlining false, Optimization false, Expressions true, Deforming true
+         ->  Distributed Subplan 1_2
+               ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0)
+                     Output: remote_scan.max
+                     Task Count: 1
+                     Tasks Shown: All
+                     ->  Task
+                           Query: SELECT max(total_revenue) AS max FROM (SELECT intermediate_result.supplier_no, intermediate_result.total_revenue FROM read_intermediate_result('1_1'::text, 'binary'::citus_copy_format) intermediate_result(supplier_no integer, total_revenue numeric)) revenue
+                           Error: Could not get remote plan.
+         Task Count: 32
+         Tasks Shown: One of 32
+         ->  Task
+               Query: SELECT worker_column_1 AS s_suppkey, worker_column_2 AS s_name, worker_column_3 AS s_address, worker_column_4 AS s_phone, worker_column_5 AS total_revenue FROM (SELECT supplier.s_suppkey AS worker_column_1, supplier.s_name AS worker_column_2, supplier.s_address AS worker_column_3, supplier.s_phone AS worker_column_4, revenue.total_revenue AS worker_column_5 FROM public.supplier_102010 supplier, (SELECT intermediate_result.supplier_no, intermediate_result.total_revenue FROM read_intermediate_result('1_1'::text, 'binary'::citus_copy_format) intermediate_result(supplier_no integer, total_revenue numeric)) revenue WHERE ((supplier.s_suppkey OPERATOR(pg_catalog.=) revenue.supplier_no) AND (revenue.total_revenue OPERATOR(pg_catalog.=) (SELECT intermediate_result.max FROM read_intermediate_result('1_2'::text, 'binary'::citus_copy_format) intermediate_result(max numeric))))) worker_subquery
+               Node: host=10.0.1.21 port=5432 dbname=postgres
+               ->  Nested Loop  (cost=10.29..64.02 rows=5 width=103)
+                     Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_phone, intermediate_result.total_revenue
+                     Inner Unique: true
+                     InitPlan 1
+                       ->  Function Scan on pg_catalog.read_intermediate_result intermediate_result_1  (cost=0.00..10.00 rows=1000 width=32)
+                             Output: intermediate_result_1.max
+                             Function Call: read_intermediate_result('1_2'::text, 'binary'::citus_copy_format)
+                     ->  Function Scan on pg_catalog.read_intermediate_result intermediate_result  (cost=0.00..12.50 rows=5 width=36)
+                           Output: intermediate_result.supplier_no, intermediate_result.total_revenue
+                           Function Call: read_intermediate_result('1_1'::text, 'binary'::citus_copy_format)
+                           Filter: (intermediate_result.total_revenue = (InitPlan 1).col1)
+                     ->  Index Scan using supplier_pkey_102010 on public.supplier_102010 supplier  (cost=0.29..8.30 rows=1 width=71)
+                           Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_nationkey, supplier.s_phone, supplier.s_acctbal, supplier.s_comment
+                           Index Cond: (supplier.s_suppkey = intermediate_result.supplier_no)
+(58 rows)
+

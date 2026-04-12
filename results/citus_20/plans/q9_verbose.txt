@@ -1,0 +1,34 @@
+                                                                                                                                                                                   QUERY PLAN                                                                                                                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0)
+   Output: remote_scan.nation, remote_scan.o_year, remote_scan.sum_profit
+   ->  Distributed Subplan 1_1
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=168)
+               Output: remote_scan.nation, remote_scan.o_year, remote_scan.amount
+               Task Count: 80
+               Tasks Shown: None, not supported for re-partition queries
+               ->  MapMergeJob
+                     Map Task Count: 80
+                     Merge Task Count: 80
+                     ->  MapMergeJob
+                           Map Task Count: 80
+                           Merge Task Count: 80
+                           ->  MapMergeJob
+                                 Map Task Count: 32
+                                 Merge Task Count: 80
+                           ->  MapMergeJob
+                                 Map Task Count: 32
+                                 Merge Task Count: 80
+                     ->  MapMergeJob
+                           Map Task Count: 32
+                           Merge Task Count: 80
+               ->  MapMergeJob
+                     Map Task Count: 32
+                     Merge Task Count: 80
+   Task Count: 1
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT nation, o_year, sum(amount) AS sum_profit FROM (SELECT intermediate_result.nation, intermediate_result.o_year, intermediate_result.amount FROM read_intermediate_result('1_1'::text, 'binary'::citus_copy_format) intermediate_result(nation character(25), o_year numeric, amount numeric)) profit GROUP BY nation, o_year ORDER BY nation, o_year DESC
+         Error: Could not get remote plan.
+(30 rows)
+

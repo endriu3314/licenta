@@ -1,0 +1,19 @@
+                                                         QUERY PLAN                                                          
+-----------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=250.00..250.01 rows=1 width=32) (actual time=2252.203..2252.204 rows=1 loops=1)
+   Output: sum(remote_scan.revenue)
+   ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=32) (actual time=2252.182..2252.190 rows=80 loops=1)
+         Output: remote_scan.revenue
+         Task Count: 80
+         Tuple data received from nodes: 1120 bytes
+         Tasks Shown: None, not supported for re-partition queries
+         ->  MapMergeJob
+               Map Task Count: 32
+               Merge Task Count: 80
+         ->  MapMergeJob
+               Map Task Count: 32
+               Merge Task Count: 80
+ Planning Time: 45.939 ms
+ Execution Time: 2254.445 ms
+(15 rows)
+

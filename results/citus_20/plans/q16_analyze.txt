@@ -1,0 +1,95 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=9564.46..9564.96 rows=200 width=124) (actual time=13252.310..13253.814 rows=27840 loops=1)
+   Output: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, (count(DISTINCT remote_scan.supplier_cnt))
+   Sort Key: (count(DISTINCT remote_scan.supplier_cnt)) DESC, remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size
+   Sort Method: quicksort  Memory: 2507kB
+   ->  GroupAggregate  (cost=8304.82..9556.82 rows=200 width=124) (actual time=11553.813..13216.484 rows=27840 loops=1)
+         Output: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, count(DISTINCT remote_scan.supplier_cnt)
+         Group Key: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size
+         ->  Sort  (cost=8304.82..8554.82 rows=100000 width=120) (actual time=11553.745..12797.670 rows=3563371 loops=1)
+               Output: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, remote_scan.supplier_cnt
+               Sort Key: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, remote_scan.supplier_cnt
+               Sort Method: external merge  Disk: 181944kB
+               ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=120) (actual time=2503.758..2741.227 rows=3563371 loops=1)
+                     Output: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, remote_scan.supplier_cnt
+                     ->  Distributed Subplan 1_1
+                           Subplan Duration: 85.99 ms
+                           Intermediate Data Size: 1550 bytes
+                           Result destination: Send to 19 nodes
+                           ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=4) (actual time=11.402..11.409 rows=155 loops=1)
+                                 Output: remote_scan.s_suppkey
+                                 Task Count: 32
+                                 Tuple data received from nodes: 620 bytes
+                                 Tasks Shown: One of 32
+                                 ->  Task
+                                       Query: SELECT s_suppkey FROM public.supplier_102022 supplier WHERE ((s_comment)::text OPERATOR(pg_catalog.~~) '%Customer%Complaints%'::text)
+                                       Tuple data received from node: 8 bytes
+                                       Node: host=10.0.1.33 port=5432 dbname=postgres
+                                       ->  Seq Scan on public.supplier_102022 supplier  (cost=0.00..336.68 rows=1 width=4) (actual time=0.393..4.082 rows=2 loops=1)
+                                             Output: s_suppkey
+                                             Filter: ((supplier.s_comment)::text ~~ '%Customer%Complaints%'::text)
+                                             Rows Removed by Filter: 9332
+                                           Planning Time: 0.093 ms
+                                           Execution Time: 4.117 ms
+                           Planning Time: 0.000 ms
+                           Execution Time: 11.429 ms
+                     Task Count: 32
+                     Tuple data received from nodes: 131 MB
+                     Tasks Shown: One of 32
+                     ->  Task
+                           Query: SELECT worker_column_1 AS p_brand, worker_column_2 AS p_type, worker_column_3 AS p_size, worker_column_4 AS supplier_cnt FROM (SELECT part.p_brand AS worker_column_1, part.p_type AS worker_column_2, part.p_size AS worker_column_3, partsupp.ps_suppkey AS worker_column_4 FROM public.partsupp_102116 partsupp, public.part_102084 part WHERE ((part.p_partkey OPERATOR(pg_catalog.=) partsupp.ps_partkey) AND (part.p_brand OPERATOR(pg_catalog.<>) 'Brand#12'::bpchar) AND ((part.p_type)::text OPERATOR(pg_catalog.!~~) 'MEDIUM PLATED%'::text) AND (part.p_size OPERATOR(pg_catalog.=) ANY (ARRAY[3, 35, 6, 25, 28, 41, 8, 50])) AND (NOT (partsupp.ps_suppkey OPERATOR(pg_catalog.=) ANY (SELECT intermediate_result.s_suppkey FROM read_intermediate_result('1_1'::text, 'binary'::citus_copy_format) intermediate_result(s_suppkey integer)))))) worker_subquery GROUP BY worker_column_1, worker_column_2, worker_column_3, worker_column_4
+                           Tuple data received from node: 4218 kB
+                           Node: host=10.0.1.31 port=5432 dbname=postgres
+                           ->  Finalize HashAggregate  (cost=28954.19..29519.41 rows=56522 width=40) (actual time=191.728..211.329 rows=111730 loops=1)
+                                 Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                 Group Key: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                 Batches: 1  Memory Usage: 14353kB
+                                 ->  Gather  (cost=23537.46..28483.17 rows=47102 width=40) (actual time=140.272..154.831 rows=111730 loops=1)
+                                       Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                       Workers Planned: 2
+                                       Workers Launched: 2
+                                       ->  Partial HashAggregate  (cost=22537.46..22772.97 rows=23551 width=40) (actual time=132.341..140.300 rows=37243 loops=3)
+                                             Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                             Group Key: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                             Batches: 1  Memory Usage: 5649kB
+                                             Worker 0:  actual time=128.799..137.525 rows=38414 loops=1
+                                               Batches: 1  Memory Usage: 5649kB
+                                             Worker 1:  actual time=129.505..136.890 rows=35542 loops=1
+                                               Batches: 1  Memory Usage: 5649kB
+                                             ->  Parallel Hash Join  (cost=5947.97..22301.95 rows=23551 width=40) (actual time=39.132..116.738 rows=37243 loops=3)
+                                                   Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                                   Inner Unique: true
+                                                   Hash Cond: (partsupp.ps_partkey = part.p_partkey)
+                                                   Worker 0:  actual time=36.191..113.445 rows=38414 loops=1
+                                                   Worker 1:  actual time=37.259..114.305 rows=35542 loops=1
+                                                   ->  Parallel Index Only Scan using partsupp_pkey_102116 on public.partsupp_102116 partsupp  (cost=1.39..15948.08 rows=155152 width=8) (actual time=2.030..49.178 rows=248122 loops=3)
+                                                         Output: partsupp.ps_partkey, partsupp.ps_suppkey
+                                                         Filter: (NOT (ANY (partsupp.ps_suppkey = (hashed SubPlan 1).col1)))
+                                                         Rows Removed by Filter: 121
+                                                         Heap Fetches: 0
+                                                         Worker 0:  actual time=2.722..49.290 rows=252471 loops=1
+                                                         Worker 1:  actual time=2.966..50.161 rows=239766 loops=1
+                                                         SubPlan 1
+                                                           ->  Function Scan on pg_catalog.read_intermediate_result intermediate_result  (cost=0.00..0.58 rows=155 width=4) (actual time=1.758..1.772 rows=155 loops=3)
+                                                                 Output: intermediate_result.s_suppkey
+                                                                 Function Call: read_intermediate_result('1_1'::text, 'binary'::citus_copy_format)
+                                                                 Worker 0:  actual time=2.440..2.455 rows=155 loops=1
+                                                                 Worker 1:  actual time=2.613..2.630 rows=155 loops=1
+                                                   ->  Parallel Hash  (cost=5799.40..5799.40 rows=11775 width=40) (actual time=36.619..36.621 rows=9316 loops=3)
+                                                         Output: part.p_brand, part.p_type, part.p_size, part.p_partkey
+                                                         Buckets: 32768  Batches: 1  Memory Usage: 2400kB
+                                                         Worker 0:  actual time=33.377..33.378 rows=7728 loops=1
+                                                         Worker 1:  actual time=34.117..34.118 rows=9241 loops=1
+                                                         ->  Parallel Seq Scan on public.part_102084 part  (cost=0.00..5799.40 rows=11775 width=40) (actual time=0.053..29.996 rows=9316 loops=3)
+                                                               Output: part.p_brand, part.p_type, part.p_size, part.p_partkey
+                                                               Filter: ((part.p_brand <> 'Brand#12'::bpchar) AND ((part.p_type)::text !~~ 'MEDIUM PLATED%'::text) AND (part.p_size = ANY ('{3,35,6,25,28,41,8,50}'::integer[])))
+                                                               Rows Removed by Filter: 52745
+                                                               Worker 0:  actual time=0.038..27.131 rows=7728 loops=1
+                                                               Worker 1:  actual time=0.054..27.959 rows=9241 loops=1
+                               Planning Time: 1.349 ms
+                               Execution Time: 229.461 ms
+ Planning Time: 7.461 ms
+ Execution Time: 13400.929 ms
+(91 rows)
+

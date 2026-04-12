@@ -1,0 +1,27 @@
+                                                                 QUERY PLAN                                                                  
+---------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=1006.82..1006.85 rows=10 width=44) (actual time=2867.972..2867.976 rows=10 loops=1)
+   Output: remote_scan.l_orderkey, (sum(remote_scan.revenue)), remote_scan.o_orderdate, remote_scan.o_shippriority
+   ->  Sort  (cost=1006.82..1007.32 rows=200 width=44) (actual time=2867.971..2867.973 rows=10 loops=1)
+         Output: remote_scan.l_orderkey, (sum(remote_scan.revenue)), remote_scan.o_orderdate, remote_scan.o_shippriority
+         Sort Key: (sum(remote_scan.revenue)) DESC, remote_scan.o_orderdate
+         Sort Method: top-N heapsort  Memory: 25kB
+         ->  HashAggregate  (cost=1000.00..1002.50 rows=200 width=44) (actual time=2714.096..2832.697 rows=339876 loops=1)
+               Output: remote_scan.l_orderkey, sum(remote_scan.revenue), remote_scan.o_orderdate, remote_scan.o_shippriority
+               Group Key: remote_scan.l_orderkey, remote_scan.o_orderdate, remote_scan.o_shippriority
+               Batches: 5  Memory Usage: 131137kB  Disk Usage: 1640kB
+               ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=44) (actual time=2544.792..2557.521 rows=339876 loops=1)
+                     Output: remote_scan.l_orderkey, remote_scan.revenue, remote_scan.o_orderdate, remote_scan.o_shippriority
+                     Task Count: 80
+                     Tuple data received from nodes: 8597 kB
+                     Tasks Shown: None, not supported for re-partition queries
+                     ->  MapMergeJob
+                           Map Task Count: 32
+                           Merge Task Count: 80
+                     ->  MapMergeJob
+                           Map Task Count: 32
+                           Merge Task Count: 80
+ Planning Time: 57.193 ms
+ Execution Time: 2876.264 ms
+(23 rows)
+
