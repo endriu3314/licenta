@@ -40,7 +40,21 @@ scp "$PROJECT_DIR/generate-tpch.sh" root@"$CONTROLLER_IP":/root/benchmark/
 echo "Installing dependencies on controller..."
 ssh root@"$CONTROLLER_IP" bash <<'REMOTE'
   apt-get update -qq
-  apt-get install -y -qq openjdk-25-jre-headless gcc make git mysql-client nginx
+  apt-get install -y -qq openjdk-25-jre-headless gcc make git mysql-client nginx ca-certificates
+
+  # docker
+  install -m 0755 -d /etc/apt/keyrings
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  chmod a+r /etc/apt/keyrings/docker.asc
+
+  CODENAME=$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+    ARCH=$(dpkg --print-architecture)
+    printf 'Types: deb\nURIs: https://download.docker.com/linux/ubuntu\nSuites: %s\nComponents: stable\nArchitectures: %s\nSigned-By: /etc/apt/keyrings/docker.asc\n' \
+      "$CODENAME" "$ARCH" \
+      | tee /etc/apt/sources.list.d/docker.sources
+
+  apt-get update -qq
+  apt-get install -y -qq  docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 REMOTE
 
 echo "Generating TPC-H SF${SCALE_FACTOR} data on controller..."
