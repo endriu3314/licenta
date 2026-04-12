@@ -1,0 +1,29 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ order: +o_orderpriority
+│
+└── • group (hash)
+"    │ group by: o_orderpriority"
+"    │"
+"    └── • lookup join"
+"        │ table: orders@orders_pkey"
+"        │ equality: (l_orderkey) = (o_orderkey)"
+"        │ equality cols are key"
+"        │ pred: (o_orderdate >= '1997-08-01') AND (o_orderdate < '1997-11-01')"
+"        │"
+"        └── • distinct"
+"            │ distinct on: l_orderkey"
+"            │ order key: l_orderkey"
+"            │"
+"            └── • filter"
+"                │ filter: l_commitdate < l_receiptdate"
+"                │"
+"                └── • scan"
+"                      missing stats"
+"                      table: lineitem@lineitem_pkey"
+"                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkWF9vm8gXff99itG8xG6xYGYAA1Il-1e7W68c3LWdbavdyCJm4rDBjBewulGV774C_AczMIb86T70KTEzPnPumXvPvfg7jP72oQWHXz6N-yMbtAaj2Xz227gNZsPx8P0csAULXRpuQo-FXvwggSXbBnHrTRv0ZyBdWqRPwIfp5DJ7EIHPH4fTIWi1dl92nZiCP7eKQug7MOjPh-ACmWa3oxgdBV20Qd8eAH7vErTy28BbcEHAmgXRhWWN7Plw-nt_DC4n9vxju51hDL8k5EFrR_1Nxsn3AurFdL1n5WcH3dMH8G4f3j192NHwF0u2Xntxnoe_COmSepv0YbsNfplOrj6B_38tigMm08FwWrIAJRgwl9rOmkbQ-gMiKEEMJUjgtQQ3IVvSKGJhsvQ93Thy_4GWIkEv2Gzj5PG1BJcspND6DmMv9im04Ny58emUOi4N5QTLpbHj-Sn8PuLe_p_F5p4mJN4zf7sOIgscNZBAPmLpNFYowdnGSb4gG0QxDNXQZNKRka4aXRMhRVaBE7gAARbf0RBeP0qQbeMj5yh2VhRaKBfkaAAt_CjVj_OD58c0pKGsnQaZPbdAD--vqUegBCfb2AI9VMkFF7hoTbgMvCj2gmUsG6dcesmFThJFqVty-hHg5gHcOdEd9-3rxyNDUmBoVDI84rLs7CLu2wy4MgyEGsVx5KgWOCLURMZfmRfsMheppwwyA-llf_ZpO2bsfrsBfzEvACxIiUlwYoNWjxxsJW8VlmUlLrOr6P2m5W4PQvk9-apguarI2ZFUUs5ZmqmVAmlFgdQmAvVXq5CunJiFMuqWXFHf_rqwJ_OFfTUet3ooDWJyZc8X08nnWav9rPTTi8y7NfJvG5RlYGny5WLDSr3YZleXi5E9b_VwMbQj7W7RY5Qmgs9YGCc-SsoqqPxAo3ggefE6tVmHbWSsFkQt52MW-ZxmHKrfTZRX7yYdGckobR1a1jqi2r1DaRLVoXeQV-kdpAmXg-nqP7B36JUMn907zBdqHWYTEfOdA_8knQM3ESjfObT_unNoNbLvaZ0DlQ1gL9Q5kNFE8H3n4CapBp3jdHjC9Z0avf7cj2TUkYlqkq4uk6dZdqPwDpatvoplq024HLyubAZ7LcvuVjJ8_rhfNm89adxXmsiYN23yk5g2aSJQ3tjKpoMfatp6jfx7ommXjQwvZdpmE8H3po2fYdqNfsSY0mjDgojWmuSVwlEdlAhL3RXNbiFi23BJP4Vsme7NPk5SoPSBS6M4W0XZh1GwX4rikDrrw28weSQkRMLVSFoRCReR0AmnUyiUhzKaQWGlGir7RaI-FhFAqUUoItRKrdYqe5nOQ6lCKE1wgUoRShPrrlVHmL271sfCArWw3gxLF0CZRShdqFa3Wi3C5XtXCGVUsyJcwhvi0hFcIneHprielQZQ6Iw3CMyBSwfEuUPtmubS4QyWqKi5fDiDJSpq3gA5gzjViwjKmksJJLYIJPIIzgURZxL1K5uzwTNgwtLmjPAMmKi2OSdEnE-cSqYL8pVPfrFTiMqbT36xVSBDcJccltgrkFmNxYvPmUXtouTFF2MJOy0vvhhMVJWc-FjsYljgYoizHnxmyBFMOYjzHnxmzhFVJWc-Z8CEVckPYGIwUVXyE5jYyLDAyAg_gomnHVFVqskMfOuzbwvPhRa8VTQF0ZubDr1RzI6KsdIxNaR3EFFcl7g6pTfJy8mt76yiZBCf3bFvKe78YZOM0beOH1EJXjr3dEBjGq69IHlLXu5WHh__928AAAD__w09_x0=

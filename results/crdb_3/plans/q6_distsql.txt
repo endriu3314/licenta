@@ -1,0 +1,21 @@
+info
+distribution: full
+vectorized: true
+
+• group (scalar)
+│
+└── • render
+"    │"
+"    └── • filter"
+"        │ filter: (((l_discount >= 0.05) AND (l_discount <= 0.07)) AND ((l_shipdate >= '1995-01-01') AND (l_shipdate < '1996-01-01'))) AND (l_quantity < 25)"
+"        │"
+"        └── • scan"
+"              missing stats"
+"              table: lineitem@lineitem_pkey"
+"              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzklt1u2zYUx-_3FARvYrdSRErUJzDAWqxiBhy3s711wxYYinjiCJUll6TWBoHffZAc2bJWG3EK9CZ3Es_h73zwfyg9Yvk5wwGO_vwwDkcT1BuOZvPZb-M-mkXj6GqOZLnqZQv4qiDnwNciTQC9QdmCpzIpylz1UThDAv6FvAT0bvr-GmVpDqmCFfr4azSNUK_XyxbyPl3zWAH6pyTEgp_RMJxH6IL6vq0TqhN60UfhZIj-55qgXtsLvUUXFD1ALC6CYDSZR9M_wjH6Kwqn_f6O0KSGfonmH6NognrkkjhIR-SS0CeveuXtdmW_83MZ5ypVD01s0-5jDecFh0m8AomDvzHFGjaxhi18o-G1KBKQshCV6bF2HPGvOCAaTvN1qarlGw0nhQAcPGKVqgxwgOfxbQZTiDkIo2JxUHGa1fimeYPmYbH-BA9Yw1dFVq5yGaB9lhrqHIzWOpfquWkl1vBsHVebDc8insc827B0gzrMc31KicFQnHNEUaHuQeCbjYaLUu3zlypeAg5oq-DREAfmRnt-ze_STIEAYdiHBW_Xg0omA2snD3JJ7CAIhtHV6DocP51PY09qu9uyPzn0BmxHaKum8gznUYNhzfFWPk7Hp2EN6F4ErUhYw9Oq4SJAA_PNwDraLLPTLPucZoXLpYBlrApheIftmv1-3RvQ_tGwViesdzTsPlqZF4KDAH4Q6mZzOjH_vMRYJzH_IDH6_IEhP3RgdIMatJ4Oezsd8tnjQc6pcDce1uscD-ucZrVU6HzfeDgHYc3nq5D-2GubGlQ3LOZbrmNYL5MjPafUnRzZ65QjO6dZLTm63ydH95yPxBTkusgldG7tb0cinUg6ra534EvYfgtkUYoEPogiqX23r-9rUL3AQaqtlW5fRnljkkpAvNr9ELRJ9CTJPE6yuyTzJMk6INE2yeuSrNPVkeNJkS6KnUTZZ5DskyTnOMnqkpyXNsrpktyTJO94TrRL8k6S_OMk1iX5L63OreR-lxVfFinHAXYd5nHbdfQEfFtnzGW6Z92Z-i3j1OaMJ-T2Flcb4qWsZm52X3ypsfOHdTUxd3EmQcPX8ScYggKxSvNUqjR5smw2P_0XAAD__yTgId0=
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_discount) STORING (l_quantity, l_extendedprice, l_shipdate);"

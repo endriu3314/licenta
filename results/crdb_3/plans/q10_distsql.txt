@@ -1,0 +1,46 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ order: -sum
+│ k: 20
+│
+└── • group (hash)
+"    │ group by: c_custkey"
+"    │"
+"    └── • render"
+"        │"
+"        └── • hash join"
+"            │ equality: (n_nationkey) = (c_nationkey)"
+"            │ left cols are key"
+"            │"
+"            ├── • scan"
+"            │     estimated row count: 25 (100% of the table; stats collected 1 minute ago)"
+"            │     table: nation@nation_pkey"
+"            │     spans: FULL SCAN"
+"            │"
+"            └── • lookup join"
+"                │ table: customer@customer_pkey"
+"                │ equality: (o_custkey) = (c_custkey)"
+"                │ equality cols are key"
+"                │"
+"                └── • lookup join"
+"                    │ table: orders@orders_pkey"
+"                    │ equality: (l_orderkey) = (o_orderkey)"
+"                    │ equality cols are key"
+"                    │ pred: (o_orderdate >= '1994-05-01') AND (o_orderdate < '1994-08-01')"
+"                    │"
+"                    └── • filter"
+"                        │ filter: l_returnflag = 'R'"
+"                        │"
+"                        └── • scan"
+"                              missing stats"
+"                              table: lineitem@lineitem_pkey"
+"                              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkWF1v6soVfe-vGM1L4HYQ7PG3pUimCfceWgKnwGl71UbIsSfEDXiobXpvdJT_Xg3mw3jCEEOUVDl5iRmb5b3XrL28zHec_meGXdz5x9deu9tHtevuaDz6a6-ORp1e52qMgkmwTLNH9kRQMIn9OSMoXc5rswn7PWNxyMJFEgUM_YRqgBpoNgmjNODLOKvXUXuEEvZfFi-Z-K4fBNmdPyMoXsMEEz8ME5am4nDxwOPVWsDncxZn6Ofh4AaJW_M5SwjiSciSlKBZFLMoY3OCYj-LeIz-_qUz7KCa-NuWii4R3xzXUbt_jWqzyQphc3Lzob4-vV4J_Yyhfy1bLY1douv2uIMuwHH0RstotODi4MUBqhWvQ39EFxqa8zi9cN1uf9wZ_q3dQzeD_vhLvb6tJ2HZMonvZ_4UXaKL4RZdsCw6y0uNd5_q6Jfh4NtX9KdfX9qUAsFbNl9kekPwYHjdGQqw9R6h687oCvW6N90xoi1McMxD1vfnLMXuPzFggikmWMO3BC8SHrA05Yk49X11YTf8HbstgqN4sczE8i3BAU8Ydr_jLMpmDLt47N_N2JD5IUuaGiY4ZJkfzVbwm231NgeTxSN7wgRf8dlyHqcu2m0gQSXxkYLsxPGOWUzwaOGLrzdtrWXbum00tUYTTN22HIBWU0d-HCJAPHtgCb59Jpgvs10HaeZPGXZpoeXuNXa1Z_L6rn-OZhlLWNI091vO113k6fn-u647Gg-7_V8OlqGVyjCrlPFnHsVr7p39QvLR8vJ_G957nD8uF-jfPIoRj13kCQEM-qjmWdsBKWredV0xL2sNby4KNtfYxWuK28oL28p3qi6M2EE69BIdzol0AN3nY2M63ubgICdmsZOXZ3I3d9s53rO7wtCuB7PU767kuyf04KcP-8V6APj2eUeKUSIF6EFWdsjLeMU2C_ewb8U3j13yArVf_PRB0CuoNUpjzu6zmgf1yySaPogjEGIYLDMhMOJR4mnE04lnEM8knkU8m3gO8aBFPADiASUeaMQDnXhgEA_Mg-IwyzwYVdTR5w2-aIK9X_1QWM5qYn-qgRBz56p70-41PKNOkCgSiSqRKBOJGpEoEnlgEuTRg5Va5UrtKpW2p9OETf2MJ00KJWkIXbf7v076g_Gk_63Xq3lU0D36diP2QDqpyUu6vGTIS6a8ZMlLdr2qsveEbZdoonCGsI8QqUuVlJuBLZH044nckeSUSdKraGnEk4wlTWqVddTABI_54i-uCAaH7g2t8s2tV-zQS_uzuuOLm5TPJS3N5dY_tJWFmCvbyF1EtNKL5lGmrBzKle-PILw-1sA7x5pGE5qwyjBGnmHSV4cYqNLjNsTobx1i9CplFJ7a1ucMMdaJdEDrM4eY1kFW3iPE6P83IabSsKxDjPUhIaaSjovP3tYPFWLOEfYRIrVPE2K0KlrahBjzjULM_ks2fX0UKAk5d04v_yfFgLjorPnPNoWH_FmaK4eb1qkN0ff-yQaa0GhquqNZZlM7LeTQKs1uQ47x1iHHqFJG4aluf86QY59IB8BnDjlwkJX3CDnlH2Q_LuRoVdSxDjnmh4ScSs-GwrMZnB8p5IBzhrCPhBz6aUJOpSfVJuQYbxRyKv04OmTpgscpK1vQi_cq36oBYktZOGX5_qd8mQTsa8KD1bX5x8EKaLUQsjTLz0L-oRtvTqVZwvz59ilfRAIlEj2MZJSRqBJJO4xkl5G0MhLs1aTvQdEiFEj9qbFAhWVWw1JA5S8vRShdSZah2ECtDGUooUwFlNSgqSbe2sOCPSynGhYosDRpE9VYKihJpZaSLfswW5okU1sJ5RyuSocylKOeQudwWZKy4Ig3KMxBxlK7AyjsQZIpqP0BFAYh6RTOcAi5yTMsQq8IpsKS9AVqkwCVS8g-r7YJUPmENERwhlHIbZ7hFNIgHQFTYcl7qfYKUJmFJYGd7hayYiW7UMl_D0yy6SNYoMACecbVYCosiTCq9jGq8DFJFfRIylH4mKQKqvYxqvAxucczfExu8gwfk8Pc6T4mSYyqfYyqfEzuUu1jVOVj8l6e4WPyZp7hY9KIHwFTYUlTSdU-RlU-Jj166ck-pjnifeZ-xn-bRCF2cWgadsh0oxHqLbOh65Q1fOdOb5jMMozQ0u58Kl6c7mf-NBUvVaMH_tsKd_y0EK9E9_4sZQTf-I_smmUsmUdxlGZRsD7z_PyH_wUAAP__yk80TA==
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_returnflag) STORING (l_extendedprice, l_discount);"

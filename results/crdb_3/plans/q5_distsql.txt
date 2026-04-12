@@ -1,0 +1,66 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ order: -sum
+│
+└── • group (hash)
+"    │ group by: n_name"
+"    │"
+"    └── • render"
+"        │"
+"        └── • hash join"
+"            │ equality: (s_nationkey) = (n_nationkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • lookup join"
+"            │   │ table: supplier@supplier_pkey"
+"            │   │ equality: (l_suppkey) = (s_suppkey)"
+"            │   │ equality cols are key"
+"            │   │ pred: c_nationkey = s_nationkey"
+"            │   │"
+"            │   └── • lookup join"
+"            │       │ table: customer@customer_pkey"
+"            │       │ equality: (o_custkey) = (c_custkey)"
+"            │       │ equality cols are key"
+"            │       │"
+"            │       └── • lookup join"
+"            │           │ table: orders@orders_pkey"
+"            │           │ equality: (l_orderkey) = (o_orderkey)"
+"            │           │ equality cols are key"
+"            │           │ pred: (o_orderdate >= '1995-01-01') AND (o_orderdate < '1996-01-01')"
+"            │           │"
+"            │           └── • scan"
+"            │                 missing stats"
+"            │                 table: lineitem@lineitem_pkey"
+"            │                 spans: FULL SCAN"
+"            │"
+"            └── • hash join"
+"                │ estimated row count: 5"
+"                │ equality: (n_regionkey) = (r_regionkey)"
+"                │ right cols are key"
+"                │"
+"                ├── • scan"
+"                │     estimated row count: 25 (100% of the table; stats collected 1 minute ago)"
+"                │     table: nation@nation_pkey"
+"                │     spans: FULL SCAN"
+"                │"
+"                └── • filter"
+"                    │ estimated row count: 1"
+"                    │ filter: r_name = 'ASIA'"
+"                    │"
+"                    └── • scan"
+"                          estimated row count: 5 (100% of the table; stats collected 1 minute ago)"
+"                          table: region@region_pkey"
+"                          spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcWe9z2rgW_f7-Co2-BPrEYEn-gT2TGfMS2vKGkC7Q3e3sZhgHK8RbsFnbbJvp5H_fEcZgpFhgmKRp8wUbieNzz706V1a-weTvGXRg5_cPvXa3D2qX3eFo-EuvDoadXudiBMJx6M0ZAslyXpuN2deUhT7zF3EwYeANqGHQALOxHySTaBmm9TpoD0HM_mHhkoG3g-srMFkmaTRnMQJR7LM4QWAWhCxI2ZxjLhazgI-FXhpEIQIxmwZRCH573xl0QG39NxlzkM_sAZyDKL-ug3b_EtRm4xVsPpjf1DfD_BnZaJJf54OTcfbYfHhzl09IdiaE8oRwnBHOJsTbu3xCvFIPnIOz9rDbPsu_XhP1vZSBP5eaRtk5uGyPOuAM27bR0HBDw-WTJ6BWnAf-C84weGBefOY43f6oM_i13QOfOu1BvQ7eDa4_fgD_-7TOI7geXHYG_D5P0mVneAERDCOf9b05S6DzB8QQQQIRpPAGwUUcTViSRDEf-raa2PW_QkdDMAgXy5R_fYPgJIoZdL7BNEhnDDpw5N3O2IB5PoubHMtnqRfMVvB5Abj5xZhnBSJ4Ec2W8zBxwDarCGxSyC936g8VKg8iOFx4_LfNFtVaLb1lNGmjiU29ZdkYa00deKEPMIjSexbDm0cEo2W6pZ-k3pRBBxfi7V5Chzyiw0P-fxSE64iN3Yiz0nezjzzaXhR9Xi7AX1EQgih0gMtlv-6DmmttiqKYZ8dxeI2sqyKfNFnNMYU5RTGjgpib5YNAoaxK5SCCHMaRcrR25cg9wc0vSiUxi4FMtuQLS7eUPBXIt44kj_Eu-9y13PyilD3JEura4By4K5hNLMm2qpPSWLZ0bh_AvZfc7xLhkDeP24B1IWCMSyPeIi_DVRkwfwf7hv9y35QnZHvvJfdcOi6bkPQZu0trLsb18ziY3vNLXqXXy5RXPnIJcilydeQayDWRayG3hVwbuVhDLsbIxQS5mCIX68jFBnKxWZp4W9ShUub7USNaNImQ9AG3ndgBLn1Tw3yVdS66V-1ew9XrCLiYljuKJlpKeVaeYNOeTmM29dIobhJdSD8vr3b_07h_PRr3P_Z6NZdwSYcfr1biVqylnVLCkhHqJ9TSnrgsiYoYF97ERcS4CpxFtyJWFaWHUZyyuEk1UeVG-RNFi6HaASo9pdH6MaXlSLG4PJ8mJFoA3S02fHjP1l6yZzeauIlXDdrIGnRycIfWqgRYcHX6c3ZoeqQc5mvo0OaR5O0ftEHbpfG-RH82X01_rpT3zBCx_Vz9GZdnZU8fI9-zP5MTamlPXMZz9WejitLr_kxaJ_RnsrsTJIe3Q_yir7C4iRtNqtvUMpv0uL6Iq0Ra8FL95-yL-pFyWK-hL1pHksfaD9oYsXb0OhVMOCPoZh_SIi0c6aHNSWfhUK-wQy1NliFyJ0dzF_akGQ03-5C4F04bEcjOGQ-ha4p0aRW6b4NZymLOVfCJbIBXzuaw03Gc4WjQ7b8r5WKJXMpX6UtsiIynNkR0737opEbeEiUwvqsE1qvZE1byvPWZjfZsZzaV_Ki4d6Lfc09YvrRP3hOaz7UnNKsone8J7VP2hHaVU6IBSxZRmLCDjmPEMmpgLivzpyzLQRIt4wn7EEeT1dzs9noFtPrCZ0majeLsphvmQ0kaM2---RdFEQkrkUg5kiEiESUSLUdqiUhURMI70ek7ULgIlfWEw7GIpcCqyEtBi0iy60qxDEUCTRHKUEKZCihbhDLVwivEolKEaiyqKbCk0lJjqWhJObSUarXK1dKxCNVSQtnlrHSpSm312lEsQ01a0Hu8QWEOMpbaHbCCF5Ww1P6AFQYhlTw-wSFkBzzBIqoyU3mErL7aJLDKJaQKw2qbwCqfsCSwE4xCDvMEp5Cr7HirkHOp9gqsMAsqWSs-3i3kilXbBdHKiUkmRtR2QRR2IdUY2bOZUNiFVGJEsovDl7hUFXvAlEu8KjPVEpfVl-xiVzFTQUxaSETtF0ThF1K5ErVdCMTIDjE5yj12oSvA5G2mGkzI5S6YHKYaTEGMyEWmtguisAsiR6m2C2IrwKQ9D5H84nC7lpOpBlPatewYajAVMWldUrWTUZWTSWuJqq1MZdeUv7bdzaIv48CHDrTMO_-OWrcN37u1GjrVcaNl3JIGtlrU0olvYoO_H97NvGnC3x2H99GXFe7oYcHf_O68WcIQvPI-s0uWsngehEGSBpP1yOPjf_4NAAD___yXZj0=
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_nationkey);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_regionkey) STORING (n_name);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.region (r_name);"

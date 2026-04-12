@@ -1,0 +1,28 @@
+info
+distribution: full
+vectorized: true
+
+• render
+│
+└── • group (scalar)
+"    │"
+"    └── • render"
+"        │"
+"        └── • lookup join"
+"            │ table: part@part_pkey"
+"            │ equality: (l_partkey) = (p_partkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • filter"
+"                │ filter: (l_shipdate >= '1995-04-01') AND (l_shipdate < '1995-05-01')"
+"                │"
+"                └── • scan"
+"                      missing stats"
+"                      table: lineitem@lineitem_pkey"
+"                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzclm1vo0YQx9_3U4xWqgwplF3ATyudZCvmem5t52q7D1IbWRxMHBrM0gX3Lory3au14xiTg4TT6XS6Nxbsjn_7n5n973JHsn9jwon359vJcDwDbTReLBe_TnRYeBPvfAkao_RHSuEMsu1GOx8uPPjjjTeDdJXfpgiT8S8etN7OL6YX37dgqWbiFX7IMQkxTGUUIJyBxsCEeBVGWSC2Sa6DN1l4QMGbjXQdrB35-X_pMFxAKsVGrCT-h8kW4fX8YgpxlGCU48aA1Je5Ujf3QNPilXq9wVt4BenhWYfhbARavMquozT0c4S_t5Q6-ApGw6UHLdbvt03qmpS19IrYALRiGPwALQYbkbQ4H8-W3vz34QSmF7PlG10nBklEiDN_gxnhfxFGDGITgzjk0iCpFAFmmZBq6m4XOA4_EE4NEiXpNlfDlwYJhETC70ge5TESTpb-uxjn6IcoLcUKMfejeIc_FGJweFilN3hLDHIu4u0myTg81sQod8koVFo9H3ImBlmkvvqv1XNor-f22pZjWqzj9rp9xqjlgp-EwEDk1yjJ5b1BxDY_ys9yf42Es0K-4xHh9r3x8pRfR3GOEqXVPs13P85BG7iPbSy2hnOuuvrQx0NQcIhpF2Mqldsl5e0myn8WUfLQq96pdtWHgfo59GgixM02hX9ElIBIOAxYsXHpsXF74xGDzFX3JAflSWXJQUeZ8eBFzvliOR_PflKeHNhnGlOpeufj6XBiDhxdWZAeh7zZyICPhFXWxSnVpdekLsP1WuLaz4W0GDstzOK3qTZgyjq7J7tagVtSwFilhOPK20TIECWGJ6te3j8j0n5O5LEd2oCd7c_MYyV1a2BX5tEu53FqDvby84B-yfPAtJjFduZv782fvdj9tEmCj-53vgL3O02UF9zf-cbd32lSl4Kx-p_L_P0TAfbLPcO-6B3KLGZajtt3uh3L-TTzsCaZPprH_QrM4zZRXjBP9xs3T7dJXYq3Ev1sVydtcnvPMUtFkmHpCv34UrS0lMnUXYvhGvcXcya2MsC3UgS72P3rxQ60Gwgxy_ezbP8yTg5TWS7R3zx-ThZJrJZkV5PaZZJdS3KqSb0yyakluSckViTtP2yKKLe-UDWqaBnVrkV1GpA6taRuNckpk7q1pF41qVMm9T615v0yqV9fclot6kn32DP7vGaju09Y9Tud1Wz17hNW_V6v26FUmfoqFu9XUUg4oc5V2LEdNO2rrm26_Y5t-l3mm-_CoBu4fWaHtjo9rmJ_namTZXEt3u-4y9tUnQtXfpyhQab-DY4wR7mJkijLo-Bh5v7-u_8DAAD__wJPQzU=
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_partkey, l_extendedprice, l_discount);"

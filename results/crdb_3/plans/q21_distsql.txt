@@ -1,0 +1,71 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ order: -count_rows,+s_name
+│ k: 100
+│
+└── • group (hash)
+"    │ group by: s_name"
+"    │"
+"    └── • hash join"
+"        │ equality: (s_nationkey) = (n_nationkey)"
+"        │ right cols are key"
+"        │"
+"        ├── • lookup join"
+"        │   │ table: supplier@supplier_pkey"
+"        │   │ equality: (l_suppkey) = (s_suppkey)"
+"        │   │ equality cols are key"
+"        │   │"
+"        │   └── • lookup join"
+"        │       │ table: orders@orders_pkey"
+"        │       │ equality: (l_orderkey) = (o_orderkey)"
+"        │       │ equality cols are key"
+"        │       │ pred: o_orderstatus = 'F'"
+"        │       │"
+"        │       └── • merge join (right semi)"
+"        │           │ equality: (l_orderkey) = (l_orderkey)"
+"        │           │ pred: l_suppkey != l_suppkey"
+"        │           │"
+"        │           ├── • scan"
+"        │           │     missing stats"
+"        │           │     table: lineitem@lineitem_pkey"
+"        │           │     spans: FULL SCAN"
+"        │           │"
+"        │           └── • merge join (anti)"
+"        │               │ equality: (l_orderkey) = (l_orderkey)"
+"        │               │ pred: l_suppkey != l_suppkey"
+"        │               │"
+"        │               ├── • filter"
+"        │               │   │ filter: l_receiptdate > l_commitdate"
+"        │               │   │"
+"        │               │   └── • scan"
+"        │               │         missing stats"
+"        │               │         table: lineitem@lineitem_pkey"
+"        │               │         spans: FULL SCAN"
+"        │               │"
+"        │               └── • filter"
+"        │                   │ filter: l_receiptdate > l_commitdate"
+"        │                   │"
+"        │                   └── • scan"
+"        │                         missing stats"
+"        │                         table: lineitem@lineitem_pkey"
+"        │                         spans: FULL SCAN"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 1"
+"            │ filter: n_name = 'ARGENTINA'"
+"            │"
+"            └── • scan"
+"                  estimated row count: 25 (100% of the table; stats collected 1 minute ago)"
+"                  table: nation@nation_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzUWm1zm9gZ_d5fcXu_xN5FFfeFFzGTGbmxkmhrS6mkzO5O6_Gw0rVNI4EKaNJMxv-9gxAW8JgHkG2tky8RAh2eN8459-LvNPrvkjp08Nuni7PhiJycD6ez6T8vTsl0cDF4NyPRte-ulEbmwcaPT346JWdT4m9WX10vJu8n40sSbdbrpadCjSw9X3mxWiWXLJlGgnChwkgjvht7gU9-_TiYDMhJ-i-6Tn73RX0jb8mS_W2ZHZ6Ss9E5OQmutz_Onc-OT4tXRLEbbyLylrx5_yY7tb0-VHPlreOFGyvy742uC5XizIPVytt-vbt88FuSMTnZ5ftTmlUhF57FvuS5SEBku7vzfTbkr6XsshBH41mTG4uHoi1FgzsL7M65ax6rjSjVJvtB0v-kfelt_f1RdoG_HZCkA2eTD4PRbDg6e3NKPkzGnz-Rv_--mx8ynpwPJslxNjvng-k7LTt7MbwczgjTdapRP1iokbtSEXX-RRnVKKcaFfRKo-swmKsoCsLk1PfthcPF_6ija9Tz15s4-fpKo_MgVNT5TmMvXirq0Jn7x1JNlLtQYTfBWqjY9ZZb-KzY_ezDdVIrqtF3wXKz8iOH7IuskYdiUo1O125yumsL3balbXRFp8tMaVs9xvSuJK6_IIwE8Z0K6dW9RoNNvItwH9gf38idG90VQ-ozenV_pdEodm8VdVgu7eE5dfi9dljmxrNknnzcT0lylJulJ5VlnzIvpWy0Sfm9t4xVqMKuXcw3_d4hfZlNfF88qTGiFKV9aGMY-2E6I0s5M3ZQa5h84d4Y5ThlZZx74G1N1aIM_HMSSaOrHkn5UoW36pfA85OsreKPZt_WyiEXg_czcjaaDckv4-GIanSpbuKTPvv59G3o3d6lH6lGxyPSNxNS7ycUNt7EDukzrc-1vtD68knVMsvVsl5Btbj-WLUmww8fZ2Q6uGxSLr4tl6wv174UVplt9TYDnoSe6Ywohp96lX76X_ZAXwTBl82a_CfwfBL4SYQPjd76GcdxprPJcPQh__AHuYe_4IEqk7LLSYlDkzKLSWXOr599qEyM5zOI9pSVmcucyWg5yr3CKPfKqZoNRnnjPzamhTmuuuSRen10o7vdDIsys29ntbcf1dOH2bQru8fKcihake7Z7W2obt04CLtCAhrQ6Nno9-vReHY9-nxxsYvo3fjzaHY9Gf86PTl9mncpa6RowsMtap1PzmqW3PTz5fVwNDvp83JuubjLOieqGfGRqKZBGKuwK0sM1ucdLaE-jc6C9T-crdutjKCsYLKaiOrYdnfbRws4CjrBuitLc3rhrbwYj6-sGbI4lKy5_dGf2ZF3uqzLtm7GSN1MmRif5r_1Q_MUx3R5tUWodtuiTYIPls48sts2D21D75W2oUw5vYPawPixnTWvjPOIztr4UZy18RqqZb8GZ83sNgOeN6HsFTvrViqYT0r-cM5aNhjlF3PWvEzjz-KseSvSzZtP_qc76yY8fKCzNl7SWVczYrWzFvYzOmtRJCLeYuPuufeSWZd1ukL2hGV2xctZWHZowvKoG5WNq1HtZWWbTB9MlHVkL2sdPIDPs3Z6wYaADWP9oI4wcWxbKyrjPKJRM38UW2u-hmr1XoWt7bUZ8LwD5K_Y1vJDkzJ-OFtrHErGvCQbaXz99D9AxLn36BpJ36Dntg2q3YtejreVeDwQKq96O8qL7_H3A_UkAwJeYld7rmNsy5dl83m25VtJW95fiz998dBE7Q5cPJgvuXio1h1k8dB7zsVDr82LgYmK1oEfqfJAP3qv8pPeYUmp1eJWpX2Jgk04V5_CYL69Nj0cb4G2ln-hojg9y_X0aOhn56I4VO5q_4KsOZYQ1VjpGrQ5lolA2WUoVobSCykWoPRChmUkjgbFetVRgaBwKMGrodK_SGiOZSAt1MtQAq2VrK6VUUaSbWrFCwmydlilYhWxrHZYRjVU-u47D2W0eXaKWL12WKVnp4AlQOlxLLMaSoLKm-g8WNXzIMGUWiiUjUCBHtp44RGiMUCGOJawESxQeBwLoQcDzEMPrRbTq8tlgjllNSSPMIQJSL4GTCKKYYIsa8AYqwazADsznOgZwvQWaCUDpFoEQ2bMggpUQ6tIZIChGU5gqGKDZ7IGDJXstpFhmg2nDHBYsfxmm4oBEmss2zAuHAvVbTiwOBjyWDI4Yji9MoRfIV_gPIZpN3zCa_gV0274UOJgmHgD3meAYZurNxCkGjBUvmH5cTBEvwUoPwcEWzS_DJFdaH9rnDRCYxL0kuOuFRNxCdOssdOYioP614BhMg4Gg-PMzxFHbYKR5TXUj-k4XDTgYKiOwzRr3D6m44CvOc79HOF-CzYTd7CojgP254Bkm2svfABwMFR74WjgYJj2wmYCli3Wv1ddfxgXzmWY9sK4akgW0144FzgYpr2AfQROsgIjWYAFOLb5uhmu5nEwVHzB8NeAYeILlETUkD8mvsD61ICh4gvrj4Nhi2dYfpz8BUL-EgysABRbBDMQMNjLmq0LbAUN06zZu8DEF9YfB8PEFw4Gzv0C276AYDXcj0yZAee_hvttBAw2EwdDGMOEvcS5XyDcb8Isayw25leAXNaAoX4FNrNGljC_AncncfqXCP1bYP5lzSYG5les-yuN3iyDr9fegjr0xraFacubji5d3pHSuun0GHM7TBeGlFLOe9u_fr1ZurcRdb7T6V3wdYs7-7ZWEXVu3GWkNHrpflHnKlbhyvO9KPbmuzP393_5fwAAAP__GpsO9g==
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_name);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderstatus);"

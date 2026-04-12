@@ -1,0 +1,44 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ order: -any_not_null,+any_not_null
+│ k: 100
+│
+└── • group (streaming)
+"    │ group by: o_orderkey"
+"    │ ordered: +o_orderkey"
+"    │"
+"    └── • merge join"
+"        │ equality: (l_orderkey) = (o_orderkey)"
+"        │ right cols are key"
+"        │"
+"        ├── • scan"
+"        │     missing stats"
+"        │     table: lineitem@lineitem_pkey"
+"        │     spans: FULL SCAN"
+"        │"
+"        └── • lookup join"
+"            │ table: customer@customer_pkey"
+"            │ equality: (o_custkey) = (c_custkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • lookup join"
+"                │ table: orders@orders_pkey"
+"                │ equality: (l_orderkey) = (o_orderkey)"
+"                │ equality cols are key"
+"                │"
+"                └── • filter"
+"                    │ filter: sum > 313"
+"                    │"
+"                    └── • group (streaming)"
+"                        │ group by: l_orderkey"
+"                        │ ordered: +l_orderkey"
+"                        │"
+"                        └── • scan"
+"                              missing stats"
+"                              table: lineitem@lineitem_pkey"
+"                              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcmV1v4kYXx--fTzGaK9AOwjNjG2NpJedJ2F1aQrZJtu2qjZADA3EDmLWNtlGU714ZQrDnrA-Yl26zVzF2-HNef_7LfqTxlzF1aev3j52TdpdUztpX11e_dKrkqtVpnV6Tfm_qTxQj_V5_Hif36oGRsBdGAxVljwd-otIPSZj441kU9BUj8XxSGfe-zP1pEiQPVfLu8uKcpCLhREWMLL4XMzIOpipI1IT89qF12SKVylqepAE9xzFen10IvXzt_eXFp4_k_5-z__Hh5Nd29z2I4M-5YUhFJJfVKjnpnpHKS1bkLQlXx6uLmUDeZtSr65_ctTjk4vKsdZkq5M6eta5Oc98infZ5-5pww6CMTsOB6voTFVP3D8opo4IyKukNo7Mo7Ks4DqP00uPiH9uDv6lrMBpMZ_MkPX3DaD-MFHUfaRIkY0Vdeu3fjtWl8gcqqqdaA5X4wXghv6qutzroze7VA2X0NBzPJ9PYzdSDkXWNKaNXMz-9Xnek4TimY9Vlrc5t02k0OTfqJvGnA8JJmNypiN48MRrOk-cQ15HdPpA7P77Lx-RxevN0w2ic-CNFXZ7Ju31GXfHEdkvd-g-kvk5LaGlZZdI6GY0iNfKTMKo7oHiMXqRhq4FLFp9Oup973YvrXvdTp1PxeDVN4NN5xRPVvfoitQScwgTWuuEyMF33zVIYyZLzw6W5TsHUUuC8TBPeBeNERSqqczMf3PKCSzyRIZHrumet0_b5SacwHEsPxywTzk9hMH2edN7IB7REsLf8sxrzThjez2fkrzCYknD6XMSX2c_jLUO9LPkzBEvbMU9c4knmmcyzmGcX5mnreTZ2zFMY-TxXNx1vdVCYq8jmmqH6EvR77UVD55Wx32KwXdfnXEUjlVYrrZTU4KeGScXjb6pvo2B0tzx8aWGDeQ5LG5l2kXmceaKwl46erdyRY8LW0pK5DZdgw-XLhjeq317__CkBT5nwlLUfFJt6OexjUlE096HiNwu6TYH0U3YxYbmhF6RZZj6uwihRUV1qrsWzasyz31BGr8PZz-7CNxVGoPsHWWwgNrXk-We_2ZZuWAtndant2XKhzMU28cU2WWwBn04wCRI8cN0hyPxq8e2dj3Fo51Or8zpf2BxraXPig1o8Y9dEdcodP9FiQ1eqW5ml1jn43QydXZjAAdC1F7m29XPNMi1Y2zlxJDsnyoSTtXPW67Jz1q55Oq_AznFnv7U4jJ3j_5ad4ztSTJg_pJ0zj8lE0Xh9dq5RZj5Wds44pJ3LmwWxvVnQd2j_50G8zmt1aTZlw67L49kjvmvG5vfLuNgnmWWyyWzLXstySJ_UKEzgEA--9F05zoOvUku0dkrySE5Jlgkn6yDs1-WU7F3zbL4Gp9TcbzEO45T0Fx5Hc0piR44J64d0StYxqSj2euvxfZySU2Y-Vk5Jf-2xl1Mq9XbjUsWzcBqrXABFv6UnW-NpA9VgpJYNj8N51Fcfo7C_-N_lx4uF0MLeDFScLK_y5vJTe7q6FieR8ifrZ8vba0kD0WqW02oUS0lLl-K6lJGVEjkpIxeVriTwYlnFUYGgcClhF0s55aRksdLyBVtWSqKlMotLtXw5lpUyUSkLkWroUhYqZSMNNHQpu8y4i5yWXU5LG_eclgSThWs1ECkwDg20Wk5xtUwwDg4-pLx4tEwwD7iWFIgWGAhcC2GWBQaiiVaLG8XlsgD_OIBWXgyplwWmi-PYksgygiT5BnBhlAdDsUEMxTzo5AYxjPOw_Di9eKmKAXxtjXoYF66FsR5OBa6FwB7cYTmOVY5wlQN-cQCwvFgDEYM3bBxhHGEYBzjkOCxQ5AOIbRBDmQ9nDBfDoA_nAueYQDgmwWQI3Hyh3IeeaYMrxMAPXRMuhnDMhLZpgy9EjKEFoCgAx7ZHP5gyAUC2Pa5h_XExFNewZrgYhmuYJe4QBWYRgRZg2da4hnHhWhiuwe1tgxbmzQEuBI5YgSEW3JMEjliBIRbARwCQ5cWaiBiEDyDZ9ryGvMDFUF7DIcPFMF6DwZC4VZQcselgMiQg2fa8BpOxQQzlNZiMDWIYr8FgSByxUiK8BlSUG7wixmvr6YbR4Tj82gsG1KV90beUkFZt2L8d1kzTuK35cujU7Nu-avJbc9hcvH0djv1RTN1HenUXfl3oXj_MVEzdoT-OFaPn_r06U4mKJsE0iJOg_3zl6el__wQAAP__OFRzZw==

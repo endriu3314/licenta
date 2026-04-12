@@ -1,0 +1,26 @@
+info
+distribution: full
+vectorized: true
+
+• group (streaming)
+│ group by: l_returnflag, l_linestatus
+│ ordered: +l_returnflag,+l_linestatus
+│
+└── • sort
+"    │ order: +l_returnflag,+l_linestatus"
+"    │"
+"    └── • render"
+"        │"
+"        └── • filter"
+"            │ filter: l_shipdate <= '1998-11-30 23:58:02'"
+"            │"
+"            └── • scan"
+"                  missing stats"
+"                  table: lineitem@lineitem_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsl12PmzgXx--fT2H5ZpKJEZh3kB6J7Ey6Gykvs0lG3Wp3hJjgJKgEUnDajqr57itDQgIMbmi7UtX2zj42P_v87fMHPsH0XQhtOPjrbtQfTkDndjhfzP8cdcF8MBrcLEDoJoTuk2gVemsEQjcMIpJSj-5TBNL9thO67_ZeRAP61AX9OQu57-jTcYx8pCTyib9LgiUpJjx6KXGz0IvzwDXoYCCA0PWDdBnvI9otHmWR80cvejaL9UDoUu_jCbXceMmaIOC9X1ez8N6v8yzysXoWbMJhF_mUYrXjKAsgkMU611k0a7tx4pMEvJpNx4BJGVCyBa__GMwGIHTTTbDzPUrAP3tJUpb_B50rbFmmgGVBwldAAFeSZEvY1syrLvh9Nr2_A7-94ZwQmM5uBzP-HIhgFPtk4m1JCu2_IYYIyhBBBT4guEviJUnTOGFDn7KJQ_8jtCUEg2i3pyz8gOAyTgi0P0Ea0JBAGy68x5DMiOeTRGQsn1AvCDP8MWfn2HB3b8kTRPAmDvfbKLXB6SjYRkvSo7NjRflxIu4FPUkKEZzvPMYXTUUyTdXUREUQsa6ahoWxJKrAi3yAQUw3JIEPzwjGe3pKMaXemkAbn2kyvIW2_Iwul-VVEFKSkETUyprkcRs4RnHwh3PHgiIBWbE105bkK9u2F8PxYL7oj-8ggjMmDHtMvu5g27ZvBzfDcX8kOEoXgc4L0e51x1F7Z8EuAg5GwJERcBQEHA0BR2_MXa7krrXJfR4nlCSiWc7c0XvIMXqNSyqVJc02S_bX64SsPRonIsbVdZFjQASnrBiJb4NjoD95406mC3dyPxp1HL1bCxksNL8fdxylaKlFCxctmbVupveTxWHmoX2aq51FT213Nn0973QripySenwCGy_dVNLByJHhw_NJOLUiHMaNyp3Yca5Gld1DjtzL6TyJ1Zf2dC7xIVDWE9cllrkSa0VLP7TcIZPQKPXMYpZVimOp3M2WLwrpvBbUYz2wvugYLCQ6JgKOJTpYYpWDG--tVpVf_U_kn8RCvBNx2U6a9qRX91SuX3y5pUvfm6ULIhZx5t9a7t_pxQYutRGhMHDlhzBwpU3uBwPXv87A9TZLnrmL9ZP7t9Wo27eyb_mXfTfbd_kzT77cKvH3ZpXMKQVRUS3F0EXlyzwTt1Gj8Ez1h_BMtU3uB880vs4zjTZLnpe09JObJpYalftWrqn8cs1m11Ta_K3NSLqLo5Rc9C0rVZYSMDso4q9JfrhpvE-W5C6Jl9ncvDvNQFnAJynNR3HeGUbHoZQmxNsW__bnJMwlyc0krUqSuSSlmWRWSUqVhEvZSSUUPkflv4QtWBqHpbZjqRyUUUWpXLE4u5KlKkrj3wW9WfgaSueijBYkg0sym0lKlWRySVYzSa-SrC--VlZLFO9W1SqQz-LdqloJYr4v8LZVK0LMdwbMsYZaEWK-N2COOdSKENeqsMxSm1m1KsS1MrzcaWpX_nMwnvq1W_8ZGO9W1O495jsEb18WewWtwviDG_jQhrpsWYaqqoKxIqqgPmJdeJT8lSArqqJLK93Sl-zngH23p-w9ON_EHzLu4mnH3mIrL0wJgmPvLbkllCTbIApSGiwPI8_P__s3AAD__8lo4QM=
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_returnflag, l_linestatus) STORING (l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate);"

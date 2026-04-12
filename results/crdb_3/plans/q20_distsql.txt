@@ -1,0 +1,51 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ order: +s_name
+│
+└── • lookup join
+"    │ table: nation@nation_pkey"
+"    │ equality: (s_nationkey) = (n_nationkey)"
+"    │ equality cols are key"
+"    │ pred: n_name = 'IRAQ'"
+"    │"
+"    └── • lookup join"
+"        │ table: supplier@supplier_pkey"
+"        │ equality: (ps_suppkey) = (s_suppkey)"
+"        │ equality cols are key"
+"        │"
+"        └── • distinct"
+"            │ distinct on: ps_suppkey"
+"            │"
+"            └── • lookup join"
+"                │ table: part@part_pkey"
+"                │ equality: (ps_partkey) = (p_partkey)"
+"                │ equality cols are key"
+"                │ pred: p_name LIKE 'peru%'"
+"                │"
+"                └── • filter"
+"                    │ filter: any_not_null > (sum * 0.5)"
+"                    │"
+"                    └── • group (hash)"
+"                        │ group by: ps_partkey, ps_suppkey"
+"                        │"
+"                        └── • lookup join"
+"                            │ table: partsupp@partsupp_pkey"
+"                            │ equality: (l_partkey, l_suppkey) = (ps_partkey, ps_suppkey)"
+"                            │ equality cols are key"
+"                            │"
+"                            └── • filter"
+"                                │ filter: (l_shipdate >= '1993-01-01') AND (l_shipdate < '1994-01-01')"
+"                                │"
+"                                └── • scan"
+"                                      missing stats"
+"                                      table: lineitem@lineitem_pkey"
+"                                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzUWW1vm8ga_X5_xWikK9stvmZmeDNSJHwb917vOk5ru7tb7UYWsScJWwco4O1GVf77CjAvZsJj42a7cb8UD3B4nplzzhzIVxx-XmMTD395Nx6MJqh9PprNZ-_HHTQbjodv5ihcuPY9l1C4sFergIcheju9vEDhxvfXDg8k5NqR47no5_8Pp0PUboeL-NQn_oBitC2IX4wmd_t2EMUD2V1-uIiHqnflg_lN2xv8pCg0Hv04RC2fB5t_tzodNJicJ1D2H7az_hw9oN82ssx4jif_R0WvULi5b68Xnze2GznRQyfFXjsudyJ-n7fRXucPP0NFeduHrPN2zkq9dYqzd46_siO-reAMnQ_mQ9Qi_T7ryqQrk1bdtUvULl-GXqMWQQ_cDlqmOZrMh9OfBmP0cTiYdpJ_KUi8RvEipAW5xa_sAjedrzPUGk0H71sddDk9H07Rfz9ulxdL2PVWfGLf8xCbv2KCJUyxhBm-krAfeEsehl4Qn_qaXDha_YlNWcKO62-iePhKwksv4Nj8iiMnWnNs4rl9veZTbq940IuxVjyynXUCn822lR0s4unDEn7jrTf3bmiifPYllM91fJgtWzK8nTgs4Zlvx3f1DCYbhmKoPdbtEU0x9D4hck9BtrtCBHnRHQ_w1aOEvU1UFB5G9i3HJil1OjrHJn2UDm_2rbOOeMCDnrrbaTpuoral5Fwor69pmjE1tsuUXbRMrlEq19RWTiuVq00q_8Fz3O0qGbu1ZyK1soNslcae92njo989x0WeayKLSBYtr16hF6kkj-Q40yaW8OUmMpGlSpYmWbpksdr-WKU_o0l_g9vbgN_akRf0CNltMKt7MPm4mFzOF5MP43HbIh1hiMZDsw8XbUsRT7LqwhTPvn5Ad3Z499RTrx6L_pRKf4TUNlhgb1wvWPGAr3bQE1hoCpRvngImnlTqualWe1OOkhXRn9ZVLivUthh6FVt8LJfhm9HFYFxflVatSj9SMlQWNZPopV4rMfMnyNJ2di_TNGfz6Wjyvx0ZlVSU2XQqGlrbmV51MblJZ-dOGDnuMupRVuVJU5LvMNyoVsWel-FF3dqeuoua-tWatGM50N99ZhaNrOwA5EK-2iWfFDJXOrTd1AsWSBaTLEWy1PpNTa522T-yS1bZw9NyrPS_2g6VnO1Z9niS6aXIIiG3wnVoayDVXZs12rZnXhDFvalV1ryuf2J1t2X1223xoKeYvH3ME2VNvK7n95hWIX5NQdXtke0SmRwe0-TvE9O6PdIjSSZT00wWHhzK5Cat5bsHewGhjDWpvKQ77URCWSPSlRJJ_zQyWb-2vW-OZPSfjmT0KFGRmled54pk6pGCIU-8xryoSEaMJp0V0UZ4e3neSEael-FF3cIrx-GRTDmSA1Q_pUimH9klk08jkjXatLNIJryANIlku5stPTwBke_0oYr0SLfHlD7TtR47LgqRJj3mrq28gCikNKm8xHf9RKKQ3qS_chKQTyMLEbm2wW8OQ4Lsv3cYamQdRRjS_t4wpB0pGdJ_6WGo36SzIlQIofl5wxB9XoYXdQtfGg4PQ-qRHKDGKYUh48guGTmNMNRo287CkBChm4ShRl_cpzz0PTfkB316qi5el8Tk56tbniol9DbBkr8LvGVybfrzMgFKBlY8jNKzJP0xcrNTYRRw-z7_O1wZiYBItB5JrSJREInVIxlVJFZFIjvd6TtQpAyV_rHncCzaB7CUZlgKAKVXoRRwslRgAeUqlApCaQAUq0JpIJQOQGlVKB2ed1I_WelH9cOxGKvHYgLfYSwDgBIIb4Cz1a-fLSYwvg_rWa7HUgTGkz3mALiDIlCewP5AaP2EKQLpyR6LAAgmsJ4IYtwtTGmCBauRAHIUJERgORJAj4KGiKDHg41Q0NAeLNAIxU0DBoOcUFARERS5O2FG_YQRQUcE1iQBRElFIcGqpIAqqSAkKqjycEMUhLQHDHREgf17wCBLFNhP98QJIE8wgf4UtgsKRAom8J_CfkEBv1AE_tM9hgG5opibYMeggGMIlKXwDk4BhxUZCwuTAsIUCSvo8vBIJxIWBgOtTGQsDAZZmUhY2DAYYBhEICyDt3EGhXyBsAzWJQN0SQXCMkGXh1uZmPVhMNDKxLAPg0FWJoZ92DAYYBhM4D-DDYMBCUMR-M9gw2CAYSgC_xnsGKCVafEL6s3a-7JwVtjEmqrJxpLq3esb-bqryIrc7TPN7jJ5peorTV0utRsc32DfhvFb8uzO-5Lgzh_8-B33xl6HXMIX9id-ziMe3DuuE0bOcnvm8fFffwUAAP__8RONfA==
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_partkey, l_suppkey, l_quantity);"
