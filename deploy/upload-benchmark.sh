@@ -4,6 +4,7 @@ set -euo pipefail
 CONTROLLER_IP="${1}"
 SCALE_FACTOR="${2}"
 NODE_COUNT="${3}"
+DB_TYPE="${4:-postgres}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
@@ -18,6 +19,10 @@ scp "$PROJECT_DIR/benchmark/target/benchmark-1.jar" root@"$CONTROLLER_IP":/root/
 
 echo "Uploading queries..."
 scp -r "$PROJECT_DIR/queries/tpch" root@"$CONTROLLER_IP":/root/benchmark/queries
+if [ "$DB_TYPE" == "tidb" ]; then
+    echo "Uploading TiDB-specific queries..."
+    scp "$PROJECT_DIR/queries/tpch/tidb/"*.sql root@"$CONTROLLER_IP":/root/benchmark/queries/tpch/
+fi
 
 echo "Uploading schemas..."
 scp -r "$PROJECT_DIR/schemas/tpch" root@"$CONTROLLER_IP":/root/benchmark/schemas/
