@@ -1,0 +1,11 @@
+id	estRows	estCost	task	access object	operator info
+Sort_10	160.00	696669.93	root		tpch.orders.o_orderpriority
+└─Projection_12	160.00	637475.65	root		tpch.orders.o_orderpriority, Column#26
+  └─HashAgg_13	160.00	637443.72	root		group by:tpch.orders.o_orderpriority, funcs:count(1)->Column#26, funcs:firstrow(tpch.orders.o_orderpriority)->tpch.orders.o_orderpriority
+    └─IndexJoin_21	200.00	624601.96	root		semi join, inner:TableReader_17, outer key:tpch.orders.o_orderkey, inner key:tpch.lineitem.l_orderkey, equal cond:eq(tpch.orders.o_orderkey, tpch.lineitem.l_orderkey)
+      ├─TableReader_35(Build)	250.00	495911.93	root		data:Selection_34
+      │ └─Selection_34	250.00	7384228.90	cop[tikv]		ge(tpch.orders.o_orderdate, 1997-08-01), lt(tpch.orders.o_orderdate, 1997-11-01)
+      │   └─TableFullScan_33	10000.00	6386228.90	cop[tikv]	table:orders	keep order:false, stats:pseudo
+      └─TableReader_17(Probe)	200.00	30.60	root		data:Selection_16
+        └─Selection_16	200.00	383.02	cop[tikv]		lt(tpch.lineitem.l_commitdate, tpch.lineitem.l_receiptdate)
+          └─TableRangeScan_15	250.00	333.12	cop[tikv]	table:lineitem	range: decided by [eq(tpch.lineitem.l_orderkey, tpch.orders.o_orderkey)], keep order:false, stats:pseudo

@@ -1,0 +1,12 @@
+id	estRows	estCost	task	access object	operator info
+Sort_10	1.00	642338.69	root		tpch.lineitem.l_shipmode
+└─Projection_12	1.00	642320.69	root		tpch.lineitem.l_shipmode, Column#26, Column#27
+  └─HashAgg_13	1.00	642320.39	root		group by:Column#30, funcs:sum(Column#28)->Column#26, funcs:sum(Column#29)->Column#27, funcs:firstrow(Column#30)->tpch.lineitem.l_shipmode
+    └─Projection_49	0.50	640759.86	root		cast(case(or(eq(tpch.orders.o_orderpriority, 1-URGENT), eq(tpch.orders.o_orderpriority, 2-HIGH)), 1, 0), decimal(20,0) BINARY)->Column#28, cast(case(and(ne(tpch.orders.o_orderpriority, 1-URGENT), ne(tpch.orders.o_orderpriority, 2-HIGH)), 1, 0), decimal(20,0) BINARY)->Column#29, tpch.lineitem.l_shipmode->Column#30
+      └─Projection_14	0.50	640749.83	root		tpch.orders.o_orderpriority, tpch.lineitem.l_shipmode
+        └─IndexJoin_20	0.50	640749.73	root		inner join, inner:TableReader_17, outer key:tpch.lineitem.l_orderkey, inner key:tpch.orders.o_orderkey, equal cond:eq(tpch.lineitem.l_orderkey, tpch.orders.o_orderkey)
+          ├─TableReader_45(Build)	0.40	639048.42	root		data:Selection_44
+          │ └─Selection_44	0.40	9585596.44	cop[tikv]		ge(tpch.lineitem.l_receiptdate, 1995-01-01), in(tpch.lineitem.l_shipmode, "REG AIR", "RAIL"), lt(tpch.lineitem.l_commitdate, tpch.lineitem.l_receiptdate), lt(tpch.lineitem.l_receiptdate, 1996-01-01), lt(tpch.lineitem.l_shipdate, tpch.lineitem.l_commitdate)
+          │   └─TableFullScan_43	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+          └─TableReader_17(Probe)	0.40	25.89	root		data:TableRangeScan_16
+            └─TableRangeScan_16	0.40	297.26	cop[tikv]	table:orders	range: decided by [tpch.lineitem.l_orderkey], keep order:false, stats:pseudo

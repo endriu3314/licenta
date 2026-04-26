@@ -1,0 +1,18 @@
+id	estRows	estCost	task	access object	operator info
+Projection_24	100.00	11760685.38	root		tpch.customer.c_name, tpch.customer.c_custkey, tpch.orders.o_orderkey, tpch.orders.o_orderdate, tpch.orders.o_totalprice, Column#52
+└─TopN_27	100.00	11760625.50	root		tpch.orders.o_totalprice:desc, tpch.orders.o_orderdate, offset:0, count:100
+  └─HashAgg_32	8000.00	9105818.11	root		group by:tpch.customer.c_custkey, tpch.customer.c_name, tpch.orders.o_orderdate, tpch.orders.o_orderkey, tpch.orders.o_totalprice, funcs:sum(tpch.lineitem.l_quantity)->Column#52, funcs:firstrow(tpch.customer.c_custkey)->tpch.customer.c_custkey, funcs:firstrow(tpch.customer.c_name)->tpch.customer.c_name, funcs:firstrow(tpch.orders.o_orderkey)->tpch.orders.o_orderkey, funcs:firstrow(tpch.orders.o_totalprice)->tpch.orders.o_totalprice, funcs:firstrow(tpch.orders.o_orderdate)->tpch.orders.o_orderdate
+    └─HashJoin_49	12500.00	7080763.61	root		inner join, equal:[eq(tpch.orders.o_orderkey, tpch.lineitem.l_orderkey)]
+      ├─Selection_110(Build)	6400.00	1501773.50	root		gt(Column#50, 313)
+      │ └─HashAgg_117	8000.00	1102573.50	root		group by:tpch.lineitem.l_orderkey, funcs:sum(Column#59)->Column#50, funcs:firstrow(tpch.lineitem.l_orderkey)->tpch.lineitem.l_orderkey
+      │   └─TableReader_118	8000.00	605878.10	root		data:HashAgg_111
+      │     └─HashAgg_111	8000.00	7567531.44	cop[tikv]		group by:tpch.lineitem.l_orderkey, funcs:sum(tpch.lineitem.l_quantity)->Column#59
+      │       └─TableFullScan_116	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+      └─HashJoin_91(Probe)	15625.00	4565458.11	root		inner join, equal:[eq(tpch.orders.o_orderkey, tpch.lineitem.l_orderkey)]
+        ├─TableReader_109(Build)	10000.00	641666.43	root		data:TableFullScan_108
+        │ └─TableFullScan_108	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+        └─HashJoin_103(Probe)	12500.00	2546794.69	root		inner join, equal:[eq(tpch.customer.c_custkey, tpch.orders.o_custkey)]
+          ├─TableReader_107(Build)	10000.00	570509.09	root		data:TableFullScan_106
+          │ └─TableFullScan_106	10000.00	6617236.38	cop[tikv]	table:customer	keep order:false, stats:pseudo
+          └─TableReader_105(Probe)	10000.00	679188.59	root		data:TableFullScan_104
+            └─TableFullScan_104	10000.00	6386228.90	cop[tikv]	table:orders	keep order:false, stats:pseudo

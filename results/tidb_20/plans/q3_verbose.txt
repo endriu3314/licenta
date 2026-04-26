@@ -1,0 +1,16 @@
+id	estRows	estCost	task	access object	operator info
+Projection_14	10.00	1072509.78	root		tpch.lineitem.l_orderkey, Column#34, tpch.orders.o_orderdate, tpch.orders.o_shippriority
+└─TopN_17	10.00	1072505.79	root		Column#34:desc, tpch.orders.o_orderdate, offset:0, count:10
+  └─HashAgg_22	15.62	1069787.72	root		group by:Column#36, Column#37, Column#38, funcs:sum(Column#35)->Column#34, funcs:firstrow(Column#36)->tpch.orders.o_orderdate, funcs:firstrow(Column#37)->tpch.orders.o_shippriority, funcs:firstrow(Column#38)->tpch.lineitem.l_orderkey
+    └─Projection_77	15.62	1066535.41	root		mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount))->Column#35, tpch.orders.o_orderdate->Column#36, tpch.orders.o_shippriority->Column#37, tpch.lineitem.l_orderkey->Column#38
+      └─IndexJoin_30	15.62	1066374.79	root		inner join, inner:TableReader_26, outer key:tpch.orders.o_orderkey, inner key:tpch.lineitem.l_orderkey, equal cond:eq(tpch.orders.o_orderkey, tpch.lineitem.l_orderkey)
+        ├─HashJoin_65(Build)	12.50	1058568.55	root		inner join, equal:[eq(tpch.customer.c_custkey, tpch.orders.o_custkey)]
+        │ ├─TableReader_71(Build)	10.00	474505.52	root		data:Selection_70
+        │ │ └─Selection_70	10.00	7116236.38	cop[tikv]		eq(tpch.customer.c_mktsegment, "AUTOMOBILE")
+        │ │   └─TableFullScan_69	10000.00	6617236.38	cop[tikv]	table:customer	keep order:false, stats:pseudo
+        │ └─TableReader_68(Probe)	3323.33	515166.30	root		data:Selection_67
+        │   └─Selection_67	3323.33	6885228.90	cop[tikv]		lt(tpch.orders.o_orderdate, 1995-03-30)
+        │     └─TableFullScan_66	10000.00	6386228.90	cop[tikv]	table:orders	keep order:false, stats:pseudo
+        └─TableReader_26(Probe)	4.17	33.98	root		data:Selection_25
+          └─Selection_25	4.17	383.02	cop[tikv]		gt(tpch.lineitem.l_shipdate, 1995-03-30)
+            └─TableRangeScan_24	12.50	333.12	cop[tikv]	table:lineitem	range: decided by [eq(tpch.lineitem.l_orderkey, tpch.orders.o_orderkey)], keep order:false, stats:pseudo

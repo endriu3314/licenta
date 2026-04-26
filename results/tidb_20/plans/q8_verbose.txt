@@ -1,0 +1,33 @@
+id	estRows	estCost	task	access object	operator info
+Sort_34	10.00	547706.58	root		Column#61
+└─Projection_36	10.00	545952.94	root		Column#61, div(Column#63, Column#64)->Column#65
+  └─HashAgg_37	10.00	545852.14	root		group by:Column#71, funcs:sum(Column#69)->Column#63, funcs:sum(Column#70)->Column#64, funcs:firstrow(Column#71)->Column#61
+    └─Projection_180	12.50	543741.10	root		case(eq(tpch.nation.n_name, UNITED KINGDOM), mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount)), 0.0000)->Column#69, mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount))->Column#70, extract(YEAR, tpch.orders.o_orderdate)->Column#71
+      └─IndexJoin_43	12.50	543366.85	root		inner join, inner:TableReader_40, outer key:tpch.supplier.s_nationkey, inner key:tpch.nation.n_nationkey, equal cond:eq(tpch.supplier.s_nationkey, tpch.nation.n_nationkey)
+        ├─IndexJoin_56(Build)	10.00	536757.57	root		inner join, inner:TableReader_52, outer key:tpch.nation.n_regionkey, inner key:tpch.region.r_regionkey, equal cond:eq(tpch.nation.n_regionkey, tpch.region.r_regionkey)
+        │ ├─IndexJoin_67(Build)	30.52	520009.33	root		inner join, inner:TableReader_64, outer key:tpch.customer.c_nationkey, inner key:tpch.nation.n_nationkey, equal cond:eq(tpch.customer.c_nationkey, tpch.nation.n_nationkey)
+        │ │ ├─IndexJoin_78(Build)	24.41	506051.42	root		inner join, inner:TableReader_75, outer key:tpch.orders.o_custkey, inner key:tpch.customer.c_custkey, equal cond:eq(tpch.orders.o_custkey, tpch.customer.c_custkey)
+        │ │ │ ├─IndexJoin_89(Build)	19.53	494584.46	root		inner join, inner:TableReader_86, outer key:tpch.lineitem.l_suppkey, inner key:tpch.supplier.s_suppkey, equal cond:eq(tpch.lineitem.l_suppkey, tpch.supplier.s_suppkey)
+        │ │ │ │ ├─IndexJoin_103(Build)	15.62	485111.66	root		inner join, inner:TableReader_99, outer key:tpch.lineitem.l_orderkey, inner key:tpch.orders.o_orderkey, equal cond:eq(tpch.lineitem.l_orderkey, tpch.orders.o_orderkey)
+        │ │ │ │ │ ├─IndexHashJoin_133(Build)	12.50	477362.65	root		inner join, inner:Projection_130, outer key:tpch.part.p_partkey, inner key:tpch.lineitem.l_partkey, equal cond:eq(tpch.part.p_partkey, tpch.lineitem.l_partkey)
+        │ │ │ │ │ │ ├─TableReader_162(Build)	10.00	469938.48	root		data:Selection_161
+        │ │ │ │ │ │ │ └─Selection_161	10.00	7047136.81	cop[tikv]		eq(tpch.part.p_type, "MEDIUM POLISHED NICKEL")
+        │ │ │ │ │ │ │   └─TableFullScan_160	10000.00	6548136.81	cop[tikv]	table:part	keep order:false, stats:pseudo
+        │ │ │ │ │ │ └─Projection_130(Probe)	12.50	2453.30	root		tpch.lineitem.l_orderkey, tpch.lineitem.l_partkey, tpch.lineitem.l_suppkey, tpch.lineitem.l_extendedprice, tpch.lineitem.l_discount
+        │ │ │ │ │ │   └─IndexLookUp_129	12.50	2452.68	root		
+        │ │ │ │ │ │     ├─IndexRangeScan_127(Build)	12.50	305.25	cop[tikv]	table:lineitem, index:fk_1(l_partkey, l_suppkey)	range: decided by [eq(tpch.lineitem.l_partkey, tpch.part.p_partkey)], keep order:false, stats:pseudo
+        │ │ │ │ │ │     └─TableRowIDScan_128(Probe)	12.50	443.16	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+        │ │ │ │ │ └─TableReader_99(Probe)	0.31	26.63	root		data:Selection_98
+        │ │ │ │ │   └─Selection_98	0.31	397.06	cop[tikv]		ge(tpch.orders.o_orderdate, 1995-01-01), le(tpch.orders.o_orderdate, 1996-12-31)
+        │ │ │ │ │     └─TableRangeScan_97	12.50	297.26	cop[tikv]	table:orders	range: decided by [tpch.lineitem.l_orderkey], keep order:false, stats:pseudo
+        │ │ │ │ └─TableReader_86(Probe)	15.62	24.92	root		data:TableRangeScan_85
+        │ │ │ │   └─TableRangeScan_85	15.62	310.51	cop[tikv]	table:supplier	range: decided by [tpch.lineitem.l_suppkey], keep order:false, stats:pseudo
+        │ │ │ └─TableReader_75(Probe)	19.53	25.27	root		data:TableRangeScan_74
+        │ │ │   └─TableRangeScan_74	19.53	315.62	cop[tikv]	table:customer	range: decided by [tpch.orders.o_custkey], keep order:false, stats:pseudo
+        │ │ └─TableReader_64(Probe)	24.41	23.37	root		data:TableRangeScan_63
+        │ │   └─TableRangeScan_63	24.41	287.15	cop[tikv]	table:n1	range: decided by [tpch.customer.c_nationkey], keep order:false, stats:pseudo
+        │ └─TableReader_52(Probe)	0.03	22.24	root		data:Selection_51
+        │   └─Selection_51	0.03	333.41	cop[tikv]		eq(tpch.region.r_name, "EUROPE")
+        │     └─TableRangeScan_50	30.52	283.51	cop[tikv]	table:region	range: decided by [tpch.nation.n_regionkey], keep order:false, stats:pseudo
+        └─TableReader_40(Probe)	10.00	27.86	root		data:TableRangeScan_39
+          └─TableRangeScan_39	10.00	287.15	cop[tikv]	table:n2	range: decided by [tpch.supplier.s_nationkey], keep order:false, stats:pseudo

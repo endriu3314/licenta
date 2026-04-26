@@ -1,0 +1,23 @@
+id	estRows	estCost	task	access object	operator info
+Sort_28	8000.00	18328734.07	root		tpch.nation.n_name, Column#51:desc
+└─Projection_30	8000.00	13035992.98	root		tpch.nation.n_name, Column#51, Column#53
+  └─HashAgg_31	8000.00	13033597.78	root		group by:Column#57, Column#58, funcs:sum(Column#56)->Column#53, funcs:firstrow(Column#57)->tpch.nation.n_name, funcs:firstrow(Column#58)->Column#51
+    └─Projection_185	24414.06	11536339.92	root		minus(mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount)), mul(tpch.partsupp.ps_supplycost, tpch.lineitem.l_quantity))->Column#56, tpch.nation.n_name->Column#57, extract(YEAR, tpch.orders.o_orderdate)->Column#58
+      └─HashJoin_42	24414.06	11046598.71	root		inner join, equal:[eq(tpch.supplier.s_nationkey, tpch.nation.n_nationkey)]
+        ├─TableReader_183(Build)	10000.00	529105.75	root		data:TableFullScan_182
+        │ └─TableFullScan_182	10000.00	5996186.28	cop[tikv]	table:nation	keep order:false, stats:pseudo
+        └─HashJoin_54(Probe)	19531.25	9030152.21	root		inner join, equal:[eq(tpch.lineitem.l_orderkey, tpch.orders.o_orderkey)]
+          ├─TableReader_181(Build)	10000.00	510228.59	root		data:TableFullScan_180
+          │ └─TableFullScan_180	10000.00	6386228.90	cop[tikv]	table:orders	keep order:false, stats:pseudo
+          └─HashJoin_98(Probe)	15625.00	7144551.62	root		inner join, equal:[eq(tpch.lineitem.l_suppkey, tpch.partsupp.ps_suppkey) eq(tpch.lineitem.l_partkey, tpch.partsupp.ps_partkey)]
+            ├─TableReader_179(Build)	10000.00	633111.78	root		data:TableFullScan_178
+            │ └─TableFullScan_178	10000.00	6328676.67	cop[tikv]	table:partsupp	keep order:false, stats:pseudo
+            └─HashJoin_135(Probe)	12500.00	4478692.84	root		inner join, equal:[eq(tpch.lineitem.l_suppkey, tpch.supplier.s_suppkey)]
+              ├─TableReader_177(Build)	10000.00	517999.29	root		data:TableFullScan_176
+              │ └─TableFullScan_176	10000.00	6502789.34	cop[tikv]	table:supplier	keep order:false, stats:pseudo
+              └─HashJoin_163(Probe)	10000.00	2697596.55	root		inner join, equal:[eq(tpch.part.p_partkey, tpch.lineitem.l_partkey)]
+                ├─TableReader_173(Build)	8000.00	611313.12	root		data:Selection_172
+                │ └─Selection_172	8000.00	7047136.81	cop[tikv]		like(tpch.part.p_name, "%lavender%", 92)
+                │   └─TableFullScan_171	10000.00	6548136.81	cop[tikv]	table:part	keep order:false, stats:pseudo
+                └─TableReader_175(Probe)	10000.00	979586.43	root		data:TableFullScan_174
+                  └─TableFullScan_174	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
