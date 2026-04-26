@@ -70,7 +70,7 @@ resource "hcloud_server_network" "controller_network" {
 resource "hcloud_server" "db_nodes" {
   count       = var.db_node_count
   name        = "db-node-${count.index}"
-  server_type = "cpx32"
+  server_type = "cpx52"
   image       = "ubuntu-22.04"
   location    = "nbg1"
   ssh_keys = [hcloud_ssh_key.benchmark.id]
