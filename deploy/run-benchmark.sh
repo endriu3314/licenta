@@ -22,8 +22,7 @@ echo "[4/6] Collecting metadata..."
 
 echo "[5/6] Running benchmark..."
 cd /root/benchmark
-java -jar benchmark-1.jar \
- --nodes="$NODE_COUNT"
+java -jar benchmark-1.jar --nodes="$NODE_COUNT" > run_"${DB_TYPE}"_"${NODE_COUNT}"_nodes.log
 
 echo "[6/6] Teardown..."
 "$SCRIPT_DIR/${DB_TYPE}/teardown.sh" "$NODE_COUNT"
