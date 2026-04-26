@@ -18,6 +18,11 @@ MYSQL="mysql -h ${FIRST_NODE_IP} -P 4000 -u root"
 
 echo "Loading TPC-H into TiDB"
 
+echo "Updating TiDB settings..."
+echo "Updating memory to 4gb"
+$MYSQL -e "SET GLOBAL tidb_mem_quota_query = 4 << 30;"
+
+
 echo "Starting MinIO..."
 docker rm -f minio 2>/dev/null || true
 docker run -d \
