@@ -1,0 +1,11 @@
+id	estRows	estCost	task	access object	operator info
+Sort_37	1706.67	3225653.15	root		Column#31
+└─Projection_39	1706.67	2289760.53	root		Column#31, Column#32, Column#33
+  └─HashAgg_40	1706.67	2289249.55	root		group by:Column#36, funcs:count(1)->Column#32, funcs:sum(Column#35)->Column#33, funcs:firstrow(Column#36)->Column#31
+    └─Projection_48	2133.33	2143146.26	root		tpch.customer.c_acctbal->Column#35, substring(tpch.customer.c_phone, 1, 2)->Column#36
+      └─HashJoin_41	2133.33	2121642.69	root		anti semi join, equal:[eq(tpch.customer.c_custkey, tpch.orders.o_custkey)]
+        ├─TableReader_46(Build)	10000.00	467988.59	root		data:TableFullScan_45
+        │ └─TableFullScan_45	10000.00	6386228.90	cop[tikv]	table:orders	keep order:false, stats:pseudo
+        └─TableReader_44(Probe)	2666.67	568930.43	root		data:Selection_43
+          └─Selection_43	2666.67	7615236.38	cop[tikv]		gt(tpch.customer.c_acctbal, 4997.600085), in(substring(tpch.customer.c_phone, 1, 2), "21", "23", "29", "13", "34", "28", "31")
+            └─TableFullScan_42	10000.00	6617236.38	cop[tikv]	table:customer	keep order:false, stats:pseudo

@@ -1,0 +1,19 @@
+id	estRows	estCost	task	access object	operator info
+Projection_18	19.53	541902.34	root		tpch.customer.c_custkey, tpch.customer.c_name, Column#38, tpch.customer.c_acctbal, tpch.nation.n_name, tpch.customer.c_address, tpch.customer.c_phone, tpch.customer.c_comment
+└─TopN_21	19.53	541886.74	root		Column#38:desc, offset:0, count:20
+  └─HashAgg_26	19.53	536622.55	root		group by:Column#40, Column#41, Column#42, Column#43, Column#44, Column#45, Column#46, funcs:sum(Column#39)->Column#38, funcs:firstrow(Column#40)->tpch.customer.c_custkey, funcs:firstrow(Column#41)->tpch.customer.c_name, funcs:firstrow(Column#42)->tpch.customer.c_address, funcs:firstrow(Column#43)->tpch.customer.c_phone, funcs:firstrow(Column#44)->tpch.customer.c_acctbal, funcs:firstrow(Column#45)->tpch.customer.c_comment, funcs:firstrow(Column#46)->tpch.nation.n_name
+    └─Projection_96	19.53	530436.88	root		mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount))->Column#39, tpch.customer.c_custkey->Column#40, tpch.customer.c_name->Column#41, tpch.customer.c_address->Column#42, tpch.customer.c_phone->Column#43, tpch.customer.c_acctbal->Column#44, tpch.customer.c_comment->Column#45, tpch.nation.n_name->Column#46
+      └─Projection_27	19.53	530228.31	root		tpch.customer.c_custkey, tpch.customer.c_name, tpch.customer.c_address, tpch.customer.c_phone, tpch.customer.c_acctbal, tpch.customer.c_comment, tpch.lineitem.l_extendedprice, tpch.lineitem.l_discount, tpch.nation.n_name
+        └─IndexJoin_32	19.53	530210.77	root		inner join, inner:TableReader_29, outer key:tpch.customer.c_nationkey, inner key:tpch.nation.n_nationkey, equal cond:eq(tpch.customer.c_nationkey, tpch.nation.n_nationkey)
+          ├─IndexHashJoin_45(Build)	15.62	520725.82	root		inner join, inner:TableReader_40, outer key:tpch.orders.o_custkey, inner key:tpch.customer.c_custkey, equal cond:eq(tpch.orders.o_custkey, tpch.customer.c_custkey)
+          │ ├─IndexJoin_57(Build)	12.50	512791.15	root		inner join, inner:TableReader_53, outer key:tpch.lineitem.l_orderkey, inner key:tpch.orders.o_orderkey, equal cond:eq(tpch.lineitem.l_orderkey, tpch.orders.o_orderkey)
+          │ │ ├─TableReader_83(Build)	10.00	506292.54	root		data:Selection_82
+          │ │ │ └─Selection_82	10.00	7589596.44	cop[tikv]		eq(tpch.lineitem.l_returnflag, "R")
+          │ │ │   └─TableFullScan_81	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+          │ │ └─TableReader_53(Probe)	0.25	26.63	root		data:Selection_52
+          │ │   └─Selection_52	0.25	397.06	cop[tikv]		ge(tpch.orders.o_orderdate, 1994-05-01), lt(tpch.orders.o_orderdate, 1994-08-01)
+          │ │     └─TableRangeScan_51	10.00	297.26	cop[tikv]	table:orders	range: decided by [tpch.lineitem.l_orderkey], keep order:false, stats:pseudo
+          │ └─TableReader_40(Probe)	12.50	75.43	root		data:TableRangeScan_39
+          │   └─TableRangeScan_39	12.50	315.62	cop[tikv]	table:customer	range: decided by [tpch.orders.o_custkey], keep order:false, stats:pseudo
+          └─TableReader_29(Probe)	15.62	27.86	root		data:TableRangeScan_28
+            └─TableRangeScan_28	15.62	287.15	cop[tikv]	table:nation	range: decided by [tpch.customer.c_nationkey], keep order:false, stats:pseudo

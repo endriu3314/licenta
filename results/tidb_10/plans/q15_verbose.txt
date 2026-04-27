@@ -1,0 +1,23 @@
+id	estRows	estCost	task	access object	operator info
+Sort_40	1.00	30473.10	root		tpch.supplier.s_suppkey
+└─Projection_43	1.00	30447.80	root		tpch.supplier.s_suppkey, tpch.supplier.s_name, tpch.supplier.s_address, tpch.supplier.s_phone, Column#26
+  └─IndexHashJoin_50	1.00	30447.30	root		inner join, inner:TableReader_45, outer key:tpch.lineitem.l_suppkey, inner key:tpch.supplier.s_suppkey, equal cond:eq(tpch.lineitem.l_suppkey, tpch.supplier.s_suppkey)
+    ├─HashJoin_55(Build)	0.80	28540.44	root		inner join, equal:[eq(Column#26, Column#29)]
+    │ ├─Selection_59(Build)	0.80	8253.08	root		not(isnull(Column#29))
+    │ │ └─MaxOneRow_60	1.00	8203.18	root		
+    │ │   └─StreamAgg_62	1.00	8203.18	root		funcs:max(Column#28)->Column#29
+    │ │     └─TopN_77	1.00	8153.28	root		Column#28:desc, offset:0, count:1
+    │ │       └─Selection_70	128.00	8143.68	root		not(isnull(Column#28))
+    │ │         └─CTEFullScan_71	160.00	159.68	root	CTE:revenue	data:CTE_0
+    │ └─Selection_57(Probe)	128.00	16127.68	root		not(isnull(Column#26)), not(isnull(tpch.lineitem.l_suppkey))
+    │   └─CTEFullScan_58	160.00	159.68	root	CTE:revenue	data:CTE_0
+    └─TableReader_45(Probe)	0.80	42.88	root		data:TableRangeScan_44
+      └─TableRangeScan_44	0.80	310.51	cop[tikv]	table:supplier	range: decided by [tpch.lineitem.l_suppkey], keep order:false, stats:pseudo
+CTE_0	160.00	159.68	root		Non-Recursive CTE
+└─Projection_24(Seed Part)	160.00	566555.26	root		tpch.lineitem.l_suppkey, Column#17
+  └─Selection_25	160.00	566523.32	root		or(and(1, not(isnull(Column#17))), not(isnull(Column#17)))
+    └─HashAgg_31	200.00	556543.32	root		group by:tpch.lineitem.l_suppkey, funcs:sum(Column#30)->Column#17, funcs:firstrow(tpch.lineitem.l_suppkey)->tpch.lineitem.l_suppkey
+      └─TableReader_32	200.00	542666.36	root		data:HashAgg_26
+        └─HashAgg_26	200.00	8101979.39	cop[tikv]		group by:tpch.lineitem.l_suppkey, funcs:sum(mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount)))->Column#30
+          └─Selection_30	250.00	8088596.44	cop[tikv]		ge(tpch.lineitem.l_shipdate, 1996-01-01), lt(tpch.lineitem.l_shipdate, 1996-04-01)
+            └─TableFullScan_29	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo

@@ -1,0 +1,15 @@
+id	estRows	estCost	task	access object	operator info
+Projection_63	12.50	2036694.25	root		tpch.partsupp.ps_partkey, Column#33->Column#55
+└─Sort_64	12.50	2036691.75	root		Column#33:desc
+  └─Selection_66	12.50	2034298.90	root		gt(Column#33, 23881308.819890500000)
+    └─HashAgg_67	15.62	2033519.21	root		group by:Column#57, funcs:sum(Column#56)->Column#33, funcs:firstrow(Column#57)->tpch.partsupp.ps_partkey
+      └─Projection_94	15.62	2031207.84	root		mul(tpch.partsupp.ps_supplycost, cast(tpch.partsupp.ps_availqty, decimal(10,0) BINARY))->Column#56, tpch.partsupp.ps_partkey->Column#57
+        └─HashJoin_71	15.62	2031050.35	root		inner join, equal:[eq(tpch.supplier.s_suppkey, tpch.partsupp.ps_suppkey)]
+          ├─HashJoin_84(Build)	12.50	1153334.07	root		inner join, equal:[eq(tpch.nation.n_nationkey, tpch.supplier.s_nationkey)]
+          │ ├─TableReader_89(Build)	10.00	433141.78	root		data:Selection_88
+          │ │ └─Selection_88	10.00	6495186.28	cop[tikv]		eq(tpch.nation.n_name, "ETHIOPIA")
+          │ │   └─TableFullScan_87	10000.00	5996186.28	cop[tikv]	table:nation	keep order:false, stats:pseudo
+          │ └─TableReader_86(Probe)	10000.00	517999.29	root		data:TableFullScan_85
+          │   └─TableFullScan_85	10000.00	6502789.34	cop[tikv]	table:supplier	keep order:false, stats:pseudo
+          └─TableReader_91(Probe)	10000.00	675351.78	root		data:TableFullScan_90
+            └─TableFullScan_90	10000.00	6328676.67	cop[tikv]	table:partsupp	keep order:false, stats:pseudo

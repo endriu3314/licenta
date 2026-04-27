@@ -1,0 +1,6 @@
+id	estRows	estCost	task	access object	operator info
+StreamAgg_20	1.00	639107.13	root		funcs:sum(Column#19)->Column#17
+└─TableReader_21	1.00	639057.23	root		data:StreamAgg_9
+  └─StreamAgg_9	1.00	9585700.08	cop[tikv]		funcs:sum(mul(tpch.lineitem.l_extendedprice, tpch.lineitem.l_discount))->Column#19
+    └─Selection_19	2.08	9585596.44	cop[tikv]		ge(tpch.lineitem.l_discount, 0.05), ge(tpch.lineitem.l_shipdate, 1995-01-01), le(tpch.lineitem.l_discount, 0.07), lt(tpch.lineitem.l_quantity, 25), lt(tpch.lineitem.l_shipdate, 1996-01-01)
+      └─TableFullScan_18	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
