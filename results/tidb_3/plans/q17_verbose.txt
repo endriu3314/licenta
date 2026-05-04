@@ -1,0 +1,17 @@
+id	estRows	estCost	task	access object	operator info
+Projection_17	1.00	506094.32	root		div(Column#44, 7.0)->Column#45
+└─StreamAgg_19	1.00	506084.34	root		funcs:sum(tpch.lineitem.l_extendedprice)->Column#44
+  └─IndexJoin_27	0.01	506083.71	root		inner join, inner:HashAgg_25, outer key:tpch.part.p_partkey, inner key:tpch.lineitem.l_partkey, equal cond:eq(tpch.part.p_partkey, tpch.lineitem.l_partkey), other cond:lt(tpch.lineitem.l_quantity, mul(0.2, Column#42))
+    ├─IndexHashJoin_73(Build)	0.01	504578.85	root		inner join, inner:Projection_70, outer key:tpch.part.p_partkey, inner key:tpch.lineitem.l_partkey, equal cond:eq(tpch.part.p_partkey, tpch.lineitem.l_partkey)
+    │ ├─TableReader_95(Build)	0.01	503075.92	root		data:Selection_94
+    │ │ └─Selection_94	0.01	7546136.81	cop[tikv]		eq(tpch.part.p_brand, "Brand#23"), eq(tpch.part.p_container, "SM BOX")
+    │ │   └─TableFullScan_93	10000.00	6548136.81	cop[tikv]	table:part	keep order:false, stats:pseudo
+    │ └─Projection_70(Probe)	0.01	2452.51	root		tpch.lineitem.l_partkey, tpch.lineitem.l_quantity, tpch.lineitem.l_extendedprice
+    │   └─IndexLookUp_69	0.01	2452.14	root		
+    │     ├─IndexRangeScan_67(Build)	0.01	305.25	cop[tikv]	table:lineitem, index:fk_1(l_partkey, l_suppkey)	range: decided by [eq(tpch.lineitem.l_partkey, tpch.part.p_partkey)], keep order:false, stats:pseudo
+    │     └─TableRowIDScan_68(Probe)	0.01	443.16	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+    └─HashAgg_25(Probe)	0.01	3540.54	root		group by:tpch.lineitem.l_partkey, funcs:avg(Column#49, Column#50)->Column#42, funcs:firstrow(tpch.lineitem.l_partkey)->tpch.lineitem.l_partkey
+      └─IndexLookUp_26	0.01	1981.64	root		
+        ├─IndexRangeScan_22(Build)	0.01	244.20	cop[tikv]	table:lineitem, index:fk_1(l_partkey, l_suppkey)	range: decided by [eq(tpch.lineitem.l_partkey, tpch.part.p_partkey)], keep order:false, stats:pseudo
+        └─HashAgg_24(Probe)	0.01	1913.75	cop[tikv]		group by:tpch.lineitem.l_partkey, funcs:count(tpch.lineitem.l_quantity)->Column#49, funcs:sum(tpch.lineitem.l_quantity)->Column#50
+          └─TableRowIDScan_23	0.01	354.53	cop[tikv]	table:lineitem	keep order:false, stats:pseudo

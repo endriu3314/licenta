@@ -1,0 +1,10 @@
+id	estRows	estCost	task	access object	operator info
+Projection_8	1.00	687880.28	root		div(mul(100.00, Column#26), Column#27)->Column#28
+└─HashAgg_9	1.00	687870.30	root		funcs:sum(Column#35)->Column#26, funcs:sum(Column#36)->Column#27
+  └─Projection_77	312.50	683241.37	root		case(like(tpch.part.p_type, PROMO%, 92), mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount)), 0.0000)->Column#35, mul(tpch.lineitem.l_extendedprice, minus(1, tpch.lineitem.l_discount))->Column#36
+    └─IndexJoin_16	312.50	677003.87	root		inner join, inner:TableReader_13, outer key:tpch.lineitem.l_partkey, inner key:tpch.part.p_partkey, equal cond:eq(tpch.lineitem.l_partkey, tpch.part.p_partkey)
+      ├─TableReader_47(Build)	250.00	547687.76	root		data:Selection_46
+      │ └─Selection_46	250.00	8088596.44	cop[tikv]		ge(tpch.lineitem.l_shipdate, 1995-04-01), lt(tpch.lineitem.l_shipdate, 1995-05-01)
+      │   └─TableFullScan_45	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+      └─TableReader_13(Probe)	250.00	29.29	root		data:TableRangeScan_12
+        └─TableRangeScan_12	250.00	308.71	cop[tikv]	table:part	range: decided by [tpch.lineitem.l_partkey], keep order:false, stats:pseudo

@@ -1,0 +1,22 @@
+id	estRows	estCost	task	access object	operator info
+Sort_31	12.50	2629164.14	root		tpch.supplier.s_name
+└─HashJoin_36	12.50	2626733.79	root		inner join, equal:[eq(tpch.supplier.s_suppkey, tpch.partsupp.ps_suppkey)]
+  ├─HashJoin_49(Build)	12.50	1356614.07	root		inner join, equal:[eq(tpch.nation.n_nationkey, tpch.supplier.s_nationkey)]
+  │ ├─TableReader_54(Build)	10.00	433141.78	root		data:Selection_53
+  │ │ └─Selection_53	10.00	6495186.28	cop[tikv]		eq(tpch.nation.n_name, "IRAQ")
+  │ │   └─TableFullScan_52	10000.00	5996186.28	cop[tikv]	table:nation	keep order:false, stats:pseudo
+  │ └─TableReader_51(Probe)	10000.00	721279.29	root		data:TableFullScan_50
+  │   └─TableFullScan_50	10000.00	6502789.34	cop[tikv]	table:supplier	keep order:false, stats:pseudo
+  └─HashAgg_55(Probe)	250.00	1262212.73	root		group by:tpch.partsupp.ps_suppkey, funcs:firstrow(tpch.partsupp.ps_suppkey)->tpch.partsupp.ps_suppkey
+    └─Selection_56	250.00	1248135.78	root		gt(cast(tpch.partsupp.ps_availqty, decimal(10,0) BINARY), mul(0.5, Column#42))
+      └─HashAgg_57	312.50	1232542.03	root		group by:tpch.partsupp.ps_partkey, tpch.partsupp.ps_suppkey, funcs:firstrow(tpch.partsupp.ps_suppkey)->tpch.partsupp.ps_suppkey, funcs:firstrow(tpch.partsupp.ps_availqty)->tpch.partsupp.ps_availqty, funcs:sum(tpch.lineitem.l_quantity)->Column#42
+        └─HashJoin_76	312.50	1202089.15	root		left outer join, equal:[eq(tpch.partsupp.ps_partkey, tpch.lineitem.l_partkey) eq(tpch.partsupp.ps_suppkey, tpch.lineitem.l_suppkey)]
+          ├─TableReader_132(Build)	250.00	545575.76	root		data:Selection_131
+          │ └─Selection_131	250.00	8088596.44	cop[tikv]		ge(tpch.lineitem.l_shipdate, 1993-01-01), lt(tpch.lineitem.l_shipdate, 1994-01-01)
+          │   └─TableFullScan_130	10000.00	7090596.44	cop[tikv]	table:lineitem	keep order:false, stats:pseudo
+          └─IndexJoin_102(Probe)	312.50	603435.14	root		inner join, inner:TableReader_99, outer key:tpch.part.p_partkey, inner key:tpch.partsupp.ps_partkey, equal cond:eq(tpch.part.p_partkey, tpch.partsupp.ps_partkey)
+            ├─TableReader_127(Build)	250.00	474231.12	root		data:Selection_126
+            │ └─Selection_126	250.00	7047136.81	cop[tikv]		like(tpch.part.p_name, "peru%", 92)
+            │   └─TableFullScan_125	10000.00	6548136.81	cop[tikv]	table:part	keep order:false, stats:pseudo
+            └─TableReader_99(Probe)	250.00	26.64	root		data:TableRangeScan_98
+              └─TableRangeScan_98	250.00	304.59	cop[tikv]	table:partsupp	range: decided by [eq(tpch.partsupp.ps_partkey, tpch.part.p_partkey)], keep order:false, stats:pseudo
