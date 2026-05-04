@@ -1,0 +1,567 @@
+09:59:34.948 [main] INFO ro.uav.benchmark.config.AppConfig -- Loaded config from .env
+09:59:34.966 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q19
+09:59:34.966 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q13
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q20
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q1
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q4
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q10
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q11
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q21
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q3
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q9
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q14
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q8
+09:59:34.967 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q18
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q16
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q12
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q7
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q5
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q2
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q6
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q15
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q17
+09:59:34.968 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q22
+09:59:34.974 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q1 on TIDB (5 nodes) - 3 warmup + 10 runs
+09:59:34.974 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+09:59:48.990 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:00:00.831 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:00:12.376 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:00:23.934 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:00:23.935 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:00:35.145 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:00:35.145 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:00:46.253 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:00:46.255 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:00:57.495 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:00:57.495 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:01:08.965 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:01:08.966 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:01:20.500 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:01:20.501 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:01:31.886 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:01:31.887 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:01:43.168 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:01:43.168 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:01:54.756 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:01:54.757 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:02:05.760 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:02:05.761 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q10 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:02:05.762 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:02:40.073 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:03:13.244 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:03:45.952 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:04:19.159 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:04:19.159 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:04:52.326 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:04:52.326 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:05:25.339 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:05:25.340 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:05:58.109 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:05:58.110 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:06:31.406 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:06:31.406 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:07:04.837 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:07:04.838 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:07:37.512 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:07:37.512 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:08:10.062 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:08:10.062 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:08:42.852 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:08:42.853 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:15.625 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:09:15.626 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q11 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:09:15.626 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:22.709 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:28.841 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:35.004 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:40.630 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:09:40.631 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:46.729 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:09:46.729 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:52.874 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:09:52.875 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:09:59.115 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:09:59.116 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:05.289 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:10:05.290 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:11.268 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:10:11.269 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:17.416 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:10:17.416 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:23.340 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:10:23.340 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:29.767 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:10:29.768 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:35.939 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:10:35.940 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q12 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:10:35.940 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:46.184 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:10:57.057 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:11:07.658 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:11:18.446 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:11:18.446 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:11:28.955 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:11:28.955 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:11:39.623 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:11:39.624 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:11:49.622 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:11:49.622 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:11:59.721 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:11:59.722 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:12:09.689 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:12:09.690 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:12:19.822 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:12:19.822 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:12:29.970 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:12:29.970 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:12:40.020 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:12:40.021 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:12:50.074 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:12:50.074 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q13 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:12:50.074 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:14:23.273 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:15:51.020 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:17:15.121 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:18:34.289 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:18:34.290 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:19:56.814 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:19:56.815 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:21:16.158 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:21:16.158 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:22:34.737 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:22:34.738 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:23:57.378 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:23:57.379 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:25:20.967 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:25:20.967 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:26:42.540 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:26:42.541 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:28:02.972 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:28:02.973 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:29:25.973 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:29:25.974 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:30:44.078 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:30:44.078 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q14 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:30:44.079 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:30:52.899 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:01.470 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:10.125 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:18.730 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:31:18.731 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:27.289 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:31:27.289 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:35.848 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:31:35.848 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:44.464 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:31:44.464 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:31:53.103 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:31:53.103 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:01.810 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:32:01.811 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:10.343 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:32:10.344 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:18.882 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:32:18.883 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:27.526 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:32:27.526 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:36.115 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:32:36.115 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q15 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:32:36.116 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:45.431 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:32:54.572 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:03.542 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:12.622 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:33:12.622 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:21.509 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:33:21.509 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:30.460 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:33:30.460 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:39.501 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:33:39.501 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:48.762 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:33:48.762 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:33:57.834 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:33:57.834 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:06.830 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:34:06.831 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:15.770 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:34:15.770 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:24.806 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:34:24.807 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:33.774 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:34:33.775 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q16 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:34:33.775 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:44.117 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:50.440 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:34:56.396 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:02.270 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:35:02.271 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:08.502 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:35:08.502 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:14.989 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:35:14.989 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:21.042 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:35:21.043 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:27.402 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:35:27.402 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:33.365 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:35:33.366 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:39.147 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:35:39.148 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:45.064 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:35:45.064 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:51.213 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:35:51.213 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:57.172 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:35:57.172 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q17 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:35:57.172 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:57.839 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:58.207 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:58.594 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:58.957 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:35:58.957 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:59.358 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:35:59.359 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:35:59.734 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:35:59.734 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:00.153 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:36:00.153 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:00.502 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:36:00.502 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:00.862 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:36:00.862 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:01.247 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:36:01.248 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:01.631 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:36:01.632 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:02.002 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:36:02.003 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:02.404 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:36:02.404 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q18 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:36:02.405 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:36:44.639 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342794]
+10:36:44.639 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:37:24.774 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342796]
+10:37:24.774 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:38:05.335 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342798]
+10:38:05.335 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:38:46.839 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342800]
+10:38:46.839 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:39:27.376 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342802]
+10:39:27.376 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:40:08.823 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342804]
+10:40:08.823 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:40:49.429 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342806]
+10:40:49.429 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:41:29.677 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342808]
+10:41:29.677 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:42:09.362 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342810]
+10:42:09.363 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:42:50.229 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342812]
+10:42:50.230 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:43:31.294 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342814]
+10:43:31.295 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:11.876 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342816]
+10:44:11.876 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:52.354 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504342818]
+10:44:52.354 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q19 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:44:52.354 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:52.767 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:53.004 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:53.225 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:53.455 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:44:53.456 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:53.676 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:44:53.677 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:53.903 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:44:53.904 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:54.126 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:44:54.126 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:54.351 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:44:54.351 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:54.585 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:44:54.585 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:54.814 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:44:54.815 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:55.046 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:44:55.047 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:55.262 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:44:55.263 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:55.511 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:44:55.512 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q2 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:44:55.512 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:44:59.283 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:02.523 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:06.138 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:09.610 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:45:09.610 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:13.033 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:45:13.033 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:16.435 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:45:16.436 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:20.051 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:45:20.051 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:23.507 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:45:23.507 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:27.074 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:45:27.075 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:30.527 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:45:30.527 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:34.039 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:45:34.039 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:37.514 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:45:37.515 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:41.152 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:45:41.152 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q20 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:45:41.152 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:45:52.640 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:46:04.696 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:46:17.012 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:46:29.263 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:46:29.263 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:46:41.194 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+10:46:41.195 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:46:53.178 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+10:46:53.179 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:47:05.368 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+10:47:05.368 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:47:17.421 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+10:47:17.422 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:47:29.393 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+10:47:29.393 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:47:41.521 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+10:47:41.522 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:47:53.535 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+10:47:53.536 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:48:05.398 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+10:48:05.398 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:48:17.899 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+10:48:17.900 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q21 on TIDB (5 nodes) - 3 warmup + 10 runs
+10:48:17.900 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:50:46.758 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:53:17.668 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:55:45.529 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+10:58:15.972 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+10:58:15.972 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:00:45.004 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+11:00:45.005 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:03:12.918 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+11:03:12.918 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:05:43.596 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+11:05:43.596 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:08:10.776 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+11:08:10.776 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:10:35.446 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+11:10:35.446 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:12:57.923 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+11:12:57.923 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:15:22.210 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+11:15:22.211 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:17:45.765 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+11:17:45.765 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:20:15.343 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+11:20:15.343 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q22 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:20:15.344 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:20:28.958 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:20:40.399 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:20:52.186 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:21:04.363 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+11:21:04.363 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:21:16.085 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+11:21:16.086 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:21:28.046 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+11:21:28.047 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:21:39.417 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+11:21:39.417 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:21:50.507 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+11:21:50.507 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:22:01.442 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+11:22:01.442 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:22:12.488 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+11:22:12.488 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:22:23.192 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+11:22:23.192 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:22:35.564 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+11:22:35.565 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:22:46.471 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+11:22:46.472 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q3 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:22:46.472 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:22:55.344 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:03.666 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:11.967 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:20.134 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+11:23:20.135 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:28.339 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+11:23:28.339 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:36.415 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+11:23:36.416 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:44.450 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+11:23:44.450 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:23:52.875 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+11:23:52.875 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:01.188 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+11:24:01.189 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:09.356 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+11:24:09.357 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:17.464 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+11:24:17.465 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:25.534 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+11:24:25.534 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:33.761 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+11:24:33.762 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q4 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:24:33.762 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:38.148 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:42.298 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:46.481 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:50.820 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+11:24:50.821 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:55.105 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+11:24:55.106 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:24:59.263 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+11:24:59.264 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:03.730 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+11:25:03.730 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:08.087 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+11:25:08.088 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:12.496 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+11:25:12.496 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:16.684 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+11:25:16.685 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:20.971 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+11:25:20.971 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:25.190 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+11:25:25.190 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:25:29.492 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+11:25:29.493 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q5 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:25:29.493 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:44:34.530 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=3504343002]
+11:44:34.530 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:50:51.002 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed PD server timeout: start timestamp may fall behind safe point
+11:50:51.002 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:50:51.608 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed PD server timeout: start timestamp may fall behind safe point
+11:50:51.609 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:50:51.621 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: PD server timeout: start timestamp may fall behind safe point
+11:50:51.622 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.444 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.444 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.507 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.507 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.517 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.518 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.527 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.527 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.534 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.534 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.541 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.541 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.552 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.552 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.560 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.560 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.568 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.568 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q6 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:52:46.568 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.576 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.576 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.583 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.583 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.590 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.590 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.598 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.599 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.608 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.608 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.615 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.615 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.623 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.623 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.630 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.630 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.638 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.638 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.646 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.646 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.653 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.654 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.661 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.661 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.669 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.669 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q7 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:52:46.669 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.681 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.681 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.690 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.690 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.699 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.700 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.714 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.714 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.738 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.738 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.762 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.762 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.780 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.780 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.806 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.806 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.827 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.827 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.842 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.842 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.859 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.859 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.871 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.872 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.892 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.892 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q8 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:52:46.892 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.927 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.927 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.945 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.946 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.961 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed PD server timeout: start timestamp may fall behind safe point
+11:52:46.961 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:46.984 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:46.984 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:47.004 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:47.004 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:47.019 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:47.019 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:47.038 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:47.039 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:47.066 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:47.066 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:47.098 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: PD server timeout: start timestamp may fall behind safe point
+11:52:47.098 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:52.131 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+11:52:52.132 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:54.006 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+11:52:54.007 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:55.770 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+11:52:55.770 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:52:57.649 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+11:52:57.649 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q9 on TIDB (5 nodes) - 3 warmup + 10 runs
+11:52:57.649 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:54:05.390 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:55:09.791 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:56:14.672 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:57:20.704 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+11:57:20.705 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:58:24.324 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+11:58:24.325 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+11:59:27.760 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+11:59:27.761 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:00:31.810 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+12:00:31.810 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:01:35.502 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+12:01:35.503 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:02:38.745 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+12:02:38.745 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:03:42.037 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+12:03:42.037 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:04:45.149 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+12:04:45.149 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:05:48.191 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+12:05:48.192 [main] DEBUG ro.uav.benchmark.db.TidbConnector -- Connecting to TiDB at 10.0.1.20:4000
+12:06:50.372 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+12:06:50.390 [main] INFO ro.uav.benchmark.export.CsvExporter -- Raw results exported to ./results/benchmark_20260504_120650_raw.csv

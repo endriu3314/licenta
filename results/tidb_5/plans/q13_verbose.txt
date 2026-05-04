@@ -1,0 +1,11 @@
+id	estRows	estCost	task	access object	operator info
+Sort_10	8000.00	8448269.64	root		Column#19:desc, Column#18:desc
+└─Projection_12	8000.00	3246728.55	root		Column#18, Column#19
+  └─HashAgg_13	8000.00	3245131.75	root		group by:Column#18, funcs:count(1)->Column#19, funcs:firstrow(Column#18)->Column#18
+    └─HashAgg_14	8000.00	2758676.35	root		group by:tpch.customer.c_custkey, funcs:count(tpch.orders.o_orderkey)->Column#18
+      └─HashJoin_16	10000.00	2294541.35	root		left outer join, equal:[eq(tpch.customer.c_custkey, tpch.orders.o_custkey)]
+        ├─TableReader_22(Build)	8000.00	659655.26	root		data:Selection_21
+        │ └─Selection_21	8000.00	6885228.90	cop[tikv]		not(like(tpch.orders.o_comment, "%pending%requests%", 92))
+        │   └─TableFullScan_20	10000.00	6386228.90	cop[tikv]	table:orders	keep order:false, stats:pseudo
+        └─TableReader_19(Probe)	10000.00	483389.09	root		data:TableFullScan_18
+          └─TableFullScan_18	10000.00	6617236.38	cop[tikv]	table:customer	keep order:false, stats:pseudo

@@ -1,0 +1,15 @@
+id	estRows	estCost	task	access object	operator info
+Sort_14	27.27	602065.06	root		Column#22:desc, tpch.part.p_brand, tpch.part.p_type, tpch.part.p_size
+└─Projection_16	27.27	595298.42	root		tpch.part.p_brand, tpch.part.p_type, tpch.part.p_size, Column#22
+  └─HashAgg_17	27.27	595287.54	root		group by:tpch.part.p_brand, tpch.part.p_size, tpch.part.p_type, funcs:count(distinct tpch.partsupp.ps_suppkey)->Column#22, funcs:firstrow(tpch.part.p_brand)->tpch.part.p_brand, funcs:firstrow(tpch.part.p_type)->tpch.part.p_type, funcs:firstrow(tpch.part.p_size)->tpch.part.p_size
+    └─IndexJoin_24	42.60	589232.31	root		anti semi join, inner:TableReader_20, outer key:tpch.partsupp.ps_suppkey, inner key:tpch.supplier.s_suppkey, equal cond:eq(tpch.partsupp.ps_suppkey, tpch.supplier.s_suppkey)
+      ├─Projection_30(Build)	53.25	560540.23	root		tpch.partsupp.ps_suppkey, tpch.part.p_brand, tpch.part.p_type, tpch.part.p_size
+      │ └─IndexJoin_36	53.25	560518.97	root		inner join, inner:TableReader_33, outer key:tpch.part.p_partkey, inner key:tpch.partsupp.ps_partkey, equal cond:eq(tpch.part.p_partkey, tpch.partsupp.ps_partkey)
+      │   ├─TableReader_61(Build)	42.60	537275.96	root		data:Selection_60
+      │   │ └─Selection_60	42.60	8045136.81	cop[tikv]		in(tpch.part.p_size, 3, 35, 6, 25, 28, 41, 8, 50), ne(tpch.part.p_brand, "Brand#12"), not(like(tpch.part.p_type, "MEDIUM PLATED%", 92))
+      │   │   └─TableFullScan_59	10000.00	6548136.81	cop[tikv]	table:part	keep order:false, stats:pseudo
+      │   └─TableReader_33(Probe)	42.60	24.53	root		data:TableRangeScan_32
+      │     └─TableRangeScan_32	42.60	304.59	cop[tikv]	table:partsupp	range: decided by [eq(tpch.partsupp.ps_partkey, tpch.part.p_partkey)], keep order:false, stats:pseudo
+      └─TableReader_20(Probe)	42.60	39.66	root		data:Selection_19
+        └─Selection_19	42.60	360.41	cop[tikv]		like(tpch.supplier.s_comment, "%Customer%Complaints%", 92)
+          └─TableRangeScan_18	53.25	310.51	cop[tikv]	table:supplier	range: decided by [tpch.partsupp.ps_suppkey], keep order:false, stats:pseudo
