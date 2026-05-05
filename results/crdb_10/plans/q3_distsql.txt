@@ -1,0 +1,58 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ estimated row count: 10
+│ order: -sum,+any_not_null
+│ k: 10
+│
+└── • group (streaming)
+"    │ estimated row count: 10,756,945"
+"    │ group by: l_orderkey"
+"    │ ordered: +l_orderkey"
+"    │"
+"    └── • render"
+"        │"
+"        └── • lookup join"
+"            │ estimated row count: 14,734,192"
+"            │ table: lineitem@lineitem_pkey"
+"            │ equality: (o_orderkey) = (l_orderkey)"
+"            │ pred: l_shipdate > '1995-03-30'"
+"            │"
+"            └── • sort"
+"                │ estimated row count: 6,561,057"
+"                │ order: +o_orderkey"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 6,561,057"
+"                    │ equality: (o_custkey) = (c_custkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ estimated row count: 22,149,341"
+"                    │   │ filter: o_orderdate < '1995-03-30'"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                    │         table: orders@orders_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 889,785"
+"                        │ filter: c_mktsegment = 'AUTOMOBILE'"
+"                        │"
+"                        └── • scan"
+"                              estimated row count: 4,500,000 (100% of the table; stats collected 3 minutes ago)"
+"                              table: customer@customer_pkey"
+"                              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkm29v20YSxt_fpyD2TeyWgrj_-EdAAbmx2_rOsXu2g7viLjBUibF1kUWfRF8bBPnuB0lWRO6IDzmSK6XJq8S2NNydZ3Z_zw7JD2L635HoiJN__nx2dHruHRyfXl1f_f3s0Ls6OTt5ee2NbrLJIJ28S9_73vTx_mB0k_6ep-NBOniYDPup9413IL2WN7oZDKf97HGcHx56R1feJP1fOn5MfS9bfH_Qy-c_TO-GDw-TYTYZ5u-9Hy4vXnn9x2me3acT35t_cOp7o-E4HebpvfePn04uT7yDg4OD_s39u3ya3t6n49z7zntx9Pr64tXF96dnJy8OvaPzY--gfzML9C59733nZcv_Hz79cTWJ-V-XPyz_XBij9-_HINB97_jo-sR7IZPEtgLd0sGLVajZFFYfTdd81Pvx8uL1z973v5SyhzJxcXl8cjn7wlPevOOTq5elr3hnp69Orz0ZCF-Ms0F63rtPp6LzLyGFL5TwhRG-sMIXkfBFLHyRCF_IQLzxxcMk66fTaTaZff7D_Nung99FJ_DFcPzwmM9-_cYX_WySis4HkQ_zUSo64rr36yi9THuDdNKeXWSQ5r3haH7NhVLdxT83D-_S98IXL7PR4_142ikk2F9JAecvfHH10Jt9ty11EkWhbrVVlFirrNcbDzzlZfldOpmKNx99kT3mq0FP895tKjqyMMvTY9GRH_3mE_1hOMrTSTppJ-VZLn7f8bp6WRVFlTudzkx5Z0irqL--9-5607tyyK4Sbz6uhq2cYSecYZf0icvXWS6q7vI_RKT-Spji4ioooXQc6bjVNlFkIluZeu2mPt4o90pVJF85673T6VxdX56e_8jMvCxl3jijVqpy1KvAj-N5BaeDUug3s2_WfWTN1H_qTe_-mg3Hs8nb8mBH6dv8oKsOv5sMb-_yg648FL64eMw7Xlf6XeV3td81ftf63bBSF-vO0HJ0ucomeTppa-1m8dvKC4bOBbXmXHCWiadiNs5us-RBd_mfZTGfZdm7xwfvP9lw7GXjWXJmaTr3ujJYbs7rVmxhFRT3Z4dsfoFps_8vt33hi8vZp2a1GX9zIGdRT16evjo6a3WTQ9_rat_rGt_rRpWZipxMGdZ2dXR7O0lve3k2aRtnx-rOIHCxKMCON__p6PyXm_OL65vz12dnB10zK6Sr16-eSqr8R0V_pQ-3WmWxO9HqDW4VeN0Ceio8nA0bkcEUsyHJ7OSnbKyf-prsVUmaODO10QarLbQuLVp-V38rfHGdPfytM4N_JQADZwBh9XKvS_XTVdem-zxrZQ_tyNmsz4b3wxwOzwV0VN5vZXPUqZ1ZkScH0mqbJFI2SKoZ6M6ONblPCJx7u736DxlsqooMn92AtNqyuekIN8q4qsr4jkxHdbp3YTrCHZgOli5L02G2MB2Gc8Gi6VBfm-lgbVJFzAZ_LtNhm6yyzU1H_BmZjniD1RaGz2g6ystdNeeH2RnVI53YRBrZakdWG2Ol2qzFYDhTXTG-6pi7O8aryoHvAjrxDqATc6RZQsddBhzosMq-CB3ztUGHtWqK26z6k0GnySrbGDqhi-A9QicMNlhtoUvNbaBTXu66OXTC3XW1TWSCJEhsqy1NHCUmjnVj0oSc-a1IY_ZOGlM58B2QRgd_PGl0wJFmSRriGBmkYdV6kTTuYe-LJw1r1RRJ454-P3fSNFllm5PG5e4-SaM2WG2Ri8otSBOVl7tpThq9M9KEVlllTNz6dNCZH28093ijOVNdQUfuHTpyU41k8vz3UBf3TlttrXQYxIybqMlG6Vd6v_3M6qLZxdEy2sHRMuLosgS-e1uHA3zLuWAR-PprAz5rxyoCX_7JgF-9wz1HP9O9pbzPfiZrF1weLd27wNscLcvL3TaHSbAr4LeWT0w1JnvAmdMntMT7BntcOexdsMVt1P0RbDEcYZZsIf6cwRbFuWCRLe7R-otnC2vNFB_Qcc_6nzlbTJNVtjlbSI99j2wJN1htodsb2IYt5eUeNmdLtMO25VOvstWWNpBxEJrqRUMe8eHMb3WCtPsGjbSVA99F29J9-PGPaFtKjjRL0hBjyCBNwrlgkTTume6LJw1r1RT3VveQ-ZmTxjZZZZu3Lclzy3tsW-oNVlvkHkq3aVuWl3vUnDR2d09lhJFKYpu02olS2iodztuWctG2bMwcy5npijlVbbPdMUdvKpGMnr9rKVtPL3800oD0LqONRFBVreMd9S6rF8kuzpfJDs6XCUeXJfXJM_UM6rMKoUh993WYL576rH2rSH2Xc5879av3ueegvgvNfVKfBd3l-dL12NucL1kvE16m04dsPE3djW3ttdxLteRMmHRwmy6EnGaPk3768yTrzz-7-PFiHmj-i0E6zRd_lYsfTsfLP03zSdq7__QKZzGSdCPJYiSTlELJUijNjFUdavEWXfNQ0lbHWuyPjGHJ6liLN6uax1K6OlbITH0YVceKmKnXYI4xM_cWjCshuVewUDUo1MANpTmVqkrlpZixqkMt3oRoHsqp1FKsxcM0jGHJ6liLh9Sbx3IqtRQrYqbeqdRSrJiZeg3mmDBzb8G4ZECSb2CpWlSqZJuwMFYIYkmyhEIYKwKx6LYa4YSB7UtqsufgYDGIZcheiGNJhCG6SeNgBsBDWpJ-HEyB3VCGzPxHYJuWdM_HwTSaZswUIEQji4kAMSzZBJQsJUiCrU4AXEVA0YaNUwSARDZFSThZHpmqjkU2RUk42dyGkV2xLhjIGNkUa2JBI0aQVDcwUGSWph8Hg1aMm3_oxbj5h2aMKwB0Y1QAAsxyyZrqkqWxCC-b-zEqZk0wYMioljgWdGRUy5qBIUtGtcTBkCcLufmHpoybf-jKuAJgW0YVwF5KQjNFJ4rdlER2SlINCDXL0WJkzmh5EGwy3BnNG44G7RmVFAeD_mzN1o2jYYNGRcDRsEPjioAtGlcE7NG4KkCTllAVsLNSAbJpRAVV05KCPo2ooLC3UsBbEQ3UFt6KDmxzb0VTtrm3MkTNuoEhb0UKrSYY9Fbc_ENvxc0_9FZcAZC3kgFVAJsrBcyVlFQC3I5QqB9B_ZXCEFUIomsKl0CUASoqKY4GQUWLDQfDoKIi4GgQVCEVAUfDoOKKgEHFFQGDiqsCBhVVAbssBVyWWrNMcXMCg4qqgCGqAURp95cgtDmoaPu3Jhg4t9P2L44FQUX7vzUDQ6CiDWAcDIKKm38IKm7-EaioVasJhkFFFcDmSgNzJWm3Sdfc4kH3eNbcmMEQ1Qiiawq35iQKQUUlxdEgqGix1XQpIKioCDVtCggqKkJNnwKV25qbRzgaBhVXBAwqrgoYVFQF7LI0cFlqzTKtaVUgUK25e4ohqgFEyY0HXXN-h7XLDQZmSe4V1MSC3WpyE6NuYAhU5PZKTTAIKm7-Iai4-YcnKq4AsFtNBcDeyqAGBRHAsMxVuV1NBKgLVh1Lk_zXxILtapL_uoGhdjXJf00w-AgBN_-wXc3NP2xXcwXA7WqqADZXBpormjVsrgwyV5IKis2VQeaKbrZmG3NFVdjCXNH62MZcURG2MFdrVtUW5irkioDNFVcEbK64KmBzRVXA5sqgFhZli9nCXK1Z9NhcGWCuiFEzW5gr4iHrgoFZEndbEwuaK_qw1ebmypAzQU0waK64-Yfmipt_aK64AkBzRQXA5soic0XbYBbf_bEScYqMzWKGWsRQWre2pssPOUUUrYkGOUVqrSYYfuyNilBzCwhyiopQcw8IcoorAuYUVwTMKa4K-Nk3qgI2WRaZLLpMLb4NhDlFVcAMtYChhHm25t4Iql36vGxNMIAWYhRqYsFuNfEwdQNDTQBir2qCQU5x8w85xc0_7FZzBcDdaqoA9lYWPWNDu00W3_2x6NlU2gewGKIhgigt3LDmIApBRSStiQZBRZ9Br2lSwAMVEaEmGu5WExFqouFuNVcEDCquCBhUXBXwgYqqgF1WiJ5fpss0xJ0K3K2mKmCIhgCidJ6sB1UdRbnBwCxpcbAeVC2DimaM9aBqGVRUTNaDqmVQcfMPQcXNPzxQcQXAoKIK1Lz0A8wVHRnLXJW71XRgHHNV7lbTymCZq3K3mlYGy1yVu9W0MljmqvxwNTf_sFvNzT_sVnMFwN1qqgA2VyE0V3Rs2FyF0FzRtGFzFSFzRTfbaBtzRV8K28Jc0ZfCtjFX9K2wbcwVfS1sC3NFl1VNNGyuuCJgc8VVAZsrqgI2VxE0V1SFLcxVkHx844u3o-y3m-FAdIROB1qGst-KBzJuGZm-bSVpv9-KjOz3gyj5Nej3xewLvdup6HwQV3fZb_PA1-8f0qnovO2NpqkvXvXepcdpnk7uh-PhNB_2n_7y8eNf_h8AAP__kZomgQ==
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_mktsegment);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_extendedprice, l_discount);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_custkey, o_shippriority);"

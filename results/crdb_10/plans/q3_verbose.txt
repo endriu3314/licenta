@@ -1,0 +1,75 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ columns: (l_orderkey, revenue, o_orderdate, o_shippriority)
+│ estimated row count: 10
+│ order: -sum,+any_not_null
+│ k: 10
+│
+└── • group (streaming)
+"    │ columns: (l_orderkey, sum, any_not_null, any_not_null)"
+"    │ estimated row count: 10,756,945"
+"    │ aggregate 0: sum(column46)"
+"    │ aggregate 1: any_not_null(o_orderdate)"
+"    │ aggregate 2: any_not_null(o_shippriority)"
+"    │ group by: l_orderkey"
+"    │ ordered: +l_orderkey"
+"    │"
+"    └── • render"
+"        │ columns: (column46, o_orderdate, o_shippriority, l_orderkey)"
+"        │ ordering: +l_orderkey"
+"        │ render column46: l_extendedprice * (1 - l_discount)"
+"        │ render o_orderdate: o_orderdate"
+"        │ render o_shippriority: o_shippriority"
+"        │ render l_orderkey: l_orderkey"
+"        │"
+"        └── • lookup join (inner)"
+"            │ columns: (o_orderkey, o_custkey, o_orderdate, o_shippriority, c_custkey, c_mktsegment, l_orderkey, l_extendedprice, l_discount, l_shipdate)"
+"            │ ordering: +o_orderkey"
+"            │ estimated row count: 14,734,192"
+"            │ table: lineitem@lineitem_pkey"
+"            │ equality: (o_orderkey) = (l_orderkey)"
+"            │ pred: l_shipdate > '1995-03-30'"
+"            │"
+"            └── • sort"
+"                │ columns: (o_orderkey, o_custkey, o_orderdate, o_shippriority, c_custkey, c_mktsegment)"
+"                │ estimated row count: 6,561,057"
+"                │ order: +o_orderkey"
+"                │"
+"                └── • hash join (inner)"
+"                    │ columns: (o_orderkey, o_custkey, o_orderdate, o_shippriority, c_custkey, c_mktsegment)"
+"                    │ estimated row count: 6,561,057"
+"                    │ equality: (o_custkey) = (c_custkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ columns: (o_orderkey, o_custkey, o_orderdate, o_shippriority)"
+"                    │   │ estimated row count: 22,149,341"
+"                    │   │ filter: o_orderdate < '1995-03-30'"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         columns: (o_orderkey, o_custkey, o_orderdate, o_shippriority)"
+"                    │         estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                    │         table: orders@orders_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ columns: (c_custkey, c_mktsegment)"
+"                        │ estimated row count: 889,785"
+"                        │ filter: c_mktsegment = 'AUTOMOBILE'"
+"                        │"
+"                        └── • scan"
+"                              columns: (c_custkey, c_mktsegment)"
+"                              estimated row count: 4,500,000 (100% of the table; stats collected 3 minutes ago)"
+"                              table: customer@customer_pkey"
+"                              spans: FULL SCAN"
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_mktsegment);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_extendedprice, l_discount);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_custkey, o_shippriority);"

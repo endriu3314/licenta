@@ -1,0 +1,46 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ columns: (l_returnflag, l_linestatus, sum_qty, sum_base_price, sum_disc_price, sum_charge, avg_qty, avg_price, avg_disc, count_order)
+│ estimated row count: 6
+│ order: +l_returnflag,+l_linestatus
+│
+└── • group (hash)
+"    │ columns: (l_returnflag, l_linestatus, sum, sum, sum, sum, avg, avg, avg, count_rows)"
+"    │ estimated row count: 6"
+"    │ aggregate 0: sum(l_quantity)"
+"    │ aggregate 1: sum(l_extendedprice)"
+"    │ aggregate 2: sum(column23)"
+"    │ aggregate 3: sum(column25)"
+"    │ aggregate 4: avg(l_quantity)"
+"    │ aggregate 5: avg(l_extendedprice)"
+"    │ aggregate 6: avg(l_discount)"
+"    │ aggregate 7: count_rows()"
+"    │ group by: l_returnflag, l_linestatus"
+"    │"
+"    └── • render"
+"        │ columns: (column23, column25, l_quantity, l_extendedprice, l_discount, l_returnflag, l_linestatus)"
+"        │ render column23: l_extendedprice * (1 - l_discount)"
+"        │ render column25: (l_extendedprice * (1 - l_discount)) * (l_tax + 1)"
+"        │ render l_quantity: l_quantity"
+"        │ render l_extendedprice: l_extendedprice"
+"        │ render l_discount: l_discount"
+"        │ render l_returnflag: l_returnflag"
+"        │ render l_linestatus: l_linestatus"
+"        │"
+"        └── • filter"
+"            │ columns: (l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate)"
+"            │ estimated row count: 59,999,457"
+"            │ filter: l_shipdate <= '1998-11-30 23:58:02'"
+"            │"
+"            └── • scan"
+"                  columns: (l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate)"
+"                  estimated row count: 179,998,372 (100% of the table; stats collected 59 seconds ago)"
+"                  table: lineitem@lineitem_pkey"
+"                  spans: FULL SCAN"
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_returnflag, l_linestatus) STORING (l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate);"

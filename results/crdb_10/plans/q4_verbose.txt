@@ -1,0 +1,39 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ columns: (o_orderpriority, order_count)
+│ estimated row count: 5
+│ order: +o_orderpriority
+│
+└── • group (hash)
+"    │ columns: (o_orderpriority, count_rows)"
+"    │ estimated row count: 5"
+"    │ aggregate 0: count_rows()"
+"    │ group by: o_orderpriority"
+"    │"
+"    └── • project"
+"        │ columns: (o_orderpriority)"
+"        │"
+"        └── • lookup join (semi)"
+"            │ columns: (o_orderkey, o_orderdate, o_orderpriority)"
+"            │ estimated row count: 1,719,719"
+"            │ table: lineitem@lineitem_pkey"
+"            │ equality: (o_orderkey) = (l_orderkey)"
+"            │ pred: l_commitdate < l_receiptdate"
+"            │"
+"            └── • filter"
+"                │ columns: (o_orderkey, o_orderdate, o_orderpriority)"
+"                │ estimated row count: 1,719,719"
+"                │ filter: (o_orderdate >= '1997-08-01') AND (o_orderdate < '1997-11-01')"
+"                │"
+"                └── • scan"
+"                      columns: (o_orderkey, o_orderdate, o_orderpriority)"
+"                      estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                      table: orders@orders_pkey"
+"                      spans: FULL SCAN"
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_orderpriority);"

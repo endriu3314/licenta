@@ -1,0 +1,123 @@
+info
+distribution: full
+vectorized: true
+
+• root
+│ columns: (ps_partkey, value)
+│
+├── • sort
+│   │ columns: (ps_partkey, value)
+│   │ estimated row count: 297,035
+│   │ order: -sum
+│   │
+│   └── • filter
+│       │ columns: (ps_partkey, sum)
+│       │ estimated row count: 297,035
+│       │ filter: sum > @S1
+│       │
+│       └── • group (hash)
+│           │ columns: (ps_partkey, sum)
+│           │ estimated row count: 891,105
+│           │ aggregate 0: sum(column29)
+│           │ group by: ps_partkey
+│           │
+│           └── • render
+│               │ columns: (column29, ps_partkey)
+│               │ render column29: ps_supplycost * ps_availqty
+│               │ render ps_partkey: ps_partkey
+│               │
+│               └── • hash join (inner)
+│                   │ columns: (ps_partkey, ps_suppkey, ps_availqty, ps_supplycost, s_suppkey, s_nationkey, n_nationkey, n_name)
+│                   │ estimated row count: 964,853
+│                   │ equality: (ps_suppkey) = (s_suppkey)
+│                   │ right cols are key
+│                   │
+│                   ├── • scan
+│                   │     columns: (ps_partkey, ps_suppkey, ps_availqty, ps_supplycost)
+│                   │     estimated row count: 24,000,000 (100% of the table; stats collected 2 minutes ago)
+│                   │     table: partsupp@partsupp_pkey
+│                   │     spans: FULL SCAN
+│                   │
+│                   └── • hash join (inner)
+│                       │ columns: (s_suppkey, s_nationkey, n_nationkey, n_name)
+│                       │ estimated row count: 12,000
+│                       │ equality: (s_nationkey) = (n_nationkey)
+│                       │ right cols are key
+│                       │
+│                       ├── • scan
+│                       │     columns: (s_suppkey, s_nationkey)
+│                       │     estimated row count: 300,000 (100% of the table; stats collected 3 minutes ago)
+│                       │     table: supplier@supplier_pkey
+│                       │     spans: FULL SCAN
+│                       │
+│                       └── • filter
+│                           │ columns: (n_nationkey, n_name)
+│                           │ estimated row count: 1
+│                           │ filter: n_name = 'ETHIOPIA'
+│                           │
+│                           └── • scan
+│                                 columns: (n_nationkey, n_name)
+│                                 estimated row count: 25 (100% of the table; stats collected 3 minutes ago)
+│                                 table: nation@nation_pkey
+│                                 spans: FULL SCAN
+│
+└── • subquery
+"    │ id: @S1"
+"    │ original sql: (SELECT sum(ps_supplycost * ps_availqty) * 0.0000100000 FROM partsupp, supplier, nation WHERE ((ps_suppkey = s_suppkey) AND (s_nationkey = n_nationkey)) AND (n_name = 'ETHIOPIA'))"
+"    │ exec mode: one row"
+"    │"
+"    └── • render"
+"        │ columns: (""?column?"")"
+"        │ render ?column?: sum * 0.0000100000"
+"        │"
+"        └── • group (scalar)"
+"            │ columns: (sum)"
+"            │ estimated row count: 1"
+"            │ aggregate 0: sum(column59)"
+"            │"
+"            └── • render"
+"                │ columns: (column59)"
+"                │ render column59: ps_supplycost * ps_availqty"
+"                │"
+"                └── • hash join (inner)"
+"                    │ columns: (ps_suppkey, ps_availqty, ps_supplycost, s_suppkey, s_nationkey, n_nationkey, n_name)"
+"                    │ estimated row count: 964,853"
+"                    │ equality: (ps_suppkey) = (s_suppkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • scan"
+"                    │     columns: (ps_suppkey, ps_availqty, ps_supplycost)"
+"                    │     estimated row count: 24,000,000 (100% of the table; stats collected 2 minutes ago)"
+"                    │     table: partsupp@partsupp_pkey"
+"                    │     spans: FULL SCAN"
+"                    │"
+"                    └── • hash join (inner)"
+"                        │ columns: (s_suppkey, s_nationkey, n_nationkey, n_name)"
+"                        │ estimated row count: 12,000"
+"                        │ equality: (s_nationkey) = (n_nationkey)"
+"                        │ right cols are key"
+"                        │"
+"                        ├── • scan"
+"                        │     columns: (s_suppkey, s_nationkey)"
+"                        │     estimated row count: 300,000 (100% of the table; stats collected 3 minutes ago)"
+"                        │     table: supplier@supplier_pkey"
+"                        │     spans: FULL SCAN"
+"                        │"
+"                        └── • filter"
+"                            │ columns: (n_nationkey, n_name)"
+"                            │ estimated row count: 1"
+"                            │ filter: n_name = 'ETHIOPIA'"
+"                            │"
+"                            └── • scan"
+"                                  columns: (n_nationkey, n_name)"
+"                                  estimated row count: 25 (100% of the table; stats collected 3 minutes ago)"
+"                                  table: nation@nation_pkey"
+"                                  spans: FULL SCAN"
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_name);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.partsupp (ps_suppkey) STORING (ps_availqty, ps_supplycost);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.supplier (s_nationkey);"

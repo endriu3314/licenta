@@ -1,0 +1,40 @@
+info
+distribution: full
+vectorized: true
+
+• group (scalar)
+│ estimated row count: 1
+│
+└── • render
+"    │"
+"    └── • hash join"
+"        │ estimated row count: 5,686"
+"        │ equality: (l_partkey) = (p_partkey)"
+"        │ right cols are key"
+"        │ pred: ((((((p_brand = 'Brand#14') AND (p_container IN ('SM BOX', 'SM CASE', __more1_10__, 'SM PKG'))) AND (l_quantity >= 1)) AND (l_quantity <= 11.00)) AND (p_size <= 5)) OR (((((p_brand = 'Brand#13') AND (p_container IN ('MED BAG', 'MED BOX', __more1_10__, 'MED PKG'))) AND (l_quantity >= 20)) AND (l_quantity <= 30.00)) AND (p_size <= 10))) OR (((((p_brand = 'Brand#34') AND (p_container IN ('LG BOX', 'LG CASE', __more1_10__, 'LG PKG'))) AND (l_quantity >= 27)) AND (l_quantity <= 37.00)) AND (p_size <= 15))"
+"        │"
+"        ├── • filter"
+"        │   │ estimated row count: 12,762,935"
+"        │   │ filter: (l_shipmode IN ('AIR', 'AIR REG')) AND (l_shipinstruct = 'DELIVER IN PERSON')"
+"        │   │"
+"        │   └── • scan"
+"        │         estimated row count: 179,998,372 (100% of the table; stats collected 1 minute ago)"
+"        │         table: lineitem@lineitem_pkey"
+"        │         spans: FULL SCAN"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 6,000,000"
+"            │ filter: p_size >= 1"
+"            │"
+"            └── • scan"
+"                  estimated row count: 6,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                  table: part@part_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsXGtT48gV_Z5foep8GNjIkfqlVxVVZgYvS5bHxJDsViUUZexecK2xvZKc3ckU_z0lP9DjottuK2ag8H7YEX4c3dt97zlH3Q1fSfLbiESk8_Pn08OTc2vv6OTy6vLvp_vWZee08-nKSmYPe6Mb9UeqxgM1mMbDvrK-s_ao1bJGN4Nh0p_Mxun-vnV4acXqP2o8U9b33YszazQcq2GqHmxr2otT66cfOt2Otbf6b3qTvfqr-mIdWKPV9b51eH5k7U1vbuPeeGAdWB8-Zhd_puLD_tN7_ck47Q3HKrayaD9cnlmfDi87H2wru_x48fPy6vPhpx9Xlz8ef9hfAYxufpv1xukw_WL9e-a6XB1YtO69_kGW518s6u7n90-G_1XWx87VT53OuUXnr8ocILkfTh8mA7UI7vCkm8VweNK1up1SENnnhuMkjWf9NEv0qHN68s9ON_va50738uI8y_iia202Xrx-vM46R9bHw-MsrPnlYsCyy2yYVpfZ4GFDxlxszJi7xqBRdzujtvmwcaTMTo-fyuz0eDVqp8dPZZZdasqM-eiY-euM2ZYqjdhkPBmo896DSkj0L0KJTRixCSc2EcQmktjEIzbxiU0CYpOQ2IS65Nom03jSV0kyibPvfZ2jnAz-IJFrk-F4Okuzl69t0p_EikRfSTpMR4pE5Kp3O1Jd1Ruo2HGJTQYq7Q1H83uveKO9uriZ_qq-EJt8moxmD-MkyifStvKRzK5LJGUX6Cm7Lo7D6uds_IhNLqe9DLflUIdaWUlIa5Leqzgh1482mczSPJEk7d0pEtFC5idHJHIf7fWT_344SlWsYodWUl-8EVl7bS-f1SiKLq-6J-fHhel9em01zW35_NTmH6ykkkdz-8W67yX35UjalFw_5umySrq0Pt8ceDaexAMVq0EJ-jr7pu4jzwzaD73k_m-TrCEd5lUqRv2S7rXp_kE8vLufXxGbXJwvSaAdlIQkH5HlyFH3SUiyti4O90pbKq_Ne7762o-lWVmBs1xkoig66nw6OTs8rb7bP7Ao_avrPvOJ8OkTMoqik_OroMBvpcx4fWYryi-GvOL-6msgt5UyoMmx52LPs-OuLjvqPqX3fH4cmbklIRejXtF15TWQ3ZK28eR8PDlfm1w-d1lhztLIalO7zew2t9vCbku77dlt324Hdju02xmx1tCOrPQh80x453zSmkwdXumebkaZcWS1-Xd7hSJttUWVM_I4vEoc3CiOw7u7WN310knsiEowl_84m_dv3Y39yo1F_Y03YplCaNIwtKASmiyHRtcXxOC1CKLjMdfz3MB3ZMvxZCi4J6kj5hLJTCUyMBmOXCKDtyqRRvkWp5-x8o2yuW1n_wPzPs3nfWlms4vMN2b_PjnY4oRSzt2wVTtpvEowbKNZY_L5WWvzkh5mnNho0EU1XFkb7gv4Ei52vmTnS3a-hERcmNDGwpcI8f_3JcIojqL4i2a-RJZvzNZnf_pqxJ86tOVwEXLfd_hc831Tzacmo5BrPn2rmm-Ub0nz3a1pfsvhrudJub7muxvNGuPfSPN5bbgvsRbh7zR_p_k7zScR801oY7kW4W9hLcIojuJahN9wLaJ8Y27A_q9G81dy33K8MKAicNhc-ENT4WcmQ5ELP3urwl-f70toUHXBaKdBOw16nxoUmPDOUoOCLWiQURxFDQoaalD5xmJ9DaquXX07DWKUBlK4gSNbDpOuDH0RLnXIeNFZmAxHrkPirepQfb4vsf5Z3cnf6dBOh96lDnHXhHeW65_uFtY_jeIorn-6Ddc_yzeW6-uQfD06FIShF3qLZVAW-Nx3mSM3Ox8kTYYj16GabbTXr0P1-b6EDlXX0Hc6tNOh96lD1IR3ljpEt6BDRnEUdYg21KHyjb31dYi_Gh2inkf9QAaZDlEv9Hgg2PIQDjfVIW4yHLkO1WztvH4dqs_3Jdblwp0O7XRop0MkYqEJ7yzX5cItrMsZxVFclwsbrsuVb-yvr0PV_eVvuDfEA-5T5jp-yxFSciG43PRgiG8yHLkO-W9Vh4zyLW0N0u0dBl2cC2ktD4Wufz6EbjR5rGZRdevnQ0RtuC_xLFr1kTsPsPMA79IDcG5CG8tnUb6FZ1GjOIrPorzhs2j5xsH6IlD9fbdv6QGoEDyY781xLkLq-nz5O5PUNTUBnsl45CbAe6smoD7flxCi6iGjnRDthOh9ChEz4Z2lELEtCJFRHEUhYg2FqHzjcH0hqi5ofcPfTPSkR73Qd1jL8bzQ9QNBlw-jdKFDa8tQaDIauQyFb1WG6vN9CRmq7u_uZGgnQ-9ThqQJ7yxlSG5BhoziKMqQbChD0uSPBnRVMp2ME1UlpGdv5VZu1aIZLanBnVrQXDKZxX31OZ70559d_HgxB5q_MFBJuniXLn44Ga_eStJY9R6e_uZLEYlWkWgRiZWQaBFpsU21PhT167EWfxLCICwkrsVy-fpYHIlrYToM4kKwPGkYF5KjH5hhibAeK6SGWAKpCVcYFoWLgC0WoNcHk1hkHFQ-Q3uI1_cQFaD0OYolECwJsASKJZEcPYAlcSzfgCg8FApBArXqb0o5DJQqDoVRDgeVqgkLiUuAQsWxMMrxwMBr4kKwfFAPmriQHANA0TgWSjmAojVYWGNTwNGaosAohwGSxsFwygGVH6A9FCI0AZIMDZqIlZoIpIhDVZqohAUz1ISFxCVBc-NYHInLA82tiQvB8kFza-JCcgxBc-NYlSZiZa0F3a0BEwgYBe2tqQoXAWOgv3EwiUUmoAfTuF_E_lJYZRSYijIaQ9A8iIa7Cky9fQiG2wqK-QqABWzF2kYfejocC3X60NNpAsN0Fz7N4GCo14fPM5rIMBWHDzSayDC3D59ocDBUe2E7acBQvw8fajS1gRp--FiDo-HyC3sAt8PUQ_oJlhowxGsrMKw0HAuVYFhpmsCQyASsNBwMFWFYaZrIMBWGhaaJDEkzgHWGg-E6DOtMg4YKMWRbTXGgSgzpFkfDpRg2AbDH5Y4KsKdomCnujylmkCVEA6Zj_QdpAMZwz8EQzwHagG2-5ga6QIOFSjHoAl1gmBSDJtCAoVIMh7_BuhtoAV1k2FMwXEVqsPIGdEAHhkoxEAJdbaBSDJRAg4ZLMewB3CczdPkNdgFulBm6AAfRGqzAQTDcczDEc8AuMLEclYcLQyx06Qw2gZHlKBMHbAIjy1EmDtgDRpajTBywBYwsR5k4YAcYWY4yccAqM3IcFeKAOmDkOCoraFAIjBxHhThgD-COg6GOA3YB7jgY6jggWgPHAcA47jg44jhAefDNHQcoDg0WShygNnSBYcQBSkMDhhIHHP7NHYcP-FEXGUYccK-pgeMA_KgDQ4kDEKSuNlDiAAypQcOJA_aAZr8PdRywC3DHwVHHAdEaOA4IhjsOjjgOWGubOw5Yaps7DrigrAsMIw5YaA0cB6yzBo4DzmUDxwHJtoHjgGTbxHFAtm3iOCDdNnEcsAdwx8FRxwG7AHccHHUcEK2B4wBgAnccAnEcYELFxo4DTqcGC3Uc8HRFA8cBR6yB4wCUposMcxyA0nSRYcQBKE0DhhIHoDQdGLrXDzhNVxsocQBS06DhxAF7AHccAnMcMFFgONbeboBp4ljodgPMUhMYtuUPWx0HQ7cbYKtrIsO2G2CrayLDthtgq-Ng-HYD7HUNGrrdAJtdUxzodgPsdhwN326ATYD7ZCEx8YTFhhtlgW0HwmNaAj8gh-78QzDccwjEc8DKBY5jbQ8PCxfHQqUY1q0mMEyKYdniYKgUw6rVRIZJMSxaTWSYFEPqxsFQKYbUrQFDpRjWrKY2UCmG5I2j4VIMe0Djk13Mw4MukLhRlugBJIiGH0BCPTwE05w_QjwHxDKxHGUPD3pdg4USB-h1XWAYcYBe14ChZ3VBr-siw4gD9LouMow4QK9rwDDioC7odR0ayhzwlLqR5agwB-h1DRrOHLAJNEtzqOWAbaA5kI9aDojWwHKwx2ub_DKa_H4zHJCIeOHAC2RftVzXpS0R3vZbARv0WooFPr-9lb2-YiT7Qu8uIdFXcnk_-X0OfPVlqhIS_dIbJcomZ71f1ZFKVfwwHA-TdNhfvvP4-Kf_BQAA__-kh8g4
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipinstruct, l_partkey, l_quantity) STORING (l_extendedprice, l_discount, l_shipmode);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_brand, p_size) STORING (p_container);"

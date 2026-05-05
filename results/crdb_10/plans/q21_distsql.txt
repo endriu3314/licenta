@@ -1,0 +1,74 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ estimated row count: 100
+│ order: -count_rows,+s_name
+│ k: 100
+│
+└── • group (hash)
+"    │ estimated row count: 249,475"
+"    │ group by: s_name"
+"    │"
+"    └── • lookup join"
+"        │ estimated row count: 523,636"
+"        │ table: orders@orders_pkey"
+"        │ equality: (l_orderkey) = (o_orderkey)"
+"        │ equality cols are key"
+"        │ pred: o_orderstatus = 'F'"
+"        │"
+"        └── • lookup join (anti)"
+"            │ estimated row count: 522,962"
+"            │ table: lineitem@lineitem_pkey"
+"            │ equality: (l_orderkey) = (l_orderkey)"
+"            │ pred: (l_suppkey != l_suppkey) AND (l_receiptdate > l_commitdate)"
+"            │"
+"            └── • lookup join (semi)"
+"                │ estimated row count: 784,443"
+"                │ table: lineitem@lineitem_pkey"
+"                │ equality: (l_orderkey) = (l_orderkey)"
+"                │ pred: l_suppkey != l_suppkey"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 2,353,328"
+"                    │ equality: (l_suppkey) = (s_suppkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ estimated row count: 59,999,457"
+"                    │   │ filter: l_receiptdate > l_commitdate"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         estimated row count: 179,998,372 (100% of the table; stats collected 1 minute ago)"
+"                    │         table: lineitem@lineitem_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • hash join"
+"                        │ estimated row count: 12,000"
+"                        │ equality: (s_nationkey) = (n_nationkey)"
+"                        │ right cols are key"
+"                        │"
+"                        ├── • scan"
+"                        │     estimated row count: 300,000 (100% of the table; stats collected 3 minutes ago)"
+"                        │     table: supplier@supplier_pkey"
+"                        │     spans: FULL SCAN"
+"                        │"
+"                        └── • filter"
+"                            │ estimated row count: 1"
+"                            │ filter: n_name = 'ARGENTINA'"
+"                            │"
+"                            └── • scan"
+"                                  estimated row count: 25 (100% of the table; stats collected 3 minutes ago)"
+"                                  table: nation@nation_pkey"
+"                                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcnF9v20bWxu_fT8GXN7W79Irzl6SAAvImTuuuI3dtBW2xGxiKzSTayqJXktENgnz3hSTLInnEZ3hIWIbcm8a2_OicOTN8fnNm5K_-7D9jv-uf_PbL2fFp3zt4fXo5uPzH2aF3eXJ28mrgza4mw9s08K6z-8n84PtD7_jSm9zf_jkczb03F-dvvdn93d14lE4DbzyapKN5ert4yVgEXja9SaezwJsM56Ns4v3608nFiXew-m92tfi9P9Iv3g_eWPx1vP7y0Dvuv_YOsqvlL-d-vv76sPiK2Xw4v595P3jfvflu_aPl66fpdTq6m98M56n3r_swVOlK5zq7vR0tv_3w8pPfFhl7Bw_5fr_KqpCLXMc-lrlISGQP7y432Xj_X8puHWL_fFDnjdXjoI1VjXdW6J1zr9k2Nqo0NutfWNR_Ub7V2042X61fMFlOkEUFji9-POkPTvvH3x16P16cv_vF-9vvD_PHO794fXKx-Ho9d16fXL4K1j89O317OvBEGPqBP8lu0v7wNp353X_6wg986Qe-8gNf-4Fv_MC3fuBHfuDHfuAnfuCL0H8f-HfT7DqdzbLp4ve-LlVOb_7rd8PAH03u7ueLb78P_Otsmvrdr_58NB-nftcfDD-M04t0eJNOO4t3v0nnw9F4-d7rSvTW_7haDKQf-K-y8f3tZNb1NhUIvMeRXvxzM5CLr3LD7Qf-5d1w8btHHdER3nBy4xkvm39OpzP__bfAz-7nm2Bn8-Gn1O-KXHanr_1u-C2on-Cb0XieTtNpR5TSW_2g6_X0eg70VCmEjcqHL97n4exzUaEn_fffNmHKUpiiOs6N8P1kOYTpTUH6_eI3XS_ZkuxPw9nnn7PRJJ12pClVM_04P-jJwx-mo0-f5wc9cegH_vn9vOv1RNCTQU8FPR30TNCzQS8KenHQSyorEpVSlYZTkkWED1NOlaIcfLlLu97ZyZuBd3ny9tT7-fy07wfVU_Esy_64v_P-nY0mXjZZ5LLIqu_1hFg8AXrSOV0rc4xLOaqmOerqHI_7g-Y5Hjwm-fAk6gn1OJWFPGy5UqvGJSmNi246LqY0Lis_663-V6fAS9PrdruXg4vT_o_5dLNcugWjfJzztvppE5YSNKwEjz99mqafhvNs2rGlBJexH_d_v-qfD676787OHlbhq_N3_cHVxfmvlweHzCeQKDyBRPlJaatDb_R8ySUX1Uzu8t3bq9P-YPHoqR7y8qMzYg35ZTadp9NOXI5IHgU98Rc_8AfZ3d-7S3utjECVIojrjNy2cXt8260D2M-OsrtOUor0bHQ7muP4dCm-pBifqO_y8S5dvmNlaG0YRx1z1LEm0coa0dFL35dc3485KW98P96171fHuQPfV2qHvq8UpyR5T1R74_u6aY6mOseX4Pum6bhYtR--b1kJ5q1RPbfvR9Wht_X9uGZyjXw_Zg35g-8n5Yja-H5SjEDW91WxU18VHXHUUTpRUdRRSzuNuHYqOJlu7FTs2k6r49zFNtruchttOSXJb6Pt3tipapqjrs7xJdipbjouxu6HnRpWgvlttH1uO7XVobfeRtdMrtk2mjXk6210OaJW2-hiBKq-ncqd2unaSY86NomFjjty6akJ11MlJ92Np8pde2p1nLvw1GiXnhpxSpL31Gh_PLVpjro6xxfhqU3HxUR74qmsBPOeGj27p1aH3tpTaybXzFNZQ7721HJErTy1GIGu76l6p54qhYiNDuOOOepIE5ok0smDr7Jbv5qT8sZX9a59lRVnAXdKp9PrWyW99T9IbWabeqzvqOTuKuQO2pkZqkKG5cknw8oMd0EOW5vbykkOrR5dtjwE6lmHINklPCWc-ZyHp2R_4Klpjro6xxcBT03HxSR7Ak-sBPPwlDw7PFWH3hqeaibXDJ5YQ76Gp3JEreCpGIGp79Dl-1RPDE9xktjErtr8Mo5UFMqOaXZfznBS3sCT2TU8Vce5i3Pz8u3HJz03DzklyXtOuDe-qpvmaKpzfAm-apqOiw33w1ctK8G89YTP7atRdeitz81rJtfs3Jw15Otz83JErc7NixHY-r5a3tI98bm5tSKKTbzwVWETq2ItH-6jKa6vKk7KG19Vu_bV6jh3sV8t3zd80v1qzClJfr8a742vqqY56uocX4Kv6qbjYuL98FXDSjC_X42f21dtdeit96s1k2u2X2UN-Xq_Wo6o1X61GEFU31fLh6xPfICuYhUJGXaio442RmmtTNOLaREn5Y2vRrv21eo4d7FfLV-QeNL9quSUJO85cm98VTfN0VTn-BJ81TQdFyv3w1ctK8G89cjn9tWoOvTW-9WayTXbr7KGfL1fLUfUar9ajCCu76vlC8FP7atCaxUvD9GV0okII_XwuWkRco3VcnLeGKvdtbGy4iycopcup6-Ow3ur_5HC5D7MH3irj_FXH5tvwi1_FE-KRsMqqy79yeLfEtg8ANs8Okw56Or5v4umQPkmyrOc4-vnHAJV_rzIk_Iba4rm-U3sD781zdFU5_gi-K3puFixJ_zGSjDPb-LZ-a069Nb8VjO5ZvzGGvI1v5UjasVvxQiS-oxQvj_1xJ9_t8YKm0QdedSxNgmjWIuHvohY4Vtteks4GW_oLdk1vVXHuQtb3UoWT2WrmlOSvK3q_bHVpjma6hxfhK02HRer98RWWQnmbVU_u61Wh97aVmsm18xWWUO-ttVyRK1sVXP-8M5FOrvLJrO0_BDf-l7l-XUkFkOd3nxKV3WZZffT6_SXaXa9fO3qy_Ol0PIbN-lsvvqpWH1xOln_aDafpsPbxz8Nl1cSZSWRV5IFJZFXWt1GY0iJaq3VZ9Dqa6mwWmt1Xbm-lkmqtVZbg_paGuS4-msZjLhAjhFz7GOgFTPH3sbVWglz7AWaX4I5-DEopJBk9CVcQqp6CQlFRl9BLQ20NNHSUMsALUO0DNSyQMsSLQsHPwJjT2cr1pIWiMVMMWWAWMIUsxo8w0KmmAZpSvp0xWIGpCklUyxGYnT2O2aGAmJ0-mMxAeaZpPMfiyWomnQBRHAxxdWLSdIFEEMt8CCTdP4nWAuscgoDDq4AYBETrcZkQZ_VLi1gu3S6OsQQW2jqlS3ggpplc7qIqFk2x4uYWwDEF_QZ6xBDgCFCbgUwYnBLABlD0RpgyBCIMjQtAsYMgTjDUDUMGgKRxhaWxaghEGtEVK05bGyZuy1oI-GqIdyQIVcN8obgqkHg2PLQbUEciqsGkWPLUmjBHFuWQgvo2LIUWlDHlqWAsUMg7tiyFpqDx5algMlDhmDNk90YIY_afQjL1UKNCIIxDjFIC4SvHGKQFiRTDPYiNDcy1IzgFgB2I7gFwLTArQCmBW4JcEeC1oCwR3E9SdSToEXA7CEhe1A1zB4SsgdVw-whIXtQNcIe9VsTXDHcm-Cq4eYEVw13J7hquD3BVcP9Ca4ablCwJwjsUHDVcIuCq4Z7FFSNsEdxYUWoS0HVMHvANgUVw-ghExAa0SLkUZsWyP7RpYVogWwfHWKQFigTYTFIC7TdjcUgLZAdvCsyRAvcAkBa4BYA0wK3ApgWuCXAtEDPHHCvToFenVCkCAqzh0LsQbtiynG4gtjDUDXMHgqxh6VqhD3q0wJXDNMCVw3TAlcN0wJXDdMCVw3TAlcN0wJ7gkBa4KphWuCqYVqgarhpp0DTTm5ZC5g9IC1QMYweCrQ9yL5KEfKoTQvEX1xa6CSC2ItDDNICcReHGKQFai5YDNICraUjMkQL3ALAkwhuATAtcCuAaYFbAkwLtAYO_APDRu9hOMQieEhC7jtwOn-y-HzkaolqMeoDDrHS6iyIaTJtHWKl1VkQs2T8HWIapEkbzK7IQJr0LNohFgMxCjAOsdLqlMXVya2AABNNSG4JYlBPQQ9HNKZvDTt_NFNM3xp2_qia43IT7PxRNdz507DzR9VadP64YpjluWqY5blqmOW5apjluWqY5blqmOXZEwSyPFcNszxXDbM8VcP0rWHnj6q16PxRMdz506DzRw2mcedPkrMglxZiedKSdIhBlic7FocYZHnSeHWIQZYnp3GuyFCzjlsAyPLcAmCW51YAszy3BJjlSQ0M7vwZ1PmjZ9IGs4dB7GGoGmYPg9jDUjXMHgaxR0TVmnf-6Nx1iOFbRVw1fKuIq4ZvFXHV8K0irhq-VcRVw7eK2BME3iriquFbRVw1fKuIquHOn0Gdvy1roXnnb8tSwOhhQOeP7KtM884ffeq26PzRJFt0_ojzOcQgLRDjc4hBWiC-54oMdf64BYC0wC0ApgVuBTAtcEuAaYHWAN_Ss-iWniJFsJg9LGQPqobZw0L2oGqYPSxkD6pG2KN-b4ErhnsLXDXcW-Cq4d4CVw33FrhquLfAVcO9BfYEgb0FrhruLXDVcG-BquGmnQVNO7llLWD2gL0FKobRw4K2B-k3W0IetXsLxBFcWogWiCE4xCAtED9wiEFaoMOPxeAnlognuyJDvQVuASAtcAuAaYFbAUwL3BLgTyzRGuBenQW9OkHJ1GL2iBB70AvvEWaPCLGHpWqYPSLEHhFVI-xRv7fAFcO9Ba4a7i1w1XBvgauGewtcNdxb4Krh3gJ7gsDeAlcN9xa4ari3QNVw0y4CTTu5ZS1g9oC9BSqG0SMCbQ_yFI8cHytE64CrhWiBND0cYpAW6IfeHR8CRLRAAMshBnsL5FTJFRmiBW4BIC1wC4BpgVsBTAvcEuDeAq0B7tVFoFdH-8yRo_ME7o5sMRYsFqH7GQT_Is6hY_GKEn1ssA4di1eUCPs5xNAVJdqvdojBK0p0_FmHjsUrStzxh1eUuAWAV5S4BYBXlLasANahY2kFcEuAryiRGsQYvmPY-CPP2xjDdwwbf1QNN_5i2PijaphfYnjoSNVaHDpyxfDGgKuGNwZcNbwx4KrhjQFXDW8MuGp4Y8CeIHBjwFXDGwOuGt4YUDVM3zE8dKRqLQ4dqZjjjzsBkCFQFDc-dKQfCXdpoY0BcT6HGNwYEOdziKGNAT3cdojBNiLxPVdkaGPALQDcGHALgDcG3ArAjQG9l-FKFLYRaQ0cf5QMNf7odbgEs0eC2IOecCeYPRLEHvQPZySYPRLEHpR0k-aHjnTuOsQwLXDVMC1w1TAtcNUwLXDVMC1w1TAtsCcIpAWuGqYFrhqmBarmaPyhQ8cta6H5oWOiv70P_I_j7M-r0Y3f9dWNsh8-DO3RB6nSI52GH48-RDfiSMqP4TC9-fBRDWN_8QvDTzO_-9W__Jz9uRQefLlLZ37343A8SwP_7fCP9HU6T6e3o8loNh9dP_zk27f_-18AAAD__yiMdo4=
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_suppkey) STORING (l_commitdate, l_receiptdate);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.nation (n_name);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.supplier (s_nationkey) STORING (s_name);"
