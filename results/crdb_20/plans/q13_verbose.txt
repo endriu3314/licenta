@@ -1,0 +1,53 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ columns: (c_count, custdist)
+│ estimated row count: 4,500,000
+│ order: -count_rows,-count
+│
+└── • group (hash)
+"    │ columns: (count, count_rows)"
+"    │ estimated row count: 4,500,000"
+"    │ aggregate 0: count_rows()"
+"    │ group by: count"
+"    │"
+"    └── • project"
+"        │ columns: (count)"
+"        │"
+"        └── • group (hash)"
+"            │ columns: (c_custkey, count)"
+"            │ estimated row count: 4,500,000"
+"            │ aggregate 0: count(o_orderkey)"
+"            │ group by: c_custkey"
+"            │"
+"            └── • project"
+"                │ columns: (c_custkey, o_orderkey)"
+"                │"
+"                └── • hash join (right outer)"
+"                    │ columns: (o_orderkey, o_custkey, o_comment, c_custkey)"
+"                    │ estimated row count: 15,000,000"
+"                    │ equality: (o_custkey) = (c_custkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ columns: (o_orderkey, o_custkey, o_comment)"
+"                    │   │ estimated row count: 15,000,000"
+"                    │   │ filter: o_comment NOT LIKE '%pending%requests%'"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         columns: (o_orderkey, o_custkey, o_comment)"
+"                    │         estimated row count: 45,000,000 (100% of the table; stats collected 2 minutes ago)"
+"                    │         table: orders@orders_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • scan"
+"                          columns: (c_custkey)"
+"                          estimated row count: 4,500,000 (100% of the table; stats collected 3 minutes ago)"
+"                          table: customer@customer_pkey"
+"                          spans: FULL SCAN"
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey) STORING (o_comment);"

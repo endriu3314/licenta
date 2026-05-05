@@ -1,0 +1,49 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 200
+│ order: -count_rows,+p_brand,+p_type,+p_size
+│
+└── • group (hash)
+"    │ estimated row count: 200"
+"    │ group by: p_brand, p_type, p_size"
+"    │"
+"    └── • distinct"
+"        │ estimated row count: 866,960"
+"        │ distinct on: ps_suppkey, p_brand, p_type, p_size"
+"        │"
+"        └── • hash join (anti)"
+"            │ estimated row count: 866,960"
+"            │ equality: (ps_suppkey) = (s_suppkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • lookup join"
+"            │   │ estimated row count: 1,286,926"
+"            │   │ table: partsupp@partsupp_pkey"
+"            │   │ equality: (p_partkey) = (ps_partkey)"
+"            │   │"
+"            │   └── • filter"
+"            │       │ estimated row count: 320,961"
+"            │       │ filter: ((p_brand != 'Brand#12') AND (p_type NOT LIKE 'MEDIUM PLATED%')) AND (p_size IN (3, 6, __more1_10__, 50))"
+"            │       │"
+"            │       └── • scan"
+"            │             estimated row count: 6,000,000 (100% of the table; stats collected 4 minutes ago)"
+"            │             table: part@part_pkey"
+"            │             spans: FULL SCAN"
+"            │"
+"            └── • filter"
+"                │ estimated row count: 100,000"
+"                │ filter: s_comment LIKE '%Customer%Complaints%'"
+"                │"
+"                └── • scan"
+"                      estimated row count: 300,000 (100% of the table; stats collected 4 minutes ago)"
+"                      table: supplier@supplier_pkey"
+"                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkWX9v2koW_X8_xeysqoI6CGbGP8BSJecF-h5vCXSB6O3TKkIuTBO2YLO2UTdb5buvTPhlX3zNQJI26j-tscfH9547c86dzDca_WdGHdr658fORbtLSs32YDj4R6dMBq1O63JIFqNPoedPGFmM4vuFSv6Ppv9TjIyDpR-vhre7ybhoFC0Xiy_qvkwuBiS5nk1VOBr7MfnQ712RhRfGyV22uiJ__Nbqt0ipVCotRsmNL-qevE9Q1j_K5KLbJKX158lf35O3vyRXf-PibXn7MAmJdHtD0mn_vUXeXrWa7esr8rFzMWw13-yNS0ImSXqSEWkyYjEiTEZEnRGDM1JnxKyVt8O3qaygk9fWZOwerFLaJLlOJhqNg_lc-fE6mjeXyygO5ip8cxnMFzNv6sfRKqhf-73rj-SXP_PIJb1-s9VPBqRobLYGlyzvHcqoH0xU15uriDr_opwyalFGbcooN-gNo4swGKsoCsLk-bfV6Pbkv9SpMTr1F8s4uX3D6DgIFXW-0XgazxR16ND7NFN95U1UWK1RRicq9qaz1TeSUrnJP6OEE8roZTBbzv3IIduaYvEOFl4ytlLl9OaB0WAZ76KIYu9WUYfvhd1uUqf2wI6P_MN0FqtQhVUjHfbjfYeUSq5ITyzHcQbDfrv763omuDJ_cu3GbgYbjzPMcZx2d1hnxNpe1bdXwtxd7u7K3V2Dby_N2vqyXM4lSGQIMnQI-j2Y-uvK1mFlk7nnbi42Fe4EwZflgvw7mPok8B3i8lTZo726bxdLJvjd9z_dkzsvukt_2rXozcMuQZlJsJ6b4A536QfhRIVqkkK-Sd4sGnKApd-86C5hSoVVnplJw_uFckin9WFILrrDNvm91-5SRmfqc1xyrfL7cHp7F5dcXqaM9paxQ1yLuYK5krlGbkmtTMZcq6bNaRRP_XFc5ZmSujzv00UFSb24i9POxnlOabBMhMgPaMNrEan1TLBC6JB6cXsbqlsvDsKqsA4HQxm96P456vaGo-51p7MuevqWgLdkcuuyd90djvq9Pwal7Eo_sjapwjSyuVpPW5g9NmTt6dkYXF-N2t1hyTXyZY_XMjlKLWcYBGGswqrMLGfXqDCXv2OueMdc-S7_61lbkvlLdPfRQ_we-OSBcLtBJVhUZT0rZ4eDy1qCTK9Lfrzdi-ew-6qsWZZZq1QtLkWjcbT1C50sttZv_TzWb-kQtGf9_EBX92N6P6_lpvgS5m99D_PXqurOMnN0-dnMX5xTGjSTrEY_hfkbOqTum39OT_Ujm3---p9t_jl92cubv5Y3bMw_28idbP7pJSqO91f5LP5qcEuatlU52lmlTvxbZ7V_Hme1dQjad1b-apyV56b4Es5qfw9n1arqzo_4SzvrOaVBMzGfwVlNHVL3nbXx-py18bSF2XdW-aM4q5Y3bJzVfipnTS9RebyzHhDeJ3BWXllvXonnTwgnQXynwqNtlusks7VZ8-exWVOHoD2bbbwWl22cPJ0znfbmWMjdng9l5_U2AbY7lto7csmtiZGdtOKkWcvl4WnrCvRsbDsvdeU6RbuZzUHm5vASzY35PZobrbW0OzPIceHnOzPIXxJnNjc5DnpWc5M_jwqam6whvoLmJt96z25ucjrol29utBx509xku-aTmxtT58Sir6JF4EfqqCOAbKIVnpRETW7VY_2iYBmO1ccwGK_GPv7srYBWNyYqih-f8scfbX_zKIpD5c23R_H7SBxFEvlIRhZJZJH4PpJMIfF9pIYmEgLFNaPiGJZmXELkYwkQl0R5N_J5FyAsAw3LzI_qcZ9wPJTEsGw9LI5gGVwPSxgIlpnFMlHmLWTGA-YtNCw7PyoTMI9DSQwLMI9jcQTLAszjWMJCsADzNsp8PZ95CzBfR6Ea-VHZgPkGCiUbOmJaoMuIMAuAhSszR6TZAlgnazMHE6IICwPTDQyTZ6EbGarPMDJcoDmi0BJGdrpEg0VUgIVqNFhGBWCoSIOFVACGqjTQMI7LNEd02oT8ny7UkP8zlBryf4ZUQ_7P0GrIPy7WHFFrG_J_ulxD_nG9FjVkYYKGDtdrgeg1IEwAvT5aY4H2F2FhYLqBoRqrGxmqsTAyINhp-iVSShgZEOyjNRaIfwEWprEGaAoKwFCNhdsZHAzV2DoAA4Kd5t9ENBbyDwT7aI2F_ONYmMZakH8cDNVYyD8Ohmos5B8Idpp_G5EfyD8u2JjGQv5xvRZITwy0XxT014heA-2XQK-P1lgwLYqwMDDdwFCN1Y0M1VgYGb6NkMg2AsxXqbONECnGgPUWYWFguoFxBEzoRpahPw0GI8O3ERLbRsCJcfo2Av796YxtBMzyjG0EELICMNTigJJJfBshsW0E5P_0bQTk_4xtBOT_jG0E5P-MbQTkH3cliW0jIP-nbyOMhxtGP8-Cr6PphDrUMq2JaQqzIgyjXjHGBq80pMUrZt327Iltf540GjR5wbuNqPONDu6Cryvc4f1CRdT57M0ixeiV90U1VazC-dSfRvF0vH7y8PCX_wcAAP__yfBMRg==
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_brand, p_type, p_size);"

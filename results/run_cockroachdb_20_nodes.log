@@ -1,0 +1,772 @@
+12:45:28.595 [main] INFO ro.uav.benchmark.config.AppConfig -- Loaded config from .env
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q9
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q1
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q15
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q20
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q6
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q3
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q2
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q13
+12:45:28.616 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q16
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q4
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q17
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q19
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q22
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q21
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q5
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q10
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q12
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q14
+12:45:28.617 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q7
+12:45:28.618 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q8
+12:45:28.618 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q11
+12:45:28.618 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q18
+12:45:28.623 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q1 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+12:45:28.623 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:45:59.758 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:46:32.576 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:47:04.388 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:47:04.393 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:47:38.460 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+12:47:38.460 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:47:38.466 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:48:10.294 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+12:48:10.295 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:48:10.300 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:48:42.623 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+12:48:42.624 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:48:42.627 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:49:14.383 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+12:49:14.384 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:49:14.388 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:49:45.811 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+12:49:45.812 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:49:45.816 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:50:17.355 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+12:50:17.355 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:50:17.360 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:50:49.084 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+12:50:49.084 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:50:49.089 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:51:20.525 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+12:51:20.526 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:51:20.530 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:51:52.641 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+12:51:52.642 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:51:52.646 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:52:24.391 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+12:52:24.392 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q10 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+12:52:24.392 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:52:42.293 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:52:55.089 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:53:06.949 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:53:06.955 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:53:20.367 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+12:53:20.367 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:53:20.372 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:53:33.678 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+12:53:33.678 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:53:33.683 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:53:46.925 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+12:53:46.926 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:53:46.929 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:54:02.040 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+12:54:02.040 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:54:02.044 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:54:15.093 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+12:54:15.093 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:54:15.098 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:54:28.464 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+12:54:28.465 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:54:28.470 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:54:41.748 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+12:54:41.748 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:54:41.753 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:54:54.538 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+12:54:54.539 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:54:54.544 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:55:07.689 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+12:55:07.689 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:55:07.694 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:55:21.012 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+12:55:21.013 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q11 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+12:55:21.013 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:55:41.788 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:55:49.767 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:55:57.751 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:55:57.756 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:05.061 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+12:56:05.062 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:05.066 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:14.072 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+12:56:14.073 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:14.076 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:22.074 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+12:56:22.075 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:22.079 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:29.983 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+12:56:29.984 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:29.988 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:37.965 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+12:56:37.966 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:37.970 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:45.583 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+12:56:45.583 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:45.587 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:56:54.118 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+12:56:54.118 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:56:54.123 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:57:02.224 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+12:57:02.225 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:57:02.229 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:57:11.848 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+12:57:11.849 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:57:11.853 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:57:19.732 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+12:57:19.733 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q12 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+12:57:19.733 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:57:33.417 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:57:45.976 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:57:56.574 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:57:56.579 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:58:07.493 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+12:58:07.494 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:58:07.498 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:58:18.089 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+12:58:18.089 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:58:18.093 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:58:28.332 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+12:58:28.332 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:58:28.336 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:58:38.755 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+12:58:38.756 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:58:38.760 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:58:49.071 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+12:58:49.071 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:58:49.074 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:58:59.466 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+12:58:59.467 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:58:59.470 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:59:09.636 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+12:59:09.636 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:59:09.640 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:59:19.892 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+12:59:19.892 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:59:19.895 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:59:30.144 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+12:59:30.144 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:59:30.148 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+12:59:40.364 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+12:59:40.365 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q13 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+12:59:40.365 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+12:59:54.206 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:00:07.015 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:00:19.740 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:00:19.744 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:00:33.139 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+13:00:33.139 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:00:33.146 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:00:45.907 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+13:00:45.908 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:00:45.912 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:00:58.288 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+13:00:58.289 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:00:58.293 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:01:10.292 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+13:01:10.292 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:01:10.296 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:01:22.571 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+13:01:22.572 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:01:22.575 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:01:34.455 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+13:01:34.455 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:01:34.460 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:01:47.226 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+13:01:47.227 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:01:47.231 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:02:00.295 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+13:02:00.295 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:02:00.299 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:02:13.493 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+13:02:13.493 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:02:13.497 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:02:25.970 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+13:02:25.971 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q14 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+13:02:25.971 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:02:49.577 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:03:08.358 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:03:27.845 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:03:27.849 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:03:46.010 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+13:03:46.011 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:03:46.015 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:04:04.951 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+13:04:04.952 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:04:04.956 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:04:24.630 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+13:04:24.631 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:04:24.634 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:04:43.674 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+13:04:43.675 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:04:43.679 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:05:02.647 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+13:05:02.648 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:05:02.651 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:05:22.097 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+13:05:22.097 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:05:22.101 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:05:40.441 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+13:05:40.442 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:05:40.445 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:05:59.561 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+13:05:59.561 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:05:59.566 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:06:18.615 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+13:06:18.615 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:06:18.620 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:06:37.491 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+13:06:37.491 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q15 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+13:06:37.491 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:11:22.200 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:16:04.980 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:20:30.480 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:20:30.485 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:25:14.385 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+13:25:14.386 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:25:14.390 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:29:36.679 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+13:29:36.680 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:29:36.684 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:34:17.984 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+13:34:17.984 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:34:17.988 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:38:40.683 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+13:38:40.684 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:38:40.688 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:43:28.753 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+13:43:28.754 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:43:28.758 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:48:04.689 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+13:48:04.689 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:48:04.694 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:52:59.021 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+13:52:59.022 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:52:59.025 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+13:57:35.012 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+13:57:35.013 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+13:57:35.017 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:02:25.594 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:02:25.595 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:02:25.599 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:06:53.402 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:06:53.402 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q16 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:06:53.402 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:07:11.047 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:07:20.166 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:07:33.236 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:07:33.240 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:07:45.999 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:07:45.999 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:07:46.003 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:07:59.374 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:07:59.375 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:07:59.379 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:08:12.554 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:08:12.555 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:08:12.559 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:08:25.435 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:08:25.435 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:08:25.440 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:08:38.415 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:08:38.415 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:08:38.419 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:08:50.957 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:08:50.957 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:08:50.961 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:09:03.887 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:09:03.888 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:09:03.892 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:09:16.992 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:09:16.992 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:09:16.996 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:09:29.930 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:09:29.931 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:09:29.934 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:09:42.706 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:09:42.706 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q17 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:09:42.706 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:10:27.669 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:11:05.067 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:11:43.507 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:11:43.511 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:12:21.935 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:12:21.935 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:12:21.939 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:13:00.801 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:13:00.801 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:13:00.805 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:13:38.114 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:13:38.115 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:13:38.119 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:14:15.633 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:14:15.634 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:14:15.638 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:14:55.830 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:14:55.831 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:14:55.834 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:15:35.570 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:15:35.571 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:15:35.575 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:16:18.163 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:16:18.163 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:16:18.167 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:16:52.457 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:16:52.457 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:16:52.461 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:17:31.315 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:17:31.316 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:17:31.320 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:18:08.673 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:18:08.673 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q18 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:18:08.673 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:18:48.868 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:19:24.274 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:19:58.747 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:19:58.751 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:20:33.853 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:20:33.853 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:20:33.856 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:21:08.669 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:21:08.669 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:21:08.672 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:21:43.021 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:21:43.021 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:21:43.025 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:22:17.855 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:22:17.855 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:22:17.859 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:22:54.449 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:22:54.449 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:22:54.453 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:23:30.289 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:23:30.290 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:23:30.293 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:24:03.347 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:24:03.347 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:24:03.352 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:24:42.666 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:24:42.667 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:24:42.671 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:25:17.531 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:25:17.531 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:25:17.535 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:25:58.074 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:25:58.074 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q19 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:25:58.075 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:26:35.365 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:27:09.905 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:27:44.040 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:27:44.043 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:28:17.805 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:28:17.805 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:28:17.809 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:28:52.059 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:28:52.059 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:28:52.063 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:29:25.435 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:29:25.435 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:29:25.439 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:29:58.767 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:29:58.768 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:29:58.772 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:30:31.520 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:30:31.520 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:30:31.524 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:31:05.184 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:31:05.184 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:31:05.187 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:31:37.608 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:31:37.608 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:31:37.612 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:32:10.535 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:32:10.535 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:32:10.538 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:32:41.276 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:32:41.277 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:32:41.280 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:33:13.720 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:33:13.721 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q2 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:33:13.721 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:33:45.765 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:34:11.012 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:34:35.268 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:34:35.272 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:35:01.879 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:35:01.880 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:35:01.883 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:35:26.296 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:35:26.296 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:35:26.300 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:35:53.426 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:35:53.427 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:35:53.430 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:36:20.903 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:36:20.904 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:36:20.908 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:36:47.142 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:36:47.142 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:36:47.146 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:37:14.365 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:37:14.365 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:37:14.369 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:37:40.419 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:37:40.419 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:37:40.423 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:38:05.693 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:38:05.693 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:38:05.697 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:38:31.354 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:38:31.355 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:38:31.358 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:38:55.700 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:38:55.701 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q20 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:38:55.701 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:39:42.725 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:40:15.598 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:40:50.561 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:40:50.564 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:41:24.170 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:41:24.170 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:41:24.174 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:41:57.364 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:41:57.365 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:41:57.368 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:42:30.163 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:42:30.164 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:42:30.167 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:43:05.332 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:43:05.332 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:43:05.336 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:43:36.176 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:43:36.176 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:43:36.180 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:44:14.292 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:44:14.292 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:44:14.296 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:44:46.388 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:44:46.389 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:44:46.392 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:45:20.694 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:45:20.694 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:45:20.698 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:45:54.783 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:45:54.783 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:45:54.787 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:46:28.570 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:46:28.570 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q21 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:46:28.570 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:46:42.456 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:46:54.680 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:47:06.240 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:47:06.243 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:47:17.835 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:47:17.836 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:47:17.838 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:47:30.242 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:47:30.242 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:47:30.245 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:47:42.912 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:47:42.912 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:47:42.916 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:47:55.079 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:47:55.080 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:47:55.084 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:48:07.288 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:48:07.289 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:48:07.291 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:48:18.772 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:48:18.772 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:48:18.776 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:48:30.966 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:48:30.967 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:48:30.969 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:48:43.556 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:48:43.556 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:48:43.559 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:48:55.592 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:48:55.592 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:48:55.596 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:49:08.419 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:49:08.420 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q22 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:49:08.420 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:17.888 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:24.847 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:32.240 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:32.244 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:49:39.211 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:49:39.212 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:39.215 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:49:46.223 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:49:46.224 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:46.227 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:49:53.347 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:49:53.348 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:49:53.352 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:00.339 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:50:00.339 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:50:00.342 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:07.259 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:50:07.260 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:50:07.263 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:14.618 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:50:14.618 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:50:14.621 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:21.875 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:50:21.875 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:50:21.879 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:29.091 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:50:29.092 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:50:29.096 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:36.034 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:50:36.034 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:50:36.038 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:50:43.494 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:50:43.494 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q3 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:50:43.494 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:51:02.398 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:51:19.501 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:51:35.205 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:51:35.209 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:51:50.762 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:51:50.762 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:51:50.766 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:52:06.253 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:52:06.253 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:52:06.256 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:52:21.581 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:52:21.581 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:52:21.585 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:52:37.042 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:52:37.043 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:52:37.046 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:52:52.332 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:52:52.333 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:52:52.336 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:53:08.052 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:53:08.053 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:53:08.057 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:53:23.991 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:53:23.992 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:53:23.995 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:53:40.135 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:53:40.135 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:53:40.138 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:53:55.788 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:53:55.788 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:53:55.791 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:54:11.231 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:54:11.232 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q4 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:54:11.232 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:19.636 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:27.095 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:34.696 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:34.700 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:54:41.952 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:54:41.952 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:41.955 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:54:49.234 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:54:49.234 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:49.238 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:54:57.185 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:54:57.186 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:54:57.188 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:04.771 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:55:04.771 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:04.775 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:12.181 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:55:12.182 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:12.185 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:19.526 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:55:19.526 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:19.529 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:26.879 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:55:26.880 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:26.883 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:34.249 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:55:34.249 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:34.252 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:41.424 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:55:41.424 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:41.428 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:55:48.776 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:55:48.776 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q5 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:55:48.776 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:54.044 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:55:58.384 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:02.797 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:02.801 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:07.203 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:56:07.203 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:07.207 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:11.218 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:56:11.219 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:11.222 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:15.590 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:56:15.591 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:15.594 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:20.178 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:56:20.178 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:20.181 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:24.689 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:56:24.690 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:24.693 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:28.939 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:56:28.939 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:28.943 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:33.548 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:56:33.548 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:33.552 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:38.000 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:56:38.001 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:38.004 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:42.249 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:56:42.249 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:42.252 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:56:46.637 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:56:46.637 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q6 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:56:46.637 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:56:56.966 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:04.851 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:12.573 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:12.577 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:57:20.343 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:57:20.344 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:20.347 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:57:28.192 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:57:28.193 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:28.197 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:57:36.059 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:57:36.059 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:36.063 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:57:43.875 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:57:43.875 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:43.878 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:57:51.689 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:57:51.689 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:51.692 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:57:59.512 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:57:59.512 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:57:59.515 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:58:07.425 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:58:07.425 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:07.429 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:58:15.398 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:58:15.398 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:15.402 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:58:23.240 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:58:23.240 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:23.244 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:58:31.055 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:58:31.055 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q7 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:58:31.055 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:41.454 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:47.863 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:53.981 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:58:53.985 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:00.082 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:59:00.082 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:00.085 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:06.557 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:59:06.557 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:06.560 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:12.717 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:59:12.717 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:12.721 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:18.735 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:59:18.735 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:18.738 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:24.418 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:59:24.418 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:24.423 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:29.888 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:59:29.888 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:29.892 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:35.342 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:59:35.343 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:35.346 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:40.906 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:59:40.907 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:40.910 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:46.621 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:59:46.621 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:46.623 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+14:59:52.234 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:59:52.234 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q8 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+14:59:52.235 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+14:59:58.300 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:03.639 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:08.748 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:08.751 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:14.206 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:00:14.207 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:14.210 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:19.445 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:00:19.446 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:19.448 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:24.602 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:00:24.602 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:24.605 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:30.100 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:00:30.101 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:30.104 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:35.791 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:00:35.791 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:35.795 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:41.297 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:00:41.297 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:41.300 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:46.640 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:00:46.640 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:46.643 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:51.859 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:00:51.859 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:51.863 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:00:57.289 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:00:57.289 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:00:57.292 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:01:02.477 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:01:02.478 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q9 on COCKROACH (20 nodes) - 3 warmup + 10 runs
+15:01:02.478 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:01:40.753 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:02:08.487 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:02:34.832 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:02:34.835 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:03:01.047 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:03:01.047 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:03:01.050 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:03:31.839 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:03:31.839 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:03:31.843 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:03:57.795 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:03:57.795 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:03:57.799 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:04:25.113 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:04:25.113 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:04:25.116 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:04:51.523 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:04:51.523 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:04:51.526 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:05:21.150 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:05:21.150 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:05:21.153 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:05:46.749 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:05:46.749 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:05:46.752 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:06:12.659 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:06:12.659 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:06:12.661 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:06:38.199 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:06:38.199 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- Connecting to CockroachDB at 10.0.1.20:26257
+15:06:38.202 [main] DEBUG ro.uav.benchmark.db.CockroachConnector -- CockroachDB — connection-based cache strategy
+15:07:04.327 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:07:04.346 [main] INFO ro.uav.benchmark.export.CsvExporter -- Raw results exported to ./results/benchmark_20260505_150704_raw.csv
