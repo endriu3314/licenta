@@ -1,0 +1,80 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ columns: (c_custkey, c_name, revenue, c_acctbal, n_name, c_address, c_phone, c_comment)
+│ estimated row count: 20
+│ order: -sum
+│ k: 20
+│
+└── • group (hash)
+"    │ columns: (c_custkey, sum, any_not_null, any_not_null, any_not_null, any_not_null, any_not_null, any_not_null)"
+"    │ estimated row count: 1,013,118"
+"    │ aggregate 0: sum(column54)"
+"    │ aggregate 1: any_not_null(c_name)"
+"    │ aggregate 2: any_not_null(c_address)"
+"    │ aggregate 3: any_not_null(c_phone)"
+"    │ aggregate 4: any_not_null(c_acctbal)"
+"    │ aggregate 5: any_not_null(c_comment)"
+"    │ aggregate 6: any_not_null(n_name)"
+"    │ group by: c_custkey"
+"    │"
+"    └── • render"
+"        │ columns: (column54, c_custkey, c_name, c_address, c_phone, c_acctbal, c_comment, n_name)"
+"        │ render column54: l_extendedprice * (1 - l_discount)"
+"        │ render c_custkey: c_custkey"
+"        │ render c_name: c_name"
+"        │ render c_address: c_address"
+"        │ render c_phone: c_phone"
+"        │ render c_acctbal: c_acctbal"
+"        │ render c_comment: c_comment"
+"        │ render n_name: n_name"
+"        │"
+"        └── • hash join (inner)"
+"            │ columns: (c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_comment, o_orderkey, o_custkey, o_orderdate, l_orderkey, l_extendedprice, l_discount, l_returnflag, n_nationkey, n_name)"
+"            │ estimated row count: 2,518,114"
+"            │ equality: (c_nationkey) = (n_nationkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • lookup join (inner)"
+"            │   │ columns: (c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_comment, o_orderkey, o_custkey, o_orderdate, l_orderkey, l_extendedprice, l_discount, l_returnflag)"
+"            │   │ estimated row count: 2,518,114"
+"            │   │ table: lineitem@lineitem_pkey"
+"            │   │ equality: (o_orderkey) = (l_orderkey)"
+"            │   │ pred: l_returnflag = 'R'"
+"            │   │"
+"            │   └── • hash join (inner)"
+"            │       │ columns: (c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_comment, o_orderkey, o_custkey, o_orderdate)"
+"            │       │ estimated row count: 1,720,594"
+"            │       │ equality: (c_custkey) = (o_custkey)"
+"            │       │ left cols are key"
+"            │       │"
+"            │       ├── • scan"
+"            │       │     columns: (c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_comment)"
+"            │       │     estimated row count: 4,500,000 (100% of the table; stats collected 5 minutes ago)"
+"            │       │     table: customer@customer_pkey"
+"            │       │     spans: FULL SCAN"
+"            │       │"
+"            │       └── • filter"
+"            │           │ columns: (o_orderkey, o_custkey, o_orderdate)"
+"            │           │ estimated row count: 1,720,594"
+"            │           │ filter: (o_orderdate >= '1994-05-01') AND (o_orderdate < '1994-08-01')"
+"            │           │"
+"            │           └── • scan"
+"            │                 columns: (o_orderkey, o_custkey, o_orderdate)"
+"            │                 estimated row count: 45,000,000 (100% of the table; stats collected 4 minutes ago)"
+"            │                 table: orders@orders_pkey"
+"            │                 spans: FULL SCAN"
+"            │"
+"            └── • scan"
+"                  columns: (n_nationkey, n_name)"
+"                  estimated row count: 25 (100% of the table; stats collected 5 minutes ago)"
+"                  table: nation@nation_pkey"
+"                  spans: FULL SCAN"
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_returnflag) STORING (l_extendedprice, l_discount);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_custkey);"

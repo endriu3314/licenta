@@ -1,0 +1,40 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 4,500,000
+│ order: -count_rows,-count
+│
+└── • group (hash)
+"    │ estimated row count: 4,500,000"
+"    │ group by: count"
+"    │"
+"    └── • group (hash)"
+"        │ estimated row count: 4,500,000"
+"        │ group by: c_custkey"
+"        │"
+"        └── • hash join (right outer)"
+"            │ estimated row count: 15,000,000"
+"            │ equality: (o_custkey) = (c_custkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • filter"
+"            │   │ estimated row count: 15,000,000"
+"            │   │ filter: o_comment NOT LIKE '%pending%requests%'"
+"            │   │"
+"            │   └── • scan"
+"            │         estimated row count: 45,000,000 (100% of the table; stats collected 4 minutes ago)"
+"            │         table: orders@orders_pkey"
+"            │         spans: FULL SCAN"
+"            │"
+"            └── • scan"
+"                  estimated row count: 4,500,000 (100% of the table; stats collected 5 minutes ago)"
+"                  table: customer@customer_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzMmntv4kgWxf_fT2GV1BqysgX18FMaiWwn3cNsGnqBaHe0ihANlQQ1wYxtNBu18t1X4PCwb3ztaxq6_0oC9vG559r1qyrnG4v_nLOAXf_n881lp2s0rjqD4eBfNxfG4Prm-v3QmIwm4WqRmMbmR-PvF8blwJis4mQ6ixPjQ7_3yWjsD13FyVf9vD04HIXRVEdf9fNFeuT6-_BJR8bN9Yeh8Xuv0zU2R8RGr2s0ducbvxrh9vcL47J7ZTTC0SR8etKLxOj2hsZN55_Xxi_vlnoxnS0e3kX6z5WOk_jdLxfGx37v9rPxjz_2blLHo9cLNQ5dprVlT1p_YvT6V9f9zQfbSq-uB-93Z2z-YiZbhFPdHT_pmAX_ZZyZTDCTSWYyxUxmszuTLaNwouM4jNaHfNuc0Jn-jwUtk80Wy1Wy_vjOZJMw0iz4xpJZMtcsYMPxl7nu6_FUR80WM9lUJ-PZfHOZtI52-mO0_Kqfmcneh_PV0yIOjH3k5j7Dza9pfMxkg-V4faTV5MZ4MTWEESaPOorZ3YvJwlWyNxUn4wfNAn5QReeKBa0Xs3ohH2bzREc6atrZKtLPA6Mt8YYGQTAY9jvdjzl7-yt8eTYex_FjVr4t2N3LvgSRK8EuLGGvu1psktTTjPLd-syyQ97I4bdx_Ph7OFvoqMlV1uvweakDo9_5-NvQ6N0Or_ubB4OZbK7vk0ZbXPwazR4ek0abXzCT9VZJYLSV2eaFDVO5armidOzy4SHSD-MkjJrcz6W6vsUvu3-Mur3hqHt7c_Pq6X3vtjtcOyU2iWeaZOdt-0d0CS9MqGqFDW4_jTqvpW2jF4W5O7kCRN3cBSX3Ub_370HjuOjdvPPTRS9rRF8UuJezLUmBD8Io0VFT5sMWltnmVuFF_fxFq2T1VlIHV3rDXTe0wmVTqfzo8_YQ3cqZUtkkeHXaqNPQpunYwhbKE1bTlb7tc5XSh6f0qQwfUl07-Pg_E3z8uq3hMnud7Wyqvf0F9Gc31zlohHJd5UirKYV0Wp591Lgh80O2LKztHGD1zg1Wj9LKwwFe_kiwimO6VFKYdxaw1s1dUnI_BVjl6aKXNaKvDFZS4K9gVfmwiWBV2axE9YFSnohhyneFzW1l7Wi2YZikrqBIhe0g5v1MEPPq9obz7wExbjWF9FyZHzOOxBcvrOoc-HLPjS-X0sTDUV78UHyJI7pUUph7FnzVzV1Scj8Jvk4XvawRfWV8kQLf4isfNhVf2awkYYg8Eb641eTSd13HqbfxxykF7bDl_EzYcmr3pPUdsLXdcn170Xsku1qFpZ2DXfa52WVTOnk4xLd-KLuO6VJJYfZZ2FU3d0nJ_STsOl30skb0ldlFCnzLrnzYVHZls1LVx0lxKnal4LKa3FNC-cKrtXsoKGXtCOb-TARz63aGi--x8EpXXdbrLuL3JVhxd85BMOfcBHMonTwc6PkPJRg_okslhTlnIVjd3CUl95MQ7HTRyxrRVyYYKfAtwfJhUwnGKa8C-zpehotYV3rZln_XZvF1uHr6oNNOxOEqmujPUTjZHJv-2dsIbT6Y6jhJv-XpH53F9qs4ifT4afdPFodKPK_ED5VERokfKtk0Jdkqlkr_kYCg5RdrpS8hCBXyYq10W6K6FkfiSm-cQy2B9lAW99AGTZSoLYU0EXQRl5JIhQ7VFpK8Q_QlZLGWS_TFkbxc4EuhXbSLu-gBWzZqyyl25QFXuJREKvSJthSSvE_0JWxkjGgRjXEkMN4Czhy0j25xHzkHxlxUy0N8ceDLQ7UUcoMBWz4OjVaxFByfAYCqYsMnSqHc8KhiGDhcapEYORyiGIoOiFoKtUUmMohHErczYgLykQTujJgEgCyrkheLKTjPIaE7KwbvWZzdHIM3fJbq0xsaOwLfZGMYv6nOUIBTnaEEh85whHOM4dBZfYhDY0dQnGoMxTjVGc5xqjUc5NAbTnKOohx6O4Ll0BoOc-4XW4PDNqB5VQJDaOJSKIEhNEvEMAJDaJYUiREYQhMXQwkM7gtBmQBlCQwXgqQZUJbAgHNlYgiBBbhhy6pECCzBbVYihhIY3GYC4DzzKAmBEBg8SwLgvDKBYZW4FkpgsjGMwFRnKIGpzlACQ2cA59lmKoTA0BnAeWUCQ2O4FkpgqjGUwFRnOIGp1nACQ2-A59l2OhiBoTec5yiBoTUc58JDrAEtQPOqBAacK5FCCQw4VyaGERhyrqRIjMCwlbgYSmCw1BSUCVCWwBCapBlQVgxCkzQDyhIY3rCkGVCWwBCapBlQlsDgnpX4OwiJvISwwbMk8dU5RmBorGQPAnswycYwAlOdoQSmOkMJDJ2VvIxANjQ86AxfnWMEhsZKNjQwAlONoQSmOsMJTLWGExh6w7c0JLKlweH6ROI8RwkMreE4l8jyHCBAAppXJTAYGkukUALDGkvEMALDF18lRWIEBjgvEUMJDHAuKROgLDRhK0kzoCw04Q1LmgFloQlfFpJmQFkxMDcoEUMJDOYGEn-ho5AXOjZogMJX5xiBwcNUooUSmGwMIzDVGUpgqjOUwNAZvqGhkA0NDzrDV-cYgaGxkg0NjMBUYyiBqc5wAlOt4QSG3vAtDYVsaXA4Oiqc5yiB3Zc7k93Pw79GsykL2P0XoaaTL641dtyJpe69luXZtm05WuuWq4Sj_SlbnzB-iFnwjQ0ew782wsPnpY5ZcD-ex9pkn8Zf9ZVOdPQ0W8ziZDZ5_ebl5W__DwAA__9rhkxS
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey) STORING (o_comment);"

@@ -1,0 +1,53 @@
+info
+distribution: full
+vectorized: true
+
+• limit
+│ count: 100
+│
+└── • group (partial streaming)
+"    │ estimated row count: 14,671,921"
+"    │ group by: o_orderkey, o_totalprice, o_orderdate"
+"    │ ordered: -o_totalprice,+o_orderdate"
+"    │"
+"    └── • lookup join"
+"        │ estimated row count: 60,255,327"
+"        │ table: lineitem@lineitem_pkey"
+"        │ equality: (o_orderkey) = (l_orderkey)"
+"        │"
+"        └── • lookup join"
+"            │ estimated row count: 15,000,000"
+"            │ table: customer@customer_pkey"
+"            │ equality: (o_custkey) = (c_custkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • sort"
+"                │ estimated row count: 15,000,000"
+"                │ order: -o_totalprice,+o_orderdate"
+"                │"
+"                └── • merge join (semi)"
+"                    │ estimated row count: 15,000,000"
+"                    │ equality: (o_orderkey) = (l_orderkey)"
+"                    │ left cols are key"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • scan"
+"                    │     estimated row count: 45,000,000 (100% of the table; stats collected 5 minutes ago)"
+"                    │     table: orders@orders_pkey"
+"                    │     spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 14,936,304"
+"                        │ filter: sum > 313"
+"                        │"
+"                        └── • group (streaming)"
+"                            │ estimated row count: 44,808,911"
+"                            │ group by: l_orderkey"
+"                            │ ordered: +l_orderkey"
+"                            │"
+"                            └── • scan"
+"                                  estimated row count: 179,998,372 (100% of the table; stats collected 3 minutes ago)"
+"                                  table: lineitem@lineitem_pkey"
+"                                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkmm1P40gSx9_fp7D6FWgc2f3kh0gjhRsyu1kFmAPm7lZ3CGVID-QmxFnb0R4a8d1XjpOJ7RqXU8QQZvcViYP__ldVd9evbX9lyW9T1mX9f38YHg1OrYPjwcXlxT-Gh9ZFf9h_d2ndXM9G98a2bq5vFkn6xTzYVnQdxWMTFz-PR6nJvqRROprO48mNsa1kcX8wvf5tMZqlk_Th0Hp_fnZiZSLRvYlta3leYlvTycxMUnNv_evn_nnfOjjYyFuZoZWP6eboUujbaT-dn338YP391-J__Hz0z8HpT8DBfxeuK40luTw8tI5Oj62Db1FZb61o_Xn9Y8HI24L64eaST02OdXZ-3D_PFEpHj_sX70pnWcPByeDS4q7LbDaLxuZ0dG8S1v0P48xmgtlMMpspZjPNrmw2j6MbkyRRnP3L1-UJg_H_Wde12WQ2X6TZ4Sub3USxYd2vLJ2kU8O67HL0aWrOzWhsYie70Niko8l0eZm8SL38z_X8i3lgNnsXTRf3s6RbibWQguIwKITDbHYxH2VndhxujWZjS1hRemfihF092ixapCuTG2-fHqy7UXJXdtXj7OrxymZJOro1rMsLkQ-OWdd9tJ8WvFe-zHqI9dYfQAKmhQRsBtomTIc7vONIFUrfc8QyYu_7EW-iEZVoPEo0R7e3sbkdpVHscA6SZrOzzK4Zd63lt6PTX69Pzy6vTz8Ohwc9fpgZ_3hy0BOHO9VDViLgvDaEjXCUO6sKv8mVsTi99uLcxKCqMZDK8H4yTU1sYkdUipD_0LV6orAYdbvd4_67wcnRcKe064plsWPa7acW58TEt-aXaDLLEqDLJ10-zE3XGvbfX1oX_ZOB9cvZ4JTZbGo-pwc9_ubwbTy5vcs_ZmVcpFkJ7Z6we9LuqdpyedXYNaVcF1GcmtiRlcWvJzt2T72pvahfuagkLTxZglbrjqwkad0ke-sP64VnGEVfFnPrf9FkZkWzbBgVV6NCF8obU63zoOqclK6Cc-VuuWQC53yrdTQfANrueXY2DLIxYPeC2rjCSlyKVJHCoqJ0dSgsr6xLS8vqQHl1kYfgkIKH9Lc1yIM_cniIviLnc6bcJ91qeurL3jT3RcfuyebFWVen1NpXMY-rA9sk4bvZXuaxLsnlQ8tsDyf3k3QJVXXjiFeRQtcPpF0ydRp1ormjK4MtH_SenY37fNCLbO3byniVHnS5xHx7GFIvQ4KOp4UWKhAdx5ehDrnKyZDnnNQqGKqn5sJvHQzXTNhxvDDgPFjxMJdUPPQpMRWxSbwaPBS1IbSBh_6L4CGpDBs8FHvEwx3T3g4ehvvBw5BSrjUeqh3xkLT8FPEw3DcektJVxEP1uvGQVJEiHoZ_CTysL3tbeFidUj8qHpYHktieLOQLUZYKfaG5Vp1vvLXkjRrc2A2z5FOTodvGrI7D12ClqGClKVEUgQNsefYGVm5tCG2AVXWL_DxgRSrDBqzcPYLVjmlvB6yC_YBVQCnXGqzkjmBFWnCKYBXsG6xI6SqClXzdYEWqSBGsgr8EWNWXvS2wqk6pHxWsygNJbs8S_IXAinccLkPf97zne6DJn5qEoPX7VoLzQCs3dGTHEdrVoa_dFWKRn2wGlLCK5AEG994Iq354tkFY1cXweQiLVIYNYck9EtaOaW-HsLz9EJZHKdeasKrvAlAJi7QCFQnL2zdhkdJVJCz-ugmLVJEiYVVfl_hzElZ92dsiLPB6zQ9KWOWBpLaHC_FShJXjVcfhgRIqFMGzPR8UT01F2P7zQalC7vraER1HykD6XKgVZwVUzgopYRX5A9yd3RtnqdoQ2uCs6t385-EsUhk2nKX2yFk7pr0dzvL3w1k-pVxrzqo-VKdyFmkFKnKWv2_OIqWryFnidXMWqSJFzqq-d_Dn5Kz6srfFWeA9lR-UswTlVcRzk8yjWWJKsdddq1qUDs9yasa3Jq9DEi3iG_Mhjm6W_5t_PVsKLRlobJI0_1XnXwaz9U9JGpvR_eYV0e2lZFivpYha2q3X0kQtEdRreUQt7tdr-UCLV7Xckq-SlFuU4lUlgUfoIRHSpGS9Eie64sjY4lRbSN4F0ZdCxoMAviRaQ1VfQwlsKcJMFKXZQ5SqzMSSlqbacuu1PKJWZSaWtHyiVmUmlrQCoKXRKnr1VQzApPZQKb9eKnSrUj4qFSBSwFWASoXIUuMCWyGeeGRp5i4whospha03RGcaW3A40ZnEVkJBdCYEJgb7BmhCpWpyjqhJYI3jbUgjox9q4UsrRhMhUQvFCaoYyhNUMRQoqGIoUUAxvB1xpB8JoNWwWCNQ4RO10LlE1EKxgmwM4wqqMxQsoDO8J3FkWkroDHSlrdmCqoXCBdkYRhdUMRQvqGIoX0AxvJVzpJcHcJLjzZwj3TxUQAx0pvImxEXEgDOBNybBMc4A1gRoTATQgN5wNZw0qN5w1KB6w1mD6g2HDegN9CcCbEBvoEFtDQgBUQsFBKoYCghUMRQQqGIoIEAx0KLKM1QTYE-ADrU1IACkbdDCJgDVFwoIZGMYIFCdoYAAneE7TYFsNeEmQIAGtTUgULVQQCAbwwCBKoYCAlUMBQQohvd0gfT0AE5yvKdLrKdLcIML7-kS6ekhcCbxvabE7nm60FrD1gkFBOit4bYgCghUbzggUL3hgED1hgMC9Naw50QBAXqj3AUtAwK8N0u6DVoGBKoYCghUMRQQqGIoIEAxfNspsW0n0GrYjyGAAEdZw64TG2RELRQQyMYwQKA6QwEBOsM3nRLZdH5nXoIGtTUgULVQQCAbwwCBKoYCAlUMBQQohvd0hfT0AExyhfd0hfV0-BwG7-kK6ekhdIbvNpXEAAFaa9g6oYAAveFqOCBQveGAQPWGAwLVGw4I0Bu-58QBAXrD91AYIIB7rA1aKCBQxVBAoIqhgEAVQwEBiuHbToVsO8HdINWwH0MAAdynatDCJgDVFwoIZGMYIFCdoYAAneGbToVsOuGdPdXw8BUBBKoWCghkYxggUMVQQKCKoYAAxDTe0zXS0wMwyXXDM2Gsp4OHHxrv6Rrp6SF0hu82NfKEk7vQWsPWCQUE6K3h-R8KCFRvOCBQveGAQPWGAwL01vCoEwUE8Xhls8_T6PfryZh12WeXf-b-p7Djy9DrKD8wneATNx0htHGDURj6rseyE0a3Cet-ZRd30e9L4cuHuUlY9_NomhibnYy-mGOTmvh-Mpsk6eRm9cvj49_-CAAA___cqDCS

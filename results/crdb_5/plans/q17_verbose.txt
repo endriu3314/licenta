@@ -1,0 +1,73 @@
+info
+distribution: full
+vectorized: true
+
+• render
+│ columns: (avg_yearly)
+│ render avg_yearly: sum / 7.0
+│
+└── • group (scalar)
+"    │ columns: (sum)"
+"    │ estimated row count: 1"
+"    │ aggregate 0: sum(l_extendedprice)"
+"    │"
+"    └── • project"
+"        │ columns: (l_extendedprice)"
+"        │"
+"        └── • hash join (inner)"
+"            │ columns: (l_partkey, l_quantity, l_extendedprice, ""?column?"", p_partkey)"
+"            │ estimated row count: 59,805"
+"            │ equality: (l_partkey) = (p_partkey)"
+"            │ right cols are key"
+"            │ pred: l_quantity < ""?column?"""
+"            │"
+"            ├── • scan"
+"            │     columns: (l_partkey, l_quantity, l_extendedprice)"
+"            │     estimated row count: 179,998,372 (100% of the table; stats collected 3 minutes ago)"
+"            │     table: lineitem@lineitem_pkey"
+"            │     spans: FULL SCAN"
+"            │"
+"            └── • render"
+"                │ columns: (""?column?"", p_partkey)"
+"                │ render ?column?: avg * 0.2"
+"                │ render p_partkey: p_partkey"
+"                │"
+"                └── • group (hash)"
+"                    │ columns: (p_partkey, avg)"
+"                    │ estimated row count: 6,011"
+"                    │ aggregate 0: avg(l_quantity)"
+"                    │ group by: p_partkey"
+"                    │"
+"                    └── • project"
+"                        │ columns: (p_partkey, l_quantity)"
+"                        │"
+"                        └── • hash join (inner)"
+"                            │ columns: (l_partkey, l_quantity, p_partkey, p_brand, p_container)"
+"                            │ estimated row count: 179,414"
+"                            │ equality: (l_partkey) = (p_partkey)"
+"                            │ right cols are key"
+"                            │"
+"                            ├── • scan"
+"                            │     columns: (l_partkey, l_quantity)"
+"                            │     estimated row count: 179,998,372 (100% of the table; stats collected 3 minutes ago)"
+"                            │     table: lineitem@lineitem_pkey"
+"                            │     spans: FULL SCAN"
+"                            │"
+"                            └── • filter"
+"                                │ columns: (p_partkey, p_brand, p_container)"
+"                                │ estimated row count: 6,011"
+"                                │ filter: (p_brand = 'Brand#23') AND (p_container = 'SM BOX')"
+"                                │"
+"                                └── • scan"
+"                                      columns: (p_partkey, p_brand, p_container)"
+"                                      estimated row count: 6,000,000 (100% of the table; stats collected 5 minutes ago)"
+"                                      table: part@part_pkey"
+"                                      spans: FULL SCAN"
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_partkey, l_quantity) STORING (l_extendedprice);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_partkey) STORING (l_quantity);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_brand, p_container);"
