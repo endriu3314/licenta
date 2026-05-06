@@ -1,0 +1,54 @@
+info
+distribution: full
+vectorized: true
+
+• render
+│
+└── • group (scalar)
+"    │ estimated row count: 1"
+"    │"
+"    └── • hash join"
+"        │ estimated row count: 59,889"
+"        │ equality: (l_partkey) = (p_partkey)"
+"        │ right cols are key"
+"        │ pred: l_quantity < ""?column?"""
+"        │"
+"        ├── • scan"
+"        │     estimated row count: 179,998,372 (100% of the table; stats collected 27 seconds ago)"
+"        │     table: lineitem@lineitem_pkey"
+"        │     spans: FULL SCAN"
+"        │"
+"        └── • render"
+"            │"
+"            └── • group (hash)"
+"                │ estimated row count: 6,019"
+"                │ group by: p_partkey"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 179,666"
+"                    │ equality: (l_partkey) = (p_partkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • scan"
+"                    │     estimated row count: 179,998,372 (100% of the table; stats collected 27 seconds ago)"
+"                    │     table: lineitem@lineitem_pkey"
+"                    │     spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 6,019"
+"                        │ filter: (p_brand = 'Brand#23') AND (p_container = 'SM BOX')"
+"                        │"
+"                        └── • scan"
+"                              estimated row count: 6,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                              table: part@part_pkey"
+"                              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzMWF1v2soWfb-_YjT3oVCZ2DPjLyxVcpqkt1wl0BuIbo_OQciBKbHqYGqb06Io__3IhgQ8E2-wHUJfqnHGWd5rf6y1mwcc_wiwgy--frk87XRR47zTH_T_d9lE_YvLi7MBihf3jWDEfyV8NuGTeeSPeROpyDrR0GkfeX9PR0vuRcESfbruXaHAn3E_4fcKmntRgv7_-eL6AjUajfkoff7Ol-gDCp7OTXTaPUeN-eg28mYT9AG9-5ge_k3Zu-bz3TicJZ4_41F6379CH3tfn2-D0Y-FN0v8ZIn-WmgaG6PGOmrthKL3aXRb7zTzIa6DC7Yie46y2cQKnoUT3vXueYydPzHBCqZYwQwPFTyPwjGP4zBKrx6yFzuTX9jRFOzP5osk_fFQweMw4th5wImfBBw7eODdBvyaexMeqSnWhCeeH2TwT0G5T4fR_DtfYgWfhcHifhY7mzgVtKGUnnOlwQruz730fZWZpk31tqXqLVXXTMos3VYNlGaaoTC541GMh48KDhfJOuRNpLdLdOfFd_kYXYKHj0MFx4k35dghW3nonGOHPirVUmG8SirekDkVmBuFzDe4i1kYTXjEJznkYfqbu155IX2fvfjuv2E6FSoRO4l_SxouaX6I_OlddsIK7i0SB7lMcalAfEPKEEiRUvU8nU4jPvWSMFKJISVPwafdP0bd3mDUvbm8XMfUv7lquDQ9nfVuuoPsXKcqpkigTll2ULTLUuzfXI06KUmWPl2nAxs5yCUKcqnqssKqWCIpu0xVumErnKuU5KN9_jp9r51Qx3HOL846V6eXCsoyWqYCNFcBW1QEcszBoDo8GFldel3k0ifzcPXNqBRWpC2S1CvOCbXy8WXNQsQZ2NJbTfyydbAGp_bLsW23rmqdaJvmKQ5b8ol8C5P9jYIc3DOJaRLLNmyVtFRiMaLpmqmSzDnMQ3gmqZoKsbdre-ahmYueqVdlLkxNyspN_5EYzzeM1xtmenheJ7e4m4Qxrd1SKbNNjYkauOHABA5WGQ6f_CDhEY_Udp7A6ucOarg0twE7jtMfXHe6_1nvui7bWoA3l7WKoguE2oWE3mKREcf7tRaZUkO27fL6b7LIFM9K7UXGOtoiU2p41ouMdqxFRjvmYFD2NosMqzgn1Ky7yJi5L9P9zUA79EbQ2jLGw_3XWavKX-yMumvAYeiK3s-q0jVf3ftba_PPyJIV2b39v1TbPvu__fv6v11I6C38Xxzm1_L_UtO1bY7sN_H_4nmp7f_m0fy_1PCs_J-0j-T_pH3MwaA7_sL3Wv5PK84JNer6f_Ff6l748jWP5-Es5mKaX_yW-KkWSZPNJ1O-Kl4cLqIx_xKF4-zd1WMvA8psesLjZHVLrdVTZ_Z0FycR9-4zQ8s29P2xCICla-WwTADKFKEITJEBWOWgCADVLhlVMRKRoqIilLYNlQ9Ky0FJUTE4KqM4rNUk7Y9FICyjHJYOQNkilA5myyjOFiMilFFmeGgOyyqHRQAsnZXDMgEoqSFMMFtWcbYMqR8sEMourqEhtYMNQtF2cViS0LSrC6CUdxgLEkAmJR7GggRQyhbZIfKAbEkUd2BBEihN4q64AA2U45L0NNcShAIqKGFJggrlKzdAsvnAWATAIqUDA7DkwCRJzSdMBxImV1IS1f19Q2YJg4HGITs2DAY5hyTRRNLVfMpMwDsk3SGSsu5vHnIxYTDQPSSd3gEG2YfcGLDoExswELkxYNmHHETuixq6L2eshvDLKauu_PJmWF35JZI7sCDllyZpV1yA8stxwcpPAeWXhpJWV37JdXdggcpfOjAASw4MVn4KKb9cyRrKL7OsofzSRrADDFJ-SV8prPwUUH4qbXa0hvLLxayh_JLA7gCDlF9uDFj5KaT8cmNUV372OFTwtyD8OfIn2MFU89jYNnmLGYy2dGqbLdtktGVRdss0k_BbTnD6C940xs4D7t-FPzPcwXLOY-x884KYK_jK-87PecKje3_mx4k_Xt88Pv7rnwAAAP__shKmZQ==
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_partkey, l_quantity) STORING (l_extendedprice);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_partkey) STORING (l_quantity);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.part (p_brand, p_container);"

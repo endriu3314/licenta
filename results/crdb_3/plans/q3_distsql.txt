@@ -1,0 +1,58 @@
+info
+distribution: full
+vectorized: true
+
+• top-k
+│ estimated row count: 10
+│ order: -sum,+any_not_null
+│ k: 10
+│
+└── • group (streaming)
+"    │ estimated row count: 10,864,068"
+"    │ group by: l_orderkey"
+"    │ ordered: +l_orderkey"
+"    │"
+"    └── • render"
+"        │"
+"        └── • lookup join"
+"            │ estimated row count: 14,943,648"
+"            │ table: lineitem@lineitem_pkey"
+"            │ equality: (o_orderkey) = (l_orderkey)"
+"            │ pred: l_shipdate > '1995-03-30'"
+"            │"
+"            └── • sort"
+"                │ estimated row count: 6,653,031"
+"                │ order: +o_orderkey"
+"                │"
+"                └── • hash join"
+"                    │ estimated row count: 6,653,031"
+"                    │ equality: (o_custkey) = (c_custkey)"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • filter"
+"                    │   │ estimated row count: 22,149,537"
+"                    │   │ filter: o_orderdate < '1995-03-30'"
+"                    │   │"
+"                    │   └── • scan"
+"                    │         estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                    │         table: orders@orders_pkey"
+"                    │         spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 902,250"
+"                        │ filter: c_mktsegment = 'AUTOMOBILE'"
+"                        │"
+"                        └── • scan"
+"                              estimated row count: 4,500,000 (100% of the table; stats collected 3 minutes ago)"
+"                              table: customer@customer_pkey"
+"                              spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzkWV9vm8gXff99itG8xG4HmZkBY5Aq4SZu6986dtd2tFvtRhaFicMGgxfwtlGV777CmBgYMzakSrbqU8y_M3fOPffcC_kGo789aMDB7x9H_eEYtC6Gs_ns11EbzAajwfkceIsgdFh4x-4RiDarlrdgX2PmO8xZh67NwCvQwkAC3sJxIzvY-HG7DfozELJ_mL9hCATp844Vbw-iW3e9Dt0gdON78G46uQT2JoqDFQsR2N4YIeC5PnNjtgK_fRhMB6DVarXsxeoujthyxfwYvAFn_av55HLydjganLVBf3wBWvYiAbpj9-ANCLLf7d3F_Sa2V7OD7HIuRvDnRpapDS768wE4w7quSjKVqHy2h0q2sL-VHbgVvJ9Orj6Ct58K7ImYmEwvBtPkgR1v4GIwOy88AkbDy-EcYBki6AcOG1srFkHjD4ghggQiSOE1guswsFkUBWFy6dv2xqHzFRoygq6_3sTJ6WsE7SBk0PgGYzf2GDTg3PrssSmzHBZ2EjyHxZbrbeHTpJjpn8X6jt1DBM8Db7PyIyPHJdqzLtwqRHC2tpJnO1jqYKprWpcCy3cAAUF8y8IIXj8gGGzifbhRbC0ZNHBuf8MLaOAHdPoW37lezEIWdpTi_tLzBjBplvp8Kg3DSNJbCmmP-vke3FrRbRHSJPD6YR82KYWt1Ak7nxmtuExWOGb2g8uOvc9IvoCKKSC0p1GtknRail5rRPpWtodYJ6VqNgxjNp8Ox-9rUo4LlCtlpciVUe-BN_5WtMwpQF8nTx675cDWP1jR7f8D1082T4vBeuwmbpmk_SZ0l7dxy8RtiOBkExvAxMgkyKTIVJCpIrNbmRa1vENaJy-zIIyTwLplFl9XLtgtL9its2DCROYveomNndub2Y9MxqMguNuswV-B64PAT8hJaBoDE8uZ9R4q1Zz-8-5b6lso17GS35mpQwSnyV2JNnuvWjhBHZwPL_sjydTbCJgUAVNBwKyuGK3MlF6Hqf5yGbKlFQdhh5BSehLrmqQCNMD2qD_-tBhP5ovx1WjUMpVESLOry52kihcJf4q2n1RlvdJGCTmhyg4V0E54R9hQuWDybGBud_iRjcNbP8BeVUr18k7VBtVGeuU2ISGTvoYIzoP1L0bS2is7n1wOoNeY6t2qB-keB1Kw7tCSWY_clRsLwyt3Zlr0W3x6jyPPN32ko4fUIZquqkQ9eewgdfb22AHVlx471KYp6X3_sSOdOaSOommKRk-ePXqNmMf4ZWcPXBn1c8weyjPMHkqdvGSzh_aE2UOrs2Bu9iDyTzZ7kFpGnO-29AebPegJVdZ89uAG5RecPboNqo3o33H2KM6z5PROIj9Xc5c6ePtJgdb9pCDX2dpjh6Ev3dtp04x0v3tvz6jHKfUn9_ZuI-b1F23t1YXwHJ2dPENnJ3WyknV27kWtRmdX6yyY_6rQ-8k6O-7VYSrfy_AP1tnxCVXWvLMr_6HOrjSoNlKeo5_S2Wt93J2yaB34ESsb28G1yktJOEkMc5YsTWQUbEKbfQwDe3tvejjZAm1POCyK06s4PRj62aUoDpm1evyHQB4Jl5FwHomoBSich9LqQSnVSOmX2dOhsCCq9FNiHosIuaLVXCllJFqHK1KISq6HpQiguvWgsCCs9HNkHksRkqVWk5V-78tDqUKorgCqV4bqCqG0aijK6V0T51CvVhbl9CDG6gmguNoRQ2FBWAonrZ6QLV0geK4OdbHPyIKwOJlisWlRgWtxW8ScQRQDIwJ1cVicQZxsgZxQj2CJPJBT1xEskQkSnjDOJIqEKdWEcYWNOZM43Qf5_iMGExkh34DEWEIn5FuQ2L-wyMB47YsdDAssjHANDXNmUQTrCfyQVz_nFqcbIq8MMZjIEflSEmMJLZFXmdjIiCwwRa4wyZHpS-SKnGaJ2MmIwMm4IifNnYxT7BEskZNxGjuCJRznOF0QsZMRgZNxNU6aOxk_ZjY3Mq6OjmAJjYzTPhEbGREZGa99sZERkZHx2hcbGREZGS_-JxgZL4zmRsZXUnMjo7zKxEZGRUbG1SV9gpGpycvpjRd8WbgONGBXJ7Z8I9sSdWRVUnRbkSyiOpKqEIodXVXUz8lb-I1nLaPkDXl2G3zZ4s7v18n77Y3lRQzBS-uOXbCYhSvXd6PYtXdXHh7-928AAAD__0vKUUw=
+
+index recommendations: 3
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_mktsegment);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_shipdate) STORING (l_extendedprice, l_discount);"
+3. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_custkey, o_shippriority);"

@@ -1,0 +1,76 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 60,107
+│ order: +n_name,-o_year
+│
+└── • group (hash)
+"    │ estimated row count: 60,107"
+"    │ group by: n_name, o_year"
+"    │"
+"    └── • render"
+"        │"
+"        └── • hash join"
+"            │ estimated row count: 436,230"
+"            │ equality: (l_suppkey) = (s_suppkey)"
+"            │ right cols are key"
+"            │"
+"            ├── • lookup join"
+"            │   │ estimated row count: 434,035"
+"            │   │ table: orders@orders_pkey"
+"            │   │ equality: (l_orderkey) = (o_orderkey)"
+"            │   │ equality cols are key"
+"            │   │"
+"            │   └── • hash join"
+"            │       │ estimated row count: 432,192"
+"            │       │ equality: (l_suppkey, l_partkey) = (ps_suppkey, ps_partkey)"
+"            │       │ right cols are key"
+"            │       │"
+"            │       ├── • scan"
+"            │       │     estimated row count: 179,998,372 (100% of the table; stats collected 44 seconds ago)"
+"            │       │     table: lineitem@lineitem_pkey"
+"            │       │     spans: FULL SCAN"
+"            │       │"
+"            │       └── • merge join"
+"            │           │ estimated row count: 8,019,205"
+"            │           │ equality: (ps_partkey) = (p_partkey)"
+"            │           │ right cols are key"
+"            │           │"
+"            │           ├── • scan"
+"            │           │     estimated row count: 24,000,000 (100% of the table; stats collected 3 minutes ago)"
+"            │           │     table: partsupp@partsupp_pkey"
+"            │           │     spans: FULL SCAN"
+"            │           │"
+"            │           └── • filter"
+"            │               │ estimated row count: 2,000,000"
+"            │               │ filter: p_name LIKE '%lavender%'"
+"            │               │"
+"            │               └── • scan"
+"            │                     estimated row count: 6,000,000 (100% of the table; stats collected 4 minutes ago)"
+"            │                     table: part@part_pkey"
+"            │                     spans: FULL SCAN"
+"            │"
+"            └── • hash join"
+"                │ estimated row count: 300,000"
+"                │ equality: (s_nationkey) = (n_nationkey)"
+"                │ right cols are key"
+"                │"
+"                ├── • scan"
+"                │     estimated row count: 300,000 (100% of the table; stats collected 4 minutes ago)"
+"                │     table: supplier@supplier_pkey"
+"                │     spans: FULL SCAN"
+"                │"
+"                └── • scan"
+"                      estimated row count: 25 (100% of the table; stats collected 4 minutes ago)"
+"                      table: nation@nation_pkey"
+"                      spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzUWX9vo0gS_f8-Raul1dgzjUx3A7aRViI38e7mLj_m7IzuVqfIYuxOwo0DXsC3E43y3VdgE0OXKUyyibPzz2Daebyqrnr9Cn-nyW8L6tLRfz6dHp2ck87xyeRy8q_TLpmMTkcfL0nop0EUMhJN75UfM5Ks7jr-XbQK0y45mmQfp8s4ug5S8tP44ox0ij-bhv6dyr5RAKhvaezP0s67DOddBhjFcxXP_VTlSMUDOoup-paqcK7myziYKfKedDgxyGI6D5JZ_uAuMUhnmUyT1XK5uJ9FSUrek8X0t5UfpkF6n8OtOa5JLf04zZgvl4tAxYwsglAFqbpj-Up2n5GcTMI2dMm_fxmNR6ST_1s_6Ku6Jz-SRXHdJUfnx48s9MXtavaEYnVz_biKLW7SU6wWH4rlZLomul4Pt5-24PkGnJ78c0Te_bDw_59lNP7hXTfPzmbLfh5ffP5E_v6rtsvkYnw8Gu-4fzyafKSMhtFcnft3KqHufymnjArKqKRXjC7jaKaSJIqzpe_5F0_m36hrMhqEy1Wa3b5idBbFirrfaRqkC0Vdeul_Waix8ucq7mVYc5X6wSKHL_bKKy6mWYIpox-jxeouTNxSctg2jWy7GaxUGtl1pbpYqa4oo5Oln0H2pOMMhDXs9yyjZ5mOkH1r0LOJH86JJFF6q-KEXj0wGq3STVTbYL7ck1s_ua2G4UnmCXr1cMVokvo3irq8lK2TY-qKB1aTsC30KsxDVfMK-FX2l01f2ZH1X_zk9h9REKq4x6WWdXWddnLO3R_j4OY27XiCebxLGb1YpS7xOMtuSOZZzLOZ5zCvz7wB84bM4ybzONfSs43b0eLmsjbwHZwzvptC4U6V87qDvfV_RZWcRtHX1ZL8LwpCEoUZ8XLpRKXSKelR262t7Gtfj8855MaK3Rv7uKtttpR5PCsCyTxuMY_bzOMO83i_dqs5qPFWe30eGdGyJ7RtHudC5mrnieu6k8vxyfnPGcEuIx3Pft_hrusejz6enB2dGp7T7Rodb_jes7qMoKyFzrp-B3ewPrq5idWNn0ZxTwyhCGT1d3T-6_T84nJ6_vn0NNsMcCvflcnns44nui2LkQOdkXo4w2cUJB6wFLvY7Iyueks8Biz1gEuRWFoksl4zd_CcRHGq4p60dY4fmCeM-qfa-lPtPfK3K3ulR9VWu3R0BdhNSldRWa1Rvv95y9_Cecsdh_cH9qDHjR7vS25aptPj-XnrvNB5y5-aMKv6pMJCesUFSNjWBTKy9YuP12sHWzYftmPLvujxYZYGoycdyR1n0BO20zfttnpQSYIubdZTk-DAJOQJgMGXYs8taSlQh0tpDo2ekAPHlPWWQVewVrX-U7BIVazi3qBKeX3fJZ6AJvnxNHlWsnW5GtTSbtYNWvECyLd2ZOBMxTeqMHrmLj_AP2wNwYcaR9AyFZlTqGRDl1Fu7pGOlzO8-pjxioZXtCnfsuG1_xqG137yUaS16Hr69Nb_AWUpDb1s875hqy36ed6uc4d6SPu07st5-J09K3AP_6z4ual7xoM2q9jdrIcaYlr172aIsQ8-xLTqyvIQM3iTQ8xzOrJhiOGvO8S0MqLFEGM9d4ipOj-xv0jrYnSIecEoDQwv-lLOfGqW5AsPCYY2JeRZ4Oss_KkTgnxqBuw_YUIwNiMCEl39lGC3Yf44JfQPPSX0a2m_3pQwfCtDwnCPZLzcjKC_GnnFGYG3Kd7yjGD9NWaEJx8_XGvQ4lc9r7gA-lIS09KvZk8fFaonxkCPbJ_-fbmS3dm5rzoq8IP2rNjds4caFVq18WZUsA4-KrRqzvKo0H-To8JzOrJhVDBfd1RoZUeLUUE-d1Ro9aPdWCXLKEzUXj9j6Nph8Czhan6j1ruTRKt4pj7F0Sz_7vrjRQ6Ue_W5StL1qhisP52ExVqSxsq_275w2x8ry3stVr8lVj2UALS4DmVWQqxAmRUowEqgrKSop7WeDPfH4kjm5bAlr3ooC9CSaLas-mxZgJWFQtn1UDbYQxsP0K6P0LbbYQmktuxBOyynHsrhOpSDZqtfny0H7GEfhUIqywEVP0ChJELL1KGGT5cakCwcC5UapyUWIjWAFm-Q0z7S1C2xONLVYBc5roEcEUEYIy42Woyi0j8tsbQYK1hAbThQLqy-KlgcdFADmFZgVbC2zHg9loDEcFHliKoKUPm8QVax8wzWKw6GHmhAV5uYIScaJAaUtYqF5R_uJQ7GkeqXsJWAUGP5r4LBzcTBOFL_VmtmCBYkhp8hfIh4ClgYQK2rbs5EXAWIUuASi9oK6OcatB_zFdBo4mCYsQDnrmgwwIj4O6CZBFDsvb0FKAzRSrGrpziMspViV8HAudQEhngCSAwo9t6eANjgBizME8DsA4mtloXTwtoJXBUxTwD7qEFhEe0BaiFwGUM9ASz9BoHFPEFbZtiZBInhAisQgRWw9HE7jHoCWK8N3hrzBFATG5ghngAQkw3Kj3U42MsGMI65ftBKEqj1_p4AbGYDGOoJWjNDsCAx_BiREvEEoDAk_s5CIi8tbBglLrGoJwCd2QCGegIg2A1giCewgY2VuPhLRPwd2Ez4qwvME9gPV4xeL6Lfp8GcutQWjnM9UwNj0JdfDMv2bcN3vljG3Ly-llxaig84zf7Av0mo-51ObqPfc9zL-6VKqHvtLxLF6Jn_VR2rVMV3QRgkaTDbrDw8_O2PAAAA___RheZ1
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_partkey, l_suppkey) STORING (l_quantity, l_extendedprice, l_discount);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.supplier (s_nationkey);"

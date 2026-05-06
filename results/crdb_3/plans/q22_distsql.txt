@@ -1,0 +1,59 @@
+info
+distribution: full
+vectorized: true
+
+• root
+│
+├── • sort
+│   │ estimated row count: 0
+│   │ order: +cntrycode
+│   │
+│   └── • group (hash)
+│       │ estimated row count: 0
+│       │ group by: cntrycode
+│       │
+│       └── • render
+│           │
+│           └── • hash join (right anti)
+│               │ estimated row count: 0
+│               │ equality: (o_custkey) = (c_custkey)
+│               │ right cols are key
+│               │
+│               ├── • scan
+│               │     estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)
+│               │     table: orders@orders_pkey
+│               │     spans: FULL SCAN
+│               │
+│               └── • filter
+│                   │ estimated row count: 500,000
+│                   │ filter: (substring(c_phone, 1, 2) IN ('13', '21', __more1_10__, '34')) AND (c_acctbal > @S1)
+│                   │
+│                   └── • scan
+│                         estimated row count: 4,500,000 (100% of the table; stats collected 3 minutes ago)
+│                         table: customer@customer_pkey
+│                         spans: FULL SCAN
+│
+└── • subquery
+"    │ id: @S1"
+"    │ original sql: (SELECT avg(c_acctbal) FROM customer WHERE (c_acctbal > 0.00) AND (substring(c_phone, 1, 2) IN ('21', '23', __more1_10__, '31')))"
+"    │ exec mode: one row"
+"    │"
+"    └── • group (scalar)"
+"        │ estimated row count: 1"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 1,364,273"
+"            │ filter: (c_acctbal > 0.00) AND (substring(c_phone, 1, 2) IN ('13', '21', __more1_10__, '34'))"
+"            │"
+"            └── • scan"
+"                  estimated row count: 4,500,000 (100% of the table; stats collected 3 minutes ago)"
+"                  table: customer@customer_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsWFtz2rgfff9_Co1eAv2LxZJsfJnpDGxCWzqJ6YIzbWc3wzi2AkzBZm2z3Uwn333HFy6yYoFDy_ShL4ll46Pf5egcyd9g_PcCWrD_6cN1b2CDxtVg7Iz_uG6Ccf-6f-kAL0iiRy_0GQJeuA6Sxqsm6I1BsF566zhBIF4vG97E9bzk3l1kj5IwKYbgzWh4AxoFUry-j5NoHkwb3mQ1CwOGAEaAZO_szzLh3k5nCZcsAh_f9Ud90GhUwqTRXxB8gcAFodlfM_2Ls2uqZneM7BpfNJugZ1-BXeTgr7WiULYN1v1nup_Ws6EILyu_KUoB_J2ibG4CtYcO6H9Ke7MN8VUeVRj5LIqLmMJJGuQX9gheA29znYGMs_Bjd8HA29Hw9gP4_fOu6mA4uuqPuFsQwSD0me0uWQytPyGGCBKIIIV3CK6i0GNxHEbpo2_ZDwf-v9BSEJwHq3WS3r5D0AsjBq1vMJknCwYt6Lj3CzZirs-idorns8SdLzL4PItu_m-y-sIeIYKX4WK9DGJrlxZEcLxy01tt3Gpjaup6hwI38AEBYTJjUQzvnhAM10kRxW7y-0cwc-MZP20Xw7unOwTjxJ0yaOG91AZX0MJP6GXZqfw0G-Z0NxdChttmpQugIMyWX3zWhBo61Ut57nIgpRzUOjm8mS8SFrGorfMJ5PetfV53CQLYsqyB7RgIkOKqIDimF5ZljZ3RwH6bMhrzw9JTgx-a3JDy71J1N9wsji7drED79vrasq76l4Ob3nXzJC7QUh31yjrucNdBRmDmc8h36ZuHfvJMM9658ex9OA_S1aLwsTqPK2aB0eDtOwf0bGcA3g8HNkRwwR6SRhc3X0fz6Sy7gggO14kFuhh1CerSSt6oZe4rdYhjh61w1caUD3PEAj-lDceaLWm2nEFAEpdWjovWias3nUZs6iZh1MYdod8I9uzPE3voTFLiFOW6HN7azmQ0_DhupMPx7U2jS07jUqecQ-cEMh3I0jwuy_HtzWRgO1lqRZK0nOQuAb2cgFmnCeMwSljUJqQc2v8rJzRKExJyRMWeq1cxSyVliVpeq8_GY5bj4WUVH28N5GTjy12v1Sa6qWlE-66OR16alvajHC-3u1Zb1XVVr5aJsu1pdRLZ2p7xy_ZKdTQq63gO28Pntz1chziF7alnsL1agrNvCPrPY3v6CWSSZ0mUc9geUeo0YWN79ATb4zc75Hg9Vk60mVYbZ-cq-iPOVcpLs6I_yGU22eI826NdplZ7ti7T-eUypTp2Kut4Bpcxz24yZh3aFB5DzuAxpE5c-x6j_Tweo51ApQNZGmc5Whl1mrDxGHyCx9T6yjVi8SoMYnbUqUkpTdXCaYmZP2V5P-JwHXnsQxR62W_z4TADykzDZ3GSPyVKPhoEm2dxEjF3uf3CdTwUrUbKv3kcD4WJBKtTxsJlLIXLkINSOKgyEqlTK7IPpdeDotVI-XeY46FKteKxzDIWldZKra5V_qFgH0qVQmkSKK0MpcnrLmEWMephdaqhqEAHORTWJFjC2ulIq6VXV4sK1NKlUIZkQQvL0JAvHUkTBSjzxToj0EEOJdMZoYVyKKnOCHXHgmhx1cJYQnkBSxCto6VGYPwBLJnWCDQ9gCUTGyJQAgvKxReMSgomqCCWSxeWaZdoGYJ4Ha84gqYeAJNJjsgLOZZUc4R1hAUB40vWkaiOyDK5gslkR1iVWJCwo8VC5IUcS9JJsZFyKKlaiMWXays2a2grriWu3KoUqV9HXXm1ENlaS155MIFgRC6vRCav4k7uwKZQsiskgiiSA_tCmVqIG0M5mEwtBF4cwJKqhbjNlAsskQgsFVhG5LtDiVpQMz3LPCzCr5O5Dy2I1Q5VdJ20GFb1lmqatGUabqeFNaY8MM9QmJ8eNx8W7jROD1TjWfg1w3UeV-lx6MFdxAzBG_cLu2IJi5bzYB4nc6948vT0v_8CAAD___piTbI=
+
+index recommendations: 2
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.customer (c_acctbal) STORING (c_phone);"
+2. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_custkey);"

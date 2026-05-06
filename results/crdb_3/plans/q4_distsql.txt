@@ -1,0 +1,32 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 5
+│ order: +o_orderpriority
+│
+└── • group (hash)
+"    │ estimated row count: 5"
+"    │ group by: o_orderpriority"
+"    │"
+"    └── • lookup join (semi)"
+"        │ estimated row count: 1,720,730"
+"        │ table: lineitem@lineitem_pkey"
+"        │ equality: (o_orderkey) = (l_orderkey)"
+"        │ pred: l_commitdate < l_receiptdate"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 1,720,730"
+"            │ filter: (o_orderdate >= '1997-08-01') AND (o_orderdate < '1997-11-01')"
+"            │"
+"            └── • scan"
+"                  estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                  table: orders@orders_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcV11vm0gUfd9fMZqX2C3IDN8gVbK3JltXDs7aZNtqN7IoXDtsMOMFrG4U5b9XgJ3wYSZGUdSqT4lnxodzzz33ML7HyX8hNrH1-XI6mtioN54snMWf0z5aWFPrvYPoksY-xNs4oHGQ3nHIo7so7b3po9EC5VvLfAWdz2cXxUKCPn2w5hbq9fZf9t0U0D87QZDgHRqPHAudEcPQeEHnBXLWRyN7jJpnPdQrH0Nv0ZmENjRKzkxzYjvW_K_RFF3MbOdDv19gWJ8z8qi3p_6m4BQGEQQpbA6swuJBt3CH3h3Ku4W7PY1w6dHNJkjLPMJlDB4E23yx30d_zGdXl-j3L3Vx0Gw-tuZHNjCHI-qD7W4gwebfmGAOi5jDEr7m8DamHiQJjbOt-_zgxP8fmwKHg2i7S7Plaw57NAZs3uM0SEPAJnbcryHMwfUhHmR4PqRuEObwRReGxZ_l9hYyAu9puNtEiVkqmUMl0bkjpBdbN_vGgPADIhmapkrIjXwkIpreQJzg6wcO0136RDJJ3TVgk5SqmoyxSR640ws7D8IUYogHcrWqYt1EvaH4aKayQUzTzLy17-PhkLc_Q0j5TCtzscZc7sL8Iw2ifUe0KnfnbgsmmlrnDlpYFxP0cTaxMYcP1hwe_jk0a0rp7W6L_qVBhGhkomHW4ZmNhsqhqqFa7mlY6mnZwVzVuxnILjXRUGoVQKoJoHURYLRex7B2UxoPiFBVIK9gZH9Z2jNnaV9Np70h6WclzK5sZzmffVr06l15wv16h27c5KaBeP3wRFyue05oZf4EvIty3cCvQOewrNqk02pbXF0sJ7bTG4rthlPqtKUugi9onGbzr9YJvW19oFp_oHqCTsdU2j_lCCub8nQ7IHpN1ON8tDofvcKHnJ6C4munYBGB_EDUDEURlZPjT-xS0WP8KT9B_CldmJfiT_9V4q-TGcsRQX50_JFW5i-OP_kV40_uIvgh_rQXxF_1BSeeHjfC68YNPyD5ZUvqetkSuhT0mDbST5A2UhfmpbRRf5W0UbsIUJpI4weHjdHK-8VZI75i1ohd5D5kjfKCrFG63O3mkGxplMBJtyih9iieZMKCv4aiCwndxR5cxtTLzxYfZzlQvuBDkha7pPgwiQ5bSRqDu3n8GVdGIkwksR1JriOJTCSpHUmrI0l1JFKpTqtAkUp5QjcsmQEldaRFGFhqHUtmiqUwGmjUoRQmlNrOShTrUCrbVkY7rYbuGhNKb0dqkNKZSAxOSh3JYJcntEPpjbFpTODpHm3OIBuMZdLGFD5HjOXSxiASdjoQRjyIDUcQdkCwjNoYRdKYxSoxuYNTCXsWCWMYm7zYw0jUdqxGRJDGNJ5ssUZGPIPFclhjHp_jxXJYYyQJOycIIyhIcyjZUcFyWP6uXYX02zLwsYkVfSV7qiHwsFoBL-uazBueQnhXUmAlGUQ39OwHyyp010n2wl_c0G85bnZxTbC5csMEOHzh3sIYUog3QRQkaeDtdx4efvseAAD__8BGm7c=
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.orders (o_orderdate) STORING (o_orderpriority);"

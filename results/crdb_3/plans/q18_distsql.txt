@@ -1,0 +1,53 @@
+info
+distribution: full
+vectorized: true
+
+• limit
+│ count: 100
+│
+└── • group (partial streaming)
+"    │ estimated row count: 14,671,921"
+"    │ group by: o_orderkey, o_totalprice, o_orderdate"
+"    │ ordered: -o_totalprice,+o_orderdate"
+"    │"
+"    └── • lookup join"
+"        │ estimated row count: 60,255,327"
+"        │ table: lineitem@lineitem_pkey"
+"        │ equality: (o_orderkey) = (l_orderkey)"
+"        │"
+"        └── • lookup join"
+"            │ estimated row count: 15,000,000"
+"            │ table: customer@customer_pkey"
+"            │ equality: (o_custkey) = (c_custkey)"
+"            │ equality cols are key"
+"            │"
+"            └── • sort"
+"                │ estimated row count: 15,000,000"
+"                │ order: -o_totalprice,+o_orderdate"
+"                │"
+"                └── • merge join (semi)"
+"                    │ estimated row count: 15,000,000"
+"                    │ equality: (o_orderkey) = (l_orderkey)"
+"                    │ left cols are key"
+"                    │ right cols are key"
+"                    │"
+"                    ├── • scan"
+"                    │     estimated row count: 45,000,000 (100% of the table; stats collected 3 minutes ago)"
+"                    │     table: orders@orders_pkey"
+"                    │     spans: FULL SCAN"
+"                    │"
+"                    └── • filter"
+"                        │ estimated row count: 14,936,304"
+"                        │ filter: sum > 313"
+"                        │"
+"                        └── • group (streaming)"
+"                            │ estimated row count: 44,808,911"
+"                            │ group by: l_orderkey"
+"                            │ ordered: +l_orderkey"
+"                            │"
+"                            └── • scan"
+"                                  estimated row count: 179,998,372 (100% of the table; stats collected 28 seconds ago)"
+"                                  table: lineitem@lineitem_pkey"
+"                                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzcmV1v2kgXx--fTzGaK1AH4ZnxG5YqkSehLRUh3UB3t9qNkAsT4g1gaht1oyjffWUbiu1TH2ySTbq9Ctj47_M2P__HuafhlwV1aO_3D4OT_pA0zvqj8eiXQZOMeoPe6ZhMJyt3qRiZTqabMLpVd4z4Ez-YqSD7eeZGKv4S-ZG7WAfeVDESbpaNxeTLxl1FXnTXJG8uL85JLOIvVcBIcl3IyMJbKS9SS_Lbu95ljzQae3kSB7SNY7E_mgh9u-zt5cXHD-T_n7K_eHfya3_4FkTw50bTpCKSy2aTnAzPSONbVuQ18XefdyczgbzOqDf3tzy2OOTi8qx3GSvkjp71Rqe5q8igf94fE65plNGVP1NDd6lC6vxBOWVUUEYlvWJ0HfhTFYZ-EJ-6T37Yn_1NHY1Rb7XeRPHhK0anfqCoc08jL1oo6tCx-3mhLpU7U0E71pupyPUWiXzanG76Z7K-VXeU0VN_sVmuQqeQYyb1bPszaVBGR2s3vrLNW20uO5ZlSuKuZkQQP7pRQUivHhj1N9E22H2Mn-_IjRve5KPrcnr1cMVoGLlzRR2eqUD_jDr8gR1XBCN_m92IdXcfQCEWmULsBy2TrjRNW-gdq6232rpmCmnpdttIUpffT32fliikZdRJ62Q-D9TcjfygbYPiMXoRh61mDkm-nQw_TYYX48nw42DQ6PJmnMDH80ZXNB_VF1lIwC5NYK_rp4EVdV-lwkiWnD9dmvsU9OJo1ZqtN94iUkG8uvR8cOkJh3RFhkmO45z1TvvnJ4NHVd0ohqw_ruzs2Oacq2Cu3vveKi6Amb9ofLdWDhn03ozJqHfeJ-8v-kPK6EJdR40uf9V8HXjzm_Rj3MZNFLeQdQXrStbVS9tlFnM367Rr5AdRHGunkKBssa7-qvSmVvGmnTo3jQu0xY8Q-RvvnpXd3Ycdfwa-f7tZk798b0X8VTxGWShlHkbp86k0crsQuRDHRl6VnCByXgmn6QAYrGuyeAziGWBduzSvTjGvY9EpiuxM72zk0LI9kKeLbIJDOjxkfGOQCU9yeKg-kNM1k39casXyHA9m0WJdeRjOEsB5G1e2jtsDVYrw3WondSwrcv5QUu2Bt_SixFuVzREvOgtZjv_HVGrot_x1W8r8JenQmyye-3ToRcy-SoEXvYOUucB5dU8knssYpq6w1RZWxzCE8aSOUBybvf7kjpCbJrdsw06csCW5pmtmmyeO0KzrCPU6aWWWo_WjOEKrNIGncITaszhCrU4T9o5QvqAjLIfBMzpC62UcYfnIlTtCUZykmo5Q1JqRrK-SL-0Iaz03spGbP7YjNI9EpwCbg5_SEXaOJkRVRyh-EkeYtxaiurXQnsdYtbbmouR10-N8lXZs8vKpfVUrY6yOe70m6-SSmWTzRzFTZmkCT2Cmitj7V7xUp04L9lZKvKCVKl_-z2iljJexUkaddu1eroE3KjVfrtl1bpo1JPylrRQ_NvKqm9AXslL6keAUxW3oz2mlrKMJUdVKgX3uf9RKaXXe0l6qcO2vQpXLvexexaa0eFxTNZurtA-hvwmm6kPgT5Pfpl8vEqHE9MxUGKVnhZ1-669258IoUO5y_9-G6lpGuVT6Jr66FLcQLbuoxYtaWi7FnJSWkyoqCbxYZnlURj0pjhQL5IdLSaSDvCgl0VLp5aVK_-2WldLrDJbIlV2rp2UgUmBGcanCYOW0JBgHA62WWV4tCaplolIWImUVpSxUyi6X0kHdbVSqg0jJolQHH1JkSnXQQ1yLa4hWp56WEMiSBvPAAbVy9eIcEQOA4Di2JLIYQR_5AXBhlAfzdUAMwzyYigNaKOdBKzlOL47hC2gdwBeCerC2D2hhrIfFx7Uw2MOpwPnFEYBx2ElAsMq857CTuBgGfLiOcC2U-HAscLhyhK4SRobjlSN8ldDkAJDlXY6GwBqkKXCQCY6IgfEXAGTV0Q_m_4AYxn4DLIADYij8wQIQAGXV4Q-ecAKgrDqwodXExTBgw8nAtVBgw2YCmOXHzKjxiBMAZpWBDVuJa2HAhp3EtZDhB1QUuEkUiEvkcCsDSFad13AHgothvIa4wLVQXsOpwBErMMTCscARKxHESjAXEkesRBArwWTIA14R2ePqYDLkgf0kxmvAngNiqFcHY3ZADOU13OoecIsYr_WHK0avF_7XiTejDu24lj3Vru2W5UqzpU_5tOVeS7tla9y6FlOdc3NK4wvceUidezq68b8muuO7tQqpc-0uQsXouXurzlSkgqW38sLIm27PPDz8758AAAD__2uIkxw=

@@ -1,0 +1,28 @@
+info
+distribution: full
+vectorized: true
+
+• sort
+│ estimated row count: 6
+│ order: +l_returnflag,+l_linestatus
+│
+└── • group (hash)
+"    │ estimated row count: 6"
+"    │ group by: l_returnflag, l_linestatus"
+"    │"
+"    └── • render"
+"        │"
+"        └── • filter"
+"            │ estimated row count: 59,999,457"
+"            │ filter: l_shipdate <= '1998-11-30 23:58:02'"
+"            │"
+"            └── • scan"
+"                  estimated row count: 179,998,372 (100% of the table; stats collected 16 seconds ago)"
+"                  table: lineitem@lineitem_pkey"
+"                  spans: FULL SCAN"
+
+Diagram: https://cockroachdb.github.io/distsqlplan/decode.html#eJzsV12PmzgUfd9fYfllkhkjMOZbWonZmXQ30iSZTTLqVrsjRMGToBJIwWk7qua_r0wSwkewks5L1fbNvr4c33t8fICvMP8YQwcO_rm_ux6OQe92OJvP_r7rg9ngbnAzB7GXUbbJkqfYXyAQe3GU0Jz5bJMjkG9Wvdj7uPETFrHnPrie8ZD3kT3v1-gXRpOQhussCmiZ8N7PqVeEjuaBS9DDQAKxF0Z5kG4S1i8f5ZHqoyc9W8SuQOwx_8sBKlj62YIi4H9aNLvwPy22XWzX2l3whF0V25Ryt_0qDyBQxHqXRbQYe2kW0gy8mU5GgFMZMboCb_8aTAcg9vJltA59RsF_G0Uhwe-gd4Ft25KwKin4AkjgQlEcBTu6ddEHf04nD_fgj3eCEwKT6e1gKs6BCCZpSMf-iubQ-RdiiKAKESTwEcF1lgY0z9OML30tEofhF-goCEbJesN4-BHBIM0odL5CFrGYQgfO_fcxnVI_pJnMsULK_Cgu4Pc9u_uBt_5AnyGCN2m8WSW5Aw5HwQutUY8qx4q2x4mEAj1QChGcrX2OLxPDsFTNNmVNkjXFUImpWbIO_CQEBKRsSbMcPr4gmG7YocWc-QsKHVzhZHgLHfUFnU7LmyhmNKOZrNc52cYd4Jrlwe_OHUtEASpxdMtR1AvHcebD0WA2vx7dQwSnnBj-mHrZw47j3A5uhqPrO8klfQR6R6L9y56rXVWCfQRcjICrIuASBFwdAdfo7F1t9K6f0_v1YpHRhc_STLbq3bsGck2I4PX4nTeezL3xw91dzzX6rZDJQ7OHUc8l5UgrR7gcqXx0M3kYz3eZu_EhV69ED2NvOnk76_Ub_R9aeP8Mln6-bFSPkavCx5cDTaRBk9VJ0wF6kxS2QMMaeIEqIBLjY7U0acNtJlUhk3o5MnYjb8iZMmszq8yya3Gs1KfF9qVUq2rT9orjc9k1eUh2LQRcW3axwrWJO8WoNVjG-Bw1ztKM0UzGWpPAK-SqV52b6s1NtRPO9tjJVnY6Ut04ldK1jPWGGI7XZDRrql9LfLpT4-_OqbFhYNPSLRlLMjYJVjTFkHHh1Ma5To3PoaV0au2HcGrtnN4rBmP-XE5tdtL0aqdWfjl1eRGVc9S4d2rySqcmtU3V011R-d5cUarY4rd9tCrncFFaIfkhrPAsHVRusPFzWaHRSdNrrdD-5YR7ku1ztLg3QvWVRnjWH-uU5us0yelJX6JKYysJcynQcEG3usnTTRbQ-ywNitztdFIAFYGQ5my7ireTYbJfyllG_VX5w11FwkIktRtJbyKpTSRcq0mrQeEqlHUelN2NtP2NOR2KCKC0JhQRUqV1U4XNJpQmhNK7q1KVJpQuloLRXVYLyhBCmYIGm0imEMnqRmqRbn2zqlqki6FEqmoxJYYSqYo0oWzx-SkC1o3WZRb7gkBX2G5hiZ0BC6yhRRdu3cI6FunGavGFW9fwZEW0-RJjCSTRpksMJZJE25PF9oB1gSZatozFBiHShMVfQE9x-tmLQuhA2zTDQCe-REzrSdJCG0uWbj1JKjEDlQSWQQL-v88_xHP-Fpwt088F7vx5zd9hT36cUwRH_gd6SxnNVlES5SwKdisvL7_9HwAA__84uMYv
+
+index recommendations: 1
+1. type: index creation
+"   SQL command: CREATE INDEX ON tpch.public.lineitem (l_returnflag, l_linestatus) STORING (l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate);"
