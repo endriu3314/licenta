@@ -40,7 +40,7 @@ scp "$PROJECT_DIR/generate-tpch.sh" root@"$CONTROLLER_IP":/root/benchmark/
 echo "Installing dependencies on controller..."
 ssh root@"$CONTROLLER_IP" bash <<'REMOTE'
   apt-get update -qq
-  apt-get install -y -qq openjdk-25-jre-headless gcc make git mysql-client nginx ca-certificates
+  apt-get install -y -qq openjdk-25-jre-headless gcc make git mysql-client postgresql-client nginx ca-certificates
 
   # docker
   install -m 0755 -d /etc/apt/keyrings
