@@ -1,0 +1,74 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0)
+   Output: remote_scan.ps_partkey, remote_scan.value
+   Task Count: 1
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT partsupp.ps_partkey, sum((partsupp.ps_supplycost OPERATOR(pg_catalog.*) (partsupp.ps_availqty)::numeric)) AS value FROM public.partsupp_102012 partsupp, public.supplier_102010 supplier, public.nation_102009 nation WHERE ((partsupp.ps_suppkey OPERATOR(pg_catalog.=) supplier.s_suppkey) AND (supplier.s_nationkey OPERATOR(pg_catalog.=) nation.n_nationkey) AND (nation.n_name OPERATOR(pg_catalog.=) 'ETHIOPIA'::bpchar)) GROUP BY partsupp.ps_partkey HAVING (sum((partsupp.ps_supplycost OPERATOR(pg_catalog.*) (partsupp.ps_availqty)::numeric)) OPERATOR(pg_catalog.>) (SELECT (sum((partsupp_1.ps_supplycost OPERATOR(pg_catalog.*) (partsupp_1.ps_availqty)::numeric)) OPERATOR(pg_catalog.*) 0.0000100000) AS "?column?" FROM public.partsupp_102012 partsupp_1, public.supplier_102010 supplier_1, public.nation_102009 nation_1 WHERE ((partsupp_1.ps_suppkey OPERATOR(pg_catalog.=) supplier_1.s_suppkey) AND (supplier_1.s_nationkey OPERATOR(pg_catalog.=) nation_1.n_nationkey) AND (nation_1.n_name OPERATOR(pg_catalog.=) 'ETHIOPIA'::bpchar)))) ORDER BY (sum((partsupp.ps_supplycost OPERATOR(pg_catalog.*) (partsupp.ps_availqty)::numeric))) DESC
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Sort  (cost=1510596.94..1510971.55 rows=149845 width=36)
+               Output: partsupp.ps_partkey, (sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric)))
+               Sort Key: (sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric))) DESC
+               InitPlan 1
+                 ->  Finalize Aggregate  (cost=676500.57..676500.58 rows=1 width=32)
+                       Output: (sum((partsupp_1.ps_supplycost * (partsupp_1.ps_availqty)::numeric)) * 0.0000100000)
+                       ->  Gather  (cost=676500.34..676500.55 rows=2 width=32)
+                             Output: (PARTIAL sum((partsupp_1.ps_supplycost * (partsupp_1.ps_availqty)::numeric)))
+                             Workers Planned: 2
+                             ->  Partial Aggregate  (cost=675500.34..675500.35 rows=1 width=32)
+                                   Output: PARTIAL sum((partsupp_1.ps_supplycost * (partsupp_1.ps_availqty)::numeric))
+                                   ->  Parallel Hash Join  (cost=8381.58..672595.00 rows=387379 width=10)
+                                         Output: partsupp_1.ps_supplycost, partsupp_1.ps_availqty
+                                         Hash Cond: (partsupp_1.ps_suppkey = supplier_1.s_suppkey)
+                                         ->  Parallel Seq Scan on public.partsupp_102012 partsupp_1  (cost=0.00..625112.07 rows=9996607 width=14)
+                                               Output: partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_availqty, partsupp_1.ps_supplycost, partsupp_1.ps_comment
+                                         ->  Parallel Hash  (cost=8319.08..8319.08 rows=5000 width=4)
+                                               Output: supplier_1.s_suppkey
+                                               ->  Hash Join  (cost=1.32..8319.08 rows=5000 width=4)
+                                                     Output: supplier_1.s_suppkey
+                                                     Inner Unique: true
+                                                     Hash Cond: (supplier_1.s_nationkey = nation_1.n_nationkey)
+                                                     ->  Parallel Seq Scan on public.supplier_102010 supplier_1  (cost=0.00..7934.00 rows=125000 width=8)
+                                                           Output: supplier_1.s_suppkey, supplier_1.s_name, supplier_1.s_address, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_acctbal, supplier_1.s_comment
+                                                     ->  Hash  (cost=1.31..1.31 rows=1 width=4)
+                                                           Output: nation_1.n_nationkey
+                                                           ->  Seq Scan on public.nation_102009 nation_1  (cost=0.00..1.31 rows=1 width=4)
+                                                                 Output: nation_1.n_nationkey
+                                                                 Filter: (nation_1.n_name = 'ETHIOPIA'::bpchar)
+               ->  Finalize GroupAggregate  (cost=709550.35..821214.85 rows=149845 width=36)
+                     Output: partsupp.ps_partkey, sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric))
+                     Group Key: partsupp.ps_partkey
+                     Filter: (sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric)) > (InitPlan 1).col1)
+                     ->  Gather Merge  (cost=709550.35..808661.12 rows=774758 width=36)
+                           Output: partsupp.ps_partkey, (PARTIAL sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric)))
+                           Workers Planned: 2
+                           ->  Partial GroupAggregate  (cost=708550.33..718234.80 rows=387379 width=36)
+                                 Output: partsupp.ps_partkey, PARTIAL sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric))
+                                 Group Key: partsupp.ps_partkey
+                                 ->  Sort  (cost=708550.33..709518.78 rows=387379 width=14)
+                                       Output: partsupp.ps_partkey, partsupp.ps_supplycost, partsupp.ps_availqty
+                                       Sort Key: partsupp.ps_partkey
+                                       ->  Parallel Hash Join  (cost=8381.58..672595.00 rows=387379 width=14)
+                                             Output: partsupp.ps_partkey, partsupp.ps_supplycost, partsupp.ps_availqty
+                                             Hash Cond: (partsupp.ps_suppkey = supplier.s_suppkey)
+                                             ->  Parallel Seq Scan on public.partsupp_102012 partsupp  (cost=0.00..625112.07 rows=9996607 width=18)
+                                                   Output: partsupp.ps_partkey, partsupp.ps_suppkey, partsupp.ps_availqty, partsupp.ps_supplycost, partsupp.ps_comment
+                                             ->  Parallel Hash  (cost=8319.08..8319.08 rows=5000 width=4)
+                                                   Output: supplier.s_suppkey
+                                                   ->  Hash Join  (cost=1.32..8319.08 rows=5000 width=4)
+                                                         Output: supplier.s_suppkey
+                                                         Inner Unique: true
+                                                         Hash Cond: (supplier.s_nationkey = nation.n_nationkey)
+                                                         ->  Parallel Seq Scan on public.supplier_102010 supplier  (cost=0.00..7934.00 rows=125000 width=8)
+                                                               Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_nationkey, supplier.s_phone, supplier.s_acctbal, supplier.s_comment
+                                                         ->  Hash  (cost=1.31..1.31 rows=1 width=4)
+                                                               Output: nation.n_nationkey
+                                                               ->  Seq Scan on public.nation_102009 nation  (cost=0.00..1.31 rows=1 width=4)
+                                                                     Output: nation.n_nationkey
+                                                                     Filter: (nation.n_name = 'ETHIOPIA'::bpchar)
+             JIT:
+               Functions: 53
+               Options: Inlining true, Optimization true, Expressions true, Deforming true
+(70 rows)
+

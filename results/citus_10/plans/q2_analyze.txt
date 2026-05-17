@@ -1,0 +1,116 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0) (actual time=16382.500..16382.511 rows=100 loops=1)
+   Output: remote_scan.s_acctbal, remote_scan.s_name, remote_scan.n_name, remote_scan.p_partkey, remote_scan.p_mfgr, remote_scan.s_address, remote_scan.s_phone, remote_scan.s_comment
+   Task Count: 1
+   Tuple data received from nodes: 19 kB
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT supplier.s_acctbal, supplier.s_name, nation.n_name, part.p_partkey, part.p_mfgr, supplier.s_address, supplier.s_phone, supplier.s_comment FROM public.part_102011 part, public.supplier_102010 supplier, public.partsupp_102012 partsupp, public.nation_102009 nation, public.region_102008 region WHERE ((part.p_partkey OPERATOR(pg_catalog.=) partsupp.ps_partkey) AND (supplier.s_suppkey OPERATOR(pg_catalog.=) partsupp.ps_suppkey) AND (part.p_size OPERATOR(pg_catalog.=) 20) AND ((part.p_type)::text OPERATOR(pg_catalog.~~) '%COPPER'::text) AND (supplier.s_nationkey OPERATOR(pg_catalog.=) nation.n_nationkey) AND (nation.n_regionkey OPERATOR(pg_catalog.=) region.r_regionkey) AND (region.r_name OPERATOR(pg_catalog.=) 'MIDDLE EAST'::bpchar) AND (partsupp.ps_supplycost OPERATOR(pg_catalog.=) (SELECT min(partsupp_1.ps_supplycost) AS min FROM public.partsupp_102012 partsupp_1, public.supplier_102010 supplier_1, public.nation_102009 nation_1, public.region_102008 region_1 WHERE ((part.p_partkey OPERATOR(pg_catalog.=) partsupp_1.ps_partkey) AND (supplier_1.s_suppkey OPERATOR(pg_catalog.=) partsupp_1.ps_suppkey) AND (supplier_1.s_nationkey OPERATOR(pg_catalog.=) nation_1.n_nationkey) AND (nation_1.n_regionkey OPERATOR(pg_catalog.=) region_1.r_regionkey) AND (region_1.r_name OPERATOR(pg_catalog.=) 'MIDDLE EAST'::bpchar))))) ORDER BY supplier.s_acctbal DESC, nation.n_name, supplier.s_name, part.p_partkey LIMIT 100
+         Tuple data received from node: 19 kB
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Limit  (cost=11001055.38..11001055.38 rows=1 width=193) (actual time=16162.387..16162.500 rows=100 loops=1)
+               Output: supplier.s_acctbal, supplier.s_name, nation.n_name, part.p_partkey, part.p_mfgr, supplier.s_address, supplier.s_phone, supplier.s_comment
+               ->  Sort  (cost=11001055.38..11001055.38 rows=1 width=193) (actual time=15753.203..15753.310 rows=100 loops=1)
+                     Output: supplier.s_acctbal, supplier.s_name, nation.n_name, part.p_partkey, part.p_mfgr, supplier.s_address, supplier.s_phone, supplier.s_comment
+                     Sort Key: supplier.s_acctbal DESC, nation.n_name, supplier.s_name, part.p_partkey
+                     Sort Method: top-N heapsort  Memory: 70kB
+                     ->  Merge Join  (cost=1826709.63..11001055.37 rows=1 width=193) (actual time=14077.299..15749.541 rows=14137 loops=1)
+                           Output: supplier.s_acctbal, supplier.s_name, nation.n_name, part.p_partkey, part.p_mfgr, supplier.s_address, supplier.s_phone, supplier.s_comment
+                           Merge Cond: (part.p_partkey = partsupp.ps_partkey)
+                           Join Filter: (partsupp.ps_supplycost = (SubPlan 1))
+                           Rows Removed by Join Filter: 4905
+                           ->  Gather Merge  (cost=1000.46..259621.95 rows=20819 width=30) (actual time=122.290..127.376 rows=23901 loops=1)
+                                 Output: part.p_partkey, part.p_mfgr
+                                 Workers Planned: 2
+                                 Workers Launched: 2
+                                 ->  Parallel Index Scan using part_pkey_102011 on public.part_102011 part  (cost=0.43..256218.90 rows=8675 width=30) (actual time=42.093..429.491 rows=7967 loops=3)
+                                       Output: part.p_partkey, part.p_mfgr
+                                       Filter: (((part.p_type)::text ~~ '%COPPER'::text) AND (part.p_size = 20))
+                                       Rows Removed by Filter: 1992033
+                                       Worker 0:  actual time=62.710..650.117 rows=12015 loops=1
+                                         JIT:
+                                           Functions: 4
+                                           Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                           Timing: Generation 0.579 ms (Deform 0.209 ms), Inlining 43.862 ms, Optimization 10.440 ms, Emission 8.208 ms, Total 63.089 ms
+                                       Worker 1:  actual time=63.477..637.057 rows=11864 loops=1
+                                         JIT:
+                                           Functions: 4
+                                           Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                           Timing: Generation 0.313 ms (Deform 0.119 ms), Inlining 43.927 ms, Optimization 10.813 ms, Emission 8.645 ms, Total 63.698 ms
+                           ->  Materialize  (cost=1825684.32..1848927.06 rows=4648548 width=173) (actual time=13954.719..14890.385 rows=4800321 loops=1)
+                                 Output: supplier.s_acctbal, supplier.s_name, supplier.s_address, supplier.s_phone, supplier.s_comment, partsupp.ps_partkey, partsupp.ps_supplycost, nation.n_name
+                                 ->  Sort  (cost=1825684.32..1837305.69 rows=4648548 width=173) (actual time=13954.704..14508.809 rows=4800321 loops=1)
+                                       Output: supplier.s_acctbal, supplier.s_name, supplier.s_address, supplier.s_phone, supplier.s_comment, partsupp.ps_partkey, partsupp.ps_supplycost, nation.n_name
+                                       Sort Key: partsupp.ps_partkey
+                                       Sort Method: external merge  Disk: 877744kB
+                                       ->  Hash Join  (cost=12161.51..913681.01 rows=4648548 width=173) (actual time=64.605..11788.436 rows=4800400 loops=1)
+                                             Output: supplier.s_acctbal, supplier.s_name, supplier.s_address, supplier.s_phone, supplier.s_comment, partsupp.ps_partkey, partsupp.ps_supplycost, nation.n_name
+                                             Hash Cond: (partsupp.ps_suppkey = supplier.s_suppkey)
+                                             ->  Seq Scan on public.partsupp_102012 partsupp  (cost=0.00..765064.56 rows=23991856 width=14) (actual time=0.194..6070.773 rows=24000000 loops=1)
+                                                   Output: partsupp.ps_partkey, partsupp.ps_suppkey, partsupp.ps_availqty, partsupp.ps_supplycost, partsupp.ps_comment
+                                             ->  Hash  (cost=11411.51..11411.51 rows=60000 width=167) (actual time=63.995..63.999 rows=60005 loops=1)
+                                                   Output: supplier.s_acctbal, supplier.s_name, supplier.s_address, supplier.s_phone, supplier.s_comment, supplier.s_suppkey, nation.n_name
+                                                   Buckets: 65536  Batches: 1  Memory Usage: 12340kB
+                                                   ->  Hash Join  (cost=2.51..11411.51 rows=60000 width=167) (actual time=0.111..47.365 rows=60005 loops=1)
+                                                         Output: supplier.s_acctbal, supplier.s_name, supplier.s_address, supplier.s_phone, supplier.s_comment, supplier.s_suppkey, nation.n_name
+                                                         Hash Cond: (supplier.s_nationkey = nation.n_nationkey)
+                                                         ->  Seq Scan on public.supplier_102010 supplier  (cost=0.00..9684.00 rows=300000 width=145) (actual time=0.017..17.338 rows=300000 loops=1)
+                                                               Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_nationkey, supplier.s_phone, supplier.s_acctbal, supplier.s_comment
+                                                         ->  Hash  (cost=2.45..2.45 rows=5 width=30) (actual time=0.060..0.063 rows=5 loops=1)
+                                                               Output: nation.n_name, nation.n_nationkey
+                                                               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                               ->  Hash Join  (cost=1.07..2.45 rows=5 width=30) (actual time=0.052..0.058 rows=5 loops=1)
+                                                                     Output: nation.n_name, nation.n_nationkey
+                                                                     Inner Unique: true
+                                                                     Hash Cond: (nation.n_regionkey = region.r_regionkey)
+                                                                     ->  Seq Scan on public.nation_102009 nation  (cost=0.00..1.25 rows=25 width=34) (actual time=0.006..0.008 rows=25 loops=1)
+                                                                           Output: nation.n_nationkey, nation.n_name, nation.n_regionkey, nation.n_comment
+                                                                     ->  Hash  (cost=1.06..1.06 rows=1 width=4) (actual time=0.027..0.028 rows=1 loops=1)
+                                                                           Output: region.r_regionkey
+                                                                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                                           ->  Seq Scan on public.region_102008 region  (cost=0.00..1.06 rows=1 width=4) (actual time=0.020..0.021 rows=1 loops=1)
+                                                                                 Output: region.r_regionkey
+                                                                                 Filter: (region.r_name = 'MIDDLE EAST'::bpchar)
+                                                                                 Rows Removed by Filter: 4
+                           SubPlan 1
+                             ->  Aggregate  (cost=550.56..550.57 rows=1 width=32) (actual time=0.023..0.023 rows=1 loops=19042)
+                                   Output: min(partsupp_1.ps_supplycost)
+                                   ->  Nested Loop  (cost=1.94..550.53 rows=10 width=6) (actual time=0.016..0.022 rows=2 loops=19042)
+                                         Output: partsupp_1.ps_supplycost
+                                         Join Filter: (nation_1.n_nationkey = supplier_1.s_nationkey)
+                                         Rows Removed by Join Filter: 18
+                                         ->  Nested Loop  (cost=0.86..544.25 rows=51 width=10) (actual time=0.013..0.020 rows=4 loops=19042)
+                                               Output: partsupp_1.ps_supplycost, supplier_1.s_nationkey
+                                               Inner Unique: true
+                                               ->  Index Scan using partsupp_pkey_102012 on public.partsupp_102012 partsupp_1  (cost=0.44..100.93 rows=53 width=10) (actual time=0.010..0.011 rows=4 loops=19042)
+                                                     Output: partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_availqty, partsupp_1.ps_supplycost, partsupp_1.ps_comment
+                                                     Index Cond: (partsupp_1.ps_partkey = part.p_partkey)
+                                               ->  Index Scan using supplier_pkey_102010 on public.supplier_102010 supplier_1  (cost=0.42..8.36 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=76168)
+                                                     Output: supplier_1.s_suppkey, supplier_1.s_name, supplier_1.s_address, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_acctbal, supplier_1.s_comment
+                                                     Index Cond: (supplier_1.s_suppkey = partsupp_1.ps_suppkey)
+                                         ->  Materialize  (cost=1.07..2.47 rows=5 width=4) (actual time=0.000..0.000 rows=5 loops=76168)
+                                               Output: nation_1.n_nationkey
+                                               ->  Hash Join  (cost=1.07..2.45 rows=5 width=4) (actual time=0.046..0.051 rows=5 loops=1)
+                                                     Output: nation_1.n_nationkey
+                                                     Inner Unique: true
+                                                     Hash Cond: (nation_1.n_regionkey = region_1.r_regionkey)
+                                                     ->  Seq Scan on public.nation_102009 nation_1  (cost=0.00..1.25 rows=25 width=8) (actual time=0.011..0.012 rows=25 loops=1)
+                                                           Output: nation_1.n_nationkey, nation_1.n_name, nation_1.n_regionkey, nation_1.n_comment
+                                                     ->  Hash  (cost=1.06..1.06 rows=1 width=4) (actual time=0.018..0.019 rows=1 loops=1)
+                                                           Output: region_1.r_regionkey
+                                                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                           ->  Seq Scan on public.region_102008 region_1  (cost=0.00..1.06 rows=1 width=4) (actual time=0.011..0.011 rows=1 loops=1)
+                                                                 Output: region_1.r_regionkey
+                                                                 Filter: (region_1.r_name = 'MIDDLE EAST'::bpchar)
+                                                                 Rows Removed by Filter: 4
+             Planning Time: 4.003 ms
+             JIT:
+               Functions: 77
+               Options: Inlining true, Optimization true, Expressions true, Deforming true
+               Timing: Generation 4.121 ms (Deform 2.072 ms), Inlining 140.588 ms, Optimization 232.640 ms, Emission 162.002 ms, Total 539.351 ms
+             Execution Time: 16356.353 ms
+ Planning Time: 6.708 ms
+ Execution Time: 16382.587 ms
+(112 rows)
+

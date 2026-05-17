@@ -1,0 +1,61 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=3821.93..3822.18 rows=100 width=130)
+   Output: remote_scan.c_name, remote_scan.c_custkey, remote_scan.o_orderkey, remote_scan.o_orderdate, remote_scan.o_totalprice, remote_scan.sum
+   ->  Sort  (cost=3821.93..4071.93 rows=100000 width=130)
+         Output: remote_scan.c_name, remote_scan.c_custkey, remote_scan.o_orderkey, remote_scan.o_orderdate, remote_scan.o_totalprice, remote_scan.sum
+         Sort Key: remote_scan.o_totalprice DESC, remote_scan.o_orderdate
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=130)
+               Output: remote_scan.c_name, remote_scan.c_custkey, remote_scan.o_orderkey, remote_scan.o_orderdate, remote_scan.o_totalprice, remote_scan.sum
+               Task Count: 32
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT worker_column_1 AS c_name, worker_column_2 AS c_custkey, worker_column_3 AS o_orderkey, worker_column_4 AS o_orderdate, worker_column_5 AS o_totalprice, sum(worker_column_6) AS sum FROM (SELECT customer.c_name AS worker_column_1, customer.c_custkey AS worker_column_2, orders.o_orderkey AS worker_column_3, orders.o_orderdate AS worker_column_4, orders.o_totalprice AS worker_column_5, lineitem.l_quantity AS worker_column_6 FROM public.customer_102013 customer, public.orders_102014 orders, public.lineitem_102046 lineitem WHERE ((orders.o_orderkey OPERATOR(pg_catalog.=) ANY (SELECT lineitem_1.l_orderkey FROM public.lineitem_102046 lineitem_1 GROUP BY lineitem_1.l_orderkey HAVING (sum(lineitem_1.l_quantity) OPERATOR(pg_catalog.>) (313)::numeric))) AND (customer.c_custkey OPERATOR(pg_catalog.=) orders.o_custkey) AND (orders.o_orderkey OPERATOR(pg_catalog.=) lineitem.l_orderkey))) worker_subquery GROUP BY worker_column_1, worker_column_2, worker_column_3, worker_column_4, worker_column_5 ORDER BY worker_column_5 DESC, worker_column_4 LIMIT '100'::bigint
+                     Node: host=10.0.1.21 port=5432 dbname=postgres
+                     ->  Limit  (cost=667199.74..667199.99 rows=100 width=71)
+                           Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, (sum(lineitem.l_quantity))
+                           ->  Sort  (cost=667199.74..668480.45 rows=512284 width=71)
+                                 Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, (sum(lineitem.l_quantity))
+                                 Sort Key: orders.o_totalprice DESC, orders.o_orderdate
+                                 ->  Finalize GroupAggregate  (cost=582870.04..647620.61 rows=512284 width=71)
+                                       Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, sum(lineitem.l_quantity)
+                                       Group Key: customer.c_custkey, orders.o_orderkey
+                                       ->  Gather Merge  (cost=582870.04..636948.02 rows=426904 width=71)
+                                             Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, (PARTIAL sum(lineitem.l_quantity))
+                                             Workers Planned: 2
+                                             ->  Partial GroupAggregate  (cost=581870.01..586672.68 rows=213452 width=71)
+                                                   Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, PARTIAL sum(lineitem.l_quantity)
+                                                   Group Key: customer.c_custkey, orders.o_orderkey
+                                                   ->  Sort  (cost=581870.01..582403.64 rows=213452 width=44)
+                                                         Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, lineitem.l_quantity
+                                                         Sort Key: customer.c_custkey, orders.o_orderkey
+                                                         ->  Nested Loop  (cost=425272.35..562975.72 rows=213452 width=44)
+                                                               Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, lineitem.l_quantity
+                                                               ->  Nested Loop  (cost=425271.92..499480.66 rows=53420 width=43)
+                                                                     Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, lineitem_1.l_orderkey
+                                                                     Inner Unique: true
+                                                                     ->  Hash Join  (cost=425271.49..457191.76 rows=53420 width=24)
+                                                                           Output: orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, orders.o_custkey, lineitem_1.l_orderkey
+                                                                           Inner Unique: true
+                                                                           Hash Cond: (orders.o_orderkey = lineitem_1.l_orderkey)
+                                                                           ->  Parallel Seq Scan on public.orders_102014 orders  (cost=0.00..30381.60 rows=586160 width=20)
+                                                                                 Output: orders.o_orderkey, orders.o_custkey, orders.o_orderstatus, orders.o_totalprice, orders.o_orderdate, orders.o_orderpriority, orders.o_clerk, orders.o_shippriority, orders.o_comment
+                                                                           ->  Hash  (cost=423668.88..423668.88 rows=128209 width=4)
+                                                                                 Output: lineitem_1.l_orderkey
+                                                                                 ->  GroupAggregate  (cost=0.43..423668.88 rows=128209 width=4)
+                                                                                       Output: lineitem_1.l_orderkey
+                                                                                       Group Key: lineitem_1.l_orderkey
+                                                                                       Filter: (sum(lineitem_1.l_quantity) > '313'::numeric)
+                                                                                       ->  Index Scan using lineitem_pkey_102046 on public.lineitem_102046 lineitem_1  (cost=0.43..389794.08 rows=5621078 width=9)
+                                                                                             Output: lineitem_1.l_orderkey, lineitem_1.l_partkey, lineitem_1.l_suppkey, lineitem_1.l_linenumber, lineitem_1.l_quantity, lineitem_1.l_extendedprice, lineitem_1.l_discount, lineitem_1.l_tax, lineitem_1.l_returnflag, lineitem_1.l_linestatus, lineitem_1.l_shipdate, lineitem_1.l_commitdate, lineitem_1.l_receiptdate, lineitem_1.l_shipinstruct, lineitem_1.l_shipmode, lineitem_1.l_comment
+                                                                     ->  Index Scan using customer_pkey_102013 on public.customer_102013 customer  (cost=0.43..0.79 rows=1 width=23)
+                                                                           Output: customer.c_custkey, customer.c_name, customer.c_address, customer.c_nationkey, customer.c_phone, customer.c_acctbal, customer.c_mktsegment, customer.c_comment
+                                                                           Index Cond: (customer.c_custkey = orders.o_custkey)
+                                                               ->  Index Scan using lineitem_pkey_102046 on public.lineitem_102046 lineitem  (cost=0.43..1.04 rows=15 width=9)
+                                                                     Output: lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment
+                                                                     Index Cond: (lineitem.l_orderkey = orders.o_orderkey)
+                         JIT:
+                           Functions: 32
+                           Options: Inlining true, Optimization true, Expressions true, Deforming true
+(57 rows)
+

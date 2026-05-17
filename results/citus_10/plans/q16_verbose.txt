@@ -1,0 +1,42 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                   QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0)
+   Output: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, remote_scan.supplier_cnt
+   Task Count: 1
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT part.p_brand, part.p_type, part.p_size, count(DISTINCT partsupp.ps_suppkey) AS supplier_cnt FROM public.partsupp_102012 partsupp, public.part_102011 part WHERE ((part.p_partkey OPERATOR(pg_catalog.=) partsupp.ps_partkey) AND (part.p_brand OPERATOR(pg_catalog.<>) 'Brand#12'::bpchar) AND ((part.p_type)::text OPERATOR(pg_catalog.!~~) 'MEDIUM PLATED%'::text) AND (part.p_size OPERATOR(pg_catalog.=) ANY (ARRAY[3, 35, 6, 25, 28, 41, 8, 50])) AND (NOT (partsupp.ps_suppkey OPERATOR(pg_catalog.=) ANY (SELECT supplier.s_suppkey FROM public.supplier_102010 supplier WHERE ((supplier.s_comment)::text OPERATOR(pg_catalog.~~) '%Customer%Complaints%'::text))))) GROUP BY part.p_brand, part.p_type, part.p_size ORDER BY (count(DISTINCT partsupp.ps_suppkey)) DESC, part.p_brand, part.p_type, part.p_size
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Sort  (cost=1059400.04..1059866.01 rows=186388 width=44)
+               Output: part.p_brand, part.p_type, part.p_size, (count(DISTINCT partsupp.ps_suppkey))
+               Sort Key: (count(DISTINCT partsupp.ps_suppkey)) DESC, part.p_brand, part.p_type, part.p_size
+               ->  GroupAggregate  (cost=816617.62..1043083.69 rows=186388 width=44)
+                     Output: part.p_brand, part.p_type, part.p_size, count(DISTINCT partsupp.ps_suppkey)
+                     Group Key: part.p_brand, part.p_type, part.p_size
+                     ->  Gather Merge  (cost=816617.62..1023459.99 rows=1775982 width=40)
+                           Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                           Workers Planned: 2
+                           ->  Sort  (cost=815617.59..817467.57 rows=739992 width=40)
+                                 Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                 Sort Key: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                 ->  Parallel Hash Join  (cost=200467.75..723241.92 rows=739992 width=40)
+                                       Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                       Inner Unique: true
+                                       Hash Cond: (partsupp.ps_partkey = part.p_partkey)
+                                       ->  Parallel Index Only Scan using partsupp_pkey_102012 on public.partsupp_102012 partsupp  (cost=10442.01..520095.63 rows=4998303 width=8)
+                                             Output: partsupp.ps_partkey, partsupp.ps_suppkey
+                                             Filter: (NOT (ANY (partsupp.ps_suppkey = (hashed SubPlan 1).col1)))
+                                             SubPlan 1
+                                               ->  Seq Scan on public.supplier_102010 supplier  (cost=0.00..10434.00 rows=3030 width=4)
+                                                     Output: supplier.s_suppkey
+                                                     Filter: ((supplier.s_comment)::text ~~ '%Customer%Complaints%'::text)
+                                       ->  Parallel Hash  (cost=185399.26..185399.26 rows=370118 width=40)
+                                             Output: part.p_brand, part.p_type, part.p_size, part.p_partkey
+                                             ->  Parallel Seq Scan on public.part_102011 part  (cost=0.00..185399.26 rows=370118 width=40)
+                                                   Output: part.p_brand, part.p_type, part.p_size, part.p_partkey
+                                                   Filter: ((part.p_brand <> 'Brand#12'::bpchar) AND ((part.p_type)::text !~~ 'MEDIUM PLATED%'::text) AND (part.p_size = ANY ('{3,35,6,25,28,41,8,50}'::integer[])))
+             JIT:
+               Functions: 23
+               Options: Inlining true, Optimization true, Expressions true, Deforming true
+(38 rows)
+

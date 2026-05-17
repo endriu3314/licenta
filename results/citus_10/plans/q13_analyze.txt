@@ -1,0 +1,68 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0) (actual time=60154.082..60154.087 rows=46 loops=1)
+   Output: remote_scan.c_count, remote_scan.custdist
+   ->  Distributed Subplan 1_1
+         Subplan Duration: 132521.70 ms
+         Intermediate Data Size: 2988 MB
+         Result destination: Send to 10 nodes
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=184) (actual time=25744.904..29052.723 rows=44512858 loops=1)
+               Output: remote_scan.o_orderkey, remote_scan.o_custkey, remote_scan.o_comment
+               Task Count: 32
+               Tuple data received from nodes: 2393 MB
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT o_orderkey, o_custkey, o_comment FROM public.orders_102020 orders WHERE ((o_comment)::text OPERATOR(pg_catalog.!~~) '%pending%requests%'::text)
+                     Tuple data received from node: 75 MB
+                     Node: host=10.0.1.27 port=5432 dbname=postgres
+                     ->  Seq Scan on public.orders_102020 orders  (cost=0.00..42002.56 rows=1389546 width=57) (actual time=0.012..317.633 rows=1388607 loops=1)
+                           Output: o_orderkey, o_custkey, o_comment
+                           Filter: ((orders.o_comment)::text !~~ '%pending%requests%'::text)
+                           Rows Removed by Filter: 15118
+                         Planning Time: 0.073 ms
+                         Execution Time: 604.206 ms
+         Planning Time: 0.000 ms
+         Execution Time: 30925.604 ms
+   Task Count: 1
+   Tuple data received from nodes: 736 bytes
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT c_count, count(*) AS custdist FROM (SELECT customer.c_custkey, count(orders.o_orderkey) AS count FROM (public.customer_102013 customer LEFT JOIN (SELECT orders_1.o_orderkey, orders_1.o_custkey, NULL::character(1) AS o_orderstatus, NULL::numeric(15,2) AS o_totalprice, NULL::date AS o_orderdate, NULL::character(15) AS o_orderpriority, NULL::character(15) AS o_clerk, NULL::integer AS o_shippriority, orders_1.o_comment FROM (SELECT intermediate_result.o_orderkey, intermediate_result.o_custkey, intermediate_result.o_comment FROM read_intermediate_result('1_1'::text, 'binary'::citus_copy_format) intermediate_result(o_orderkey integer, o_custkey integer, o_comment character varying(79))) orders_1) orders ON (((customer.c_custkey OPERATOR(pg_catalog.=) orders.o_custkey) AND ((orders.o_comment)::text OPERATOR(pg_catalog.!~~) '%pending%requests%'::text)))) GROUP BY customer.c_custkey) c_orders(c_custkey, c_count) GROUP BY c_count ORDER BY (count(*)) DESC, c_count DESC
+         Tuple data received from node: 736 bytes
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Sort  (cost=3901820.96..3901821.46 rows=200 width=16) (actual time=59364.216..59364.222 rows=46 loops=1)
+               Output: (count(intermediate_result.o_orderkey)), (count(*))
+               Sort Key: (count(*)) DESC, (count(intermediate_result.o_orderkey)) DESC
+               Sort Method: quicksort  Memory: 26kB
+               ->  HashAggregate  (cost=3901811.32..3901813.32 rows=200 width=16) (actual time=59364.173..59364.181 rows=46 loops=1)
+                     Output: (count(intermediate_result.o_orderkey)), count(*)
+                     Group Key: count(intermediate_result.o_orderkey)
+                     Batches: 1  Memory Usage: 40kB
+                     ->  HashAggregate  (cost=3754144.93..3834306.68 rows=4500309 width=12) (actual time=52692.057..59002.349 rows=4500000 loops=1)
+                           Output: customer.c_custkey, count(intermediate_result.o_orderkey)
+                           Group Key: customer.c_custkey
+                           Planned Partitions: 16  Batches: 17  Memory Usage: 32913kB  Disk Usage: 1131552kB
+                           ->  Hash Right Join  (cost=190742.94..3501002.55 rows=4500309 width=8) (actual time=12032.283..41490.066 rows=46012936 loops=1)
+                                 Output: customer.c_custkey, intermediate_result.o_orderkey
+                                 Inner Unique: true
+                                 Hash Cond: (intermediate_result.o_custkey = customer.c_custkey)
+                                 ->  Function Scan on pg_catalog.read_intermediate_result intermediate_result  (cost=0.00..1806398.16 rows=142398130 width=8) (actual time=11019.388..18637.342 rows=44512858 loops=1)
+                                       Output: intermediate_result.o_orderkey, intermediate_result.o_custkey
+                                       Function Call: read_intermediate_result('1_1'::text, 'binary'::citus_copy_format)
+                                       Filter: ((intermediate_result.o_comment)::text !~~ '%pending%requests%'::text)
+                                 ->  Hash  (cost=116909.08..116909.08 rows=4500309 width=4) (actual time=1008.494..1008.497 rows=4500000 loops=1)
+                                       Output: customer.c_custkey
+                                       Buckets: 1048576  Batches: 8  Memory Usage: 27948kB
+                                       ->  Index Only Scan using customer_pkey_102013 on public.customer_102013 customer  (cost=0.43..116909.08 rows=4500309 width=4) (actual time=0.089..351.642 rows=4500000 loops=1)
+                                             Output: customer.c_custkey
+                                             Heap Fetches: 0
+             Planning Time: 1.027 ms
+             JIT:
+               Functions: 23
+               Options: Inlining true, Optimization true, Expressions true, Deforming true
+               Timing: Generation 1.331 ms (Deform 0.392 ms), Inlining 49.869 ms, Optimization 47.591 ms, Emission 34.626 ms, Total 133.417 ms
+             Execution Time: 60149.819 ms
+ Planning Time: 6.862 ms
+ Execution Time: 192675.916 ms
+(64 rows)
+
