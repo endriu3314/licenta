@@ -1,1 +1,0 @@
-ERROR:  connection to the remote node postgres@localhost:5432 failed with the following error: fe_sendauth: no password supplied
