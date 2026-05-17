@@ -1,0 +1,70 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=510.14..510.64 rows=200 width=136)
+   Output: remote_scan.n_name, (sum(remote_scan.revenue))
+   Sort Key: (sum(remote_scan.revenue)) DESC
+   ->  HashAggregate  (cost=500.00..502.50 rows=200 width=136)
+         Output: remote_scan.n_name, sum(remote_scan.revenue)
+         Group Key: remote_scan.n_name
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=136)
+               Output: remote_scan.n_name, remote_scan.revenue
+               Task Count: 32
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT nation.n_name, sum((lineitem.l_extendedprice OPERATOR(pg_catalog.*) ('1'::numeric OPERATOR(pg_catalog.-) lineitem.l_discount))) AS revenue FROM (((((public.orders_102014 orders JOIN public.customer_102013 customer ON ((customer.c_custkey OPERATOR(pg_catalog.=) orders.o_custkey))) JOIN public.supplier_102010 supplier ON ((customer.c_nationkey OPERATOR(pg_catalog.=) supplier.s_nationkey))) JOIN public.nation_102009 nation ON ((supplier.s_nationkey OPERATOR(pg_catalog.=) nation.n_nationkey))) JOIN public.region_102008 region ON ((nation.n_regionkey OPERATOR(pg_catalog.=) region.r_regionkey))) JOIN public.lineitem_102046 lineitem ON (((lineitem.l_orderkey OPERATOR(pg_catalog.=) orders.o_orderkey) AND (lineitem.l_suppkey OPERATOR(pg_catalog.=) supplier.s_suppkey)))) WHERE ((region.r_name OPERATOR(pg_catalog.=) 'ASIA'::bpchar) AND (orders.o_orderdate OPERATOR(pg_catalog.>=) '1995-01-01'::date) AND (orders.o_orderdate OPERATOR(pg_catalog.<) '1996-01-01 00:00:00'::timestamp without time zone)) GROUP BY nation.n_name
+                     Node: host=10.0.1.21 port=5432 dbname=postgres
+                     ->  Finalize GroupAggregate  (cost=235303.04..235345.31 rows=25 width=58)
+                           Output: nation.n_name, sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))
+                           Group Key: nation.n_name
+                           ->  Gather Merge  (cost=235303.04..235344.63 rows=50 width=58)
+                                 Output: nation.n_name, (PARTIAL sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount))))
+                                 Workers Planned: 2
+                                 ->  Partial GroupAggregate  (cost=234303.02..234338.83 rows=25 width=58)
+                                       Output: nation.n_name, PARTIAL sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))
+                                       Group Key: nation.n_name
+                                       ->  Sort  (cost=234303.02..234310.12 rows=2840 width=38)
+                                             Output: nation.n_name, lineitem.l_extendedprice, lineitem.l_discount
+                                             Sort Key: nation.n_name
+                                             ->  Parallel Hash Join  (cost=225256.79..234140.12 rows=2840 width=38)
+                                                   Output: nation.n_name, lineitem.l_extendedprice, lineitem.l_discount
+                                                   Hash Cond: ((supplier.s_nationkey = customer.c_nationkey) AND (supplier.s_suppkey = lineitem.l_suppkey))
+                                                   ->  Parallel Seq Scan on public.supplier_102010 supplier  (cost=0.00..7934.00 rows=125000 width=8)
+                                                         Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_nationkey, supplier.s_phone, supplier.s_acctbal, supplier.s_comment
+                                                   ->  Parallel Hash  (cost=224191.94..224191.94 rows=70990 width=50)
+                                                         Output: customer.c_nationkey, nation.n_name, nation.n_nationkey, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_suppkey
+                                                         ->  Nested Loop  (cost=34425.75..224191.94 rows=70990 width=50)
+                                                               Output: customer.c_nationkey, nation.n_name, nation.n_nationkey, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_suppkey
+                                                               ->  Hash Join  (cost=34425.32..168897.07 rows=17767 width=38)
+                                                                     Output: orders.o_orderkey, customer.c_nationkey, nation.n_name, nation.n_nationkey
+                                                                     Hash Cond: (customer.c_nationkey = nation.n_nationkey)
+                                                                     ->  Parallel Hash Join  (cost=34422.81..168383.77 rows=88833 width=8)
+                                                                           Output: orders.o_orderkey, customer.c_nationkey
+                                                                           Hash Cond: (customer.c_custkey = orders.o_custkey)
+                                                                           ->  Parallel Seq Scan on public.customer_102013 customer  (cost=0.00..126559.69 rows=1874969 width=8)
+                                                                                 Output: customer.c_custkey, customer.c_name, customer.c_address, customer.c_nationkey, customer.c_phone, customer.c_acctbal, customer.c_mktsegment, customer.c_comment
+                                                                           ->  Parallel Hash  (cost=33312.39..33312.39 rows=88833 width=8)
+                                                                                 Output: orders.o_custkey, orders.o_orderkey
+                                                                                 ->  Parallel Seq Scan on public.orders_102014 orders  (cost=0.00..33312.39 rows=88833 width=8)
+                                                                                       Output: orders.o_custkey, orders.o_orderkey
+                                                                                       Filter: ((orders.o_orderdate >= '1995-01-01'::date) AND (orders.o_orderdate < '1996-01-01 00:00:00'::timestamp without time zone))
+                                                                     ->  Hash  (cost=2.45..2.45 rows=5 width=30)
+                                                                           Output: nation.n_name, nation.n_nationkey
+                                                                           ->  Hash Join  (cost=1.07..2.45 rows=5 width=30)
+                                                                                 Output: nation.n_name, nation.n_nationkey
+                                                                                 Inner Unique: true
+                                                                                 Hash Cond: (nation.n_regionkey = region.r_regionkey)
+                                                                                 ->  Seq Scan on public.nation_102009 nation  (cost=0.00..1.25 rows=25 width=34)
+                                                                                       Output: nation.n_nationkey, nation.n_name, nation.n_regionkey, nation.n_comment
+                                                                                 ->  Hash  (cost=1.06..1.06 rows=1 width=4)
+                                                                                       Output: region.r_regionkey
+                                                                                       ->  Seq Scan on public.region_102008 region  (cost=0.00..1.06 rows=1 width=4)
+                                                                                             Output: region.r_regionkey
+                                                                                             Filter: (region.r_name = 'ASIA'::bpchar)
+                                                               ->  Index Scan using lineitem_pkey_102046 on public.lineitem_102046 lineitem  (cost=0.43..2.96 rows=15 width=20)
+                                                                     Output: lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment
+                                                                     Index Cond: (lineitem.l_orderkey = orders.o_orderkey)
+                         JIT:
+                           Functions: 54
+                           Options: Inlining false, Optimization false, Expressions true, Deforming true
+(66 rows)
+

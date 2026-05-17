@@ -1,0 +1,87 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=511.14..511.39 rows=100 width=112) (actual time=2210.234..2210.245 rows=100 loops=1)
+   Output: remote_scan.s_name, (COALESCE((pg_catalog.sum(remote_scan.numwait))::bigint, '0'::bigint))
+   ->  Sort  (cost=511.14..511.64 rows=200 width=112) (actual time=2210.232..2210.237 rows=100 loops=1)
+         Output: remote_scan.s_name, (COALESCE((pg_catalog.sum(remote_scan.numwait))::bigint, '0'::bigint))
+         Sort Key: (COALESCE((pg_catalog.sum(remote_scan.numwait))::bigint, '0'::bigint)) DESC, remote_scan.s_name
+         Sort Method: top-N heapsort  Memory: 36kB
+         ->  HashAggregate  (cost=500.00..503.50 rows=200 width=112) (actual time=2207.114..2208.736 rows=11979 loops=1)
+               Output: remote_scan.s_name, COALESCE((pg_catalog.sum(remote_scan.numwait))::bigint, '0'::bigint)
+               Group Key: remote_scan.s_name
+               Batches: 1  Memory Usage: 2465kB
+               ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=112) (actual time=2185.615..2189.207 rows=101902 loops=1)
+                     Output: remote_scan.s_name, remote_scan.numwait
+                     Task Count: 32
+                     Tuple data received from nodes: 3284 kB
+                     Tasks Shown: One of 32
+                     ->  Task
+                           Query: SELECT worker_column_1 AS s_name, count(*) AS numwait FROM (SELECT supplier.s_name AS worker_column_1 FROM public.supplier_102010 supplier, public.lineitem_102059 l1, public.orders_102027 orders, public.nation_102009 nation WHERE ((supplier.s_suppkey OPERATOR(pg_catalog.=) l1.l_suppkey) AND (orders.o_orderkey OPERATOR(pg_catalog.=) l1.l_orderkey) AND (orders.o_orderstatus OPERATOR(pg_catalog.=) 'F'::bpchar) AND (l1.l_receiptdate OPERATOR(pg_catalog.>) l1.l_commitdate) AND (EXISTS (SELECT l2.l_orderkey, l2.l_partkey, l2.l_suppkey, l2.l_linenumber, l2.l_quantity, l2.l_extendedprice, l2.l_discount, l2.l_tax, l2.l_returnflag, l2.l_linestatus, l2.l_shipdate, l2.l_commitdate, l2.l_receiptdate, l2.l_shipinstruct, l2.l_shipmode, l2.l_comment FROM public.lineitem_102059 l2 WHERE ((l2.l_orderkey OPERATOR(pg_catalog.=) l1.l_orderkey) AND (l2.l_suppkey OPERATOR(pg_catalog.<>) l1.l_suppkey)))) AND (NOT (EXISTS (SELECT l3.l_orderkey, l3.l_partkey, l3.l_suppkey, l3.l_linenumber, l3.l_quantity, l3.l_extendedprice, l3.l_discount, l3.l_tax, l3.l_returnflag, l3.l_linestatus, l3.l_shipdate, l3.l_commitdate, l3.l_receiptdate, l3.l_shipinstruct, l3.l_shipmode, l3.l_comment FROM public.lineitem_102059 l3 WHERE ((l3.l_orderkey OPERATOR(pg_catalog.=) l1.l_orderkey) AND (l3.l_suppkey OPERATOR(pg_catalog.<>) l1.l_suppkey) AND (l3.l_receiptdate OPERATOR(pg_catalog.>) l3.l_commitdate))))) AND (supplier.s_nationkey OPERATOR(pg_catalog.=) nation.n_nationkey) AND (nation.n_name OPERATOR(pg_catalog.=) 'ARGENTINA'::bpchar))) worker_subquery GROUP BY worker_column_1
+                           Tuple data received from node: 105 kB
+                           Node: host=10.0.1.22 port=5432 dbname=postgres
+                           ->  GroupAggregate  (cost=167625.54..167625.56 rows=1 width=34) (actual time=2082.978..2084.083 rows=3247 loops=1)
+                                 Output: supplier.s_name, count(*)
+                                 Group Key: supplier.s_name
+                                 ->  Sort  (cost=167625.54..167625.54 rows=1 width=26) (actual time=2082.940..2083.351 rows=3795 loops=1)
+                                       Output: supplier.s_name
+                                       Sort Key: supplier.s_name
+                                       Sort Method: quicksort  Memory: 97kB
+                                       ->  Nested Loop  (cost=9382.87..167625.53 rows=1 width=26) (actual time=119.226..2074.663 rows=3795 loops=1)
+                                             Output: supplier.s_name
+                                             Inner Unique: true
+                                             ->  Nested Loop Semi Join  (cost=9382.44..167625.02 rows=1 width=34) (actual time=119.200..1960.204 rows=7702 loops=1)
+                                                   Output: supplier.s_name, l1.l_orderkey, l2.l_orderkey
+                                                   ->  Gather  (cost=9382.01..167624.01 rows=1 width=34) (actual time=119.189..1943.092 rows=12779 loops=1)
+                                                         Output: supplier.s_name, l1.l_suppkey, l1.l_orderkey
+                                                         Workers Planned: 2
+                                                         Workers Launched: 0
+                                                         ->  Nested Loop Anti Join  (cost=8382.01..166623.91 rows=1 width=34) (actual time=118.477..1940.854 rows=12779 loops=1)
+                                                               Output: supplier.s_name, l1.l_suppkey, l1.l_orderkey
+                                                               ->  Parallel Hash Join  (cost=8381.58..146213.47 rows=31241 width=34) (actual time=118.449..1552.089 rows=141868 loops=1)
+                                                                     Output: supplier.s_name, l1.l_suppkey, l1.l_orderkey
+                                                                     Hash Cond: (l1.l_suppkey = supplier.s_suppkey)
+                                                                     ->  Parallel Seq Scan on public.lineitem_102059 l1  (cost=0.00..134772.84 rows=781036 width=8) (actual time=0.044..1002.416 rows=3555413 loops=1)
+                                                                           Output: l1.l_orderkey, l1.l_partkey, l1.l_suppkey, l1.l_linenumber, l1.l_quantity, l1.l_extendedprice, l1.l_discount, l1.l_tax, l1.l_returnflag, l1.l_linestatus, l1.l_shipdate, l1.l_commitdate, l1.l_receiptdate, l1.l_shipinstruct, l1.l_shipmode, l1.l_comment
+                                                                           Filter: (l1.l_receiptdate > l1.l_commitdate)
+                                                                           Rows Removed by Filter: 2068045
+                                                                     ->  Parallel Hash  (cost=8319.08..8319.08 rows=5000 width=30) (actual time=118.012..118.015 rows=11981 loops=1)
+                                                                           Output: supplier.s_name, supplier.s_suppkey
+                                                                           Buckets: 16384  Batches: 1  Memory Usage: 896kB
+                                                                           ->  Hash Join  (cost=1.32..8319.08 rows=5000 width=30) (actual time=15.689..115.227 rows=11981 loops=1)
+                                                                                 Output: supplier.s_name, supplier.s_suppkey
+                                                                                 Inner Unique: true
+                                                                                 Hash Cond: (supplier.s_nationkey = nation.n_nationkey)
+                                                                                 ->  Parallel Seq Scan on public.supplier_102010 supplier  (cost=0.00..7934.00 rows=125000 width=34) (actual time=0.018..75.201 rows=300000 loops=1)
+                                                                                       Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_nationkey, supplier.s_phone, supplier.s_acctbal, supplier.s_comment
+                                                                                 ->  Hash  (cost=1.31..1.31 rows=1 width=4) (actual time=15.646..15.648 rows=1 loops=1)
+                                                                                       Output: nation.n_nationkey
+                                                                                       Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                                                       ->  Seq Scan on public.nation_102009 nation  (cost=0.00..1.31 rows=1 width=4) (actual time=15.631..15.635 rows=1 loops=1)
+                                                                                             Output: nation.n_nationkey
+                                                                                             Filter: (nation.n_name = 'ARGENTINA'::bpchar)
+                                                                                             Rows Removed by Filter: 24
+                                                               ->  Index Scan using lineitem_pkey_102059 on public.lineitem_102059 l3  (cost=0.43..1.03 rows=5 width=8) (actual time=0.003..0.003 rows=1 loops=141868)
+                                                                     Output: l3.l_orderkey, l3.l_partkey, l3.l_suppkey, l3.l_linenumber, l3.l_quantity, l3.l_extendedprice, l3.l_discount, l3.l_tax, l3.l_returnflag, l3.l_linestatus, l3.l_shipdate, l3.l_commitdate, l3.l_receiptdate, l3.l_shipinstruct, l3.l_shipmode, l3.l_comment
+                                                                     Index Cond: (l3.l_orderkey = l1.l_orderkey)
+                                                                     Filter: ((l3.l_receiptdate > l3.l_commitdate) AND (l3.l_suppkey <> l1.l_suppkey))
+                                                                     Rows Removed by Filter: 1
+                                                   ->  Index Scan using lineitem_pkey_102059 on public.lineitem_102059 l2  (cost=0.43..0.99 rows=15 width=8) (actual time=0.001..0.001 rows=1 loops=12779)
+                                                         Output: l2.l_orderkey, l2.l_partkey, l2.l_suppkey, l2.l_linenumber, l2.l_quantity, l2.l_extendedprice, l2.l_discount, l2.l_tax, l2.l_returnflag, l2.l_linestatus, l2.l_shipdate, l2.l_commitdate, l2.l_receiptdate, l2.l_shipinstruct, l2.l_shipmode, l2.l_comment
+                                                         Index Cond: (l2.l_orderkey = l1.l_orderkey)
+                                                         Filter: (l2.l_suppkey <> l1.l_suppkey)
+                                                         Rows Removed by Filter: 1
+                                             ->  Index Scan using orders_pkey_102027 on public.orders_102027 orders  (cost=0.43..0.51 rows=1 width=4) (actual time=0.015..0.015 rows=0 loops=7702)
+                                                   Output: orders.o_orderkey, orders.o_custkey, orders.o_orderstatus, orders.o_totalprice, orders.o_orderdate, orders.o_orderpriority, orders.o_clerk, orders.o_shippriority, orders.o_comment
+                                                   Index Cond: (orders.o_orderkey = l1.l_orderkey)
+                                                   Filter: (orders.o_orderstatus = 'F'::bpchar)
+                                                   Rows Removed by Filter: 1
+                               Planning Time: 4.197 ms
+                               JIT:
+                                 Functions: 46
+                                 Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                 Timing: Generation 1.988 ms (Deform 1.024 ms), Inlining 0.000 ms, Optimization 0.757 ms, Emission 14.936 ms, Total 17.681 ms
+                               Execution Time: 2118.610 ms
+ Planning Time: 12.794 ms
+ Execution Time: 2211.667 ms
+(83 rows)
+

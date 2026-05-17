@@ -1,0 +1,9 @@
+ nodeid | groupid | nodename  | nodeport | noderack | hasmetadata | isactive | noderole | nodecluster | metadatasynced | shouldhaveshards 
+--------+---------+-----------+----------+----------+-------------+----------+----------+-------------+----------------+------------------
+      1 |       0 | 10.0.1.20 |     5432 | default  | t           | t        | primary  | default     | t              | f
+      2 |       1 | 10.0.1.21 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      3 |       2 | 10.0.1.22 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      4 |       3 | 10.0.1.23 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      5 |       4 | 10.0.1.24 |     5432 | default  | t           | t        | primary  | default     | t              | t
+(5 rows)
+

@@ -1,0 +1,38 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=511.14..511.64 rows=200 width=72)
+   Output: remote_scan.o_orderpriority, (COALESCE((pg_catalog.sum(remote_scan.order_count))::bigint, '0'::bigint))
+   Sort Key: remote_scan.o_orderpriority
+   ->  HashAggregate  (cost=500.00..503.50 rows=200 width=72)
+         Output: remote_scan.o_orderpriority, COALESCE((pg_catalog.sum(remote_scan.order_count))::bigint, '0'::bigint)
+         Group Key: remote_scan.o_orderpriority
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=72)
+               Output: remote_scan.o_orderpriority, remote_scan.order_count
+               Task Count: 32
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT worker_column_1 AS o_orderpriority, count(*) AS order_count FROM (SELECT orders.o_orderpriority AS worker_column_1 FROM public.orders_102014 orders WHERE ((orders.o_orderdate OPERATOR(pg_catalog.>=) '1997-08-01'::date) AND (orders.o_orderdate OPERATOR(pg_catalog.<) ('1997-08-01'::date OPERATOR(pg_catalog.+) '3 mons'::interval month)) AND (EXISTS (SELECT lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment FROM public.lineitem_102046 lineitem WHERE ((lineitem.l_orderkey OPERATOR(pg_catalog.=) orders.o_orderkey) AND (lineitem.l_commitdate OPERATOR(pg_catalog.<) lineitem.l_receiptdate)))))) worker_subquery GROUP BY worker_column_1
+                     Node: host=10.0.1.21 port=5432 dbname=postgres
+                     ->  Finalize GroupAggregate  (cost=80579.62..80627.96 rows=5 width=24)
+                           Output: orders.o_orderpriority, count(*)
+                           Group Key: orders.o_orderpriority
+                           ->  Gather Merge  (cost=80579.62..80627.86 rows=10 width=24)
+                                 Output: orders.o_orderpriority, (PARTIAL count(*))
+                                 Workers Planned: 2
+                                 ->  Partial GroupAggregate  (cost=79579.60..79626.68 rows=5 width=24)
+                                       Output: orders.o_orderpriority, PARTIAL count(*)
+                                       Group Key: orders.o_orderpriority
+                                       ->  Sort  (cost=79579.60..79595.27 rows=6271 width=16)
+                                             Output: orders.o_orderpriority
+                                             Sort Key: orders.o_orderpriority
+                                             ->  Nested Loop Semi Join  (cost=0.43..79184.07 rows=6271 width=16)
+                                                   Output: orders.o_orderpriority
+                                                   ->  Parallel Seq Scan on public.orders_102014 orders  (cost=0.00..33312.39 rows=22757 width=20)
+                                                         Output: orders.o_orderkey, orders.o_custkey, orders.o_orderstatus, orders.o_totalprice, orders.o_orderdate, orders.o_orderpriority, orders.o_clerk, orders.o_shippriority, orders.o_comment
+                                                         Filter: ((orders.o_orderdate >= '1997-08-01'::date) AND (orders.o_orderdate < '1997-11-01 00:00:00'::timestamp without time zone))
+                                                   ->  Index Scan using lineitem_pkey_102046 on public.lineitem_102046 lineitem  (cost=0.43..7.03 rows=5 width=4)
+                                                         Output: lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment
+                                                         Index Cond: (lineitem.l_orderkey = orders.o_orderkey)
+                                                         Filter: (lineitem.l_commitdate < lineitem.l_receiptdate)
+(34 rows)
+
