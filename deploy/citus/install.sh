@@ -86,6 +86,7 @@ ssh root@"$FIRST_NODE_IP" bash <<REMOTE
   done
 
   sudo -u postgres psql -c "ALTER SYSTEM SET citus.enable_repartition_joins = on;"
+  sudo -u postgres psql -c "ALTER SYSTEM SET citus.max_intermediate_result_size = 4194304;"
   sudo -u postgres psql -c "SELECT pg_reload_conf();"
 REMOTE
 
