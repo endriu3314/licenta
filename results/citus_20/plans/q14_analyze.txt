@@ -1,0 +1,57 @@
+                                                                                                                                                                                                                                                                                                                                                     QUERY PLAN                                                                                                                                                                                                                                                                                                                                                      
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=500.00..500.02 rows=1 width=32) (actual time=643.055..643.056 rows=1 loops=1)
+   Output: ((100.00 * sum(remote_scan.promo_revenue)) / sum(remote_scan.promo_revenue_1))
+   ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=64) (actual time=643.030..643.035 rows=32 loops=1)
+         Output: remote_scan.promo_revenue, remote_scan.promo_revenue_1
+         Task Count: 32
+         Tuple data received from nodes: 1024 bytes
+         Tasks Shown: One of 32
+         ->  Task
+               Query: SELECT sum(CASE WHEN ((part.p_type)::text OPERATOR(pg_catalog.~~) 'PROMO%'::text) THEN (lineitem.l_extendedprice OPERATOR(pg_catalog.*) ('1'::numeric OPERATOR(pg_catalog.-) lineitem.l_discount)) ELSE '0'::numeric END) AS promo_revenue, sum((lineitem.l_extendedprice OPERATOR(pg_catalog.*) ('1'::numeric OPERATOR(pg_catalog.-) lineitem.l_discount))) AS promo_revenue FROM (public.lineitem_102049 lineitem JOIN public.part_102011 part ON ((lineitem.l_partkey OPERATOR(pg_catalog.=) part.p_partkey))) WHERE ((lineitem.l_shipdate OPERATOR(pg_catalog.>=) '1995-04-01'::date) AND (lineitem.l_shipdate OPERATOR(pg_catalog.<) '1995-05-01 00:00:00'::timestamp without time zone))
+               Tuple data received from node: 32 bytes
+               Node: host=10.0.1.24 port=5432 dbname=postgres
+               ->  Finalize Aggregate  (cost=274434.00..274434.01 rows=1 width=64) (actual time=523.269..569.389 rows=1 loops=1)
+                     Output: sum(CASE WHEN ((part.p_type)::text ~~ 'PROMO%'::text) THEN (lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)) ELSE '0'::numeric END), sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))
+                     ->  Gather  (cost=274433.76..274433.97 rows=2 width=64) (actual time=523.110..569.366 rows=3 loops=1)
+                           Output: (PARTIAL sum(CASE WHEN ((part.p_type)::text ~~ 'PROMO%'::text) THEN (lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)) ELSE '0'::numeric END)), (PARTIAL sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount))))
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           ->  Partial Aggregate  (cost=273433.76..273433.77 rows=1 width=64) (actual time=494.513..494.514 rows=1 loops=3)
+                                 Output: PARTIAL sum(CASE WHEN ((part.p_type)::text ~~ 'PROMO%'::text) THEN (lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)) ELSE '0'::numeric END), PARTIAL sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))
+                                 Worker 0:  actual time=483.766..483.768 rows=1 loops=1
+                                   JIT:
+                                     Functions: 10
+                                     Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                     Timing: Generation 1.396 ms (Deform 0.481 ms), Inlining 0.000 ms, Optimization 0.647 ms, Emission 8.887 ms, Total 10.930 ms
+                                 Worker 1:  actual time=477.466..477.468 rows=1 loops=1
+                                   JIT:
+                                     Functions: 10
+                                     Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                     Timing: Generation 1.350 ms (Deform 0.483 ms), Inlining 0.000 ms, Optimization 0.540 ms, Emission 8.479 ms, Total 10.370 ms
+                                 ->  Nested Loop  (cost=0.43..272917.65 rows=29492 width=33) (actual time=9.059..486.877 rows=23466 loops=3)
+                                       Output: part.p_type, lineitem.l_extendedprice, lineitem.l_discount
+                                       Inner Unique: true
+                                       Worker 0:  actual time=9.702..475.704 rows=24512 loops=1
+                                       Worker 1:  actual time=9.277..470.377 rows=21807 loops=1
+                                       ->  Parallel Seq Scan on public.lineitem_102049 lineitem  (cost=0.00..140628.24 rows=29492 width=16) (actual time=8.924..211.817 rows=23466 loops=3)
+                                             Output: lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment
+                                             Filter: ((lineitem.l_shipdate >= '1995-04-01'::date) AND (lineitem.l_shipdate < '1995-05-01 00:00:00'::timestamp without time zone))
+                                             Rows Removed by Filter: 1850893
+                                             Worker 0:  actual time=9.598..201.825 rows=24512 loops=1
+                                             Worker 1:  actual time=9.144..211.338 rows=21807 loops=1
+                                       ->  Index Scan using part_pkey_102011 on public.part_102011 part  (cost=0.43..4.49 rows=1 width=25) (actual time=0.011..0.011 rows=1 loops=70399)
+                                             Output: part.p_partkey, part.p_name, part.p_mfgr, part.p_brand, part.p_type, part.p_size, part.p_container, part.p_retailprice, part.p_comment
+                                             Index Cond: (part.p_partkey = lineitem.l_partkey)
+                                             Worker 0:  actual time=0.011..0.011 rows=1 loops=24512
+                                             Worker 1:  actual time=0.012..0.012 rows=1 loops=21807
+                   Planning Time: 1.720 ms
+                   JIT:
+                     Functions: 32
+                     Options: Inlining false, Optimization false, Expressions true, Deforming true
+                     Timing: Generation 4.056 ms (Deform 1.513 ms), Inlining 0.000 ms, Optimization 1.642 ms, Emission 24.836 ms, Total 30.534 ms
+                   Execution Time: 607.359 ms
+ Planning Time: 2.778 ms
+ Execution Time: 643.172 ms
+(53 rows)
+

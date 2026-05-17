@@ -1,0 +1,47 @@
+                                                                                                                                                                                                                    QUERY PLAN                                                                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=250.00..250.01 rows=1 width=32) (actual time=332.007..332.009 rows=1 loops=1)
+   Output: sum(remote_scan.revenue)
+   ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=32) (actual time=331.987..331.992 rows=32 loops=1)
+         Output: remote_scan.revenue
+         Task Count: 32
+         Tuple data received from nodes: 512 bytes
+         Tasks Shown: One of 32
+         ->  Task
+               Query: SELECT sum((l_extendedprice OPERATOR(pg_catalog.*) l_discount)) AS revenue FROM public.lineitem_102066 lineitem WHERE ((l_shipdate OPERATOR(pg_catalog.>=) '1995-01-01'::date) AND (l_shipdate OPERATOR(pg_catalog.<) '1996-01-01 00:00:00'::timestamp without time zone) AND (l_discount OPERATOR(pg_catalog.>=) 0.05) AND (l_discount OPERATOR(pg_catalog.<=) 0.07) AND (l_quantity OPERATOR(pg_catalog.<) '25'::numeric))
+               Tuple data received from node: 16 bytes
+               Node: host=10.0.1.22 port=5432 dbname=postgres
+               ->  Finalize Aggregate  (cost=159421.74..159421.75 rows=1 width=32) (actual time=232.527..256.508 rows=1 loops=1)
+                     Output: sum((l_extendedprice * l_discount))
+                     ->  Gather  (cost=159421.52..159421.73 rows=2 width=32) (actual time=232.403..256.495 rows=3 loops=1)
+                           Output: (PARTIAL sum((l_extendedprice * l_discount)))
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           ->  Partial Aggregate  (cost=158421.52..158421.53 rows=1 width=32) (actual time=201.761..201.762 rows=1 loops=3)
+                                 Output: PARTIAL sum((l_extendedprice * l_discount))
+                                 Worker 0:  actual time=185.650..185.651 rows=1 loops=1
+                                   JIT:
+                                     Functions: 5
+                                     Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                     Timing: Generation 1.158 ms (Deform 0.458 ms), Inlining 0.000 ms, Optimization 0.409 ms, Emission 6.902 ms, Total 8.469 ms
+                                 Worker 1:  actual time=188.466..188.467 rows=1 loops=1
+                                   JIT:
+                                     Functions: 5
+                                     Options: Inlining false, Optimization false, Expressions true, Deforming true
+                                     Timing: Generation 0.917 ms (Deform 0.312 ms), Inlining 0.000 ms, Optimization 0.403 ms, Emission 7.994 ms, Total 9.314 ms
+                                 ->  Parallel Seq Scan on public.lineitem_102066 lineitem  (cost=0.00..158189.22 rows=46460 width=12) (actual time=7.310..196.460 rows=37207 loops=3)
+                                       Output: l_orderkey, l_partkey, l_suppkey, l_linenumber, l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate, l_commitdate, l_receiptdate, l_shipinstruct, l_shipmode, l_comment
+                                       Filter: ((lineitem.l_shipdate >= '1995-01-01'::date) AND (lineitem.l_shipdate < '1996-01-01 00:00:00'::timestamp without time zone) AND (lineitem.l_discount >= 0.05) AND (lineitem.l_discount <= 0.07) AND (lineitem.l_quantity < '25'::numeric))
+                                       Rows Removed by Filter: 1836757
+                                       Worker 0:  actual time=7.313..180.828 rows=31893 loops=1
+                                       Worker 1:  actual time=8.418..183.662 rows=35463 loops=1
+                   Planning Time: 1.035 ms
+                   JIT:
+                     Functions: 17
+                     Options: Inlining false, Optimization false, Expressions true, Deforming true
+                     Timing: Generation 2.955 ms (Deform 1.146 ms), Inlining 0.000 ms, Optimization 1.255 ms, Emission 20.636 ms, Total 24.845 ms
+                   Execution Time: 290.687 ms
+ Planning Time: 2.315 ms
+ Execution Time: 332.123 ms
+(43 rows)
+

@@ -1,0 +1,24 @@
+ nodeid | groupid | nodename  | nodeport | noderack | hasmetadata | isactive | noderole | nodecluster | metadatasynced | shouldhaveshards 
+--------+---------+-----------+----------+----------+-------------+----------+----------+-------------+----------------+------------------
+      1 |       0 | 10.0.1.20 |     5432 | default  | t           | t        | primary  | default     | t              | f
+     13 |      12 | 10.0.1.32 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      8 |       7 | 10.0.1.27 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      2 |       1 | 10.0.1.21 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     18 |      17 | 10.0.1.37 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      9 |       8 | 10.0.1.28 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      3 |       2 | 10.0.1.22 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     14 |      13 | 10.0.1.33 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      4 |       3 | 10.0.1.23 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     10 |       9 | 10.0.1.29 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     15 |      14 | 10.0.1.34 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      5 |       4 | 10.0.1.24 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     19 |      18 | 10.0.1.38 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     11 |      10 | 10.0.1.30 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      6 |       5 | 10.0.1.25 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     16 |      15 | 10.0.1.35 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     12 |      11 | 10.0.1.31 |     5432 | default  | t           | t        | primary  | default     | t              | t
+      7 |       6 | 10.0.1.26 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     20 |      19 | 10.0.1.39 |     5432 | default  | t           | t        | primary  | default     | t              | t
+     17 |      16 | 10.0.1.36 |     5432 | default  | t           | t        | primary  | default     | t              | t
+(20 rows)
+

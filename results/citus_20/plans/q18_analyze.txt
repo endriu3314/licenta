@@ -1,0 +1,102 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=3821.93..3822.18 rows=100 width=130) (actual time=2003.687..2003.700 rows=100 loops=1)
+   Output: remote_scan.c_name, remote_scan.c_custkey, remote_scan.o_orderkey, remote_scan.o_orderdate, remote_scan.o_totalprice, remote_scan.sum
+   ->  Sort  (cost=3821.93..4071.93 rows=100000 width=130) (actual time=2003.685..2003.690 rows=100 loops=1)
+         Output: remote_scan.c_name, remote_scan.c_custkey, remote_scan.o_orderkey, remote_scan.o_orderdate, remote_scan.o_totalprice, remote_scan.sum
+         Sort Key: remote_scan.o_totalprice DESC, remote_scan.o_orderdate
+         Sort Method: top-N heapsort  Memory: 36kB
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=130) (actual time=2003.513..2003.526 rows=277 loops=1)
+               Output: remote_scan.c_name, remote_scan.c_custkey, remote_scan.o_orderkey, remote_scan.o_orderdate, remote_scan.o_totalprice, remote_scan.sum
+               Task Count: 32
+               Tuple data received from nodes: 15 kB
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT worker_column_1 AS c_name, worker_column_2 AS c_custkey, worker_column_3 AS o_orderkey, worker_column_4 AS o_orderdate, worker_column_5 AS o_totalprice, sum(worker_column_6) AS sum FROM (SELECT customer.c_name AS worker_column_1, customer.c_custkey AS worker_column_2, orders.o_orderkey AS worker_column_3, orders.o_orderdate AS worker_column_4, orders.o_totalprice AS worker_column_5, lineitem.l_quantity AS worker_column_6 FROM public.customer_102013 customer, public.orders_102017 orders, public.lineitem_102049 lineitem WHERE ((orders.o_orderkey OPERATOR(pg_catalog.=) ANY (SELECT lineitem_1.l_orderkey FROM public.lineitem_102049 lineitem_1 GROUP BY lineitem_1.l_orderkey HAVING (sum(lineitem_1.l_quantity) OPERATOR(pg_catalog.>) (313)::numeric))) AND (customer.c_custkey OPERATOR(pg_catalog.=) orders.o_custkey) AND (orders.o_orderkey OPERATOR(pg_catalog.=) lineitem.l_orderkey))) worker_subquery GROUP BY worker_column_1, worker_column_2, worker_column_3, worker_column_4, worker_column_5 ORDER BY worker_column_5 DESC, worker_column_4 LIMIT '100'::bigint
+                     Tuple data received from node: 378 bytes
+                     Node: host=10.0.1.24 port=5432 dbname=postgres
+                     ->  Limit  (cost=674443.57..674443.82 rows=100 width=71) (actual time=1897.957..1934.464 rows=7 loops=1)
+                           Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, (sum(lineitem.l_quantity))
+                           ->  Sort  (cost=674443.57..675775.15 rows=532633 width=71) (actual time=1683.584..1720.089 rows=7 loops=1)
+                                 Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, (sum(lineitem.l_quantity))
+                                 Sort Key: orders.o_totalprice DESC, orders.o_orderdate
+                                 Sort Method: quicksort  Memory: 25kB
+                                 ->  Finalize GroupAggregate  (cost=586764.32..654086.72 rows=532633 width=71) (actual time=1683.507..1720.023 rows=7 loops=1)
+                                       Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, sum(lineitem.l_quantity)
+                                       Group Key: customer.c_custkey, orders.o_orderkey
+                                       ->  Gather Merge  (cost=586764.32..642990.21 rows=443860 width=71) (actual time=1683.450..1719.972 rows=7 loops=1)
+                                             Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, (PARTIAL sum(lineitem.l_quantity))
+                                             Workers Planned: 2
+                                             Workers Launched: 2
+                                             ->  Partial GroupAggregate  (cost=585764.30..590757.73 rows=221930 width=71) (actual time=1587.638..1587.649 rows=2 loops=3)
+                                                   Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, PARTIAL sum(lineitem.l_quantity)
+                                                   Group Key: customer.c_custkey, orders.o_orderkey
+                                                   Worker 0:  actual time=1573.014..1573.018 rows=0 loops=1
+                                                     JIT:
+                                                       Functions: 30
+                                                       Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                                       Timing: Generation 2.272 ms (Deform 0.933 ms), Inlining 54.218 ms, Optimization 83.629 ms, Emission 61.467 ms, Total 201.586 ms
+                                                   Worker 1:  actual time=1632.196..1632.200 rows=0 loops=1
+                                                     JIT:
+                                                       Functions: 30
+                                                       Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                                       Timing: Generation 1.145 ms (Deform 0.482 ms), Inlining 55.958 ms, Optimization 85.813 ms, Emission 63.285 ms, Total 206.201 ms
+                                                   ->  Sort  (cost=585764.30..586319.13 rows=221930 width=44) (actual time=1587.621..1587.627 rows=16 loops=3)
+                                                         Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, lineitem.l_quantity
+                                                         Sort Key: customer.c_custkey, orders.o_orderkey
+                                                         Sort Method: quicksort  Memory: 28kB
+                                                         Worker 0:  actual time=1573.013..1573.016 rows=0 loops=1
+                                                           Sort Method: quicksort  Memory: 25kB
+                                                         Worker 1:  actual time=1632.195..1632.199 rows=0 loops=1
+                                                           Sort Method: quicksort  Memory: 25kB
+                                                         ->  Nested Loop  (cost=425768.19..566057.20 rows=221930 width=44) (actual time=1522.871..1587.570 rows=16 loops=3)
+                                                               Output: customer.c_custkey, orders.o_orderkey, customer.c_name, orders.o_orderdate, orders.o_totalprice, lineitem.l_quantity
+                                                               Worker 0:  actual time=1572.916..1572.919 rows=0 loops=1
+                                                               Worker 1:  actual time=1632.156..1632.160 rows=0 loops=1
+                                                               ->  Nested Loop  (cost=425767.76..501615.07 rows=55478 width=43) (actual time=1522.865..1587.540 rows=2 loops=3)
+                                                                     Output: customer.c_name, customer.c_custkey, orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, lineitem_1.l_orderkey
+                                                                     Inner Unique: true
+                                                                     Worker 0:  actual time=1572.915..1572.918 rows=0 loops=1
+                                                                     Worker 1:  actual time=1632.156..1632.159 rows=0 loops=1
+                                                                     ->  Hash Join  (cost=425767.33..457681.57 rows=55478 width=24) (actual time=1522.845..1587.421 rows=2 loops=3)
+                                                                           Output: orders.o_orderkey, orders.o_orderdate, orders.o_totalprice, orders.o_custkey, lineitem_1.l_orderkey
+                                                                           Inner Unique: true
+                                                                           Hash Cond: (orders.o_orderkey = lineitem_1.l_orderkey)
+                                                                           Worker 0:  actual time=1572.914..1572.916 rows=0 loops=1
+                                                                           Worker 1:  actual time=1632.155..1632.158 rows=0 loops=1
+                                                                           ->  Parallel Seq Scan on public.orders_102017 orders  (cost=0.00..30376.83 rows=585683 width=20) (actual time=0.031..32.994 rows=468546 loops=3)
+                                                                                 Output: orders.o_orderkey, orders.o_custkey, orders.o_orderstatus, orders.o_totalprice, orders.o_orderdate, orders.o_orderpriority, orders.o_clerk, orders.o_shippriority, orders.o_comment
+                                                                                 Worker 0:  actual time=0.036..0.098 rows=912 loops=1
+                                                                                 Worker 1:  actual time=0.026..0.091 rows=919 loops=1
+                                                                           ->  Hash  (cost=424103.00..424103.00 rows=133146 width=4) (actual time=1505.501..1505.502 rows=7 loops=3)
+                                                                                 Output: lineitem_1.l_orderkey
+                                                                                 Buckets: 262144  Batches: 1  Memory Usage: 2049kB
+                                                                                 Worker 0:  actual time=1570.434..1570.435 rows=7 loops=1
+                                                                                 Worker 1:  actual time=1630.743..1630.744 rows=7 loops=1
+                                                                                 ->  GroupAggregate  (cost=0.43..424103.00 rows=133146 width=4) (actual time=409.946..1505.473 rows=7 loops=3)
+                                                                                       Output: lineitem_1.l_orderkey
+                                                                                       Group Key: lineitem_1.l_orderkey
+                                                                                       Filter: (sum(lineitem_1.l_quantity) > '313'::numeric)
+                                                                                       Rows Removed by Filter: 1405632
+                                                                                       Worker 0:  actual time=461.518..1570.409 rows=7 loops=1
+                                                                                       Worker 1:  actual time=517.225..1630.715 rows=7 loops=1
+                                                                                       ->  Index Scan using lineitem_pkey_102049 on public.lineitem_102049 lineitem_1  (cost=0.43..389996.04 rows=5623078 width=9) (actual time=0.067..684.925 rows=5623078 loops=3)
+                                                                                             Output: lineitem_1.l_orderkey, lineitem_1.l_partkey, lineitem_1.l_suppkey, lineitem_1.l_linenumber, lineitem_1.l_quantity, lineitem_1.l_extendedprice, lineitem_1.l_discount, lineitem_1.l_tax, lineitem_1.l_returnflag, lineitem_1.l_linestatus, lineitem_1.l_shipdate, lineitem_1.l_commitdate, lineitem_1.l_receiptdate, lineitem_1.l_shipinstruct, lineitem_1.l_shipmode, lineitem_1.l_comment
+                                                                                             Worker 0:  actual time=0.111..678.233 rows=5623078 loops=1
+                                                                                             Worker 1:  actual time=0.065..715.081 rows=5623078 loops=1
+                                                                     ->  Index Scan using customer_pkey_102013 on public.customer_102013 customer  (cost=0.43..0.79 rows=1 width=23) (actual time=0.046..0.046 rows=1 loops=7)
+                                                                           Output: customer.c_custkey, customer.c_name, customer.c_address, customer.c_nationkey, customer.c_phone, customer.c_acctbal, customer.c_mktsegment, customer.c_comment
+                                                                           Index Cond: (customer.c_custkey = orders.o_custkey)
+                                                               ->  Index Scan using lineitem_pkey_102049 on public.lineitem_102049 lineitem  (cost=0.43..1.02 rows=14 width=9) (actual time=0.008..0.009 rows=7 loops=7)
+                                                                     Output: lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment
+                                                                     Index Cond: (lineitem.l_orderkey = orders.o_orderkey)
+                         Planning Time: 3.593 ms
+                         JIT:
+                           Functions: 94
+                           Options: Inlining true, Optimization true, Expressions true, Deforming true
+                           Timing: Generation 4.965 ms (Deform 2.055 ms), Inlining 163.331 ms, Optimization 261.087 ms, Emission 194.489 ms, Total 623.871 ms
+                         Execution Time: 1971.875 ms
+ Planning Time: 4.170 ms
+ Execution Time: 2003.831 ms
+(98 rows)
+
