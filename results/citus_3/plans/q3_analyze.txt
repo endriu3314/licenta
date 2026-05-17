@@ -1,0 +1,68 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=2160.96..2160.99 rows=10 width=44) (actual time=25641.803..25641.807 rows=10 loops=1)
+   Output: remote_scan.l_orderkey, remote_scan.revenue, remote_scan.o_orderdate, remote_scan.o_shippriority
+   ->  Sort  (cost=2160.96..2410.96 rows=100000 width=44) (actual time=25641.801..25641.803 rows=10 loops=1)
+         Output: remote_scan.l_orderkey, remote_scan.revenue, remote_scan.o_orderdate, remote_scan.o_shippriority
+         Sort Key: remote_scan.revenue DESC, remote_scan.o_orderdate
+         Sort Method: top-N heapsort  Memory: 26kB
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=44) (actual time=25641.715..25641.730 rows=320 loops=1)
+               Output: remote_scan.l_orderkey, remote_scan.revenue, remote_scan.o_orderdate, remote_scan.o_shippriority
+               Task Count: 32
+               Tuple data received from nodes: 8320 bytes
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT lineitem.l_orderkey, sum((lineitem.l_extendedprice OPERATOR(pg_catalog.*) ('1'::numeric OPERATOR(pg_catalog.-) lineitem.l_discount))) AS revenue, orders.o_orderdate, orders.o_shippriority FROM ((public.orders_102020 orders JOIN public.customer_102013 customer ON ((customer.c_custkey OPERATOR(pg_catalog.=) orders.o_custkey))) JOIN public.lineitem_102052 lineitem ON ((lineitem.l_orderkey OPERATOR(pg_catalog.=) orders.o_orderkey))) WHERE ((lineitem.l_shipdate OPERATOR(pg_catalog.>) '1995-03-30'::date) AND (orders.o_orderdate OPERATOR(pg_catalog.<) '1995-03-30'::date) AND (customer.c_mktsegment OPERATOR(pg_catalog.=) 'AUTOMOBILE'::bpchar)) GROUP BY lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority ORDER BY (sum((lineitem.l_extendedprice OPERATOR(pg_catalog.*) ('1'::numeric OPERATOR(pg_catalog.-) lineitem.l_discount)))) DESC, orders.o_orderdate LIMIT '10'::bigint
+                     Tuple data received from node: 260 bytes
+                     Node: host=10.0.1.21 port=5432 dbname=postgres
+                     ->  Limit  (cost=312303.57..312303.59 rows=10 width=44) (actual time=25546.961..25557.134 rows=10 loops=1)
+                           Output: lineitem.l_orderkey, (sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))), orders.o_orderdate, orders.o_shippriority
+                           ->  Sort  (cost=312303.57..313039.37 rows=294321 width=44) (actual time=25530.468..25540.639 rows=10 loops=1)
+                                 Output: lineitem.l_orderkey, (sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))), orders.o_orderdate, orders.o_shippriority
+                                 Sort Key: (sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))) DESC, orders.o_orderdate
+                                 Sort Method: top-N heapsort  Memory: 26kB
+                                 ->  Finalize GroupAggregate  (cost=267209.50..305943.40 rows=294321 width=44) (actual time=25513.609..25539.506 rows=10587 loops=1)
+                                       Output: lineitem.l_orderkey, sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount))), orders.o_orderdate, orders.o_shippriority
+                                       Group Key: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority
+                                       ->  Gather Merge  (cost=267209.50..299198.53 rows=245268 width=44) (actual time=25513.594..25535.354 rows=10587 loops=1)
+                                             Output: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority, (PARTIAL sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount))))
+                                             Workers Planned: 2
+                                             Workers Launched: 0
+                                             ->  Partial GroupAggregate  (cost=266209.48..269888.50 rows=122634 width=44) (actual time=25512.801..25523.756 rows=10587 loops=1)
+                                                   Output: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority, PARTIAL sum((lineitem.l_extendedprice * ('1'::numeric - lineitem.l_discount)))
+                                                   Group Key: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority
+                                                   ->  Sort  (cost=266209.48..266516.06 rows=122634 width=24) (actual time=25512.749..25514.250 rows=28069 loops=1)
+                                                         Output: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority, lineitem.l_extendedprice, lineitem.l_discount
+                                                         Sort Key: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority
+                                                         Sort Method: quicksort  Memory: 2030kB
+                                                         ->  Nested Loop  (cost=35379.75..255844.45 rows=122634 width=24) (actual time=1673.386..25495.158 rows=28069 loops=1)
+                                                               Output: lineitem.l_orderkey, orders.o_orderdate, orders.o_shippriority, lineitem.l_extendedprice, lineitem.l_discount
+                                                               ->  Parallel Hash Join  (cost=35379.32..168287.49 rows=58008 width=12) (actual time=1652.344..3084.277 rows=138671 loops=1)
+                                                                     Output: orders.o_orderdate, orders.o_shippriority, orders.o_orderkey
+                                                                     Hash Cond: (customer.c_custkey = orders.o_custkey)
+                                                                     ->  Parallel Seq Scan on public.customer_102013 customer  (cost=0.00..131254.63 rows=376490 width=4) (actual time=0.054..958.124 rows=901110 loops=1)
+                                                                           Output: customer.c_custkey, customer.c_name, customer.c_address, customer.c_nationkey, customer.c_phone, customer.c_acctbal, customer.c_mktsegment, customer.c_comment
+                                                                           Filter: (customer.c_mktsegment = 'AUTOMOBILE'::bpchar)
+                                                                           Rows Removed by Filter: 3598890
+                                                                     ->  Parallel Hash  (cost=31767.07..31767.07 rows=288980 width=16) (actual time=1646.007..1646.008 rows=691083 loops=1)
+                                                                           Output: orders.o_orderdate, orders.o_shippriority, orders.o_custkey, orders.o_orderkey
+                                                                           Buckets: 1048576  Batches: 1  Memory Usage: 40640kB
+                                                                           ->  Parallel Seq Scan on public.orders_102020 orders  (cost=0.00..31767.07 rows=288980 width=16) (actual time=0.324..1429.341 rows=691083 loops=1)
+                                                                                 Output: orders.o_orderdate, orders.o_shippriority, orders.o_custkey, orders.o_orderkey
+                                                                                 Filter: (orders.o_orderdate < '1995-03-30'::date)
+                                                                                 Rows Removed by Filter: 712642
+                                                               ->  Index Scan using lineitem_pkey_102052 on public.lineitem_102052 lineitem  (cost=0.43..1.43 rows=8 width=16) (actual time=0.161..0.161 rows=0 loops=138671)
+                                                                     Output: lineitem.l_orderkey, lineitem.l_partkey, lineitem.l_suppkey, lineitem.l_linenumber, lineitem.l_quantity, lineitem.l_extendedprice, lineitem.l_discount, lineitem.l_tax, lineitem.l_returnflag, lineitem.l_linestatus, lineitem.l_shipdate, lineitem.l_commitdate, lineitem.l_receiptdate, lineitem.l_shipinstruct, lineitem.l_shipmode, lineitem.l_comment
+                                                                     Index Cond: (lineitem.l_orderkey = orders.o_orderkey)
+                                                                     Filter: (lineitem.l_shipdate > '1995-03-30'::date)
+                                                                     Rows Removed by Filter: 4
+                         Planning Time: 5.925 ms
+                         JIT:
+                           Functions: 30
+                           Options: Inlining false, Optimization false, Expressions true, Deforming true
+                           Timing: Generation 1.490 ms (Deform 0.679 ms), Inlining 0.000 ms, Optimization 0.629 ms, Emission 15.992 ms, Total 18.111 ms
+                         Execution Time: 25591.449 ms
+ Planning Time: 3.268 ms
+ Execution Time: 25641.907 ms
+(64 rows)
+

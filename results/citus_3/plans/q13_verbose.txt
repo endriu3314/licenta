@@ -1,0 +1,46 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0)
+   Output: remote_scan.c_count, remote_scan.custdist
+   ->  Distributed Subplan 1_1
+         ->  Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=100000 width=184)
+               Output: remote_scan.o_orderkey, remote_scan.o_custkey, remote_scan.o_comment
+               Task Count: 32
+               Tasks Shown: One of 32
+               ->  Task
+                     Query: SELECT o_orderkey, o_custkey, o_comment FROM public.orders_102014 orders WHERE ((o_comment)::text OPERATOR(pg_catalog.!~~) '%pending%requests%'::text)
+                     Node: host=10.0.1.21 port=5432 dbname=postgres
+                     ->  Seq Scan on public.orders_102014 orders  (cost=0.00..42104.79 rows=1392573 width=57)
+                           Output: o_orderkey, o_custkey, o_comment
+                           Filter: ((orders.o_comment)::text !~~ '%pending%requests%'::text)
+   Task Count: 1
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT c_count, count(*) AS custdist FROM (SELECT customer.c_custkey, count(orders.o_orderkey) AS count FROM (public.customer_102013 customer LEFT JOIN (SELECT orders_1.o_orderkey, orders_1.o_custkey, NULL::character(1) AS o_orderstatus, NULL::numeric(15,2) AS o_totalprice, NULL::date AS o_orderdate, NULL::character(15) AS o_orderpriority, NULL::character(15) AS o_clerk, NULL::integer AS o_shippriority, orders_1.o_comment FROM (SELECT intermediate_result.o_orderkey, intermediate_result.o_custkey, intermediate_result.o_comment FROM read_intermediate_result('1_1'::text, 'binary'::citus_copy_format) intermediate_result(o_orderkey integer, o_custkey integer, o_comment character varying(79))) orders_1) orders ON (((customer.c_custkey OPERATOR(pg_catalog.=) orders.o_custkey) AND ((orders.o_comment)::text OPERATOR(pg_catalog.!~~) '%pending%requests%'::text)))) GROUP BY customer.c_custkey) c_orders(c_custkey, c_count) GROUP BY c_count ORDER BY (count(*)) DESC, c_count DESC
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Sort  (cost=263268.72..263269.22 rows=200 width=16)
+               Output: (count(intermediate_result.o_orderkey)), (count(*))
+               Sort Key: (count(*)) DESC, (count(intermediate_result.o_orderkey)) DESC
+               ->  HashAggregate  (cost=263259.08..263261.08 rows=200 width=16)
+                     Output: (count(intermediate_result.o_orderkey)), count(*)
+                     Group Key: count(intermediate_result.o_orderkey)
+                     ->  GroupAggregate  (cost=62.76..195750.45 rows=4500575 width=12)
+                           Output: customer.c_custkey, count(intermediate_result.o_orderkey)
+                           Group Key: customer.c_custkey
+                           ->  Merge Left Join  (cost=62.76..128241.83 rows=4500575 width=8)
+                                 Output: customer.c_custkey, intermediate_result.o_orderkey
+                                 Merge Cond: (customer.c_custkey = intermediate_result.o_custkey)
+                                 ->  Index Only Scan using customer_pkey_102013 on public.customer_102013 customer  (cost=0.43..116913.06 rows=4500575 width=4)
+                                       Output: customer.c_custkey
+                                 ->  Sort  (cost=62.33..64.83 rows=1000 width=8)
+                                       Output: intermediate_result.o_orderkey, intermediate_result.o_custkey
+                                       Sort Key: intermediate_result.o_custkey
+                                       ->  Function Scan on pg_catalog.read_intermediate_result intermediate_result  (cost=0.00..12.50 rows=1000 width=8)
+                                             Output: intermediate_result.o_orderkey, intermediate_result.o_custkey
+                                             Function Call: read_intermediate_result('1_1'::text, 'binary'::citus_copy_format)
+                                             Filter: ((intermediate_result.o_comment)::text !~~ '%pending%requests%'::text)
+             JIT:
+               Functions: 16
+               Options: Inlining false, Optimization false, Expressions true, Deforming true
+(42 rows)
+

@@ -1,0 +1,144 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0) (actual time=4131.334..4131.335 rows=0 loops=1)
+   Output: remote_scan.ps_partkey, remote_scan.value
+   Task Count: 1
+   Tuple data received from nodes: 0 bytes
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT partsupp.ps_partkey, sum((partsupp.ps_supplycost OPERATOR(pg_catalog.*) (partsupp.ps_availqty)::numeric)) AS value FROM public.partsupp_102012 partsupp, public.supplier_102010 supplier, public.nation_102009 nation WHERE ((partsupp.ps_suppkey OPERATOR(pg_catalog.=) supplier.s_suppkey) AND (supplier.s_nationkey OPERATOR(pg_catalog.=) nation.n_nationkey) AND (nation.n_name OPERATOR(pg_catalog.=) 'ETHIOPIA'::bpchar)) GROUP BY partsupp.ps_partkey HAVING (sum((partsupp.ps_supplycost OPERATOR(pg_catalog.*) (partsupp.ps_availqty)::numeric)) OPERATOR(pg_catalog.>) (SELECT (sum((partsupp_1.ps_supplycost OPERATOR(pg_catalog.*) (partsupp_1.ps_availqty)::numeric)) OPERATOR(pg_catalog.*) 0.0000100000) AS "?column?" FROM public.partsupp_102012 partsupp_1, public.supplier_102010 supplier_1, public.nation_102009 nation_1 WHERE ((partsupp_1.ps_suppkey OPERATOR(pg_catalog.=) supplier_1.s_suppkey) AND (supplier_1.s_nationkey OPERATOR(pg_catalog.=) nation_1.n_nationkey) AND (nation_1.n_name OPERATOR(pg_catalog.=) 'ETHIOPIA'::bpchar)))) ORDER BY (sum((partsupp.ps_supplycost OPERATOR(pg_catalog.*) (partsupp.ps_availqty)::numeric))) DESC
+         Tuple data received from node: 0 bytes
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Sort  (cost=1513186.98..1513575.41 rows=155370 width=36) (actual time=4089.828..4101.834 rows=0 loops=1)
+               Output: partsupp.ps_partkey, (sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric)))
+               Sort Key: (sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric))) DESC
+               Sort Method: quicksort  Memory: 25kB
+               InitPlan 1
+                 ->  Finalize Aggregate  (cost=676578.91..676578.93 rows=1 width=32) (actual time=1395.659..1396.273 rows=1 loops=1)
+                       Output: (sum((partsupp_1.ps_supplycost * (partsupp_1.ps_availqty)::numeric)) * 0.0000100000)
+                       ->  Gather  (cost=676578.69..676578.90 rows=2 width=32) (actual time=1395.389..1396.256 rows=3 loops=1)
+                             Output: (PARTIAL sum((partsupp_1.ps_supplycost * (partsupp_1.ps_availqty)::numeric)))
+                             Workers Planned: 2
+                             Workers Launched: 2
+                             ->  Partial Aggregate  (cost=675578.69..675578.70 rows=1 width=32) (actual time=1382.329..1382.336 rows=1 loops=3)
+                                   Output: PARTIAL sum((partsupp_1.ps_supplycost * (partsupp_1.ps_availqty)::numeric))
+                                   Worker 0:  actual time=1375.924..1375.929 rows=1 loops=1
+                                     JIT:
+                                       Functions: 22
+                                       Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                       Timing: Generation 0.708 ms (Deform 0.312 ms), Inlining 41.013 ms, Optimization 48.008 ms, Emission 34.519 ms, Total 124.249 ms
+                                   Worker 1:  actual time=1375.959..1375.964 rows=1 loops=1
+                                     JIT:
+                                       Functions: 22
+                                       Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                       Timing: Generation 0.701 ms (Deform 0.304 ms), Inlining 41.075 ms, Optimization 48.380 ms, Emission 34.114 ms, Total 124.269 ms
+                                   ->  Parallel Hash Join  (cost=8381.58..672638.90 rows=391972 width=10) (actual time=130.416..1344.540 rows=318133 loops=3)
+                                         Output: partsupp_1.ps_supplycost, partsupp_1.ps_availqty
+                                         Hash Cond: (partsupp_1.ps_suppkey = supplier_1.s_suppkey)
+                                         Worker 0:  actual time=124.022..1338.110 rows=318430 loops=1
+                                         Worker 1:  actual time=124.040..1338.187 rows=315340 loops=1
+                                         ->  Parallel Seq Scan on public.partsupp_102012 partsupp_1  (cost=0.00..625130.08 rows=9998408 width=14) (actual time=0.074..661.670 rows=8000000 loops=3)
+                                               Output: partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_availqty, partsupp_1.ps_supplycost, partsupp_1.ps_comment
+                                               Worker 0:  actual time=0.080..659.319 rows=8005810 loops=1
+                                               Worker 1:  actual time=0.078..655.314 rows=7935291 loops=1
+                                         ->  Parallel Hash  (cost=8319.08..8319.08 rows=5000 width=4) (actual time=130.063..130.067 rows=3977 loops=3)
+                                               Output: supplier_1.s_suppkey
+                                               Buckets: 16384  Batches: 1  Memory Usage: 672kB
+                                               Worker 0:  actual time=123.730..123.734 rows=7 loops=1
+                                               Worker 1:  actual time=123.759..123.763 rows=6 loops=1
+                                               ->  Hash Join  (cost=1.32..8319.08 rows=5000 width=4) (actual time=82.426..95.453 rows=3977 loops=3)
+                                                     Output: supplier_1.s_suppkey
+                                                     Inner Unique: true
+                                                     Hash Cond: (supplier_1.s_nationkey = nation_1.n_nationkey)
+                                                     Worker 0:  actual time=123.622..123.644 rows=7 loops=1
+                                                     Worker 1:  actual time=123.616..123.652 rows=6 loops=1
+                                                     ->  Parallel Seq Scan on public.supplier_102010 supplier_1  (cost=0.00..7934.00 rows=125000 width=8) (actual time=0.016..5.828 rows=100000 loops=3)
+                                                           Output: supplier_1.s_suppkey, supplier_1.s_name, supplier_1.s_address, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_acctbal, supplier_1.s_comment
+                                                           Worker 0:  actual time=0.023..0.047 rows=181 loops=1
+                                                           Worker 1:  actual time=0.022..0.046 rows=180 loops=1
+                                                     ->  Hash  (cost=1.31..1.31 rows=1 width=4) (actual time=82.379..82.381 rows=1 loops=3)
+                                                           Output: nation_1.n_nationkey
+                                                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                           Worker 0:  actual time=123.547..123.548 rows=1 loops=1
+                                                           Worker 1:  actual time=123.566..123.568 rows=1 loops=1
+                                                           ->  Seq Scan on public.nation_102009 nation_1  (cost=0.00..1.31 rows=1 width=4) (actual time=82.370..82.373 rows=1 loops=3)
+                                                                 Output: nation_1.n_nationkey
+                                                                 Filter: (nation_1.n_name = 'ETHIOPIA'::bpchar)
+                                                                 Rows Removed by Filter: 24
+                                                                 Worker 0:  actual time=123.533..123.538 rows=1 loops=1
+                                                                 Worker 1:  actual time=123.557..123.560 rows=1 loops=1
+               ->  Finalize GroupAggregate  (cost=710053.89..823211.01 rows=155370 width=36) (actual time=4089.809..4101.200 rows=0 loops=1)
+                     Output: partsupp.ps_partkey, sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric))
+                     Group Key: partsupp.ps_partkey
+                     Filter: (sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric)) > (InitPlan 1).col1)
+                     Rows Removed by Filter: 899220
+                     ->  Gather Merge  (cost=710053.89..810339.78 rows=783944 width=36) (actual time=2226.106..2447.473 rows=899259 loops=1)
+                           Output: partsupp.ps_partkey, (PARTIAL sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric)))
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           ->  Partial GroupAggregate  (cost=709053.86..718853.16 rows=391972 width=36) (actual time=2211.733..2353.611 rows=299753 loops=3)
+                                 Output: partsupp.ps_partkey, PARTIAL sum((partsupp.ps_supplycost * (partsupp.ps_availqty)::numeric))
+                                 Group Key: partsupp.ps_partkey
+                                 Worker 0:  actual time=2203.946..2353.673 rows=302312 loops=1
+                                   JIT:
+                                     Functions: 25
+                                     Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                     Timing: Generation 0.845 ms (Deform 0.371 ms), Inlining 47.106 ms, Optimization 62.440 ms, Emission 43.913 ms, Total 154.304 ms
+                                 Worker 1:  actual time=2205.898..2352.181 rows=297694 loops=1
+                                   JIT:
+                                     Functions: 25
+                                     Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                     Timing: Generation 0.819 ms (Deform 0.351 ms), Inlining 41.435 ms, Optimization 64.081 ms, Emission 44.272 ms, Total 150.608 ms
+                                 ->  Sort  (cost=709053.86..710033.79 rows=391972 width=14) (actual time=2211.672..2223.528 rows=318133 loops=3)
+                                       Output: partsupp.ps_partkey, partsupp.ps_supplycost, partsupp.ps_availqty
+                                       Sort Key: partsupp.ps_partkey
+                                       Sort Method: quicksort  Memory: 22216kB
+                                       Worker 0:  actual time=2203.885..2215.937 rows=320950 loops=1
+                                         Sort Method: quicksort  Memory: 22318kB
+                                       Worker 1:  actual time=2205.836..2217.663 rows=315765 loops=1
+                                         Sort Method: quicksort  Memory: 22156kB
+                                       ->  Parallel Hash Join  (cost=8381.58..672638.90 rows=391972 width=14) (actual time=248.986..2168.128 rows=318133 loops=3)
+                                             Output: partsupp.ps_partkey, partsupp.ps_supplycost, partsupp.ps_availqty
+                                             Hash Cond: (partsupp.ps_suppkey = supplier.s_suppkey)
+                                             Worker 0:  actual time=241.674..2160.522 rows=320950 loops=1
+                                             Worker 1:  actual time=243.148..2162.618 rows=315765 loops=1
+                                             ->  Parallel Seq Scan on public.partsupp_102012 partsupp  (cost=0.00..625130.08 rows=9998408 width=18) (actual time=0.368..1284.207 rows=8000000 loops=3)
+                                                   Output: partsupp.ps_partkey, partsupp.ps_suppkey, partsupp.ps_availqty, partsupp.ps_supplycost, partsupp.ps_comment
+                                                   Worker 0:  actual time=0.381..1280.037 rows=8062135 loops=1
+                                                   Worker 1:  actual time=0.362..1287.956 rows=7953536 loops=1
+                                             ->  Parallel Hash  (cost=8319.08..8319.08 rows=5000 width=4) (actual time=248.394..248.398 rows=3977 loops=3)
+                                                   Output: supplier.s_suppkey
+                                                   Buckets: 16384  Batches: 1  Memory Usage: 640kB
+                                                   Worker 0:  actual time=241.212..241.217 rows=5554 loops=1
+                                                   Worker 1:  actual time=242.681..242.686 rows=6370 loops=1
+                                                   ->  Hash Join  (cost=1.32..8319.08 rows=5000 width=4) (actual time=188.169..211.896 rows=3977 loops=3)
+                                                         Output: supplier.s_suppkey
+                                                         Inner Unique: true
+                                                         Hash Cond: (supplier.s_nationkey = nation.n_nationkey)
+                                                         Worker 0:  actual time=153.504..186.475 rows=5554 loops=1
+                                                         Worker 1:  actual time=149.830..187.961 rows=6370 loops=1
+                                                         ->  Parallel Seq Scan on public.supplier_102010 supplier  (cost=0.00..7934.00 rows=125000 width=8) (actual time=0.048..17.901 rows=100000 loops=3)
+                                                               Output: supplier.s_suppkey, supplier.s_name, supplier.s_address, supplier.s_nationkey, supplier.s_phone, supplier.s_acctbal, supplier.s_comment
+                                                               Worker 0:  actual time=0.049..24.781 rows=139719 loops=1
+                                                               Worker 1:  actual time=0.039..28.801 rows=160100 loops=1
+                                                         ->  Hash  (cost=1.31..1.31 rows=1 width=4) (actual time=188.098..188.099 rows=1 loops=3)
+                                                               Output: nation.n_nationkey
+                                                               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                               Worker 0:  actual time=153.431..153.433 rows=1 loops=1
+                                                               Worker 1:  actual time=149.767..149.769 rows=1 loops=1
+                                                               ->  Seq Scan on public.nation_102009 nation  (cost=0.00..1.31 rows=1 width=4) (actual time=188.085..188.089 rows=1 loops=3)
+                                                                     Output: nation.n_nationkey
+                                                                     Filter: (nation.n_name = 'ETHIOPIA'::bpchar)
+                                                                     Rows Removed by Filter: 24
+                                                                     Worker 0:  actual time=153.418..153.422 rows=1 loops=1
+                                                                     Worker 1:  actual time=149.753..149.758 rows=1 loops=1
+             Planning Time: 0.867 ms
+             JIT:
+               Functions: 147
+               Options: Inlining true, Optimization true, Expressions true, Deforming true
+               Timing: Generation 4.509 ms (Deform 2.004 ms), Inlining 218.373 ms, Optimization 343.505 ms, Emission 249.665 ms, Total 816.052 ms
+             Execution Time: 4120.466 ms
+ Planning Time: 1.687 ms
+ Execution Time: 4131.357 ms
+(140 rows)
+

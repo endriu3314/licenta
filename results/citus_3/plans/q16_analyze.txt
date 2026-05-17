@@ -1,0 +1,64 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                   QUERY PLAN                                                                                                                                                                                                                                                                                                                                                                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Custom Scan (Citus Adaptive)  (cost=0.00..0.00 rows=0 width=0) (actual time=13592.998..13593.998 rows=27840 loops=1)
+   Output: remote_scan.p_brand, remote_scan.p_type, remote_scan.p_size, remote_scan.supplier_cnt
+   Task Count: 1
+   Tuple data received from nodes: 1160 kB
+   Tasks Shown: All
+   ->  Task
+         Query: SELECT part.p_brand, part.p_type, part.p_size, count(DISTINCT partsupp.ps_suppkey) AS supplier_cnt FROM public.partsupp_102012 partsupp, public.part_102011 part WHERE ((part.p_partkey OPERATOR(pg_catalog.=) partsupp.ps_partkey) AND (part.p_brand OPERATOR(pg_catalog.<>) 'Brand#12'::bpchar) AND ((part.p_type)::text OPERATOR(pg_catalog.!~~) 'MEDIUM PLATED%'::text) AND (part.p_size OPERATOR(pg_catalog.=) ANY (ARRAY[3, 35, 6, 25, 28, 41, 8, 50])) AND (NOT (partsupp.ps_suppkey OPERATOR(pg_catalog.=) ANY (SELECT supplier.s_suppkey FROM public.supplier_102010 supplier WHERE ((supplier.s_comment)::text OPERATOR(pg_catalog.~~) '%Customer%Complaints%'::text))))) GROUP BY part.p_brand, part.p_type, part.p_size ORDER BY (count(DISTINCT partsupp.ps_suppkey)) DESC, part.p_brand, part.p_type, part.p_size
+         Tuple data received from node: 1160 kB
+         Node: host=10.0.1.20 port=5432 dbname=postgres
+         ->  Sort  (cost=1385547.51..1386013.46 rows=186380 width=44) (actual time=13502.960..13505.077 rows=27840 loops=1)
+               Output: part.p_brand, part.p_type, part.p_size, (count(DISTINCT partsupp.ps_suppkey))
+               Sort Key: (count(DISTINCT partsupp.ps_suppkey)) DESC, part.p_brand, part.p_type, part.p_size
+               Sort Method: quicksort  Memory: 2507kB
+               ->  GroupAggregate  (cost=1345194.08..1369231.91 rows=186380 width=44) (actual time=11903.493..13470.322 rows=27840 loops=1)
+                     Output: part.p_brand, part.p_type, part.p_size, count(DISTINCT partsupp.ps_suppkey)
+                     Group Key: part.p_brand, part.p_type, part.p_size
+                     ->  Sort  (cost=1345194.08..1349628.89 rows=1773922 width=40) (actual time=11903.380..13211.268 rows=3563393 loops=1)
+                           Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                           Sort Key: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                           Sort Method: external merge  Disk: 181952kB
+                           ->  Merge Join  (cost=9272.61..1112567.68 rows=1773922 width=40) (actual time=232.198..6254.004 rows=3563393 loops=1)
+                                 Output: part.p_brand, part.p_type, part.p_size, partsupp.ps_suppkey
+                                 Inner Unique: true
+                                 Merge Cond: (partsupp.ps_partkey = part.p_partkey)
+                                 ->  Index Only Scan using partsupp_pkey_102012 on public.partsupp_102012 partsupp  (cost=9250.01..693919.91 rows=11998090 width=8) (actual time=232.091..3074.332 rows=23987600 loops=1)
+                                       Output: partsupp.ps_partkey, partsupp.ps_suppkey
+                                       Filter: (NOT (ANY (partsupp.ps_suppkey = (hashed SubPlan 1).col1)))
+                                       Rows Removed by Filter: 12400
+                                       Heap Fetches: 0
+                                       SubPlan 1
+                                         ->  Gather  (cost=1000.00..9249.50 rows=30 width=4) (actual time=17.007..81.104 rows=155 loops=1)
+                                               Output: supplier.s_suppkey
+                                               Workers Planned: 2
+                                               Workers Launched: 2
+                                               ->  Parallel Seq Scan on public.supplier_102010 supplier  (cost=0.00..8246.50 rows=12 width=4) (actual time=43.374..57.966 rows=52 loops=3)
+                                                     Output: supplier.s_suppkey
+                                                     Filter: ((supplier.s_comment)::text ~~ '%Customer%Complaints%'::text)
+                                                     Rows Removed by Filter: 99948
+                                                     Worker 0:  actual time=53.238..53.239 rows=0 loops=1
+                                                       JIT:
+                                                         Functions: 4
+                                                         Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                                         Timing: Generation 0.274 ms (Deform 0.101 ms), Inlining 37.606 ms, Optimization 8.381 ms, Emission 7.161 ms, Total 53.421 ms
+                                                     Worker 1:  actual time=60.656..60.657 rows=0 loops=1
+                                                       JIT:
+                                                         Functions: 4
+                                                         Options: Inlining true, Optimization true, Expressions true, Deforming true
+                                                         Timing: Generation 0.272 ms (Deform 0.110 ms), Inlining 44.870 ms, Optimization 8.464 ms, Emission 7.219 ms, Total 60.825 ms
+                                 ->  Index Scan using part_pkey_102011 on public.part_102011 part  (cost=0.43..368728.49 rows=887147 width=40) (actual time=0.087..2008.330 rows=891320 loops=1)
+                                       Output: part.p_partkey, part.p_name, part.p_mfgr, part.p_brand, part.p_type, part.p_size, part.p_container, part.p_retailprice, part.p_comment
+                                       Filter: ((part.p_brand <> 'Brand#12'::bpchar) AND ((part.p_type)::text !~~ 'MEDIUM PLATED%'::text) AND (part.p_size = ANY ('{3,35,6,25,28,41,8,50}'::integer[])))
+                                       Rows Removed by Filter: 5108680
+             Planning Time: 0.918 ms
+             JIT:
+               Functions: 34
+               Options: Inlining true, Optimization true, Expressions true, Deforming true
+               Timing: Generation 1.457 ms (Deform 0.584 ms), Inlining 133.898 ms, Optimization 89.979 ms, Emission 56.783 ms, Total 282.116 ms
+             Execution Time: 13566.340 ms
+ Planning Time: 1.575 ms
+ Execution Time: 13595.096 ms
+(60 rows)
+

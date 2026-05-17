@@ -1,0 +1,561 @@
+14:11:13.702 [main] INFO ro.uav.benchmark.config.AppConfig -- Loaded config from .env
+14:11:13.720 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q1
+14:11:13.720 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q21
+14:11:13.720 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q2
+14:11:13.720 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q18
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q4
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q9
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q6
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q3
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q5
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q11
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q7
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q20
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q12
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q8
+14:11:13.721 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q22
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q14
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q13
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q10
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q16
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q19
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q15
+14:11:13.722 [main] DEBUG ro.uav.benchmark.query.QueryLoader -- Loaded query tpch/q17
+14:11:13.727 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q1 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:11:13.727 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:11:23.595 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:11:30.759 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:11:37.129 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:11:43.930 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:11:43.931 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:11:50.188 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:11:50.189 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:11:56.651 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:11:56.652 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:02.897 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:12:02.898 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:09.164 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:12:09.165 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:15.261 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:12:15.263 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:21.454 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:12:21.455 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:27.997 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:12:27.999 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:34.190 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:12:34.191 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:40.265 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:12:40.267 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q10 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:12:40.268 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:12:50.762 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:01.124 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:10.878 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:19.526 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:13:19.527 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:26.800 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:13:26.801 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:34.675 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:13:34.676 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:43.142 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:13:43.143 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:49.776 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:13:49.777 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:13:57.559 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:13:57.560 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:04.722 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:14:04.723 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:13.869 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:14:13.870 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:21.501 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:14:21.502 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:29.256 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:14:29.257 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q11 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:14:29.257 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:31.673 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:34.112 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:36.520 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:38.977 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:14:38.978 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:41.440 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:14:41.442 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:43.874 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:14:43.876 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:46.312 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:14:46.313 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:48.736 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:14:48.737 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:51.240 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:14:51.242 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:53.651 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:14:53.653 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:56.097 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:14:56.098 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:14:58.534 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:14:58.535 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:00.993 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:15:00.995 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q12 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:15:00.995 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:05.227 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:09.663 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:14.503 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:18.479 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:15:18.480 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:22.301 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:15:22.302 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:25.933 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:15:25.934 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:29.696 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:15:29.698 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:36.219 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:15:36.220 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:41.382 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:15:41.383 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:45.752 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:15:45.753 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:49.553 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:15:49.555 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:53.918 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:15:53.919 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:15:57.545 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:15:57.546 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q13 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:15:57.546 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:18:53.512 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:21:49.419 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:24:42.974 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:27:34.934 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:27:34.938 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:30:30.791 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:30:30.795 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:33:24.488 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:33:24.492 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:36:20.268 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:36:20.271 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:39:15.062 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:39:15.066 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:42:09.346 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:42:09.350 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:45:04.875 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:45:04.879 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:48:03.150 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:48:03.153 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:50:58.756 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:50:58.759 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:53:54.072 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:53:54.075 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q14 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:53:54.075 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:01.074 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:06.117 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:09.420 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:11.851 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:54:11.852 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:14.223 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:54:14.224 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:16.671 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:54:16.672 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:19.058 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:54:19.059 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:21.391 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:54:21.392 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:23.828 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:54:23.829 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:26.200 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:54:26.200 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:28.629 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:54:28.629 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:30.945 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:54:30.945 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:33.313 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:54:33.314 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q15 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:54:33.314 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:38.658 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:43.835 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:49.258 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:54.542 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:54:54.543 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:54:59.874 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:54:59.877 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:05.332 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:55:05.333 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:10.612 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:55:10.613 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:15.979 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:55:15.980 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:21.261 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:55:21.262 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:26.568 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:55:26.569 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:31.833 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:55:31.834 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:37.079 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:55:37.083 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:42.341 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:55:42.341 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q16 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:55:42.342 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:55:53.349 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:56:04.246 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:56:15.211 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:56:26.215 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:56:26.216 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:56:37.386 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:56:37.388 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:56:48.287 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:56:48.288 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:56:59.120 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:56:59.121 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:57:10.092 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+14:57:10.094 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:57:21.169 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+14:57:21.171 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:57:32.080 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+14:57:32.081 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:57:42.922 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+14:57:42.924 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:57:53.920 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+14:57:53.921 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.819 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+14:58:04.820 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q17 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:58:04.820 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.839 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.839 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.855 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.855 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.869 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.870 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.884 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.884 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.899 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.899 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.914 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.914 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.929 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.929 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.944 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.945 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.959 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.959 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.973 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.973 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:04.987 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:04.988 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:05.002 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:05.002 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:05.017 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: ERROR: complex joins are only supported when all distributed tables are co-located and joined on their distribution columns
+14:58:05.017 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q18 on CITUS (3 nodes) - 3 warmup + 10 runs
+14:58:05.017 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:11.613 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:23.604 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:39.191 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:58:56.114 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+14:58:56.115 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:59:11.813 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+14:59:11.814 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:59:30.362 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+14:59:30.363 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+14:59:48.801 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+14:59:48.801 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:00:06.393 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:00:06.394 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:00:21.987 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:00:21.988 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:00:38.604 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:00:38.605 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:00:54.589 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:00:54.590 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:01:12.248 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:01:12.249 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:01:30.758 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:01:30.759 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q19 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:01:30.759 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:01:47.074 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:01:56.485 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:01:59.895 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:03.030 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:02:03.031 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:06.253 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:02:06.254 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:09.343 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:02:09.344 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:12.429 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:02:12.429 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:15.454 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:02:15.455 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:18.455 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:02:18.456 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:21.475 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:02:21.476 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:24.551 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:02:24.552 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:27.597 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:02:27.598 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:30.679 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:02:30.680 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q2 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:02:30.680 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:37.885 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:45.362 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:52.494 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:02:59.598 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:02:59.599 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:06.486 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:03:06.487 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:13.621 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:03:13.623 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:20.618 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:03:20.619 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:27.982 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:03:27.983 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:35.131 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:03:35.132 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:42.330 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:03:42.331 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:49.513 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:03:49.514 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:03:56.440 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:03:56.441 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:03.956 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:04:03.957 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q20 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:04:03.957 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:03.972 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:03.973 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:03.988 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:03.988 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.002 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.002 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.017 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.017 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.031 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.031 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.045 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.045 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.058 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.058 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.073 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.073 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.089 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.089 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.103 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.104 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.118 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.118 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.133 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.133 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:04.147 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:04:04.147 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q21 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:04:04.147 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:08.663 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:17.344 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:29.713 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:40.487 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:04:40.488 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:04:50.411 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:04:50.412 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:00.578 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:05:00.582 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:07.404 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:05:07.405 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:13.876 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:05:13.877 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:19.215 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:05:19.216 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:24.611 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:05:24.612 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:30.610 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:05:30.610 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:36.244 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:05:36.245 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.661 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:05:41.662 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q22 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:05:41.662 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.678 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 0 failed ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.678 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.693 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 1 failed ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.693 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.707 [main] WARN ro.uav.benchmark.benchmark.BenchmarkRunner -- Warmup run 2 failed ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.707 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.722 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 0 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.722 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.737 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 1 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.737 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.752 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 2 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.753 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.768 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 3 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.768 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.783 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 4 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.784 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.800 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 5 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.800 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.816 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 6 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.816 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.832 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 7 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.833 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.849 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 8 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.849 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:05:41.862 [main] ERROR ro.uav.benchmark.benchmark.BenchmarkRunner -- Measurement run 9 failed: ERROR: correlated subqueries are not supported when the FROM clause contains a reference table
+15:05:41.862 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q3 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:05:41.862 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:06:04.969 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:06:22.182 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:06:41.733 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:07:01.738 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:07:01.741 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:07:21.064 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:07:21.065 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:07:37.366 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:07:37.367 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:07:56.298 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:07:56.299 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:08:13.881 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:08:13.883 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:08:29.802 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:08:29.806 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:08:49.258 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:08:49.259 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:06.550 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:09:06.551 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:22.799 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:09:22.801 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:30.692 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:09:30.693 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q4 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:09:30.693 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:35.174 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:39.452 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:41.608 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:43.004 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:09:43.005 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:44.377 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:09:44.378 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:45.612 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:09:45.613 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:46.816 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:09:46.817 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:48.033 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:09:48.034 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:49.303 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:09:49.303 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:50.636 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:09:50.637 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:51.968 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:09:51.969 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:53.216 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:09:53.216 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:09:54.490 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:09:54.491 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q5 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:09:54.491 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:03.479 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:11.266 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:15.495 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:19.788 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:10:19.789 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:23.979 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:10:23.980 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:28.155 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:10:28.156 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:32.184 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:10:32.184 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:36.131 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:10:36.132 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:40.467 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:10:40.468 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:44.492 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:10:44.493 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:48.647 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:10:48.648 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:52.786 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:10:52.787 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:10:56.879 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:10:56.880 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q6 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:10:56.880 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:03.709 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:08.222 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:10.115 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:11.756 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:11:11.757 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:13.363 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:11:13.364 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:14.925 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:11:14.926 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:16.500 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:11:16.501 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:18.116 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:11:18.117 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:19.701 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:11:19.702 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:21.295 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:11:21.295 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:22.858 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:11:22.859 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:24.403 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:11:24.404 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:26.003 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:11:26.004 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q7 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:11:26.004 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:32.812 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:39.499 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:46.642 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:52.430 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:11:52.431 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:11:59.911 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:11:59.912 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:06.010 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:12:06.011 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:11.707 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:12:11.707 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:20.355 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:12:20.356 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:27.724 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:12:27.725 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:33.972 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:12:33.973 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:40.691 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:12:40.692 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:46.349 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:12:46.350 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:12:51.936 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:12:51.937 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q8 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:12:51.937 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:13:01.943 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:13:14.177 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:13:26.037 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:13:38.418 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:13:38.419 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:13:50.532 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:13:50.533 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:14:03.310 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:14:03.311 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:14:15.894 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:14:15.896 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:14:28.370 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:14:28.372 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:14:41.375 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:14:41.377 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:14:53.944 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:14:53.945 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:15:07.002 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:15:07.004 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:15:19.940 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:15:19.941 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:15:31.804 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:15:31.806 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner -- Benchmarking tpch/q9 on CITUS (3 nodes) - 3 warmup + 10 runs
+15:15:31.806 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:15:52.469 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:16:07.287 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:16:21.787 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:16:36.372 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 1/10 completed
+15:16:36.373 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:16:50.974 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 2/10 completed
+15:16:50.975 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:17:05.636 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 3/10 completed
+15:17:05.636 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:17:19.795 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 4/10 completed
+15:17:19.796 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:17:34.446 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 5/10 completed
+15:17:34.446 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:17:49.377 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 6/10 completed
+15:17:49.378 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:18:03.709 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 7/10 completed
+15:18:03.710 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:18:18.461 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 8/10 completed
+15:18:18.461 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:18:33.577 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 9/10 completed
+15:18:33.577 [main] DEBUG ro.uav.benchmark.db.CitusConnector -- Connecting to Citus at 10.0.1.20:5432
+15:18:47.775 [main] INFO ro.uav.benchmark.benchmark.BenchmarkRunner --   Run 10/10 completed
+15:18:47.795 [main] INFO ro.uav.benchmark.export.CsvExporter -- Raw results exported to ./results/benchmark_20260517_151847_raw.csv
