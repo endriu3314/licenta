@@ -1,0 +1,11 @@
+\chapter{Introducere}
+
+\section{Motivarea alegerii temei lucrării}
+
+Creșterea volumului de date a generat o necesitate pentru adoptarea sistemelor distribuite de baze de date SQL, ceea ce a creat o nevoie pentru înțelegerea arhitecturală și a diferențelor între aceste sisteme ce pot duce la diferențe măsurabile în condiții reale. Această lucrare dorește să adreseze această evaluare prin măsurarea a 3 sisteme diferite: CockroachDB, TiDB și Citus folosindu-se de benchmark-ul de suport decizional TPC-H \cite{tpch} pe clustere de 3, 5, 10 și 20 de noduri, implementate pe un hardware identic. Cele trei sisteme au fost selectate deoarece reprezintă abordări arhitecturale distincte. În cazuri din viața reală un sistem de baze de date deservește mai multe acțiuni, un sistem ce în timpul zilei suportă tranzacții este așteptat să suporte și interogări de tip raport și agregări. Menținerea constantă a infrastructurii împreună cu restul deciziilor arhitecturale garantează că diferențele de performanță observată reflectă diferențele arhitecturale între sisteme și nu diferențe hardware.
+
+\section{Obiectivele și contribuțiile lucrării}
+
+Această lucrare urmărește trei obiective principale: stabilirea unui profil de performanță pentru fiecare sistem pentru benchmark-ul TPC-H, identificarea și explicarea diferențelor arhitecturale ce reies din rezultate și producerea unei metodologii de măsurare ce poate fi extinsă pentru măsurarea oricărui sistem.
+
+Contribuțiile sunt multiple: folosirea unui set de date empirice comparative acoperind trei sisteme SQL distribuite pe patru configurații de cluster, o analiză ce conectează rezultate brute de diferențe arhitecturale de execuție, crearea unei metodologii replicabile implementată în Java, cu infrastructură provizionată prin Terraform.

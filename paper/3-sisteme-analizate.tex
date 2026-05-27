@@ -1,0 +1,57 @@
+\chapter{Sisteme Analizate}
+
+Acest capitol urmărește să analizeze arhitectura internă a celor 3 sisteme de baze de date SQL distribuite ce le vom analiza cu obiectivul de a stabili fundamentul arhitectural în raport cu care vor fi interepretate rezultatele TPC-H din capitolele următoare. Cele trei sisteme se poziționează diferit în relație cu decuplarea dintre stratul SQL de procesare și stratul de stocare dar și prin granularitatea în care se gestionează replicarea și consensul. CockroachDB integrează stratul SQL peste un strat de stocare KV (chei - valoare) distribuit încorporat. TiDB are o abordare diferită, dezbină clar procesarea, stocarea și metadatele în trei niveluri scalabile independent. Citus extinde un server PostgreSQL clasic, cu o topologie coordonator-worker, realizată prin extensii și interceptarea planificatorului și executorului \cite{taftcrdb2020,huangtidb2020,cubukcucitus2021}. Orice decizie la acest nivel are implicații directe observate într-un workload analitic.
+
+\section{CockroachDB}
+
+\paragraph{Arhitectura peer-to-peer simetrică, distribuția rangurilor}
+
+CRDB este conceput ca un cluster simetric de tip peer-to-peer în care fiecare nod execută un binar identic ce expune atât stratul SQL, cât și stratul KV, eliminând o distincție dintre rolul de master și worker \cite{taftcrdb2020, crdb_arch_overview}. Spațiul de chei este organizat ca o singură hartă și este subdivizat în segmente contigue (adiacente). Varianta inițială SIGMOD specifică o dimensiune aproximativă de 64MiB varianta actuală (configurabilă prin variabila \texttt{range\_max\_bytes}) este implicit la valoarea de 512 MiB \cite{taftcrdb2020, crdb_arch_overview}. Fiecare segment este replicat printr-un grup independent de consens ce implementează protocolul Raft. Fiecare rang este replicat cu trei replici distribuite pe domenii de defecțiune distince, o singură replică per rang deține un contract de rang (range lease) și este întodeauna co-localizată cu liderul Raft. Acest aranjament permite citirele consistente la nivel local, fără un schimb suplimentar de consens \cite{crdb_arch_overview}. Plasarea, divizarea și reechilibrarea rangurilor sunt coordonate printr-un protocol de tip gossip și un alocator automat, și nu printr-un planificator central
+
+\paragraph{Mecanismul de query optimization}
+
+Optimizarea interogărilor în CRDB este realizată de un optimizator bazat pe costuri \cite{crdb_cbo}. Optimizatorul se folosește de reguli de transformare organizate în faze de normalizare și explorare. Estimarea costurilor se bazează pe statistici care includ numărul de rânduri, numărul de valori distincte și nule, precum și histograme de adâncime egală meținute per coloană de index, cu actualizare automată declanșată atunci când un procent din rândurile unui tabel au fost modificate \cite{crdb_cbo}. upă optimizarea logică, o etapă separată de planificare fizică produce un graf aciclic orientat de procesoare conectate prin fluxuri tipizate; acest plan DistSQL determină care noduri participă la execuție pe baza localității rangurilor, cu obiectivul explicit de a împinge procesarea cât mai aproape de datele pe care le consumă \cite{rfc-distributed-sql-cockroach}.
+
+\paragraph{Strategii de join \& agregare}
+
+Modelul de execuție distribuită al CRDB suportă patru strategii de join, selectate de optimizator în funcție de dimensiunea datelor, disponibilitatea indecșilor și proprietățile de ordonare ale intrărilor \cite{crdb_join}. Join-urile hash constituie mecanismul implicit, construind o tabelă hash în memorie pe intrarea mai mică și deversând pe disc atunci când memoria impune acest lucru. Joinurile prin interclasare (merge joins) sunt preferate atunci când ambele relații sunt citite într-o ordine de sortare compatibilă prin indecși pe coloanele de join și sunt utilizate exclusiv în planuri distribuite \cite{crdb_join}. Join-urile prin căutare (lookup joins) vizează cazul unei asimtetrii pronunțate de dimensiune între cele două părți. Join-urile de tip apply (apply joins) servesc ca ultima instanță pentru subinterogările corelate care nu pot fi decorelate și sunt semnalate ca un tipar de evitat.
+
+Agregarea urmează un tipar în două etape, un procesor local calculează o agregare parțială per rang, după care un router cu partiționare hash redirecționează rezultatele parțiale către un agregator final care le combină \cite{rfc-distributed-sql-cockroach}.
+
+\paragraph{Partiționare și colocation}
+
+Partiționarea explicită a tabelelor în CRDB este implementată ca o funcționalitate enterprise care acceptă specificații de partiționare prin listă sau interval asupra coloanelor oricărui index și se integrează cu configurațiile de zonă pentru a varia setările de replicare și constrângerile de plasare la granularitatea partiției \cite{crdb_arch_overview}.
+
+\section{TiDB}
+
+\paragraph{Arhitectura separata}
+
+TiDB este compus din trei niveluri distincte din punct de vedere arhitectural: un nivel de procesare SQL fără state, un nivel de stocare orientat pe rânduri replicat prin Raft și un serivciu de metadate. Acest aranjament arhitectural permite scalarea independentă a fiecărui nivel față de celelalte \cite{huangtidb2020}. Nivelul de procesare este format din procese TiDB care implementează protocolul MySQL, parsează, planifică interogările și coordonează execuția distribuită. Deoarece aceste noduri nu au state, ele pot fi scalate orizontal fără mișcări de date. Mecanismul de stocare, TiKV expune o hartă KV ordonată în care fiecare rând este codificat într-o cheie compusă din identificatorul tabelului și identificatorul rândului. Spațiul de chei este partițional în segmente denumite \texttt{regiuni} iar fiecare regiune constituie un grup Raft independent al cărui lider gestionează toate cererile de citire și scriere pentru acel segment \cite{huangtidb2020}. În final, nivelul de metadata PD (placement driver) este un cluster de dimensiuni reduse, care folosește stocare KV (prin etcd) care planifică mutările pentru echilibrarea sarcinii \cite{huangtidb2020}. Separarea clară dintre calcul și stocare este o caracteristică definitorie pentru TiDB.
+
+\paragraph{Mecanismul de optimizare a interogărilor}
+
+Optimizarea interogărilor în TiDB se execută în 2 faze, prima etapă este o etapă bazată pe reguli ce produce un plan logic normalizat, urmat de o etapă de planificare bazată pe cost \cite{huangtidb2020}. Planificarea bazată pe reguli include transformările convenționale de eliminare a coloanelor redundante, eliminarea proiecțiilor, propagarea și derivarea predicatelor, elimnarea clauzelor \texttt{GROUP BY} redundante sau a join-urilor inutile \cite{huangtidb2020}. Optimizarea bazată pe cost se face similar cu cea din CRDB, cu statistici pe tabel, în plus pe lângă statistici legale de numarul de rânduri, numarul de rânduri distince, numărul de valori null se folosește și un top de valori frecvente, aceste valori sunt recalculate prin funcția \texttt{ANALYZE} sau periodic \cite{tidb_stats}. Cel mai distinctiv mecanism de optimizare din TiDB este însă propagarea calculului către nivelul de stocare prin intermediul interfeței \texttt{coprocessor}: selecțiile, agregările parțiale, TopN, Limit și fragmentele de proiecție sunt evaluate în paralel în cadrul fiecărei Regiuni TiKV, iar doar rezultatele intermediare reduse sunt returnate nivelului de procesare pentru asamblarea finală \cite{huangtidb2020}.
+
+\paragraph{Strategii de join}
+
+Operațiile de join în topologia studiată (exclusiv pe rânduri) sunt efectuate în cadrul PD, deoarece coprocesoarele TiKV nu sunt capabile să efectueze joinuri între regiuni \cite{tidb_joins, huangtidb2020}. Optimizatorul are de ales între 3 algoritmi. Joinuri hash, prin care planificatorul materializează partea de construcție într-o tabelă hash și o interoghează cu cealaltă parte, execuția lor este multi-thread. Dacă numărul estimat de rânduri care trebuie joinuite este redus, este preferabilă utilizarea metodei de join prin index \cite{tidb_joins}. Joinul prin interclasare (merge join) este un tip special de join care se aplică atunci când ambele părți sunt citite în oridne sortată. Această metodă nu folosește la fel de multă memorie ca un hash join dar nu poate fi executată în paralel.
+
+Această concentrare a procesării joncțiunilor într-un nivel centralizat reprezintă un blocaj structural pentru interogările analitice care produc rezultate intermediare de mari dimensiuni și motivează decizia arhitecturală din implementările HTAP de a introduce un motor columnar. Această cale este exclusă în mod deliberat din comparația de față și este documentată ca atare în capitolul de metodologie.
+
+\section{Citus (Extensie PostgreSQL)}
+
+\paragraph{Architectura coordinator-worker, distributed vs reference tables}
+
+Citus funcționează ca extensie PostgreSQL care interceptează planificarea cererilor prin hook-uri expuse de server. Fiecare nod din cluster (coordinator și workers) este un server PostgreSQL complet. La parsarea unei cereri, planificatorul Citus determină dacă sunt referențiate tabele Citus; în caz afirmativ, produce un arbore de plan cu rădăcină CustomScan care encapsulează strategia de execuție distribuită \cite{cubukcucitus2021}. Metadatele clusterului sunt stocate în cataloagele sistem prefixate cu \texttt{pg\_dist\_}, iar coordonatorul servește ca punct de intrare pentru conexiunile client.
+
+\paragraph{Routarea și executarea interogărilor}
+
+Planificatorul Citus clasifică cererile în categorii și selectează strategii corespunzătoare \cite{cubukcucitus2021, citusdata2017howcitusworks}. Calea cea mai eficientă este cererea router: atunci când o cerere conține predicat de egalitate pe coloana de distribuție, planificatorul rescrie identificatorii și expediază enunțul către singurul worker cu fragmentele relevante, fără execuție pe coordonator.
+
+\paragraph{Partiționare}
+
+Coloana de distribuție este cea mai importantă decizie de design \cite{citusDocs2026choosingDistributionColumn}: trebuie să aibă cardinalitate mare, distribuție uniformă (evitând asimetria fragmentelor), să apară frecvent în GROUP BY și join-uri. Pentru aplicații multi-tenant, un identificator de locatar pe fiecare tabel produce join-uri co-locate. Pentru analytics star-schema, tabelul de fapte și dimensiuni mari trebuie să partajeze un identificator comun, iar dimensiuni mici se convertesc la tabele de referință \cite{citusDocs2026choosingDistributionColumn, citusdata2017howcitusworks}.
+
+\section{Comparație arhitecturală sintetică}
+
+Cele trei sisteme se diferențiază pe două axe principale. Primul este cuplajul dintre nivelul SQL și motorul de stocare: strâns în CockroachDB (binar unic) \cite{taftcrdb2020}; slab în TiDB (noduri SQL comunică cu TiKV prin gRPC) \cite{huangtidb2020}; bazat pe extensii în Citus (PostgreSQL nemodificat cu hook-uri) \cite{cubukcucitus2021}. Al doilea este granularitatea gestionării replicării: CockroachDB și TiDB rulează grupuri Raft independente per fragment cu consensus per-shard, iar Citus (open-source) se bazează pe replicarea streaming PostgreSQL fără consensus per-shard.

@@ -1,0 +1,172 @@
+\chapter{Metodologie}
+
+Acest capitol descrie sistemul folosit pentru a evalua performanța interogărilor analitice ale CockroachDB, TiDB și Citus pe clustere de dimensiuni diferite. Fiecare decizie de design este justificată în termenii contribuției sale la validatatea comparației, de la alegerea workload-ului și setului de date, decizii luate legate de infrastructură și tipologia cluster-ului, până la pipeline-ul de încărcare a datelor, framework-ul de benchmarking (analiză comparativă) și protocolul de măsurare.
+
+\section{Utilizarea setului de date TPC-H și caracterizarea workload-ului}
+
+Pentru acest studiu a fost selectat benchmark-ul Transaction Processing Performance Council Decision Support (TPC-H) ca workload analitic (de tip OLAP). TPC-H modelează un scenariu de date pe o magazie în lanțul de aprovizionare, acesta cuprinde 22 de query-uri SQL (interogări) de citire aplicate asupra 8 tabele. Benchmark-ul a fost proiectat pentru a stresa sistemele de suport decizional, folosinduse de scanări complete sau parțiale ale tabelelor, join-uri multi-tabel peste seturi de rezultate intermediare mari, agregări și subquery-uri corelate.
+
+Selecția unui benchmark analitic pentru a evalua sisteme al căror țintă de proiectare primară este un workload tranzacțional se justifică prin faptul că CockroachDB, TiDB și Citus se poziționează ca fiind capabile să deservească workload-uri mixte sau hibride. În documentația acestor sisteme se discută suportul pentru interogări analitice. Evaluarea acestor sisteme sub un set de interogări pur analitice introduce astfel o discriminare din punct de vedere arhitectural pentru motoarele distribuite orientate pe rânduri. Utilizarea unui benchmark tranzacțional ar măsura în schimb coordonarea blocajelor și latența commit-ului, domeniile în care aceste sisteme sunt optimizare, dar ar produce rezultate mai puțin revelatoare ale compromisurilor arhitecturale investigate în contextul interogărilor grele din punct de vedere analitic.
+
+\subsection{Schema relațională}
+
+Schema TPC-H este formată din 8 tabele care exprimă o parte dintr-un lanț de aprovizionare și anume o magazie: \texttt{PART}, \texttt{SUPPLIER}, \texttt{PARTSUPP}, \texttt{CUSTOMER}, \texttt{ORDERS}, \texttt{LINEITEM}, \texttt{NATION}, \texttt{REGION} și \texttt{LINEITEM} (tabelul principal), la un SF30 (scale-factor - factor de scară), acest tabel are aproximativ 180 milioane de rânduri (în jur de 22GB de date), marcând acest tabel ca cel principal în majoritatea interogărilor care folosesc scan și join-uri. Restul tabelelor, \texttt{ORDERS} și \texttt{PARTSUPP} sunt tabele de mărime medie, pe când \texttt{NATION} și \texttt{REGION} sunt tabele de referințe mici de 25 respectiv 5 rânduri.
+
+\subsection{Scale Factor}
+
+A fost utilizat un scale factor (factorul de scară) 30 (SF30), aproximativ 30GB de date necomprimate. Această decizie reflectă unele limitări introduse de infrastructura de testare, dacă foloseam un set mai mic de date, mai ales într-un sistem de 20 de noduri, exista riscul ca o interogare agregată mare să fie stocată într-un buffer (zonă de memorie temporară) și să fie servită din această memoerie, mascând astfel interogările I/O și transferurile din rețea. Dacă foloseam un set mai mare de date exista riscul să nu încapă pe numărul mic de noduri testat.
+
+
+\section{Clasificarea interogărilor TPC-H}
+
+Am grupat cele 22 de interogări din TPC-H în patru categorii bazat pe execuția acestora. Această grupare este aplicată în această lucrare în analiza rezultatelor pentru a determina dacă tiparul observat în diferențe se corelează cu clasa complexității interogării sau reflectă un comportament al sistemului în întreg.
+
+\paragraph{Grupa 1 - Interogări dominate de scanări (Q1, Q6, Q14, Q19).} Aceste interogări sunt dominate de o singură secvență de scanare asupra tabelei \texttt{LINEITEM}, care conține aproximativ 180 de milioane de rânduri. Q1 și Q6 efectuează o scanare urmată de o agregare scalară sau grupată. Q14 introduce un join pe tabela mai mică \texttt{part}. Q19 adaugă predicate complexe care combină mai multe condiții.
+
+\paragraph{Grupa 2 - Interogări dominate de îmbinări (Q3, Q5, Q7, Q8, Q9, Q10).} Aceste interogări execută joins pe mai multe tabele, variind de la trei la șase relații. Q5, Q8 și Q9 sunt cele mai complexe interogări, îmbinând mai multe tabele de dimensiuni multiple, inclusiv \texttt{LINEITEM}. Q7 include un join încrucișat pe tabela \texttt{NATION}. Performanța acestor interogări va depinde de strategia de join selectată de planificator și capacitatea sistemului de a redistribui date între noduri.
+
+\paragraph{Grupa 3 - Interogări conduse de subinterogări (Q2, Q11, Q17, Q22).} Aceste interogări se folosesc de subinterogări care calculează praguri pentru predicatele de filtrare interogăriilor externe.
+
+\paragraph{Grupa 4 - Interogări în mai multe etape (Q4, Q12, Q13, Q15, Q16, Q18, Q20, Q21).} Aceste interogări se execută ca etape multiple cu materializare intermediară și dependențe. Q4 și Q21 utilizează semi-joins și anti-joins. Q12 și Q18 înlănțuiesc scanări și joins. Q13 și Q15 efectuează operații de grupare consecutive. Q16 combină un anti-join cu o operație de distinct. Q20 exprimă condiții corelate rescrise în lanțuri de joins.
+
+\section{Infrastructură}
+
+\subsection{Specificația hardware și definirea nodurilor}
+
+Infrastructura pentru cluster a fost provizionată pe furnizorul Hetzner Cloud și formată din două tipuri de noduri: un singur \textit{controller} nod și un număr variabil de noduri pentru \textit{baza de date}. \textbf{Nodul controller} a rulat pe o instanță \texttt{CPX32} cu următoarele specificații \texttt{4 vCPU AMD, 8GB RAM, 160GB local NVMe SSD} și a fost nodul principal care a deservit mai multe funcționalități în acest benchmark precum: rularea aplicației, generarea și stocarea datelor TPC-H până la distribuirea în baza de date, și infrastructura pentru distribuirea datelor în momentul încărcării. \textbf{Nodurile pentru baza de date} au rulat fiecare pe o instanță \texttt{cpx52} cu următoarele specificații: \texttt{12 vCPU AMD, 24 GB RAM, 480GB local NVMe SSD}. Toate nodurile pentru baza de date au fost provizionate cu același tip de server pe toate sistemele de baze de date și numărul de noduri testat. Aceste statistici hardware au fost confirmate manual prin verificarea lor pe server și prin statisticile furnizate în momentul colectării de la TiDB. Toate nodurile au rulat o imagină goală de Ubuntu 22 (forțat de către Citus care nu suporta la momentul testării Postgres18 și Ubuntu 24 prin versiunea Citus 4).
+
+Instanțele pentru nodurile bazei de date a fost aleasă ca fiind \texttt{cpx52} în urma experimentării inițiale pe noduri mai mici (\texttt{cpx32}) care au eșuat în a rula anumite interogări complexe rezultând o eroare de tip OOM (out of memory - procesul rămânea fără memorie RAM).
+
+Setările pentru fiecare bază de date au fost listate în fișierele de inițializare, s-a încercat păstrarea lor cât mai aproape de setările implicite. În cazul TiDB a fost mărită memoria disponibilă pentru o interogare pentru a prevenii OOM-ul, iar pentru Citus este nevoie să setezi această memorie, nu există o setare implicită.
+
+\subsection{Arhitectura rețelei}
+
+Toate nodurile au fost interconectate printr-o rețea privată în cadrul Hetzner în spațiul adresei \texttt{10.0.0.0/16}, cu un subnet dedicat pentru comunicarea internă a clusterului \texttt{10.0.1.0/24}. Controller a avut tot timpul IP-ul fix \texttt{10.0.1.10}, iar nodurile pentru bazele de date au primit ip-uri în ordine crescătoare de la \texttt{10.0.1.20}. Nodurile pentru baza de date nu au avut o adresă IPv4 publică, ele nefiind accesibile din rețeaua publică decât printr-un \texttt{SSH jump} prin controller. Această implementară mimează o implementare reală în producție al unui astfel de sistem.
+
+\subsection{Provizionare și automatizare}
+
+Crearea infrastructurii a fost automatizată prin intermediul Terraform, cu pluginul de Hetzner Cloud Provider oferit de ei. Un singur fișier \texttt{main.tf} a definit rețeaua privată, nodul controller și nodurile de baze de date printr-un parametru pentru numărul lor. Fiecare cluster a fost inițializat pentru benchmark și șters după acesta pentru a optimiza costurile și a prevenii interferențele între sistemele de baze de date, astfel fiecare rulare a fost făcută pe o instalare proaspătă.
+
+Automatizarea pentru configurarea serverelor a fost formată dintr-un număr de scripturi shell, executate atât local (primul script) cât și prin SSH pe nodul controller. Primul script și anume \texttt{upload-benchmark.sh} a fost rulat de pe laptopul personal, pentru a transfera toate fișierele de care este nevoie pe nodul controller și anume: aplicația de benchmark compilată (fișierul .JAR), interogările pentru TPC-H (specifice pentru fiecare motor de baze de date), schema bazei de date, celălalte script-uri pentru setupul nodurilor, un fișier de environment (\texttt{.env}) și un script pentru generarea datelor TPC-H. În acest script se mai execută și anumite comenzi pentru a instala dependințele necesare pe nodul controller precum: Docker, NGiNX, Java și GCC - pentru compilarea utilității TPC-H oferită de TPC. La finalul acestui script se distribuie cheia SSH publică a nodului controller pe fiecare nod de baze de date pentru acces ulterior.
+
+După acest proces, am folosit următorul script și anume \texttt{setup-all-nodes.sh}, acest script iterează prin fiecare nod și face preparări la nivel de sistem de operare și efectuează o restartare. În final se așteaptă ca fiecare nod să repornească și se dă o restartare finală pentru nodul controller.
+
+Pentru a rula benchmarkul se folosește un script numit \texttt{run-benchmark.sh} care invocă alte 4 scripturi la rândul său, fiecare individuale pentru fiecare sistem de baze de date și anume: dezinstalarea sistemului, instalarea lui, încărcarea datelor, colectarea metadatelor (setărilor din baza de date și analizele interogărilor), rularea aplicației și apoi dezinstalarea sistemului din nou. Dezinstalarea sistemului este o parte ce nu a fost utilizată, deoarece noi refăceam tot cluster-ul la orice modificare a numărului de noduri sau a sistemului testat.
+
+\subsection{Instalarea bazei de date}
+
+Cum am spus mai sus, fiecare sistem avea proprii pași pentru instalare, prin propriile scripturi operate via SSH din nodul controller.
+
+Pentru \textbf{CockroachDB} binarul de instalare a fost descărcat pe nodul controller, apoi distribuit prin \texttt{scp} pe fiecare nod de bază de date. După ce baza de date a fost instalată pe fiecare nod a fost realizată o înregistrare în \texttt{systemd} pentru procesul Cockroach. Inițializarea clusterului a fost realizată pe nodul primar (\texttt{10.0.1.20)} prin comanda \texttt{start}, după ce toate sistemele au fost accesibile și disponibile pentru conectare.
+
+\textbf{TiDB} a fost instalat prin sistemul \texttt{TiUP} oferit de \texttt{PingCAP}, fiind recomandarea oficială pentru pornirea acestui sistem. Un fișier de tip YAML a fost generat pe nodul controller în funcție de numărul de noduri pentru a stabilii componentele ce vor forma clusterul (TiKV, PD, TiDB). Acest fișier a fost folosit de către \texttt{tiup} prin comenziile \texttt{cluster deploy} și \texttt{cluster start} pentru a da drumul sistemului, făcând acest sistem cel mai ușor de instalat.
+
+\textbf{Citus} a fost instalat pe fiecare nod, folosind script-ul oficial oferit de cei de la Citus folosindu-se packetul \texttt{postgresql-17-citus-13.0} prin apt. Fișierele necesare și anume \texttt{postgresql.conf} și \texttt{pg\_hba.conf} au fost modificate prin intermediul SSH herodoc pentru a configura inițializarea în rețea pentru subrețeaua \texttt{10.0.0.0/16}. Nodul coordonator (\texttt{10.0.1.20}) a fost configurat apoi prin comenziile \texttt{citus\_set\_coordinator\_host} și \texttt{citus\_add\_node}.
+
+\section{Încărcarea datelor}
+
+Fișierele pentru datele TPC-H au fost generate pe nodul controller, folosind kit-ul oferit de TPC \texttt{dbgen} la SF30. Pentru fiecare tabel s-a produs un fișier \texttt{.tbl}. Pentru fiecare sistem s-a implementat o metodă diferită de încărcare a datelor, doar fișierul pentru tabelul \texttt{LINEITEM} avea în jur de 22GB.
+
+Pentru sistemele CRDB și TiDB a fost considerată utilizarea comenziilor de încărcare date locale (prin distribuirea fișierelor prin SCP către nodul principal și utilizarea \texttt{LOAD DATA LOCAL INFILE} dar aceasta s-a dovedit neutilizabilă pentru volumul de date folosit.
+
+\subsection{CockroachDB: Import HTTTP prin NGiNX}
+
+Pentru CockroachDB am folosit comanda \texttt{IMPORT INTO} care încarcă date din fișiere CSV prin URL-uri accesibile prin protocolul HTTP.
+
+O instanță de NGiNX a fost configurata pe nodul controller pentru a servii directorul cu fișierele TPC-H prin HTTP pe portul 8080. Fiecare execuție \texttt{IMPORT INTO} a fost făcută printr-un URL de forma:
+\begin{center}
+    \texttt{http://10.0.0.1:8080/tpch/<table>.tbl}
+\end{center}
+
+Pentru tabelele a căror fișiere \texttt{.tbl} au depășit dimensiunea de 500MB, fișierul a fost împărțit în mai multe bucăți folosind comanda din Unix \texttt{split} în bucăți de câte 2GB fiecare. Fișierele rezultate au fost apoi distribuite către CRDB prin comanda \texttt{IMPORT INTO} printr-o listă de URL-uri despărțite de o virgulă, astfel permițând sistemului să importe în paralel conținutul, distribuind I/O pe cluster. Acest lucru a fost relevant pentru fișierele mari precum \texttt{LINEITEM}, \texttt{ORDERS} și \texttt{PARTSUPP}.
+
+\subsection{TiDB: Compatibil S3 prin MinIO}
+
+Documentația TiDB sugerează distribuirea funcției \texttt{IMPORT INTO} prin citirea datelor de pe o soluție compatibilă cu protoculul S3. TiDB distribuie aceste date prima dată către nodul de computație (TiDB) și apoi distribuirea acestora către sistemul de stocare (TiKV).
+
+O instanță de MinIO (serviciu compatibil S3) a fost pornită prin docker pe nodul controller furnizând astfel adrese compatibile cu protocolul S3 de către nodul controler. Un sistem similar a fost utilizat cu cel din CRDB, fiecare comandă de \texttt{IMPORT INTO} a fost trimisă cu URL-uri compatibile \texttt{s3://} și distribuită către încărcare de către baza de date. Importurile au fost realizate prin job-uri async, folosind-use un poll-ing sistem pentru a monitoriza statusul importurilor o dată la 5 secunde, încărcându-se câte un tabel pe rând.
+
+\subsection{Citus: Transfer direct de fișier}
+
+Citus, fiind o extensie peste PostgreSQL, moștenește comanda \texttt{COPY}, aceasta a fost folosită pentru import. Față de celălalte sisteme, această comandă are nevoie ca fișierele să existe pe primul nod, astfel toate fișierele \texttt{.tbl} au fost transferate prin \texttt{scp} către nodul primar. După import Citus crează automat shard-urile pentru distribuția coloanelor.
+
+\section{Frameworkul de benchmarking}
+
+\subsection{Implementare}
+
+Infrastructura de benchmarking a fost implementată în Java, utilizând Java Database Connectivity (JDBC) API pentru comunicările cu toate sistemele de baze de date. JDBC furnizează un API abstractizat pentru conexiunile cu toate sistemele, fără a fi necesare alte modificări, CRDB și Citus se folosesc de protocolul pentru PostgreSQL, folosind driver-ul JDBC pentru PSQL. TiDB se folosește de protocolul MySQL astfel folosindu-se driver-ul MySQL.
+
+Rularea aceste aplicații este configurabilă prin fișierul \texttt{.env} și argumente de rulare. Există o variabilă \texttt{ACTIVE\_DB} care stabilește ce conexiune se folosește pentru baza de date \texttt{COCKROACH}, \texttt{TIDB}, \texttt{CITUS} și alege ce parametrii să folosească pentru datele de conectare. De exemplu pentru \texttt{COCKROACH} se folosesc următorii parametrii: \texttt{COCKROACH\_HOST}, \texttt{COCKROACH\_PORT}, \texttt{COCKROACH\_DB}, \texttt{COCKROACH\_USER} și \texttt{COCKROACH\_PASSWORD}. Argumentul \texttt{--nodes} a fost folosit pentru a salva informații despre numărul de noduri în fișierul de rezultate, el neafectând altfel funcționalitatea aplicației. Ultimele variabile folosite și anume \texttt{QUERIES\_PATH} și \texttt{RESULTS\_PATH} controlează locația în care sunt stocate fișierele SQL cu interogări și locul în care rezultatele în format CSV sunt salvate.
+
+URL-ul pentru conexiunea JDB este construit per fiecare tip de bază de date în cadrul implementării clasei conectoare.\\
+CRDB utilizează: 
+\begin{center}
+    \texttt{jdbc:postgresql://host:port/db?sslmode=disable}
+\end{center}
+Citus utilizează:
+\begin{center}
+    \texttt{jdbc:postgresql://host:port/db}
+\end{center}
+TiDB utilizează:
+\begin{center}
+    \texttt{jdbc:mysql://host:port/db?useServerPrepStmts=true}
+\end{center}
+
+Interfața \texttt{DatabaseConnector} este una de tip sealed, care permite exact 3 implementări și anume cele 3 descrise mai sus, selectate în momentul executării printr-un switch dintr-un enum \texttt{DatabaseType} creat în momentul inițializării la parsarea fișierului de \texttt{.env}.
+
+Programul a fost rulat exclusiv pe nodul controller după ce a fost compilat într-un executabil JAR. Nodurile de bază de date nu au avut de loc legătură cu orchestrarea acestui program. Outputul generat de către acest program a fost salvat pentru fiecare rulare într-un fișier \texttt{run\_<db>\_<N>\_nodes.log} pe controller. Fișierele de log, metadata și rezultate au fost apoi descărcate via \texttt{scp}.
+
+\subsection{Managementul conexiunii și izolarea}
+
+Pentru conexiune nu a fost utilizat un connection pool, pentru fiecare rulare, inițială sau de măsurare, driver-ul JDBC deschide o conexiune nouă, descarcă rezultatul interogării și închide conexiunea. Această decizie este intenționată pentru a nu contamina măsurările de latență pentru răspunsul unei interogări. Costul conexiunii este consistent pentru fiecare măsurare pentru fiecare sistem, astfel nu introduce o eroare în măsurătorile obținute.
+
+Acesta este codul principal care execută rulările de măsurare, se poate observa mecanismul de izolare a conexiunilor utilizând construirea unei resurse prin intermediul constructorului \texttt{try-with}:
+
+\begin{lstlisting}[language=Java, caption={Ciclu de viață al unei conexiuni}, label={lst:timing}]
+var durations = new ArrayList<Long>();
+for (int i = 0; i < appConfig.measurementRuns(); i++) {
+    try (var conn = connector.connect()) {
+        connector.clearCache(conn);
+        long startNanos = System.nanoTime();
+        executeQuery(conn, query.sql());
+        long durationNanos = System.nanoTime() - startNanos;
+        durations.add(durationNanos);
+    } catch (SQLException e) { e.getMessage()); }
+}
+\end{lstlisting}
+
+Putem observa o chemare a unei funcții \texttt{clearCache}, această funcție este definită în interfața \texttt{DatabaseConnector} și este invocată în fiecare rulare. În implementarea curentă această funcție este un \texttt{noop}, deoarece nici unul dintre sisteme nu expune un mecanism consistent pentru a curăța cache-ul sau buffer poolul. Principalul mecanism utilizat pentru a ignora modificările rezultate din cache este reînnoirea conexiunii. Pentru conexiune nu este implementat nici un fel de timeout, astfel orice execuție așteaptă un răspuns oricât este nevoie. Singurele terminări ale execuției unei interogări pot provenii de la sistemul de baze de date, care au fost lăsate nemodificate și neconfigurate (configurarea default) pentru fiecare sistem.
+
+\subsection{Colectarea rezultatelor din program și exportul}
+
+Fiecare rulare salvează o măsurătoare definită prin clasa record \texttt{BenchmarkResult} care salvează informații despre sistemul de bază de date, un identificator unic pentru interogare, numele datasetului folosit, numărul de noduri și durata de timp individuală pentru fiecare rulare salvată în nanoseconde. Aceasta este ulterior convertită în milisecunde în momentul exportării. Aceste rezultate sunt salvate într-un fișier CSV de către clasa \texttt{CsvExporter} cu următorul format:
+\begin{center}
+    \texttt{database,query\_id,query\_name,query\_dataset,node\_count,duration\_ms}
+\end{center}
+
+Toată procesarea de date ulterioară pentru compilarea rezultatelor și graficelor precum media, mediana, deviația standard, minimum și maximum per interogare per configurație au fost calculate ulterior într-un Jupyter Notebook folosing Python și pandas.
+
+\section{Metodologia de măsurare}
+
+\subsection{Warmup runs (rulări inițiale)}
+
+Înainte de a rula orice interogare măsurabilă care să salveze un rezultat, se execută un număr de warmup runs (3 în cazul nostru), aceste rulări folosesc același model descris mai sus pentru rulările de măsurare, o conexiune nouă este deschisă, interogarea se execută complet, inclusiv prin parcurgerea rezultatului iar la urmă conexiunea este închisă. Singura diferență este că acest timp nu este înregistrat niciunde. Aceste rulări se folosesc pentru a lăsa baza de date să pregătească pentru executările măsurabile prin stabilirea planurilor optime și salvarea acestora și stabilirea diferitelor conexiune necesare, astfel prevenim creșterea nesemnificativă a primei rulări de măsurare pentru fiecare interogare. Aceste rulări sunt executate de 3 ori pentru fiecare query, pe fiecare configurație de cluster, înainte de rularea măsurată.
+
+\subsection{Rulările de măsurare}
+
+După rularea inițială pentru warmup, se execută câte 10 rulări măsurate pentru fiecare interogare în fiecare configurație pentru fiecare sistem, în total rezultând $22 \times 3 \times 4 \times 10 = 2640$ rulări cronometrate individuale. Numărul de 10 rulări este considerat suficient pentru a obține o statistică mediană pentru comparație și pentru identificarea valorilor aberante din distribuție, păstrând totodată o fezabilitate din punct de vedere computațional, având în vedere durata de mai multe ore a sesiunilor individuale de rulare a benchmarkului.
+
+Statistica primară pentru raportare o reprezintă timpul median de execuție, nu media aritmetică. Mediana este preferată în detrimentul mediei aritmetice deoarece distribuțiile latenței de execuție a interogărilor în sistemele distribuite sunt asimetrice, blocajele de rețea, alegerea distribuirii pot genera rulări aberante care măresc media armitemtică fără a reprezenta comportamentul tipic al sistemului. Însă media aritmetică, abaterea standard, minimul și maximul sunt și ele calculate pentru a caracteriza rezultatele în analizele comparative.
+
+\section{Fairness și comparabilitate}
+
+Au fost luate mai multe decizii de design care au fost îndreptate spre a crea un mediu în care diferențele observate reflectă diferențele arhitecturale între sisteme.
+
+Toate sistemele au fost evaluate folosind standardul TPC-H, fără a fi alterate interogările. Nu a fost efectuată nici o modificare deșii o parte dintre furnizorii de servicii cloud propun rescrierea unor interogări pentru adaptarea lor mai bine în sistemele distribuite, pentru a lucra în jurul planificatorului.
+
+Statisticile pentru tabele au fost generate o dată, pentru fiecare cluster, la sfârșitul încărcării datelor prin comanda \texttt{ANALYZE} înainte de rularea interogărilor.
+
+Benchmarkul a fost rulat cu o singură conexiune, fără concurență. Această decizie a fost luată intenționat, o unică conexiune către baza de date izolează studiul variabilelor de distribuite și elimină influența blocărilor într-un workload concurent. O analiză asupra concurenței reprezintă un alt studiu individual în sine, folosindu-se de alte metrice și este identificat ca o direcție viitoare pentru cercetare.
+
+Interogările ce nu au putut fi executate pe anumite sisteme, fie din cauza limbajului SQL (anumite interogări au fost adaptate pentru rularea în MySQL pentru TiDB) sau din cauza arhitecturii, în special (Citus) apar în toate statisticile cu 0 timp de rulare.
+ 

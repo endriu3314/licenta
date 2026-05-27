@@ -1,0 +1,25 @@
+\chapter{Analiza rezultatelor}
+
+În capitolul precedent am prezentat rezultatele și comportamentul celor trei sisteme pe fiecare grupă de interogări, identificând tipare și anomalii. Urmează să analizăm fundamentul cauzal al acestor observații prin intermediul planurilor de execuție colectate pentru fiecare interogare și fiecare configurație.
+
+\section{CockroachDB}
+
+Planurile DistSQL urmează un tipar uniform: optimizatorul produce un graf de fluxuri distribuit automat pe noduri, fiecare nod procesând un range distinct al tabelei. Majoritatea planurilor indică \texttt{distribution: full} și \texttt{vectorized: true}, oferind o cale predictibilă către scalabilitate prin replicarea muncii pe mai multe noduri prin paralelizare. Aspectul critic al acestei strategii este absența unei agregări parțiale la nivelul fiecărui range înainte de transferul către nodul de coordonare: planul pentru Q1 la 20 de noduri arată un \texttt{scan} cu \texttt{spans: FULL SCAN} pe \texttt{lineitem}, urmat de un \texttt{group (hash)} la rădăcină care procesează fluxul complet de tuple post-filtrare. Această arhitectură explică diferența de latență suplimentară pe Grupa 1 și accelerația sa pronunțată, existând o posibilitate de paralelizare a muncii, astfel fiecare nod adițional are un impact proporțional. 
+
+Cazul cel mai important pentru caracterizarea limitelor CockroachDB este anti-scalarea pe Q15. Planurile colectate la 3 și la 20 de noduri sunt identice și ambele indică \texttt{distribution: local}, în contrast cu \texttt{distribution: full} de pe restul interogărilor.  La 20 de noduri, beneficiul paralelizării scanării inițiale a \texttt{lineitem} este anulat de overhead-ul de agregare a rezultatelor de la 20 de surse într-un buffer central, producând o latență de 2,4 ori mai mare decât la 3 noduri.
+
+\section{TiDB}
+
+Planurile TiDB expun o arhitectură fundamental diferită: stratul de stocare TiKV este accesat prin coprocesoare (\texttt{cop[tikv]}) care evaluează filtre și agregări parțiale local, iar rezultatele parțiale sunt transmise stratului SQL pentru operațiile rămase. Stratul de procesare SQL operează însă pe o singură instanță per interogare, paralelismul fiind realizat doar la nivelul accesului la stocare. Această arhitectură produce două tipare distincte de performanță. Pe Grupa 1, delegarea agregărilor la TiKV este eficientă, planul pentru Q1 la 20 de noduri împinge \texttt{HashAgg} integral în \texttt{cop[tikv]} cu 132 de cop-task-uri. În schimb, pe Grupele 2 și 4 planurile materializează îmbinări mari la stratul SQL pe o singură instanță: planul Q9 la 20 de noduri construiește tabele hash de 2,24 GB (cu revărsare 1,97 GB pe disc) pe \texttt{partsupp} și 2,52 GB pe \texttt{orders}, întregul lanț rulând pe o singură instanță TiDB. 
+
+Absențele Q5 și Q18 (\texttt{OOM} la stratul SQL chiar cu 24 GB memorie RAM pe nod) reflectă limitări de implementare ale stratului SQL.
+
+\section{Citus}
+
+Citus distribuie tabelele specificate manual pe shard-uri (sub-tabele PostgreSQL fizice) plasate pe nodurile worker, iar planificatorul transformă interogările primite de coordonator în secvențe de sub-interogări PostgreSQL trimise paralel către nodurile worker. În benchmark-ul utilizat, descris în capitolul 4, \texttt{lineitem} și \texttt{orders} sunt distribuite și co-localizate prin cheia \texttt{l\_orderkey}/\texttt{o\_orderkey}, iar restul tabelelor sunt replicate ca tabele de referință. Această configurație produce trei tipare principale. 
+
+Pe Grupa 1, planul pentru Q1 generează 32 de task-uri paralele care execută local \texttt{Parallel Seq Scan} urmat de \texttt{Partial HashAggregate} pe fiecare shard, coordonatorul primind doar tuple pre-agregate. 
+
+Pe Grupa 2, planul pentru Q5 transmite fiecărui nod o interogare SQL conținând îmbinarea integrală în cinci sensuri, executată local pe shard-ul respectiv, accelerațiile aproape liniare de 19$\times$ pe Q3 și 16$\times$ pe Q8 reflectă această proprietate.
+
+Pe Grupa 3 însă, când toate tabelele implicate sunt de referință (cazul Q2, Q11), planul indică \texttt{Task Count: 1}: planificatorul delegă întreaga interogare unui singur nod în loc să paralelizeze, producând performanță stabilă dar fără scalare orizontală.

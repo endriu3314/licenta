@@ -1,0 +1,241 @@
+\chapter{Fundamente Teoretice}
+
+Acest capitol prezintă fundamentele teoretice necesare pentru diferențierea sistemelor de baze de date distribuite analizate în lucrare. Analizăm diferența dintre workload-uri tranzacționale și analitice, arhitecturile distribuite și mecanismele lor.
+
+\section{OLTP vs OLAP}
+
+Diferențele dintre procesarea tranzacțională și analitcă sunt esențiale pentru evaluarea sitemelor de baze de date distribuite, deoarece fiecare impune cerințe diferite asupra arhitecturii și modului de funcționare.
+
+\textbf{OLTP (Online Transaction Processing)} se caracterizează prin tranzacții scurte, cu latență mică, care afectează puține rânduri, prin operații de tip \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE} punctuale. Metricile cheie pentru acest sistem sunt: throughput (tranzacții/secundă) și latența la percentilele p95/p99. Exemple pentru sisteme OLTP: sisteme bancare, magazine online, gestiuni de magazie.
+
+\textbf{OLAP (Online Analytical Processing)} se caractezează prin interogări complexe, de tip read-heavy care scanează volume mari de date prin agregări, \texttt{GROUP BY} pe multiple dimensiuni, JOIN-uri într tabele mari, subinterogări. Exemple pentru sisteme OLAP: rapoarte financiare, analiza vânzărilor.
+
+Diferențele fundamentale între aceste două sisteme acoperă volumul de date procesat per interogare, concurența tranzacțiilor (mii de tranzacții mici vs zeci de interogări scumpe) și strategiile de optimizare (indexare B-tree vs. Columnar storage, partitioning, materialized views).
+
+Este important de menționat că sistemele moderne încearcă să deservească ambele tipuri de workload, dar cu compromisuri.
+
+\section{Sisteme de baze de date distribuite}
+
+Un sistem de baze de date distribuit stochează și procesează datele pe multiple noduri interconectate într-o rețe, oferind unui client o interfată unificată care ascunde complexitatea distribuției.
+
+Motivele principale pentru utlizarea unui sistem distribuit sunt: scalabilitatea orizontală (creșterea capacității de procesare prin adăugarea de noduri), disponibilitatea ridicată (un nod se poate oprii din anumite motive, dar serviciul rămâne activ) și distribuția geografică (reducerea latenței pentru utilizatorii unui serviciu global).
+
+Provocările principale includ coordonarea tranzacților, menținerea consistenței datelor și optimizarea interogărilor care au nevoie de mai multe noduri.
+
+\subsection{Arhitecturi de partajare a resurselor}
+
+Sistemele distribuite pot fi clasificate în funcție de modul în care nodurile partajează resursele. Aceste alegeri au implicații directe asupra scalabilității și asupra performanței. Se identifică în anul 1986 de către Michael Stonebraker trei categorii arhitecturale pentru clasificarea împărțirii resurselor și anume: shared-memory, shared-disk și shared-nothing \cite{stonebraker1986}. Această împărțire este consolidată ulterior de către DeWitt și Gray \cite{dewitt1992} iar ea rămâne valabilă și în ziua de astăzi, chiar dacă implementările sistemelor moderne distribuite pot combina elemente din mai multe paradigme.
+
+Arhitectura \textbf{shared-memory} denumită uneori și shared-everything presupune ca toate nodurile de procesare dintr-un sistem distribuit să aibă acces la un fond comun pentru memorie și stocare. În acest sistem mai multe procesoare operează asupra aceluiași sistem de discuri. Avantajul principal constă în simplitatea administrării acestui sistem și simplitatea accesului la date, orice procesor poate accesa orice fragment de date de care are nevoie, fără a fi nevoie de o comunicare prin rețea. Acest lucru este realizat deseori prin mecanisme de locking, pe măsură ce numărul de procesoare crește în acest sistem, accesul poate fi blocat pentru întregul sistem. Scalabilitatea acestui sistem este restricționată la un număr limitat de noduri, iar coruperea datelor de către unul din noduri poate afecta un întreg sistem. Din aceste motive această arhitectură este întâlnită rareori, iar când este, este într-un context în care volumul de date și numărul de noduri rămân moderate.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        memstyle/.style={rectangle, draw, very thick},
+        cpustyle/.style={rectangle, draw, very thick}
+    ]
+        \node[memstyle, minimum width=7cm] (mem) {Memorie};
+        
+        \node[cpustyle] (cpu2) [below=of mem] {CPU2};
+        \node[cpustyle] (cpu1) [left=of cpu2] {CPU1};
+        \node[cpustyle] (cpu3) [right=of cpu2] {CPU3};
+
+        \node[memstyle, minimum width=7cm] (disk) [below=of cpu2] {Stocare partajată};
+
+        \draw[-] (mem.south -| cpu1) -- (cpu1);
+        \draw[-] (mem.south -| cpu2) -- (cpu2);
+        \draw[-] (mem.south -| cpu3) -- (cpu3);
+
+        \draw[-] (disk.north -| cpu1) -- (cpu1);
+        \draw[-] (disk.north -| cpu2) -- (cpu2);
+        \draw[-] (disk.north -| cpu3) -- (cpu3);
+    \end{tikzpicture}
+    \caption{Arhitectura shared-memory/shared-everything}
+    \label{fig:shared-everything}
+\end{figure}
+
+Arhitectura \textbf{shared-disk} reprezintă o soluție la „mijloc”, fiecare nod dispune de memorie proprie și putere de procesare independentă (propriul procesor), însă toate nodurile accesează același sistem de stocare. Această separație permite o formă de paralelism la nivelul procesări, fiecare nod putând să execute procese independent. Principalul dezavantaj, ca în sistemul anterior constă în necesitatea unui mecanism de locking, sau blocare a datelor: atunci când mai multe noduri încearcă să modifice aceleași date simultan. Sincronizarea acestor lock-uri între sisteme introduce o supra-sarcină sistemului. Acest cost de sincronizare limitează numărul de noduri pe care le poate avea un sistem shared-disk. Ulterior Stopford observă că, o implementare shared-disk poate simula comportamentul unei arhitecturi shared-nothing prin partiționare logică a datelor, reducând volumul de lock shipping \cite{stopford2009}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        memstyle/.style={rectangle, draw, very thick},
+        cpustyle/.style={rectangle, draw, very thick}
+    ]
+        \node[cpustyle, align=center] (cpu2) {CPU2 \\ + \\ RAM};
+        \node[cpustyle, align=center] (cpu1) [left=of cpu2] {CPU1 \\ + \\ RAM};
+        \node[cpustyle, align=center] (cpu3) [right=of cpu2] {CPU3 \\ + \\ RAM};
+
+        \node[memstyle, minimum width=7cm] (disk) [below=of cpu2] {Stocare partajată};
+
+        \draw[-] (disk.north -| cpu1) -- (cpu1);
+        \draw[-] (disk.north -| cpu2) -- (cpu2);
+        \draw[-] (disk.north -| cpu3) -- (cpu3);
+    \end{tikzpicture}
+    \caption{Arhitectura shared-disk}
+    \label{fig:shared-disk}
+\end{figure}
+
+Arhitectura \textbf{shared-nothing} este deseori argumentată ca alternativa cea mai eficientă din punct de vedere al costurilor \cite{stonebraker1986}. Această implementare elimină complet partajarea oricăror resurse între noduri. Fiecare nod deține propriile resurse: procesor, memorie și stocare. Toată coordonarea între noduri se realizează printr-o rețea \cite{dewitt1992}. Absența oricărei partajări de resurse permite fiecărui nod să proceseze datele independent, fiecare lucrând doar cu fragmentul de date care îi este atribuit. Faptul că fiecare nod se poate ocupa independent de procesarea unui set de date, permite descompunerea interogărilor complexe (în mod uzual de tip analitic) în mai multe sub-interogări care se execută simultan pe multiple noduri, rezultatele parțiale obținute fiind ulterior agregate pentru obținerea rezultatului final. Scalabilitatea orizontală este nelimitată, de asemenea toleranța la defecte este mare, în cazul defectării unui nod, nu se afectează funcționarea celorlalte, iar datele de pe acel nod pot fi redistribuite și replicate pentru a asigura disponibilitate.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{tikzpicture}[
+        memstyle/.style={rectangle, draw, very thick},
+        cpustyle/.style={rectangle, draw, very thick}
+    ]
+        \node[cpustyle, align=center] (cpu2) {CPU2 \\ + \\ Stocare};
+        \node[cpustyle, align=center] (cpu1) [left=of cpu2] {CPU1 \\ + \\ Stocare};
+        \node[cpustyle, align=center] (cpu3) [right=of cpu2] {CPU3 \\ + \\ Stocare};
+
+        \node[memstyle, minimum width=7cm] (network) [below=of cpu2] {Rețea};
+
+        \draw[-] (cpu2) -- (network);
+        \draw[-] (cpu1) -- (network);
+        \draw[-] (cpu3) -- (network);
+    \end{tikzpicture}
+    \caption{Arhitectura shared-nothing}
+    \label{fig:shared-nothing}
+\end{figure}
+
+Dezavantajul principal al arhitecturii shared-nothing este reprezentat de complexitatea introdusă de partiționarea datelor și gestionarea interogărilor pe noduri multiple. Operațiile ce afectează mai multe noduri (agregări globale, join-uri distribuite, etc.) implică un transfer de date între noduri prin rețea. Performanța operațiunilor între mai multe noduri depinde critic de strategiile de partiționare. Stonebraker recunoaște aceste dificultăți dar argumentează că sistemel de echilibrare a bazelor de date automate pot atenua semnificativ aceste dificultăți \cite{stonebraker1986}.
+
+Toate sitemele analizate în această lucrare, CockroachDB, TiDB și Citus adoptă diferinte variante ale arhitecturii shared-nothing, astfel putem observa consensul industriei moderne asupra modelului folosit.
+
+\subsection{Teorema CAP și modelul PACELC}
+
+Pentru a analiza sistemele de baze distribuite, avem nevoie de un cadru teoretic care să motiveze compromisurile arhitecturale adoptate de către fiecare sistem. În această secțiune examinăm concepte din domeniul sistemelor distribuite precum: teorema CAP și modelul PACELC, algoritmi de consens care asigură coordonarea între noduri, strategii de partiționare a datelor și mecanismele de scalabilitate ce permit creșterea capacității unui cluster (un ansamblu de noduri interconectate, ce funcționează ca un sistem unitar). Aceste concepte oferă fundamentele pentru evaluarea comparativă a sistemelor de baze de date: CockroachDB, TiDB și Citus din capitolele ulterioare.
+
+\subsubsection{Formularea și formalizarea teoremei CAP}
+
+Teorema CAP este un fundament al sistemelor de baze de date distribuite, stabilind bazele limitărilor și garanțiilor acestor sisteme. Abrevierea CAP vine de la consistency (consistența datelor), availability (disponibilitatea serviciului) și tolerance to network partitions (toleranța la partiționarea datelor). Teorema a fost lansată inițial de către Eric Brewer în cadrul unei prezentări la o conferință ACM din anul 2000, enunțul teoremei afirmă că un sistem distribuit nu poate garanta simultan decât 2 din toate cele 3 proprietăți \cite{brewer2000}. Doi ani mai târziu teorema a primit o demonstrație formală din partea lui Gilbert și Lynch \cite{GilbertLynch2002}
+
+Teorema implică 3 strategii posibile, fiecare renunțând la o proprietate în detrimentul celorlalte două. Prima opțiune este renunțarea la toleranța la partiții, comunicarea între noduri este întreruptă. Brewer \cite{brewer2000} menționează mecanisme precum protocolul two-phase commit (comiterea datelor în 2 faze), un protocol ce presupune blocarea resurselor, nodurile participante decid „da” sau „nu”. Faza a doua este strict faza de comitere a modificărilor.
+
+A doua opțiune este renunțarea la proprietatea de disponibilitate. Datele pot fi utilizate doar atunci când consistența lor este garantată. Mecanismul menționat pentru această opțiune de Brewer \cite{brewer2000} este pesimistic locking (blocarea pesimistă), caz în care modificarea unui obiect rămâne blocată până la propagarea modificării către toate nodurile.
+
+A treia opțiune este renunțarea la proprietatea de consistență în detrimentul proprietății de disponibilitate și cel de partiționare. Această strategie implică utilizarea mecanismelor de blocare optimistă și protocoalelor de rezolvare a conflictelor, care reconciliază stările divergente.
+
+Dintre cele trei opțiuni, renunțarea la toleranța la partiții, CA (consistență \& disponibilitate) nu este posibilă în sistemele distribuite care întâlnesc probleme de conectivitate. Orice sistem distribuit ce are noduri conectate la o rețea va experimenta, la un moment dat, întârzieri și/sau pierderi de pachete. Acest fapt reduce decizia la cele 2 sisteme, CP (consistență și partiționare) și AP (disponibilitate și partiționare). Brewer \cite{brewer_cap_2012} revine în anul 2012 și subliniază că decizia nu este una binară, ea este de fapt un spectru, un sistem distribuit poate combina niveluri diferite de consistență și disponibilitate în funcție de nevoi și de context.
+
+\subsubsection{Critica toeremei CAP} 
+O analiză critică asupra teoremei CAP a fost realizată și de către Klepmann\cite{kleppmann_critique_2015} care identifică probleme fundamentale în definiția lui Brewer și formalizarea ei de către Gilbert și Lynch. O problemă centrală identificată: termenii teoremei nu au constrângeri clare, termenii definiții sunt înguști. Consistența în contextul CAP se referă exclusiv la „linearizability”, garanția că sistemul se comportă ca și cum ar exista o singură copie a datelor, și nu la consistența din modelul ACID, argumentând că în contextul sistemelor distribuite, consistența se referă la un spectru de modele cu varii puncte forte și slabe precum \textit{casual consistency}, \textit{sequential consistency} ori \textit{PRAM}.
+
+Similar, definiția CAP impune disponibilitate, dar nu definește o limită în care un sistem disponibil să răspundă, astfel în definiția inițială un sistem care răspunde într-o săptămână poate fi considerat disponibil, un lucru neacceptat în industrie spune Klepmann \cite{kleppmann_critique_2015}.
+
+Ca alternativă Klepmann propune un nou sistem, numit delay-senstivity (sensibilitatea la întârzieri), care propune analizarea variaților de latență a operațiunilor atunci când rețeaua devine lentă sau inaccesibilă. Această nouă definiție permite clasificarea operațiunilor în două categorii: sensibilă la întârziere, dacă latența crește proporțional cu problemele din rețea sau independentă, dacă latența rămâne constantă indiferent de condițiile rețelei. Klepmann \cite{kleppmann_critique_2015} arată că \textbf{linearizability} (orice operație pare că se execută instantaneu, la un moment în timp, iar toate nodurile văd același lucru în același timp) necesită această dependență pentru citiri și scrieri. \textbf{Sequential consistency} (garanția că orice operație se execută într-o oridne globală, dar nu neapărat în timp real), în acest sistem fiecare sistem vede operațiile în ordinea corectă dar nu există o sincronizare cu un ceas, permite citiri rapide dar scrieri pasibile de întârzieri. \textbf{Casual consistency} (garanția că operațiile legate printr-o relație cauză-efect sunt observate în ordinea corectă) poate funcționa complete neafectată de întârzierile din rețea.
+
+\begin{table}[]
+\centering
+\begin{tabular}{lll}
+\multicolumn{1}{c}{}   & \multicolumn{1}{c}{latență scriere} & latență citire \\
+linearizability        & $O(d)$                              & $O(d)$         \\
+sequential consistency & $O(d)$                              & $O(1)$         \\
+casual consistency     & $O(1)$                              & $O(1)$         \\
+\end{tabular}
+\caption{Scalare modele de consistență}
+\end{table}
+
+\subsubsection{Teorema PACELC}
+În anul 2012, Abadi \cite{abadi_consistency_2012} susține că ignorarea compromisului dintre latență și consistență este o omisiune majoră. La fel ca în teorema CAP, teorema PACELC susține că într-un sistem distribuit, în cazul partiționării, trebuie să facem un compromis și să alegem între disponibilitate și consistență. Teorema introduce noțiunea de latență în formulare și susține că în timpul unei partiționări putem alege între A (availability, disponiblitate) și C (consistență) sau E (else), putem alege între L (latență) și C (consistență).
+
+Teorema PACELC prezintă 4 configurări și anume: \textbf{PA/EL}, sistemele prioritizează disponibilitatea și latența joasă, de exemplu sisteme precum Apache Cassandra. \textbf{PC/EC}, sistemele prioritizează consistența în detrimentul latenței mărite sau a disponibilității partiționării, de exememplu CockroachDB. \textbf{PA/EC}, sistemele optimizează pentru disponiblitate în momentul partiționării dar pentru consistență în modul normal de operare. \textbf{PC/EL}, sistemele aleg să prioritizeze consistența în partiționare, dar latență joasă în restul timpului de operare.
+
+\subsection{Consistență distribuită}
+
+Anterior am văzut cum teorema CAP și extensia ei, teorema PACELC stabilesc că un sistem distribuit operează pe un spectru, cu o balanță între consistență, disponibilitate și toleranța la partiționare. Aceste modele sunt teoretice, în practică diferite sisteme au nevoie de diferite modele de consistență.
+
+\subsubsection{Modele de consistență}
+
+Modelele de consistență pot fi aranjate pe un spectru, de la cele mai puternice, modele care simulează comportamentul sistemelor pe un singur nod, până la cele mai slabe care pot garanta consistența între noduri în timp. Fiecare sistem își alege anumite compromisuri între corectitudine, latență și disponibilitate după cum am văzut în extensia PACELC \cite{abadi_consistency_2012}.
+
+\paragraph{Linearizability}
+
+Termenul de Linearizability, referit și ca atomic consistency (consistență atomic - atomic în acest context se referă la operațiune acționată cu rezultat totul sau nimic) este unul dintre cele mai puternice modele de consistență pentru operațiuni asupra unui singur obiect \cite{herlihy1990}. Fiecare operațiune se execută instantaneu într-un singur moment în timp aflat între momentul invocării și răspuns. Două proprietăți se dezvoltă din aceasta definiție: \textit{local}: un sistem compus din obiecte individuale linearizabile este în sine linearizable, această proprietate dând voie unui sistem să fie modular \cite{herlihy1990}. Cea de a două proprietate \textit{nonblocking} (non-blocant), un proces care invocă o operație nu este obligat să aștepte după un sistem suspendat să completeze. În cazul teroriei CAP, linearizability plasează un sistem în categoria CP (consistență și partiționare), menținând această consistență într-un cluster suntem obligați să refuzăm anumite cereri care nu întrunesc cvorumul \cite{GilbertLynch2002}. În modelul PACELC, sistemele ce implementează modeul linearizability sunt clasificate ca PC/EC, se plătește un cost asupra latenței în operațiunile normale \cite{abadi_consistency_2012}.
+
+\paragraph{Sequential consistency}
+
+Sequential consistency, consistența secvențială este un model mai slab ca linearizabilitatea. Acest model impune ca execuția să fie echivalentă cu o anumită istorie secvențială care păstrează ordinea de execuție pentru fiecare proces individual, fără a impune păstrarea ordonării globale în timp real între mai multe procese \cite{herlihy1990}. O consecință a acestei relaxări a constrângerii de timp real este că consistența nu este o proprietate locală, un sistem compus din mai multe obiecte consistente secvențial pot eșua în a fi consistent secvențial în ansamblu \cite{herlihy1990}. Această proprietate are implicații are consecințe în proiectarea sistemelor deoarece compozabilitatea nu poate fi presupusă. În schimb această relaxare permite latențe mai mici operațiilor de citire în anumite configurații, făcând acest model de consistență o alegere portrivită în sistemele în care sincronizarea globală la fiecare operație de citire ar fi costisitoare.
+
+\paragraph{Causal consistency}
+
+Causal consistency, consistența cauzală ocupă o poziție intermediară pe spectrul modelelor de consistență, acest model oferă garanții semnificative de siguranță fără a fura din costul complet de latență al unui sistem consistent puternic. Modelul se bazează pe formalizarea ordonării cauzale, propusă de Lamport și anume: dacă operația $A$ precedă operațiunea $B$ (notat $A \rightarrow B)$, atunci toate procesele trebuie să observe $A$ înaintea lui $B$ \cite{lamport1978}. O caracteristică definitorie a acestul model de consistență este că este unul din cele mai puternice modele care permite latențele operațiilor să rămână independente de latența rețelei.
+
+\paragraph{Session guarantees}
+
+Între consistența cauzală și cea eventuală avem modelul care garantează garanții centrate pe client, denumit și garanții de sesiune, ce oferă proprietăți de siguranță la nivelul de client fără a necesita coordonare globală \cite{vogels2009}. Trei importante garanții sunt deosebit de relevante: \textbf{Read-your-writes} (citirea propriilor scrieri) asigură că un proces observă întotdeauna propriilor sale scrieri anterioare la citirile ulterioare și nu va întâlnii niciodată o versiune învechită a datelor pe care el însuși le actualizeaază, \textbf{Monotonic reads} (citiri monotone) garantează că, odată ce un proces a observat o anumită versiune a unui obiect, nici o citire ulterioară a acelui obiect nu va returna o versiune mai veche, \textbf{Monotonic writes} (scrieri monotone), asigură că scrierile emise de un proces sunt serializate în ordinea în care au fost înregistrate. Aceste trei garanții sunt implementate frecvent prin rutarea cererilor unui client în mod consecvent către aceeași replică, și reprezintă un compromis larg în sistemele eventual consistente \cite{vogels2009}.
+
+\paragraph{Eventual consistency}
+
+Consistența eventuală este considerat unul din cele mai slabe modele de consistență și este folosit în general în sistemele cu disponibilitate critică. Este definit astfel: într-o execuție infinită, dacă toate scrierile încetează și are loc o comunicare suficientă între noduri, toate replicile vor converge către aceași valoare \cite{vogels2009}. Acest model nu impune nici o limită de timp pentru convergență, nici nu se impun constrângeri asupra valorilor ce sunt citite în timpul ferestrei de convergență. Fereastra de inconsistență (momentul de convergere pentru replicare, decalajul de replicare), diferite replici pot returna valori diferite pentru același obiecte, această consecință este deseori atenuată prin garanțiile de sesiune \cite{vogels2009}.
+
+\subsection{Strategii de replicare}
+
+Modelul de consistență adoptat de un sistem produce efecte asupra strategiei de replicate utilizate de acesta. Replicarea are două obiective: să îmbunătățească viteza și accesiblitatea citirilor prin distribuirea acestora pe mai multe read-replicas (noduri replicate doar pentru citire) și îmbunătățirea toleranței la defecte și erori, asigurând accesibilitatea datelor chiar și dacă anumite noduri sunt supuse unor erori devenind nedisponibile. Metoda în care aceste scrieri sunt distribuite pe toate nodurile replică ne dă garanțiile de consistență pe care clienții care accesează aceste date le au \cite{gray1996}.
+
+\subsubsection{Sincronă și Asincronă}
+
+Replicarea propagă actualizările datelor între mai multe noduri ale unui sistem distribuit cu scopul de a asigura toleranța la defecte, disponibilitatea și scalabilitatea operațiilor de citire. În replicarea sincronă, o operație de scriere este confirmată clientului doar după ce fiecare replică desemnată a comis durabil actualizarea, garantând astfel o consistență tare cu prețul unei latențe mai mari și al unei disponibilități reduse atunci când o replică devine inaccesibilă \cite{vogels2009}. În replicarea asincronă, nodul principal confirmă clientul imediat și diseminează actualizarea către replici în fundal, ceea ce îmbunătățește debitul și tolerează căderile replicilor, însă introduce o fereastră de divergență cunoscută drept întârziere de replicare, conducând la o consistență eventuală \cite{vogels2009}.
+
+\subsubsection{Lider unic}
+
+Replicarea cu lider unic (lider - urmăritor) desemnează un singur nod drept lider, care serializează toate operațiile de scriere și propagă un registru al modificărilor către toți urmăritorii săi, care deservesc traficul de citire. Această arhitectură simplifică prevenirea conflictelor deoarece scrierile sunt ordonate liniar într-un singur punct, dar introduce un blocaj unic și singur, în cazul unei erori în nodul lider, de aceea trebuie implementat un sistem de alegere automată a liderului, implimentată frecvent prin protocoale de consens precum Raft sau Multi-Paxos \cite{ongaro2014}.
+
+\subsubsection{Lideri multipli}
+
+Replicarea cu lideri multiplii (activ - activ) permite ca operațiile de scriere să fie acceptate simultan de mai multe noduri-lider, fiecare propagând ulterior modificările către ceilalți lideri și către urmăritorii locali. Principala dificultate o constituie însă rezolvarea conflictelor de scriere concurentă, care poate necesita politici deterministe de tipul „ultimul scriitor câștigă”, vectori de versiuni sau o logică de fuziune la nivelul aplicației \cite{gray1996}.
+
+\subsection{Protocol de consens}
+
+Anterior am discutat despre cum strategiile de replicare definesc cum datele ajung pe toate nodurile, protocolul de consens definește felul în care nodurile cad de comun acord că datele copiate sunt corecte și cum se repară replicările în cazul erorilor. Problema consensului necesită ca toate nodurile/procesele să fie  de acord asupra unei singuri valori, chiar și dacă anumite noduri nu au replicată acea valoare sau au dat erori, acest proces se definește prin următoarele proprietăți: \textbf{agreement} - două procese care nu sunt în eroare nu pot decide diferit unul față de celălalt, \textbf{validity} - valoarea agreată este aleasă de oricare proces care nu este în eroare și \textbf{termination} - orice proces care nu este în eroare dă un răspuns într-un final \cite{fischer1985}. Consensul este mecanismul prin care replicările bazate pe cvorum realizează modelul de linearizability descris anterior, asigurând că toate replicările fără erori primesc și aplică în aceeași secvență operații, asigurând astfel un comportament care simulează logica unui sistem pe un singur nod \cite{herlihy1990}.
+
+\subsubsection{Abordarea automatelor de stare (state machines)}
+
+O metodă de implementare a serviciilor tolerante la defecțiuni în sistemele distribuite este prin metoda automatelor de stare, formalizată de Schneider \cite{schneider1990}. Un serviciu este modelat ca un automat de stare determinist, alcătuit din variabile de stare și din comenzi ce le transformă. Prin replicarea acestui automat pe mai multe procese și prin asigurarea faptului că fiecare replică nedefectă execută aceeași secvență de comenzi, ansamblul manifestă comportamentul unui server unic, cu disponibilitate ridicată.
+
+\subsubsection{Paxos și multi-Paxos}
+
+Paxos, introdus de Lamport~\cite{lamport1998} și ulterior reformulat într-o prezentare accesibilă \cite{lamport2001}. Acesta rezolvă problema consensului într-un sistem asincron, predispus la defecțiuni de tip crash și bazat pe schimb de mesaje. Paxos alege o valoare prin două faze conduse de trei roluri: propunători, acceptanți și învățători: o fază de pregătire, ce stabilește un număr de buletin și colectează promisiunile anterioare, urmată de o fază de acceptare, în care un cvorum de acceptanți votează valoarea. ulti-Paxos amortizează faza de pregătire prin alegerea unui lider stabil care propune o secvență de valori, implementând astfel abstracția jurnalului replicat, esențială în replicarea automatelor de stare; această variantă stă la baza serviciului Chubby al Google \cite{chandra2007}.
+
+\subsubsection{Raft}
+
+Raft, prezentat de Ongaro și Ousterhout \cite{ongaro2014}, este un algoritm de consens proiectat explicit pentru inteligibilitate, fiind totodată echivalent cu Multi-Paxos sub aspectul toleranței la defecțiuni și al performanței. Autorii descompun consensul în trei subprobleme relativ independente: alegerea liderului, replicarea jurnalului și siguranța. Nodurile funcționează în una dintre trei stări: follower (adept), candidat sau lider.
+
+\subsubsection{Paxos vs Raft}
+
+Howard și Mortier \cite{howard2020} întreprind o comparație sistematică, reformulând Multi-Paxos în terminologia Raft și concluzionează că cei doi algoritmi sunt structural mult mai apropiați decât sugerează în mod tradițional literatura, diferind în principal prin abordarea alegerii liderului. Raft impune o restricție de alegere care permite doar nodurilor cu jurnale suficient de actuale să devină lideri, evitând astfel schimbul post-alegere de jurnal pe care Paxos îl impune atunci când un lider proaspăt ales deține un jurnal incomplet. Această decizie de proiectare face ca alegerea liderului în Raft să fie surprinzător de eficientă, în vreme ce Paxos păstrează o flexibilitate mai mare cu privire la replica ce poate prelua conducerea. Autorii susțin că ambele protocoale implementează în cele din urmă paradigma automatelor de stare a lui Schneider~\cite{schneider1990}.
+
+\subsection{Optimizarea și planificarea interogărilor}
+
+\subsubsection{Optimizarea bazată pe cost}
+
+Optimizarea interogărilor din bazele de date relaționale se bazează aproape universal pe paradigma bazată pe cost, care separă declarația SQL de calea de acces procedurală efectivă și selectează dintre planurile algebric echivalente, pe cel cu cost estimat minim \cite{selinger1979}. Tehnica se bazează pe trei componente interdependente și anume: un mecanism de enumerare, ce explorează spațiul planurilor, un set de formule de selectivitate bazate pe statistici, și o funcție de cost care combină costul CPU (procesor, putere de calcul) și I/O (input - output) \cite{graefe1993query, graefe1995cascades}. Cea mai mare problemă rămâne însă estimarea cardinalității, un studiu empiric sistematic realizat pe Join Order Benchmark a arătat că estimatoarele de nivel industrial produc în mod sistematic erori de un factor de 1000 sau mai mult în cazul interogărilor cu multiple join-uri, iar modelul de cost are o influență substanțial mai mică asupra performanței decât aceste estimări~\cite{leis2015howgood}.
+
+\subsubsection{Planificarea interogărilor distribuite - etape și provocări}
+
+Extinderea modelului cost-based într-un context distribuit introduce
+o dimensiune calitativ nouă: pe lângă deciziile privind metoda de
+acces local, optimizatorul trebuie să determine unde se execută
+fiecare operator și cum se deplasează rezultatele intermediare între
+situri, întrucât transferul prin rețea domină de regulă funcția de
+cost \cite{kossmann2000}. Descompunerea canonică organizează
+compilarea în patru etape: parsarea, rescrierea logică, localizarea
+datelor pe fragmentele partiționate și optimizarea globală, care
+întrețese ordonarea join-urilor cu selecția sitului și strategia de
+transfer \cite{ozsu2019}.
+
+\subsubsection{Pushdown pentru predicate și funcții de agregare}
+
+Rescrierile de tip pushdown (evaluarea în jos, cât mai aproape de date a predicatelor - filtrelor și a funcțiilor de agregare), aplicate atât selecțiilor cât și agregatelor decompozabile, constituie familia de optimizări cu cel mai bun raport cost-beneficiu într-un motor de execuție distribuit, întrucât evaluarea operatorilor în apropierea datelor reduce simultan costul de I/O și volumul de octeți transferați prin rețea \cite{chaudhuri1998,hellerstein1998}. Atunci când o funcție agregat este decompozabilă, posibilă să fie evaluată parțial (\texttt{COUNT}, \texttt{SUM}, \texttt{MIN}, \texttt{MAX}), optimizatorul introduce o agregare parțială deasupra fiecărei operații de scan și o agregare finală deasupra shuffle-ului, reducând semnificativ cardinalitatea transferată între noduri~\cite{graefe1993query,yan1995}.
+
+\section{Scalabilitate orizontală și metode de scalare}
+
+Scalabilitatea orizontală reprezintă capacitatea unui sistem distribuit de suporta creșteri în volumul de calcul prin adăugarea de noduri, aceasta este în contrast cu scalarea pe verticală care se face prin creșterea puterii de calul pe nodurile deja existente. Scalarea pe verticală este limitată de resursele unei singuri mașini de calcul. În contextul analitic scalarea orizontală adresează majoritatea problemelor bazelor de date, precum creșterea volumului de date și cerințele de interogare. Impedimentul principal este costul de coordonare între noduri, care crește pe măsura introducerii de noi noduri \cite{ozsu2019}.
+
+\subsection{Partiționare orizontală și strategii de distribuție}
+
+Partiționarea orizontală, cunoscută în domeniu drept „sharding” reprezintă o descompunere a unei tabele mari în bucăți mai mici, fiecare bucată fiind stocată pe un server diferit. O cheie de partiționare determină care bucată primește care rând de date \cite{ozsu2019}. Trei strategii principale de partiționare sunt aplicate în ziua de astăzi și anume: \textbf{partiționarea prin hash}, care aplică o funcție hash uniformă cheii pentru a echilibra sarcina, în detrimentul costului de explorare a intervalelor, \textbf{partiționarea prin interval}, care păstrează ordonarea cheii și favorizează interogările pe intervale, dar este predispusă unei deformări în cazul distribuirii neuniforme ale cheii și \textbf{partiționarea prin listă} care este folosită când domeniul cheii de distribuire este mică. DeWitt și Gray au demonstrat, în analiza lor asupra bazelor de date paralele, că strategia de partiționare are un impact direct în paralelismul realizabil \cite{dewitt1992}.
+
+\subsection{Replicare și toleranță la defecte}
+
+Replicarea reprezintă procesul de menținere a mai multor copii ale datelor  partiționate pe mai multe noduri distincte, astfel obținând atât durabilitate împotriva defecțiunilor hardware, cât și scalabilitate de citire \cite{kleppmann2017-dataintensive}. Topologiile de replicare sunt clasificate în 3 tipuri și anume: \textbf{single-leader} (un singur lider) unde un nod primește toate scrierile apoi le distribuie, \textbf{multi-leader} (cu mai mulți lideri) unde mai multe servere pot primii scrieri simultan (o implementară mai complicată, dar mai rapidă) și \textbf{leaderless} (fără lider) unde nici un server nu conduce, toate sunt egale, alegerea unei topologii de replicare determină profilul de latență, cerințele pentru rezolvarea conflictelor și garanțiile de consistență în caz de partiționare a relețelei \cite{kleppmann2017-dataintensive}. Sistemele actuale distribuite tind să aleagă între protocoalele de consens Raft și Paxos, care asigură scrieri validate ce supraviețuiesc defecțiunilor apărute pe nodurile minorități prin cerința de cvorum, exprimată obișnuit ca $W + R > N$, unde $W$ - numărul de noduri care trebuie să confirme o scriere, $R$ - numărul de noduri care trebuie să citească pentru a obține date fiabile și $N$ - numărul total de replici.

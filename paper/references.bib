@@ -1,0 +1,596 @@
+@misc{tpch,
+    author       = {{Transaction Processing Performance Council}},
+    title        = {{TPC-H} Benchmark Specification},
+    howpublished = {\url{https://www.tpc.org/tpch/}},
+}
+
+@article{stonebraker1986, 
+    author={Michael Stonebraker},
+    title={The Case for Shared Nothing}, 
+    journal={IEEE Database Engineering Bulletin},
+    volume={9},
+    number={1},
+    year= {1986}
+
+}
+
+@article{dewitt1992, 
+    title={Parallel database systems: the future of high performance database systems}, 
+    volume={35}, 
+    ISSN={0001-0782, 1557-7317}, 
+    url={https://dl.acm.org/doi/10.1145/129888.129894}, 
+    DOI={10.1145/129888.129894}, 
+    number={6}, 
+    journal={Communications of the ACM}, 
+    author={DeWitt, David and Gray, Jim}, 
+    year={1992},
+    pages={85–98}, 
+    language={en} 
+}
+
+@misc{stopford2009, 
+    title={Shared nothing V.S. shared disk architectures: An independent view}, 
+    url={https://benstopford.com/2009/11/24/understanding-the-shared-nothing-architecture/},
+    author={Ben Stopford}, 
+    year={2009}, month={Nov},
+    note={Accesat: 2026}
+} 
+
+@misc{brewer2000, 
+    title={Towards robust distributed systems}, 
+    ISBN={9781581131833}, 
+    url={https://dl.acm.org/doi/10.1145/343477.343502}, 
+    DOI={10.1145/343477.343502}, 
+    booktitle={Proceedings of the nineteenth annual ACM symposium on Principles of distributed computing}, 
+    publisher={ACM}, 
+    author={Brewer, Eric A.}, 
+    year={2000}, 
+    month={july}, 
+    pages={7}, 
+    language={en} 
+}
+
+
+@article{GilbertLynch2002, 
+    title={Brewer’s conjecture and the feasibility of consistent, available, partition-tolerant web services},
+    volume={33},
+    ISSN={0163-5700},
+    url={https://dl.acm.org/doi/10.1145/564585.564601},
+    DOI={10.1145/564585.564601},
+    number={2}, 
+    journal={ACM SIGACT News},
+    author={Gilbert, Seth and Lynch, Nancy}, 
+    year={2002}, month={june}, pages={51–59}, language={en} 
+}
+
+
+@article{brewer_cap_2012,
+	title = {{CAP} twelve years later: {How} the "rules" have changed},
+	volume = {45},
+	issn = {1558-0814},
+	shorttitle = {{CAP} twelve years later},
+	url = {https://ieeexplore.ieee.org/document/6133253},
+	doi = {10.1109/MC.2012.37},
+	number = {2},
+	urldate = {2026-02-22},
+	journal = {Computer},
+	author = {Brewer, Eric},
+	month = {feb},
+	year = {2012},
+	pages = {23--29},
+}
+
+@misc{kleppmann_critique_2015,
+      title={A Critique of the CAP Theorem}, 
+      author={Martin Kleppmann},
+      year={2015},
+      eprint={1509.05393},
+      archivePrefix={arXiv},
+      primaryClass={cs.DC},
+      url={https://arxiv.org/abs/1509.05393}, 
+}
+
+@article{abadi_consistency_2012,
+	title = {Consistency Tradeoffs in Modern Distributed Database System Design: {CAP} is Only Part of the Story},
+	volume = {45},
+	rights = {https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/{IEEE}.html},
+	issn = {0018-9162},
+	url = {http://ieeexplore.ieee.org/document/6127847/},
+	doi = {10.1109/MC.2012.33},
+	shorttitle = {Consistency Tradeoffs in Modern Distributed Database System Design},
+	pages = {37--42},
+	number = {2},
+	journaltitle = {Computer},
+	shortjournal = {Computer},
+	author = {Abadi, Daniel},
+	urldate = {2026-03-19},
+	date = {2012-02},
+}
+
+@article{herlihy1990,
+    author = {Herlihy, Maurice P. and Wing, Jeannette M.},
+    title = {Linearizability: a correctness condition for concurrent objects},
+    year = {1990},
+    issue_date = {July 1990},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {12},
+    number = {3},
+    issn = {0164-0925},
+    url = {https://doi.org/10.1145/78969.78972},
+    doi = {10.1145/78969.78972},
+    abstract = {A concurrent object is a data object shared by concurrent processes. Linearizability is a correctness condition for concurrent objects that exploits the semantics of abstract data types. It permits a high degree of concurrency, yet it permits programmers to specify and reason about concurrent objects using known techniques from the sequential domain. Linearizability provides the illusion that each operation applied by concurrent processes takes effect instantaneously at some point between its invocation and its response, implying that the meaning of a concurrent object's operations can be given by pre- and post-conditions. This paper defines linearizability, compares it to other correctness conditions, presents and demonstrates a method for proving the correctness of implementations, and shows how to reason about concurrent objects, given they are linearizable.},
+    journal = {ACM Trans. Program. Lang. Syst.},
+    month = jul,
+    pages = {463–492},
+    numpages = {30}
+}
+
+@article{lamport1978,
+    author = {Lamport, Leslie},
+    title = {Time, clocks, and the ordering of events in a distributed system},
+    year = {1978},
+    issue_date = {July 1978},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {21},
+    number = {7},
+    issn = {0001-0782},
+    url = {https://doi.org/10.1145/359545.359563},
+    doi = {10.1145/359545.359563},
+    abstract = {The concept of one event happening before another in a distributed system is examined, and is shown to define a partial ordering of the events. A distributed algorithm is given for synchronizing a system of logical clocks which can be used to totally order the events. The use of the total ordering is illustrated with a method for solving synchronization problems. The algorithm is then specialized for synchronizing physical clocks, and a bound is derived on how far out of synchrony the clocks can become.},
+    journal = {Commun. ACM},
+    month = jul,
+    pages = {558–565},
+    numpages = {8},
+    keywords = {multiprocess systems, distributed systems, computer networks, clock synchronization}
+}
+
+@article{vogels2009,
+    author = {Vogels, Werner},
+    title = {Eventually consistent},
+    year = {2009},
+    issue_date = {January 2009},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {52},
+    number = {1},
+    issn = {0001-0782},
+    url = {https://doi.org/10.1145/1435417.1435432},
+    doi = {10.1145/1435417.1435432},
+    abstract = {Building reliable distributed systems at a worldwide scale demands trade-offs between consistency and availability.},
+    journal = {Commun. ACM},
+    month = jan,
+    pages = {40–44},
+    numpages = {5}
+}
+
+@article{fischer1985,
+    author = {Fischer, Michael J. and Lynch, Nancy A. and Paterson, Michael S.},
+    title = {Impossibility of distributed consensus with one faulty process},
+    year = {1985},
+    issue_date = {April 1985},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {32},
+    number = {2},
+    issn = {0004-5411},
+    url = {https://doi.org/10.1145/3149.214121},
+    doi = {10.1145/3149.214121},
+    abstract = {The consensus problem involves an asynchronous system of processes, some of which may be unreliable. The problem is for the reliable processes to agree on a binary value. In this paper, it is shown that every protocol for this problem has the possibility of nontermination, even with only one faulty process. By way of contrast, solutions are known for the synchronous case, the “Byzantine Generals” problem.},
+    journal = {J. ACM},
+    month = apr,
+    pages = {374–382},
+    numpages = {9}
+}
+
+@inproceedings{gray1996,
+    author = {Gray, Jim and Helland, Pat and O'Neil, Patrick and Shasha, Dennis},
+    title = {The dangers of replication and a solution},
+    year = {1996},
+    isbn = {0897917944},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/233269.233330},
+    doi = {10.1145/233269.233330},
+    abstract = {Update anywhere-anytime-anyway transactional replication has unstable behavior as the workload scales up: a ten-fold increase in nodes and traffic gives a thousand fold increase in deadlocks or reconciliations. Master copy replication (primary copy) schemes reduce this problem. A simple analytic model demonstrates these results. A new two-tier replication algorithm is proposed that allows mobile (disconnected) applications to propose tentative update transactions that are later applied to a master copy. Commutative update transactions avoid the instability of other replication schemes.},
+    booktitle = {Proceedings of the 1996 ACM SIGMOD International Conference on Management of Data},
+    pages = {173–182},
+    numpages = {10},
+    location = {Montreal, Quebec, Canada},
+    series = {SIGMOD '96}
+}
+
+@inproceedings{taftcrdb2020,
+    author = {Taft, Rebecca and Sharif, Irfan and Matei, Andrei and VanBenschoten, Nathan and Lewis, Jordan and Grieger, Tobias and Niemi, Kai and Woods, Andy and Birzin, Anne and Poss, Raphael and Bardea, Paul and Ranade, Amruta and Darnell, Ben and Gruneir, Bram and Jaffray, Justin and Zhang, Lucy and Mattis, Peter},
+    title = {CockroachDB: The Resilient Geo-Distributed SQL Database},
+    year = {2020},
+    isbn = {9781450367356},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3318464.3386134},
+    doi = {10.1145/3318464.3386134},
+    abstract = {We live in an increasingly interconnected world, with many organizations operating across countries or even continents. To serve their global user base, organizations are replacing their legacy DBMSs with cloud-based systems capable of scaling OLTP workloads to millions of users. CockroachDB is a scalable SQL DBMS that was built from the ground up to support these global OLTP workloads while maintaining high availability and strong consistency. Just like its namesake, CockroachDB is resilient to disasters through replication and automatic recovery mechanisms. This paper presents the design of CockroachDB and its novel transaction model that supports consistent geo-distributed transactions on commodity hardware. We describe how CockroachDB replicates and distributes data to achieve fault tolerance and high performance, as well as how its distributed SQL layer automatically scales with the size of the database cluster while providing the standard SQL interface that users expect. Finally, we present a comprehensive performance evaluation and share a couple of case studies of CockroachDB users. We conclude by describing lessons learned while building CockroachDB over the last five years.},
+    booktitle = {Proceedings of the 2020 ACM SIGMOD International Conference on Management of Data},
+    pages = {1493–1509},
+    numpages = {17},
+    location = {Portland, OR, USA},
+    series = {SIGMOD '20}
+}
+
+@article{huangtidb2020,
+    author = {Huang, Dongxu and Liu, Qi and Cui, Qiu and Fang, Zhuhe and Ma, Xiaoyu and Xu, Fei and Shen, Li and Tang, Liu and Zhou, Yuxing and Huang, Menglong and Wei, Wan and Liu, Cong and Zhang, Jian and Li, Jianjun and Wu, Xuelian and Song, Lingyu and Sun, Ruoxi and Yu, Shuaipeng and Zhao, Lei and Cameron, Nicholas and Pei, Liquan and Tang, Xin},
+    title = {TiDB: a Raft-based HTAP database},
+    year = {2020},
+    issue_date = {August 2020},
+    publisher = {VLDB Endowment},
+    volume = {13},
+    number = {12},
+    issn = {2150-8097},
+    url = {https://doi.org/10.14778/3415478.3415535},
+    doi = {10.14778/3415478.3415535},
+    abstract = {Hybrid Transactional and Analytical Processing (HTAP) databases require processing transactional and analytical queries in isolation to remove the interference between them. To achieve this, it is necessary to maintain different replicas of data specified for the two types of queries. However, it is challenging to provide a consistent view for distributed replicas within a storage system, where analytical requests can efficiently read consistent and fresh data from transactional workloads at scale and with high availability.To meet this challenge, we propose extending replicated state machine-based consensus algorithms to provide consistent replicas for HTAP workloads. Based on this novel idea, we present a Raft-based HTAP database: TiDB. In the database, we design a multi-Raft storage system which consists of a row store and a column store. The row store is built based on the Raft algorithm. It is scalable to materialize updates from transactional requests with high availability. In particular, it asynchronously replicates Raft logs to learners which transform row format to column format for tuples, forming a real-time updatable column store. This column store allows analytical queries to efficiently read fresh and consistent data with strong isolation from transactions on the row store. Based on this storage system, we build an SQL engine to process large-scale distributed transactions and expensive analytical queries. The SQL engine optimally accesses row-format and column-format replicas of data. We also include a powerful analysis engine, TiSpark, to help TiDB connect to the Hadoop ecosystem. Comprehensive experiments show that TiDB achieves isolated high performance under CH-benCHmark, a benchmark focusing on HTAP workloads.},
+    journal = {Proc. VLDB Endow.},
+    month = aug,
+    pages = {3072–3084},
+    numpages = {13}
+}
+
+@inproceedings{cubukcucitus2021,
+    author = {Cubukcu, Umur and Erdogan, Ozgun and Pathak, Sumedh and Sannakkayala, Sudhakar and Slot, Marco},
+    title = {Citus: Distributed PostgreSQL for Data-Intensive Applications},
+    year = {2021},
+    isbn = {9781450383431},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3448016.3457551},
+    doi = {10.1145/3448016.3457551},
+    abstract = {Citus is an open source distributed database engine for PostgreSQL that is implemented as an extension. Citus gives users the ability to distribute data, queries, and transactions in PostgreSQL across a cluster of PostgreSQL servers to handle the needs of data-intensive applications. The development of Citus has largely been driven by conversations with companies looking to scale PostgreSQL beyond a single server and their workload requirements. This paper describes the requirements of four common workload patterns and how Citus addresses those requirements. It also shares benchmark results demonstrating the performance and scalability of Citus in each of the workload patterns and describes how Microsoft uses Citus to address one of its most challenging data problems.},
+    booktitle = {Proceedings of the 2021 International Conference on Management of Data},
+    pages = {2490–2502},
+    numpages = {13},
+    keywords = {relational database, postgresql, distributed database, database extension},
+    location = {Virtual Event, China},
+    series = {SIGMOD '21}
+}
+
+@misc{crdb_arch_overview,
+	author = {{Cockroach Labs}},
+	title = {{A}rchitecture {O}verview --- cockroachlabs.com},
+	howpublished = {\url{https://www.cockroachlabs.com/docs/v26.1/architecture/overview}},
+	year = {},
+	note = {[Accessed 04-05-2026]},
+}
+
+@misc{crdb_join,
+	author = {{Cockroach Labs}},
+	title = {JOIN expressions --- cockroachlabs.com},
+	howpublished = {\url{https://www.cockroachlabs.com/docs/v26.1/joins}},
+	year = {},
+	note = {[Accessed 04-05-2026]},
+}
+
+@misc{crdb_cbo,
+	author = {{Cockroach Labs}},
+	title = {{C}ost-Based Optimizer --- cockroachlabs.com},
+	howpublished = {\url{https://www.cockroachlabs.com/docs/v26.1/cost-based-optimizer}},
+	year = {},
+	note = {[Accessed 04-05-2026]},
+}
+
+@techreport{rfc-distributed-sql-cockroach,
+    title = {Distributed {SQL} in {CockroachDB}},
+    author = {{CockroachDB Authors} --- {andreimatei, knz, RaduBerinde}},
+    institution = {CockroachDB},
+    year = 2016,
+    month = apr,
+    day = 21,
+    url = {\url{https://github.com/cockroachdb/cockroach/blob/master/docs/RFCS/20160421\_distributed\_sql.md}},
+    note = {CockroachDB RFC 20160421, Accessed 2026-05-04}
+}
+
+@misc{tidb_stats,
+  title = {Statistics --- {TiDB} Documentation},
+  author = {{PingCAP}},
+  year = 2026,
+  month = may,
+  url = {https://docs.pingcap.com/tidb/v8.5/statistics/},
+  note = {Accessed 2026-05-04}
+}
+
+@misc{tidb_joins,
+  title = {Explain statements that use Joins --- {TiDB} Documentation},
+  author = {{PingCAP}},
+  year = 2026,
+  month = may,
+  url = {https://docs.pingcap.com/tidb/v8.5/explain-joins/},
+  note = {Accessed 2026-05-04}
+}
+
+@book{ozsu2019,
+  title     = "Principles of distributed database systems",
+  author    = "{\"O}zsu, M Tamer and Valduriez, Patrick",
+  publisher = "Springer Nature",
+  edition   =  4,
+  month     =  dec,
+  year      =  2019,
+  address   = "Cham, Switzerland",
+  language  = "en"
+}
+
+@book{kleppmann2017-dataintensive,
+  title     = "Designing data-intensive applications",
+  author    = "Kleppmann, Martin",
+  publisher = "O'Reilly Media",
+  month     =  mar,
+  year      =  2017,
+  address   = "Sebastopol, CA"
+}
+
+@misc{citusdata2017howcitusworks,
+  title        = {How Citus Works},
+  author       = {{Craig Kerstiens}},
+  year         = {2017},
+  month        = sep,
+  day          = {15},
+  url          = {https://www.citusdata.com/blog/2017/09/15/how-citus-works/},
+  note         = {Accessed: 2026-05-04}
+}
+
+@misc{citusDocs2026choosingDistributionColumn,
+  title        = {Choosing Distribution Column},
+  author       = {{Citus Data}},
+  url          = {https://docs.citusdata.com/en/v13.0/sharding/data\_modeling.html\#choosing-distribution-column},
+  note         = {Accessed: 2026-05-04}
+}
+
+@inproceedings{selinger1979,
+    author = {Selinger, P. Griffiths and Astrahan, M. M. and Chamberlin, D. D. and Lorie, R. A. and Price, T. G.},
+    title = {Access path selection in a relational database management system},
+    year = {1979},
+    isbn = {089791001X},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/582095.582099},
+    doi = {10.1145/582095.582099},
+    abstract = {In a high level query and data manipulation language such as SQL, requests are stated non-procedurally, without reference to access paths. This paper describes how System R chooses access paths for both simple (single relation) and complex queries (such as joins), given a user specification of desired data as a boolean expression of predicates. System R is an experimental database management system developed to carry out research on the relational model of data. System R was designed and built by members of the IBM San Jose Research Laboratory.},
+    booktitle = {Proceedings of the 1979 ACM SIGMOD International Conference on Management of Data},
+    pages = {23–34},
+    numpages = {12},
+    location = {Boston, Massachusetts},
+    series = {SIGMOD '79}
+}
+
+@article{graefe1993query,
+    author = {Graefe, Goetz},
+    title = {Query evaluation techniques for large databases},
+    year = {1993},
+    issue_date = {June 1993},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {25},
+    number = {2},
+    issn = {0360-0300},
+    url = {https://doi.org/10.1145/152610.152611},
+    doi = {10.1145/152610.152611},
+    abstract = {Database management systems will continue to manage large data volumes. Thus, efficient algorithms for accessing and manipulating large sets and sequences will be required to provide acceptable performance. The advent of object-oriented and extensible database systems will not solve this problem. On the contrary, modern data models exacerbate the problem: In order to manipulate large sets of complex objects as efficiently as today's database systems manipulate simple records, query-processing algorithms and software will become more complex, and a solid understanding of algorithm and architectural issues is essential for the designer of database management software.This survey provides a foundation for the design and implementation of query execution facilities in new database management systems. It describes a wide array of practical query evaluation techniques for both relational and postrelational database systems, including iterative execution of complex query evaluation plans, the duality of sort- and hash-based set-matching algorithms, types of parallel query execution and their implementation, and special operators for emerging database application domains.},
+    journal = {ACM Comput. Surv.},
+    month = jun,
+    pages = {73–169},
+    numpages = {97},
+    keywords = {sort-hash duality, set-matching algorithms, relational database systems, parallel algorithms, operator model of parallelization, object-oriented database systems, iterators, extensible database systems, dynamic query evaluation plans, complex query evaluation plans}
+}
+
+@article{graefe1995cascades,
+  author    = {Goetz Graefe},
+  title     = {The Cascades Framework for Query Optimization},
+  journal   = {IEEE Data Eng. Bull.},
+  volume    = {18},
+  number    = {3},
+  year      = {1995},
+  pages     = {19-29},
+  ee        = {db/journals/debu/Graefe95a.html},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@article{leis2015howgood,
+    author = {Leis, Viktor and Gubichev, Andrey and Mirchev, Atanas and Boncz, Peter and Kemper, Alfons and Neumann, Thomas},
+    title = {How good are query optimizers, really?},
+    year = {2015},
+    issue_date = {November 2015},
+    publisher = {VLDB Endowment},
+    volume = {9},
+    number = {3},
+    issn = {2150-8097},
+    url = {https://doi.org/10.14778/2850583.2850594},
+    doi = {10.14778/2850583.2850594},
+    abstract = {Finding a good join order is crucial for query performance. In this paper, we introduce the Join Order Benchmark (JOB) and experimentally revisit the main components in the classic query optimizer architecture using a complex, real-world data set and realistic multi-join queries. We investigate the quality of industrial-strength cardinality estimators and find that all estimators routinely produce large errors. We further show that while estimates are essential for finding a good join order, query performance is unsatisfactory if the query engine relies too heavily on these estimates. Using another set of experiments that measure the impact of the cost model, we find that it has much less influence on query performance than the cardinality estimates. Finally, we investigate plan enumeration techniques comparing exhaustive dynamic programming with heuristic algorithms and find that exhaustive enumeration improves performance despite the sub-optimal cardinality estimates.},
+    journal = {Proc. VLDB Endow.},
+    month = nov,
+    pages = {204–215},
+    numpages = {12}
+}
+
+@article{kossmann2000,
+    author = {Kossmann, Donald},
+    title = {The state of the art in distributed query processing},
+    year = {2000},
+    issue_date = {Dec. 2000},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {32},
+    number = {4},
+    issn = {0360-0300},
+    url = {https://doi.org/10.1145/371578.371598},
+    doi = {10.1145/371578.371598},
+    abstract = {Distributed data processing is becoming a reality. Businesses want to do it for many reasons, and they often must do it in order to stay competitive. While much of the infrastructure for distributed data processing is already there (e.g., modern network technology), a number of issues make distributed data processing still a complex undertaking: (1) distributed systems can become very large, involving thousands of heterogeneous sites including PCs and mainframe server machines; (2) the state of a distributed system changes rapidly because the load of sites varies over time and new sites are added to the system; (3) legacy systems need to be integrated—such legacy systems usually have not been designed for distributed data processing and now need to interact with other (modern) systems in a distributed environment. This paper presents the state of the art of query processing for distributed database and information systems. The paper presents the “textbook” architecture for distributed query processing and a series of techniques that are particularly useful for distributed database systems. These techniques include special join techniques, techniques to exploit intraquery paralleli sm, techniques to reduce communication costs, and techniques to exploit caching and replication of data. Furthermore, the paper discusses different kinds of distributed systems such as client-server, middleware (multitier), and heterogeneous database systems, and shows how query processing works in these systems.},
+    journal = {ACM Comput. Surv.},
+    month = dec,
+    pages = {422–469},
+    numpages = {48},
+    keywords = {wrappers, replication, query optimization, query execution, multitier architectures, middleware, economic models for query processing, dissemination-based information systems, database application systems, client-server databases, caching}
+}
+
+@inproceedings{chaudhuri1998,
+    author = {Chaudhuri, Surajit},
+    title = {An overview of query optimization in relational systems},
+    year = {1998},
+    isbn = {0897919963},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/275487.275492},
+    doi = {10.1145/275487.275492},
+    booktitle = {Proceedings of the Seventeenth ACM SIGACT-SIGMOD-SIGART Symposium on Principles of Database Systems},
+    pages = {34–43},
+    numpages = {10},
+    location = {Seattle, Washington, USA},
+    series = {PODS '98}
+}
+
+@article{hellerstein1998,
+    author = {Hellerstein, Joseph M.},
+    title = {Optimization techniques for queries with expensive methods},
+    year = {1998},
+    issue_date = {June 1998},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {23},
+    number = {2},
+    issn = {0362-5915},
+    url = {https://doi.org/10.1145/292481.277627},
+    doi = {10.1145/292481.277627},
+    abstract = {Object-relational database management systems allow knowledgeable users to define new data types as well as new methods (operators) for the types. This flexibility produces an attendant complexity, which must be handled in new ways for an object-relational database management system to be efficient. In this article we study techniques for optimizing queries that contain time-consuming methods. The focus of traditional query optimizers has been on the choice of join methods and orders; selections have been handled by “pushdown” rules. These rules apply selections in an arbitrary order before as many joins as possible, using th e assumption that selection takes no time. However, users of object-relational systems can embed complex methods in selections. Thus selections may take significant amounts of time, and the query optimization model must be enhanced. In this  article we carefully define a query cost framework that incorporates both selectivity and cost estimates for selections. We develop an algorithm called Predicate Migration, and prove that it produces optimal plans for queries with expensive methods. We then describe our implementation of Predicate Migration in the commercial object-relational database management system Illustra, and discuss practical issues that affect our earlier assumptions. We compare Predicate Migration to a variety of simplier optimization techniques, and demonstrate that Predicate Migration is the best general solution to date. The alternative techniques we present may be useful for constrained workloads.},
+    journal = {ACM Trans. Database Syst.},
+    month = jun,
+    pages = {113–157},
+    numpages = {45},
+    keywords = {expensive methods, extensibility, object-relational databases, predicate migration, predicate placement, query optimization}
+}
+
+@inproceedings{yan1995,
+    author = {Yan, Weipeng P. and Larson, Per-\r{A}ke},
+    title = {Eager Aggregation and Lazy Aggregation},
+    year = {1995},
+    isbn = {1558603794},
+    publisher = {Morgan Kaufmann Publishers Inc.},
+    address = {San Francisco, CA, USA},
+    booktitle = {Proceedings of the 21th International Conference on Very Large Data Bases},
+    pages = {345–357},
+    numpages = {13},
+    series = {VLDB '95}
+}
+
+@inproceedings{ongaro2014,
+    author = {Ongaro, Diego and Ousterhout, John},
+    title = {In search of an understandable consensus algorithm},
+    year = {2014},
+    isbn = {9781931971102},
+    publisher = {USENIX Association},
+    address = {USA},
+    abstract = {Raft is a consensus algorithm for managing a replicated log. It produces a result equivalent to (multi-)Paxos, and it is as efficient as Paxos, but its structure is different from Paxos; this makes Raft more understandable than Paxos and also provides a better foundation for building practical systems. In order to enhance understandability, Raft separates the key elements of consensus, such as leader election, log replication, and safety, and it enforces a stronger degree of coherency to reduce the number of states that must be considered. Results from a user study demonstrate that Raft is easier for students to learn than Paxos. Raft also includes a new mechanism for changing the cluster membership, which uses overlapping majorities to guarantee safety.},
+    booktitle = {Proceedings of the 2014 USENIX Conference on USENIX Annual Technical Conference},
+    pages = {305–320},
+    numpages = {16},
+    location = {Philadelphia, PA},
+    series = {USENIX ATC'14}
+}
+
+@article{10.1145/235968.233330,
+author = {Gray, Jim and Helland, Pat and O'Neil, Patrick and Shasha, Dennis},
+title = {The dangers of replication and a solution},
+year = {1996},
+issue_date = {June 1996},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {25},
+number = {2},
+issn = {0163-5808},
+url = {https://doi.org/10.1145/235968.233330},
+doi = {10.1145/235968.233330},
+abstract = {Update anywhere-anytime-anyway transactional replication has unstable behavior as the workload scales up: a ten-fold increase in nodes and traffic gives a thousand fold increase in deadlocks or reconciliations. Master copy replication (primary copy) schemes reduce this problem. A simple analytic model demonstrates these results. A new two-tier replication algorithm is proposed that allows mobile (disconnected) applications to propose tentative update transactions that are later applied to a master copy. Commutative update transactions avoid the instability of other replication schemes.},
+journal = {SIGMOD Rec.},
+month = jun,
+pages = {173–182},
+numpages = {10}
+}
+
+@article{schneider1990,
+author = {Schneider, Fred B.},
+title = {Implementing fault-tolerant services using the state machine approach: a tutorial},
+year = {1990},
+issue_date = {Dec. 1990},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {22},
+number = {4},
+issn = {0360-0300},
+url = {https://doi.org/10.1145/98163.98167},
+doi = {10.1145/98163.98167},
+abstract = {The state machine approach is a general method for implementing fault-tolerant services in distributed systems. This paper reviews the approach and describes protocols for two different failure models—Byzantine and fail stop. Systems reconfiguration techniques for removing faulty components and integrating repaired components are also discussed.},
+journal = {ACM Comput. Surv.},
+month = dec,
+pages = {299–319},
+numpages = {21}
+}
+
+@article{lamport1998,
+    author = {Lamport, Leslie},
+    title = {The part-time parliament},
+    year = {1998},
+    issue_date = {May 1998},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {16},
+    number = {2},
+    issn = {0734-2071},
+    url = {https://doi.org/10.1145/279227.279229},
+    doi = {10.1145/279227.279229},
+    abstract = {Recent archaeological discoveries on the island of Paxos reveal that the parliament functioned despite the peripatetic propensity of its part-time legislators. The legislators maintained consistent copies of the parliamentary record, despite their frequent forays from the chamber and the forgetfulness of their messengers. The Paxon parliament's protocol provides a new way of implementing the state machine approach to the design of distributed systems.},
+    journal = {ACM Trans. Comput. Syst.},
+    month = may,
+    pages = {133–169},
+    numpages = {37},
+    keywords = {state machines, three-phase commit, voting}
+}
+
+@article{lamport2001,
+    author = {Lamport, Leslie},
+    title = {Paxos Made Simple},
+    year = {2001},
+    issue_date = {November 2001},
+}
+
+@inproceedings{chandra2007,
+author = {Chandra, Tushar D. and Griesemer, Robert and Redstone, Joshua},
+title = {Paxos made live: an engineering perspective},
+year = {2007},
+isbn = {9781595936165},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1281100.1281103},
+doi = {10.1145/1281100.1281103},
+abstract = {We describe our experience in building a fault-tolerant data-base using the Paxos consensus algorithm. Despite the existing literature in the field, building such a database proved to be non-trivial. We describe selected algorithmic and engineering problems encountered, and the solutions we found for them. Our measurements indicate that we have built a competitive system.},
+booktitle = {Proceedings of the Twenty-Sixth Annual ACM Symposium on Principles of Distributed Computing},
+pages = {398–407},
+numpages = {10},
+keywords = {implementation, fault-tolerance, experiences, Paxos},
+location = {Portland, Oregon, USA},
+series = {PODC '07}
+}
+
+@inproceedings{howard2020,
+    author = {Howard, Heidi and Mortier, Richard},
+    title = {Paxos vs Raft: have we reached consensus on distributed consensus?},
+    year = {2020},
+    isbn = {9781450375245},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3380787.3393681},
+    doi = {10.1145/3380787.3393681},
+    abstract = {Distributed consensus is a fundamental primitive for constructing fault-tolerant, strongly-consistent distributed systems. Though many distributed consensus algorithms have been proposed, just two dominate production systems: Paxos, the traditional, famously subtle, algorithm; and Raft, a more recent algorithm positioned as a more understandable alternative to Paxos.In this paper, we consider the question of which algorithm, Paxos or Raft, is the better solution to distributed consensus? We analyse both to determine exactly how they differ by describing a simplified Paxos algorithm using Raft's terminology and pragmatic abstractions.We find that both Paxos and Raft take a very similar approach to distributed consensus, differing only in their approach to leader election. Most notably, Raft only allows servers with up-to-date logs to become leaders, whereas Paxos allows any server to be leader provided it then updates its log to ensure it is up-to-date. Raft's approach is surprisingly efficient given its simplicity as, unlike Paxos, it does not require log entries to be exchanged during leader election. We surmise that much of the understandability of Raft comes from the paper's clear presentation rather than being fundamental to the underlying algorithm being presented.},
+    booktitle = {Proceedings of the 7th Workshop on Principles and Practice of Consistency for Distributed Data},
+    articleno = {8},
+    numpages = {9},
+    location = {Heraklion, Greece},
+    series = {PaPoC '20}
+}
