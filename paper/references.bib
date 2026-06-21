@@ -91,20 +91,23 @@
 }
 
 @article{abadi_consistency_2012,
-	title = {Consistency Tradeoffs in Modern Distributed Database System Design: {CAP} is Only Part of the Story},
-	volume = {45},
-	rights = {https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/{IEEE}.html},
-	issn = {0018-9162},
-	url = {http://ieeexplore.ieee.org/document/6127847/},
-	doi = {10.1109/MC.2012.33},
-	shorttitle = {Consistency Tradeoffs in Modern Distributed Database System Design},
-	pages = {37--42},
-	number = {2},
-	journaltitle = {Computer},
-	shortjournal = {Computer},
-	author = {Abadi, Daniel},
-	urldate = {2026-03-19},
-	date = {2012-02},
+    author = {Abadi, Daniel},
+    title = {Consistency Tradeoffs in Modern Distributed Database System Design: CAP is Only Part of the Story},
+    year = {2012},
+    issue_date = {February 2012},
+    publisher = {IEEE Computer Society Press},
+    address = {Washington, DC, USA},
+    volume = {45},
+    number = {2},
+    issn = {0018-9162},
+    url = {https://doi.org/10.1109/MC.2012.33},
+    doi = {10.1109/MC.2012.33},
+    abstract = {The CAP theorem's impact on modern distributed database system design is more limited than is often perceived. Another tradeoff—between consistency and latency —has had a more direct influence on several well-known DDBSs. A proposed new formulation, PACELC, unifies this tradeoff with CAP.},
+    journal = {Computer},
+    month = feb,
+    pages = {37–42},
+    numpages = {6},
+    keywords = {networking and information technology, distributed database systems, database architectures, computer systems organization, CAP theorem}
 }
 
 @article{herlihy1990,
@@ -258,24 +261,24 @@
 	author = {{Cockroach Labs}},
 	title = {{A}rchitecture {O}verview --- cockroachlabs.com},
 	howpublished = {\url{https://www.cockroachlabs.com/docs/v26.1/architecture/overview}},
-	year = {},
-	note = {[Accessed 04-05-2026]},
+	year = {2026},
+	note = {[Accesat: 04-05-2026]},
 }
 
 @misc{crdb_join,
 	author = {{Cockroach Labs}},
 	title = {JOIN expressions --- cockroachlabs.com},
 	howpublished = {\url{https://www.cockroachlabs.com/docs/v26.1/joins}},
-	year = {},
-	note = {[Accessed 04-05-2026]},
+	year = {2026},
+	note = {[Accesat: 04-05-2026]},
 }
 
 @misc{crdb_cbo,
 	author = {{Cockroach Labs}},
 	title = {{C}ost-Based Optimizer --- cockroachlabs.com},
 	howpublished = {\url{https://www.cockroachlabs.com/docs/v26.1/cost-based-optimizer}},
-	year = {},
-	note = {[Accessed 04-05-2026]},
+	year = {2026},
+	note = {[Accesat: 04-05-2026]},
 }
 
 @techreport{rfc-distributed-sql-cockroach,
@@ -286,7 +289,7 @@
     month = apr,
     day = 21,
     url = {\url{https://github.com/cockroachdb/cockroach/blob/master/docs/RFCS/20160421\_distributed\_sql.md}},
-    note = {CockroachDB RFC 20160421, Accessed 2026-05-04}
+    note = {CockroachDB RFC 20160421, Accesat: 2026-05-04}
 }
 
 @misc{tidb_stats,
@@ -295,7 +298,7 @@
   year = 2026,
   month = may,
   url = {https://docs.pingcap.com/tidb/v8.5/statistics/},
-  note = {Accessed 2026-05-04}
+  note = {Accesat: 2026-05-04}
 }
 
 @misc{tidb_joins,
@@ -304,7 +307,7 @@
   year = 2026,
   month = may,
   url = {https://docs.pingcap.com/tidb/v8.5/explain-joins/},
-  note = {Accessed 2026-05-04}
+  note = {Accesat: 2026-05-04}
 }
 
 @book{ozsu2019,
@@ -334,14 +337,14 @@
   month        = sep,
   day          = {15},
   url          = {https://www.citusdata.com/blog/2017/09/15/how-citus-works/},
-  note         = {Accessed: 2026-05-04}
+  note         = {Accesat: 2026-05-04}
 }
 
 @misc{citusDocs2026choosingDistributionColumn,
   title        = {Choosing Distribution Column},
   author       = {{Citus Data}},
   url          = {https://docs.citusdata.com/en/v13.0/sharding/data\_modeling.html\#choosing-distribution-column},
-  note         = {Accessed: 2026-05-04}
+  note         = {Accesat: 2026-05-04}
 }
 
 @inproceedings{selinger1979,
@@ -495,25 +498,6 @@
     series = {USENIX ATC'14}
 }
 
-@article{10.1145/235968.233330,
-author = {Gray, Jim and Helland, Pat and O'Neil, Patrick and Shasha, Dennis},
-title = {The dangers of replication and a solution},
-year = {1996},
-issue_date = {June 1996},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-volume = {25},
-number = {2},
-issn = {0163-5808},
-url = {https://doi.org/10.1145/235968.233330},
-doi = {10.1145/235968.233330},
-abstract = {Update anywhere-anytime-anyway transactional replication has unstable behavior as the workload scales up: a ten-fold increase in nodes and traffic gives a thousand fold increase in deadlocks or reconciliations. Master copy replication (primary copy) schemes reduce this problem. A simple analytic model demonstrates these results. A new two-tier replication algorithm is proposed that allows mobile (disconnected) applications to propose tentative update transactions that are later applied to a master copy. Commutative update transactions avoid the instability of other replication schemes.},
-journal = {SIGMOD Rec.},
-month = jun,
-pages = {173–182},
-numpages = {10}
-}
-
 @article{schneider1990,
 author = {Schneider, Fred B.},
 title = {Implementing fault-tolerant services using the state machine approach: a tutorial},
@@ -554,10 +538,14 @@ numpages = {21}
 }
 
 @article{lamport2001,
-    author = {Lamport, Leslie},
-    title = {Paxos Made Simple},
-    year = {2001},
-    issue_date = {November 2001},
+author = {Lamport, Leslie},
+title = {Paxos Made Simple},
+year = {2001},
+month = {December},
+abstract = {At the PODC 2001 conference, I got tired of everyone saying how difficult it was to understand the Paxos algorithm, published in [122]. Although people got so hung up in the pseudo-Greek names that they found the paper hard to understand, the algorithm itself is very simple. So, I cornered a couple of people at the conference and explained the algorithm to them orally, with no paper. When I got home, I wrote down the explanation as a short note, which I later revised based on comments from Fred Schneider and Butler Lampson. The current version is 13 pages long, and contains no formula more complicated than n1 > n2.},
+url = {https://www.microsoft.com/en-us/research/publication/paxos-made-simple/},
+pages = {51-58},
+journal = {ACM SIGACT News (Distributed Computing Column) 32, 4 (Whole Number 121, December 2001)},
 }
 
 @inproceedings{chandra2007,

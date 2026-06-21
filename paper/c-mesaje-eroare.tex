@@ -1,0 +1,44 @@
+\chapter{Mesaje eroare}
+
+\begin{lstlisting}[language={}, caption={Citus -- eroare Join distribuit}]
+ERROR:  complex joins are only supported when all distributed tables are
+co-located and joined on their distribution columns
+\end{lstlisting}
+
+\begin{lstlisting}[language={}, caption={TiDB -- eroare Q5}]
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual
+that corresponds to your TiDB version for the right syntax to use near
+'...' at line 1
+\end{lstlisting}
+
+\begin{lstlisting}[language={}, caption={Citus -- OOM killer, nod worker, Q18, 16 GB RAM}]
+[ 2746.401130] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),
+  cpuset=/,mems_allowed=0,global_oom,
+  task_memcg=/system.slice/system-postgresql.slice/
+  postgresql@17-main.service,
+  task=postgres,pid=18225,uid=114
+[ 2746.401143] Out of memory: Killed process 18225 (postgres)
+  total-vm:8719596kB, anon-rss:7499020kB,
+  file-rss:692kB, shmem-rss:14264kB, UID:114
+  pgtables:14912kB oom_score_adj:0
+\end{lstlisting}
+
+\begin{lstlisting}[language={}, caption={TiDB -- eroare SQL quota Q18},]
+ERROR 8175 (HY000): Your query has been cancelled due to exceeding the
+allowed memory limit for a single SQL query. Please try narrowing your
+query scope or increase the tidb_mem_quota_query limit and try again.
+[conn=354419924]
+\end{lstlisting}
+
+\begin{lstlisting}[language={}, caption={TiDB -- OOM killer, nod SQL, Q18, 16 GB RAM}]
+[ 7134.599098] tidb-server invoked oom-killer:
+  gfp_mask=0x1100cca(GFP_HIGHUSER_MOVABLE), order=0, oom_score_adj=0
+[ 7134.599375] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),
+  cpuset=/,mems_allowed=0,global_oom,
+  task_memcg=/system.slice/tidb-4000.service,
+  task=tidb-server,pid=10752,uid=0
+[ 7134.599417] Out of memory: Killed process 10752 (tidb-server)
+  total-vm:8157780kB, anon-rss:5510896kB,
+  file-rss:0kB, shmem-rss:0kB, UID:0
+  pgtables:12372kB oom_score_adj:0
+\end{lstlisting}

@@ -1,10 +1,27 @@
-\documentclass{report}
+\documentclass[12pt,a4paper]{report}
 
 \usepackage[romanian]{babel}
 \usepackage{indentfirst}
+\usepackage[T1]{fontenc}
+% \usepackage[utf8]{inputenc}
+\usepackage[margin=2.5cm]{geometry}
+
+\usepackage{newtxtext,newtxmath}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{indentfirst}
 
 \usepackage{listings}
+\lstdefinestyle{cod}{
+  basicstyle=\ttfamily\small\setstretch{1},
+  aboveskip=1em,
+  belowskip=1em,
+}
+\lstset{style=cod}
+\renewcommand{\lstlistingname}{Cod}
+
 \usepackage{float}
+\usepackage{booktabs}
 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -15,7 +32,7 @@
 
 \begin{document}
 
-\maketitle
+% \maketitle
 
 \tableofcontents
 
@@ -27,6 +44,13 @@
 \include{6-analiza}
 \include{7-concluzii}
 
+\appendix
+
+\include{a-schema}
+\include{b-tabel-mediane}
+\include{c-mesaje-eroare}
+
+\addcontentsline{toc}{chapter}{Bibliografie}
 \bibliographystyle{IEEEtran} 
 \bibliography{references}
 

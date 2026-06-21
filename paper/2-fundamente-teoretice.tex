@@ -125,7 +125,7 @@ Similar, definiția CAP impune disponibilitate, dar nu definește o limită în 
 
 Ca alternativă Klepmann propune un nou sistem, numit delay-senstivity (sensibilitatea la întârzieri), care propune analizarea variaților de latență a operațiunilor atunci când rețeaua devine lentă sau inaccesibilă. Această nouă definiție permite clasificarea operațiunilor în două categorii: sensibilă la întârziere, dacă latența crește proporțional cu problemele din rețea sau independentă, dacă latența rămâne constantă indiferent de condițiile rețelei. Klepmann \cite{kleppmann_critique_2015} arată că \textbf{linearizability} (orice operație pare că se execută instantaneu, la un moment în timp, iar toate nodurile văd același lucru în același timp) necesită această dependență pentru citiri și scrieri. \textbf{Sequential consistency} (garanția că orice operație se execută într-o oridne globală, dar nu neapărat în timp real), în acest sistem fiecare sistem vede operațiile în ordinea corectă dar nu există o sincronizare cu un ceas, permite citiri rapide dar scrieri pasibile de întârzieri. \textbf{Casual consistency} (garanția că operațiile legate printr-o relație cauză-efect sunt observate în ordinea corectă) poate funcționa complete neafectată de întârzierile din rețea.
 
-\begin{table}[]
+\begin{table}[h]
 \centering
 \begin{tabular}{lll}
 \multicolumn{1}{c}{}   & \multicolumn{1}{c}{latență scriere} & latență citire \\
